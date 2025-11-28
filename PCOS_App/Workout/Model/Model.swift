@@ -54,6 +54,22 @@ enum MuscleGroup: String, Codable, CaseIterable {
             case .fullBody: return "Full Body"
             }
         }
+    
+    var displayImage: String {
+            switch self {
+            case .allMuscles: return "All Muscles"
+            case .core: return "Core"
+            case .chest: return "Chest"
+            case .back: return "Back"
+            case .legs: return "Legs"
+            case .shoulders: return "Shoulders"
+            case .arms: return "Arms"
+            case .glutes: return "Glutes"
+            case .cardio: return "Cardio"
+            case .mobility: return "Mobility"
+            case .fullBody: return "Full Body"
+            }
+        }
 }
 
 struct Exercise: Identifiable, Codable {

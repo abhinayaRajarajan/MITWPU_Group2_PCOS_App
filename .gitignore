@@ -1,0 +1,10 @@
+# Xcode personal settings
+xcuserdata/
+
+# Xcode generated files
+DerivedData/
+build/
+
+# Workspace state
+*.xcuserstate
+
