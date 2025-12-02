@@ -11,7 +11,6 @@
         <!--Diet View Controller-->
         <scene sceneID="toi-N4-gNo">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="35h-3y-IKN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <viewController id="eqc-2s-kC2" customClass="DietViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <tableViewCell key="view" clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="pZC-wt-DDw">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
@@ -45,13 +44,29 @@
                         <outlet property="tableView" destination="YNy-e6-oic" id="0QQ-1L-zgk"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="35h-3y-IKN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="452.67175572519085" y="305.63380281690144"/>
         </scene>
-        <!--Diet Logs View Controller-->
+        <!--View Controller-->
+        <scene sceneID="wzV-8j-dp2">
+            <objects>
+                <viewController id="Usg-51-oYL" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="89u-SR-BNt">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="Jme-i6-OfF"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wxe-2p-PG8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1195" y="1009"/>
+        </scene>
+        <!--Diet Calendar Logs View Controller-->
         <scene sceneID="LZC-G4-OWg">
             <objects>
-                <viewController storyboardIdentifier="dietLogs" id="FTZ-Co-RF4" customClass="DietLogsViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="dietLogs" id="FTZ-Co-RF4" customClass="DietCalendarLogsViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="f5G-SE-nAw">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -73,6 +88,9 @@
                             <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="inline" translatesAutoresizingMaskIntoConstraints="NO" id="SFV-QI-gti">
                                 <rect key="frame" x="16" y="117.99999999999997" width="361" height="353.33333333333326"/>
                                 <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <connections>
+                                    <action selector="datePickerValueChanged:" destination="FTZ-Co-RF4" eventType="valueChanged" id="7bO-eY-qz2"/>
+                                </connections>
                             </datePicker>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="39P-GN-kWN"/>

@@ -28,7 +28,7 @@ class DietViewController: UIViewController {
     }
     
     @objc func calendarTapped() {
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "dietLogs") as? DietLogsViewController {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "dietLogs") as? DietCalendarLogsViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
