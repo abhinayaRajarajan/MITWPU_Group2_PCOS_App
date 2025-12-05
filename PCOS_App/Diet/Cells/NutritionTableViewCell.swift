@@ -10,7 +10,6 @@ import UIKit
 class NutritionTableViewCell: UITableViewCell {
 
     @IBOutlet weak var carbsGram: UILabel!
-    
     @IBOutlet weak var fatsGram: UILabel!
     @IBOutlet weak var proteinGram: UILabel!
     @IBOutlet weak var fatsProgress: UIProgressView!
@@ -18,6 +17,7 @@ class NutritionTableViewCell: UITableViewCell {
     @IBOutlet weak var proteinProgress: UIProgressView!
     @IBOutlet weak var caloriesConsumed: UILabel!
     @IBOutlet weak var completionCircle: UIImageView!
+    
     static let identifier = "NutritionTableViewCell"
     static func nib() -> UINib {
         return UINib(nibName: "NutritionTableViewCell", bundle: nil)

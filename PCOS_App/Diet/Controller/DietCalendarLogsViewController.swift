@@ -133,6 +133,7 @@ extension DietCalendarLogsViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         let item = filteredData[indexPath.row]
         cell.textLabel?.text = item.name
@@ -145,6 +146,11 @@ extension DietCalendarLogsViewController: UITableViewDelegate, UITableViewDataSo
     }
     
     // UITableViewDelegate
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 60 }
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat { 50 }
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if filteredData.count==0 { return "No meals logged"}
+        return "Meals logged"
+    }
 }
 

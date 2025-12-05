@@ -19,6 +19,9 @@ class DietViewController: UIViewController {
         let calendar = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarTapped))
         navigationItem.rightBarButtonItem = calendar
         
+        let header = Bundle.main.loadNibNamed("NutritionHeader", owner: self, options: nil)?.first as! NutritionHeader
+        tableView.tableHeaderView = header
+        header.frame.size.height = 200
         tableView.register(LogsTableViewCell.nib(), forCellReuseIdentifier: LogsTableViewCell.identifier)
         tableView.register(NutritionTableViewCell.nib(), forCellReuseIdentifier: NutritionTableViewCell.identifier)
         tableView.dataSource = self
@@ -49,14 +52,19 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: LogsTableViewCell.identifier, for: indexPath) as! LogsTableViewCell
         let dataIndex = indexPath.row - 1
         let item = dummyData[dataIndex]
-        cell.foodName.text = item.name
-        cell.calories.text = "\(item.calories)kcal"
-        cell.foodName.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-        cell.carbs.text = "\(item.carbsContent)g"
-        cell.protein.text = "\(item.proteinContent)g"
-        cell.fats.text = "\(item.fatsContent)g"
-        cell.imageView?.image = UIImage(named: "biryani")
-        cell.imageView?.layer.cornerRadius = 10
+        cell.configure(with: item)
+        
+//        cell.foodName.text = item.name
+//        cell.calories.text = "\(Int(item.calories))kcal"
+//        cell.foodName.font = UIFont.systemFont(ofSize: 15, weight: .bold)
+//        cell.carbs.text = "\(Int(item.carbsContent))g"
+//        cell.protein.text = "\(Int(item.proteinContent))g"
+//        cell.fats.text = "\(Int(item.fatsContent))g"
+//        
+//        cell.foodImg.image = UIImage(named: "biryani")
+//        cell.foodImg.layer.cornerRadius = 10
+//        cell.foodImg.clipsToBounds = true
+        
         return cell
     }
     

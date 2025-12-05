@@ -14,14 +14,28 @@ class LogsTableViewCell: UITableViewCell {
     @IBOutlet weak var protein: UILabel!
     @IBOutlet weak var calories: UILabel!
     @IBOutlet weak var foodName: UILabel!
+    @IBOutlet weak var foodImg: UIImageView!
     
     static var identifier = "LogsTableViewCell"
     static func nib() -> UINib {
         return UINib(nibName: identifier, bundle: nil)
     }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         
+    }
+    
+    func configure(with log: Food) {
+        foodName.text = log.name
+        fats.text = "\(log.fatsContent)g"
+        carbs.text = "\(log.carbsContent)g"
+        protein.text = "\(log.proteinContent)g"
+        calories.text = "\(log.calories)kcal"
+        foodImg.image = UIImage(named: log.image ?? "biryani")
+        foodImg.contentMode = .scaleAspectFill
+        foodImg.clipsToBounds = true
+        foodImg.layer.cornerRadius = 10
     }
 
     
