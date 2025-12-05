@@ -9,6 +9,7 @@ import UIKit
 //note all the methods are inside this class
 class AddExerciseViewController: UIViewController {
 
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var addExerciseSearchBar: UISearchBar!
     @IBOutlet weak var muscleTypeFilterButton: UIButton!
@@ -18,6 +19,9 @@ class AddExerciseViewController: UIViewController {
     private var filteredExercises : [Exercise] = []
     // Optional: track selected exercise IDs if you need them later
     private var selectedExerciseIDs = Set<UUID>()
+    
+    //(([Exercise]) -> Void)? means: "A function that takes an array of Exercise and returns nothing"
+    var onExercisesSelected: (([Exercise]) -> Void)?
 
     //varaibles for storing filter selection
     //using sets to prevent duplicates and search faster : set.contains()-> O(1)
@@ -30,6 +34,7 @@ class AddExerciseViewController: UIViewController {
         super.viewDidLoad()
 
         title = "Add Exercise"
+        saveButton.isEnabled = false
         
         setupUI()
         loadData()
@@ -73,6 +78,8 @@ class AddExerciseViewController: UIViewController {
     @IBAction func showMuscleSelectionButton(_ sender: UIButton) {
         performSegue(withIdentifier: "showMuscleSelectionVC", sender: nil)
     }
+    
+    
     
     //filtering logic
     private func applyFilters(){
@@ -142,6 +149,12 @@ class AddExerciseViewController: UIViewController {
             muscleTypeFilterButton.setTitleColor(.white, for: .normal)
         }
     }
+    
+    private func updateSaveButtonState() {
+        saveButton.isEnabled = !selectedExerciseIDs.isEmpty
+    }
+
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 //        **Why two unwraps?**
 //
@@ -220,6 +233,24 @@ class AddExerciseViewController: UIViewController {
         }
     }
     
+    // MARK: - Add this method to handle saving selected exercises
+    @IBAction func saveButtonTapped(_ sender: UIBarButtonItem) {
+        // Get selected exercises based on selectedExerciseIDs
+        let selectedExercises = filteredExercises.filter { exercise in
+            selectedExerciseIDs.contains(exercise.id)
+        }
+        
+        // Call the callback with selected exercises
+        onExercisesSelected?(selectedExercises)
+        
+        // Dismiss this view controller
+        //dismiss(animated: true, completion: nil)
+        
+        navigationController?.popViewController(animated: true)
+       
+    }
+
+    
 }//end of class
 
 
@@ -239,7 +270,6 @@ extension AddExerciseViewController: UITableViewDataSource {
         }
 //using filtered exercises instead
         let exercise = filteredExercises[indexPath.row]
-
         // Configure labels
         cell.exerciseNameHeadline.text = exercise.name
         cell.muscleTypeSubheadline.text = exercise.muscleGroup.displayName
@@ -265,7 +295,7 @@ extension AddExerciseViewController: UITableViewDataSource {
 extension AddExerciseViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let exercise = exercises[indexPath.row]
+        let exercise = filteredExercises[indexPath.row]
         // Keep it selected (do not call deselect here)
         selectedExerciseIDs.insert(exercise.id)
         // If you want custom visual feedback beyond default highlight, reload cell or update accessoryType:
@@ -273,13 +303,21 @@ extension AddExerciseViewController: UITableViewDelegate {
             //added to remove grey tint when row selected
             cell.selectionStyle = .none
         }
+        
+        updateSaveButtonState()
     }
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let exercise = exercises[indexPath.row]
-        selectedExerciseIDs.remove(exercise.id)
+        let exercise = filteredExercises[indexPath.row]
+            
+            selectedExerciseIDs.remove(exercise.id)
+            
         // If using accessoryType:
-        if let cell = tableView.cellForRow(at: indexPath) { cell.accessoryType = .none }
+            if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .none
+            }
+        
+        updateSaveButtonState()
     }
 }
 extension AddExerciseViewController: UISearchBarDelegate {
