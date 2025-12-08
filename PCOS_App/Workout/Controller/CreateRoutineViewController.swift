@@ -77,17 +77,31 @@ class CreateRoutineViewController: UIViewController {
         }
     
     private func updateStats() {
-            // Exercise count
-            exerciseCountLabel.text = "\(routineExercises.count)"
+    // Exercise count
+    exerciseCountLabel.text = "\(routineExercises.count)"
             
-            // Total sets
-            let totalSets = routineExercises.reduce(0) { $0 + $1.totalSets }
-            setCountLabel.text = "\(totalSets)"
             
-            // Estimated duration
-            let totalDuration = routineExercises.reduce(0) { $0 + $1.estimatedDuration }
-            estimatedDurationLabel.text = formatDuration(totalDuration)
+            //OLD CODE WITH PLANNED SETS STRUCT(now deleted)
+    //            // Total sets
+    //            let totalSets = routineExercises.reduce(0) { $0 + $1.totalSets }
+    //            setCountLabel.text = "\(totalSets)"
+    //
+    //            // Estimated duration
+    //            let totalDuration = routineExercises.reduce(0) { $0 + $1.estimatedDuration }
+    //            estimatedDurationLabel.text = formatDuration(totalDuration)
+            
+    let totalDuration = routineExercises.reduce(0) { total, ex in
+            if ex.exercise.isCardio {
+                return total + (ex.durationSeconds ?? 0)
+            } else {
+                let active = ex.reps * 4
+                let rest = ex.restTimerSeconds ?? 0
+                return total + (active + rest) * ex.numberOfSets
+            }
         }
+        estimatedDurationLabel.text = formatDuration(totalDuration)
+    }
+
     
     private func formatDuration(_ seconds: Int) -> String {
             let minutes = seconds / 60
@@ -123,23 +137,29 @@ class CreateRoutineViewController: UIViewController {
         }
     
     private func handleSelectedExercises(_ exercises: [Exercise]) {
-            // Convert Exercise to RoutineExercise with default sets
-            let newRoutineExercises = exercises.map { exercise in
-                RoutineExercise(
-                    exercise: exercise,
-                    sets: [
-                        PlannedSet(setNumber: 1, reps: 10, weightKg: 0, restTimerSeconds: 60)
-                    ]
-                )
-            }
-            
-            // Add to existing exercises
-            routineExercises.append(contentsOf: newRoutineExercises)
-            
-            // Update UI
-            updateUI()
-        }
-    }
+        // Convert Exercise to RoutineExercise with default sets
+               
+               //OLD CODE WITH PLANNED SETS STRUCT(now deleted)
+       //            let newRoutineExercises = exercises.map { exercise in
+       //                RoutineExercise(
+       //                    exercise: exercise,
+       //                    sets: [
+       //                        PlannedSet(setNumber: 1, reps: 10, weightKg: 0, restTimerSeconds: 60)
+       //                    ]
+       //                )
+       //            }
+               
+               let newRoutineExercises = exercises.map { exercise in
+                   RoutineExercise(exercise: exercise)
+               }
+                   
+                   // Add to existing exercises
+                   routineExercises.append(contentsOf: newRoutineExercises)
+                   
+                   // Update UI
+                   updateUI()
+               }
+           }
 
 // MARK: - UITableViewDataSource
 extension CreateRoutineViewController: UITableViewDataSource {

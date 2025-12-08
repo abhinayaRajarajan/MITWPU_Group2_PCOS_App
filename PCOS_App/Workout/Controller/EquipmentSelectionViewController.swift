@@ -75,17 +75,6 @@ extension EquipmentSelectionViewController:UITableViewDataSource{
     }
 }
 extension EquipmentSelectionViewController:UITableViewDelegate{
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        tableView.deselectRow(at: indexPath, animated: true)
-//        let equipment = allEquipment[indexPath.row]
-//        if selectedEquipment.contains(equipment){
-//            selectedEquipment.remove(equipment)
-//        }
-//        else {
-//            selectedEquipment.insert(equipment)
-//        }
-//        tableView.reloadRows(at: [indexPath], with: .automatic)
-//    }
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
             let equipment = allEquipment[indexPath.row]
