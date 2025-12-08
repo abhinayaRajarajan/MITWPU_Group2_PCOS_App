@@ -60,7 +60,7 @@
         <!--Profile View Controller-->
         <scene sceneID="dpI-xI-aSe">
             <objects>
-                <viewController id="3uR-vI-xUi" customClass="ProfileViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ProfileViewController" id="3uR-vI-xUi" customClass="ProfileViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jKx-U4-1In">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
