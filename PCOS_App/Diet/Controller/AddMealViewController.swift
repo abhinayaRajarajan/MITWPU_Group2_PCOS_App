@@ -268,7 +268,9 @@ class AddMealViewController: UIViewController {
         switch sender.tag {
         case 1:
             print("Scan Barcode tapped")
-            // Implement barcode scanning
+            let vc = BarcodeScannerViewController()
+            vc.modalPresentationStyle = .fullScreen
+            present(vc, animated: true)
         case 2:
             print("Scan with AI tapped")
             // Implement AI scanning

@@ -8,19 +8,13 @@
 import UIKit
 
 class DietViewController: UIViewController {
-//<<<<<<< HEAD
-//
-//    var dummyData = DataStore.sampleFoods
-//    @IBOutlet weak var tableView: UITableView!
-//    
-//=======
+
     var todaysFoods: [Food] = [] //sks: to filter food for today
-    
     var dummyData = DataStore.sampleFoods
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var AddMealButton: UIButton!
     
-//>>>>>>> f5227e3 (Sync folder structure with remote)
+
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Diet"
@@ -28,25 +22,18 @@ class DietViewController: UIViewController {
         let calendar = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarTapped))
         navigationItem.rightBarButtonItem = calendar
         
-//<<<<<<< HEAD
+
         let header = Bundle.main.loadNibNamed("NutritionHeader", owner: self, options: nil)?.first as! NutritionHeader
         tableView.tableHeaderView = header
         header.configure()
-        header.frame.size.height = 380
+        header.frame.size.height = 460
         tableView.register(LogsTableViewCell.nib(), forCellReuseIdentifier: LogsTableViewCell.identifier)
         tableView.dataSource = self
         tableView.delegate = self
-//=======
-//        
-//        _ = UINib(nibName: "LogsTableViewCell", bundle: nil)
-//        tableView.register(LogsTableViewCell.nib(), forCellReuseIdentifier: "LogsTableViewCell")
-//        tableView.dataSource = self
-//        tableView.delegate = self
-        
+
         setupAddButton()
         AddMealButton.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
         
-        //sks: filter data to show only today's foods
         filterTodaysFoods()
     }
     
@@ -81,7 +68,7 @@ class DietViewController: UIViewController {
     
     @IBAction func addButtonTapped(_ sender: UIButton) {
         AddMealViewController.present(from: self)
-//>>>>>>> f5227e3 (Sync folder structure with remote)
+
     }
     
     @objc func calendarTapped() {
@@ -91,7 +78,7 @@ class DietViewController: UIViewController {
     }
 }
 
-//<<<<<<< HEAD
+
 extension DietViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
@@ -103,34 +90,11 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
         let cell = tableView.dequeueReusableCell(withIdentifier: LogsTableViewCell.identifier, for: indexPath) as! LogsTableViewCell
         let item = todaysFoods[indexPath.row] //sks: made changes here
         cell.configure(with: item)
-//=======
-//
-//
-//extension DietViewController: UITableViewDataSource, UITableViewDelegate {
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return dummyData.count
-//    }
-//    
-//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {        
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "LogsTableViewCell", for: indexPath) as! LogsTableViewCell
-//        cell.foodName.text = dummyData[indexPath.row].name
-//        cell.calories.text = "\(dummyData[indexPath.row].calories)kcal"
-//        cell.foodName.font = UIFont.systemFont(ofSize: 18, weight: .bold)
-//        cell.carbs.text = "\(dummyData[indexPath.row].carbsContent)g"
-//        cell.protein.text = "\(dummyData[indexPath.row].proteinContent)g"
-//        cell.fats.text = "\(dummyData[indexPath.row].fatsContent)g"
-//        cell.imageView?.image = UIImage(named: "biryani")
-//        cell.imageView?.layer.cornerRadius = 10
-//>>>>>>> f5227e3 (Sync folder structure with remote)
         return cell
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 100
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        "Today's Logs"
     }
     
 }
@@ -159,7 +123,6 @@ extension DietViewController {
 
     @objc private func addButtonTappedProgrammatic() {
         AddMealViewController.present(from: self)
-//>>>>>>> f5227e3 (Sync folder structure with remote)
     }
 }
 

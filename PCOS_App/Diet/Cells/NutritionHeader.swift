@@ -36,9 +36,9 @@ class NutritionHeader: UIView {
         recommendationCard.layer.shadowOpacity = 0.2
         
         stackMacros.layer.cornerRadius = 25
-        stackMacros.layer.backgroundColor = UIColor.systemGray5.cgColor
+        stackMacros.layer.backgroundColor = UIColor.systemGray6.cgColor
         
-        caloriesConsumed.text = "1000"
+        caloriesConsumed.text = "561"
         
     }
 }
