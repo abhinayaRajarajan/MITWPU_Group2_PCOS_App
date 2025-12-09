@@ -30,16 +30,24 @@ struct Food: Codable, Identifiable {
     var ingredients: [Ingredient]? = nil
     
     var calories: Double {
-        if let customCalories = customCalories {
-            return customCalories
-        }
-        if let ingredients {
-                    return ingredients.reduce(0) { $0 + $1.calories }
-                }
-        return ((proteinContent * 4) +
-                (carbsContent * 4) +
-                (fatsContent * 9)).rounded(toPlaces: 2)
-
+            // 1: Explicit override
+            if let customCalories = customCalories {
+                return customCalories
             }
-       
+            
+            // 2: Ingredient-based calories
+            if let ingredients = ingredients {
+                let total = ingredients.reduce(0) { $0 + $1.calories }
+                return total.rounded(toPlaces: 2)
+            }
+            
+            // 3: Macro-based calories
+            let total = (proteinContent * 4) +
+                        (carbsContent * 4) +
+                        (fatsContent * 9)
+            
+            return total.rounded(toPlaces: 2)
+        }
+    
+    var Insights: [String]?
 }
