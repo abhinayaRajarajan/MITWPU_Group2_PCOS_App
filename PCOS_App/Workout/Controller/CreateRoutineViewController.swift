@@ -38,7 +38,10 @@ class CreateRoutineViewController: UIViewController {
         registerCells()
         updateUI()
 
-        // Do any additional setup after loading the view.
+        // Add text field delegate
+            routineNameTextField.delegate = self
+            
+            print("🎬 CreateRoutineViewController loaded")
     }
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
@@ -52,6 +55,7 @@ class CreateRoutineViewController: UIViewController {
             exerciseTableView.dataSource = self
             exerciseTableView.estimatedRowHeight = 88
             exerciseTableView.rowHeight = UITableView.automaticDimension
+        routineNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
             
         }
     
@@ -66,19 +70,21 @@ class CreateRoutineViewController: UIViewController {
     }
     
     private func updateUI() {
-            let hasExercises = !routineExercises.isEmpty
-            
-            // Toggle visibility
-            emptyStateView.isHidden = hasExercises
-            exerciseTableView.isHidden = !hasExercises
-            
-            // Update stats
-            updateStats()
-            saveRoutineButton.isEnabled = hasExercises
-            
-            // Reload table
-            exerciseTableView.reloadData()
-        }
+        let hasExercises = !routineExercises.isEmpty
+        
+        // Toggle visibility
+        emptyStateView.isHidden = hasExercises
+        exerciseTableView.isHidden = !hasExercises
+        
+        // Update stats
+        updateStats()
+        
+        //  ADD THIS LINE to update save button properly:
+        textFieldDidChange()
+        
+        // Reload table
+        exerciseTableView.reloadData()
+    }
     
     private func updateStats() {
 
@@ -127,6 +133,60 @@ class CreateRoutineViewController: UIViewController {
         performSegue(withIdentifier: "showAddExercise", sender: nil)
     }
     
+    
+    
+    @IBAction func saveRoutineButton(_ sender: UIBarButtonItem) {
+        // 1. Validate routine name
+            guard let name = routineNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines),
+                  !name.isEmpty else {
+                // Show alert if name is empty
+                let alert = UIAlertController(
+                    title: "Missing Name",
+                    message: "Please enter a name for your routine.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+                return
+            }
+            
+            // 2. Validate exercises
+            guard !routineExercises.isEmpty else {
+                let alert = UIAlertController(
+                    title: "No Exercises",
+                    message: "Please add at least one exercise to your routine.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "OK", style: .default))
+                present(alert, animated: true)
+                return
+            }
+
+            // 3. Create routine
+            let routine = Routine(
+                id: UUID(),
+                name: name,
+                exercises: routineExercises
+            )
+
+            // 4. Save to manager (FIXED: now uses addRoutine)
+            WorkoutSessionManager.shared.addRoutine(routine)
+            
+            // 5. Show success message
+            let alert = UIAlertController(
+                title: "✅ Routine Saved!",
+                message: "\"\(name)\" has been saved with \(routineExercises.count) exercises.",
+                preferredStyle: .alert
+            )
+            alert.addAction(UIAlertAction(title: "OK", style: .default) { _ in
+                // 6. Navigate back
+                self.navigationController?.popViewController(animated: true)
+            })
+            present(alert, animated: true)
+    }
+    
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "showAddExercise" {
 //                if let navController = segue.destination as? UINavigationController,
@@ -145,7 +205,7 @@ class CreateRoutineViewController: UIViewController {
             }
         }
     
-    private func handleSelectedExercises(_ exercises: [Exercise]) {
+  /*  private func handleSelectedExercises(_ exercises: [Exercise]) {
         // Convert Exercise to RoutineExercise with default sets
                
                //OLD CODE WITH PLANNED SETS STRUCT(now deleted)
@@ -198,8 +258,47 @@ class CreateRoutineViewController: UIViewController {
                }
     func exerciseDidUpdate() {
             updateStats()
+        }*/
+    
+    private func handleSelectedExercises(_ exercises: [Exercise]) {
+        print("📥 Received \(exercises.count) exercises")
+        
+        let newRoutineExercises = exercises.map { exercise in
+            if exercise.isCardio {
+                print("🏃 Adding cardio: \(exercise.name)")
+                return RoutineExercise(
+                    exercise: exercise,
+                    numberOfSets: 1,
+                    reps: 0,
+                    weightKg: 0,
+                    restTimerSeconds: nil,
+                    durationSeconds: 600,
+                    notes: nil
+                )
+            } else {
+                print("💪 Adding strength: \(exercise.name)")
+                return RoutineExercise(
+                    exercise: exercise,
+                    numberOfSets: 3,
+                    reps: 10,
+                    weightKg: 0,
+                    restTimerSeconds: 60,
+                    durationSeconds: nil,
+                    notes: nil
+                )
+            }
         }
+        
+        routineExercises.append(contentsOf: newRoutineExercises)
+        print("📊 Total exercises in routine: \(routineExercises.count)")
+        
+        updateUI()
+    }
+    
+    
+    
            }
+
 
 // MARK: - UITableViewDataSource
 extension CreateRoutineViewController: UITableViewDataSource {
@@ -238,6 +337,22 @@ extension CreateRoutineViewController: UITableViewDataSource {
         return cell
     }
 }
+extension CreateRoutineViewController: UITextFieldDelegate {
+    // ✅ ADD THIS METHOD:
+    @objc private func textFieldDidChange() {
+        let hasName = !(routineNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
+        let hasExercises = !routineExercises.isEmpty
+        
+        saveRoutineButton.isEnabled = hasName && hasExercises
+        
+        print("📝 Name: '\(routineNameTextField.text ?? "")' | Has exercises: \(hasExercises) | Save enabled: \(saveRoutineButton.isEnabled)")
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+}
 
 // MARK: - UITableViewDelegate
 extension CreateRoutineViewController: UITableViewDelegate {
@@ -255,5 +370,6 @@ extension CreateRoutineViewController: UITableViewDelegate {
             updateUI()
         }
     }
+    
 }
 

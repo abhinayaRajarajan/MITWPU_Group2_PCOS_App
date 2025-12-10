@@ -198,6 +198,7 @@ struct Routine: Identifiable, Codable {
     var name: String
     var exercises: [RoutineExercise]
     var createdAt: Date = Date()
+    var thumbnailImageName: String?//new added property 
     
     var totalExercises: Int { exercises.count }
     
@@ -232,134 +233,60 @@ struct Routine: Identifiable, Codable {
 }
 
 
-//struct PlannedSet: Codable {
-//    var setNumber: Int
-//    var restTimerSeconds: Int?
-//
-//    // For strength
-//    var weightKg: Int
-//    var reps: Int?
-//
-//    // For cardio
-//    var timeInSecsForCardio: Int?
-//
-//    init(setNumber:Int = 1, reps:Int = 10, weightKg:Int=0,restTimerSeconds: Int? = 0,timeInSecsForCardio: Int? = nil) {
-//        self.setNumber = setNumber
-//        self.restTimerSeconds = restTimerSeconds
-//        self.weightKg = weightKg
-//        self.reps = reps
-//        self.timeInSecsForCardio = timeInSecsForCardio
-//    }
-//
-//    var estimatedDurationWithRest: Int {
-//        var activeTime = 0
-//
-//        if let cardioTime = timeInSecsForCardio {
-//            activeTime = cardioTime
-//        } else if let reps = reps {
-//            activeTime = reps * 4
-//        }
-//
-//        let restTime = restTimerSeconds ?? 0
-//
-//        return activeTime + restTime
-//    }
-//
-//    var formattedDuration: String {
-//        let minutes = estimatedDurationWithRest / 60
-//        let seconds = estimatedDurationWithRest % 60
-//        if minutes > 0 {
-//            return "\(minutes)m \(seconds)s"
-//        }
-//        return "\(seconds)s"
-//    }
-//
-//}
-//An exercise entry for routines - which will contain Exercise struct and an array of PlannedSet struct
-//struct RoutineExercise: Identifiable, Codable {
-//    var id: UUID
-//    let exercise: Exercise
-//    var sets: [PlannedSet]
-//    var notes: String?
-//
-//    init(id: UUID = UUID(),
-//             exercise: Exercise,
-//             notes: String? = nil,
-//             sets: [PlannedSet] = [PlannedSet()],
-//             supersetWith: UUID? = nil) {
-//            self.id = id
-//            self.exercise = exercise
-//            self.notes = notes
-//            self.sets = sets
-//        }
-//
-//
-//    var totalSets: Int { sets.count }
-//
-//    var estimatedDuration: Int {
-//        var total = 0
-//        for set in sets {
-//            total += set.estimatedDurationWithRest
-//        }
-//        return total
-//    }
-//
-//    var formattedDuration: String {
-//            let minutes = estimatedDuration / 60
-//            let seconds = estimatedDuration % 60
-//            if minutes > 0 {
-//                return "\(minutes)m \(seconds)s"
-//            }
-//            return "\(seconds)s"
-//        }
-//
-//
-//}
-//struct Routine: Identifiable, Codable {
-//    var id: UUID
-//    var name: String
-//    var routineExercises: [RoutineExercise]
-//    var createdAt: Date
-//
-//    init(id: UUID = UUID(),
-//             name: String,
-//             routineExercises: [RoutineExercise] = [],
-//             createdAt: Date = Date()) {
-//            self.id = id
-//            self.name = name
-//            self.routineExercises = routineExercises
-//            self.createdAt = createdAt
-//        }
-//
-//    var totalExercises: Int { routineExercises.count }
-//
-//    var totalSets: Int {
-//        var count = 0
-//        for exercise in routineExercises {
-//            count += exercise.sets.count
-//        }
-//        return count
-//    }
-//    var estimatedTotalDuration: Int {
-//        var total = 0
-//        for exercise in routineExercises {
-//            total += exercise.estimatedDuration
-//        }
-//        return total
-//    }
-//
-//    var formattedDuration: String {
-//            let minutes = estimatedTotalDuration / 60
-//            if minutes > 60 {
-//                let hours = minutes / 60
-//                let remainingMinutes = minutes % 60
-//                return "\(hours)h \(remainingMinutes)m"
-//            }
-//            return "\(minutes)m"
-//        }
-//
-//
-//}
+//new
+struct ActiveWorkout {
+    var id = UUID()
+    var routine: Routine                    // template used
+    var exercises: [WorkoutExercise]        // live trackable exercises
+
+    var startTime: Date = Date()
+    var endTime: Date?
+    var durationSeconds: Int = 0            // will be filled on finish
+
+    mutating func finish() {
+        endTime = Date()
+        durationSeconds = Int(endTime!.timeIntervalSince(startTime))
+    }
+}
+struct CompletedWorkout {
+    var id = UUID()
+    var routineName: String
+    var date: Date
+    var durationSeconds: Int
+    var exercises: [WorkoutExercise]
+}
+class WorkoutSessionManager {
+    static let shared = WorkoutSessionManager()
+    private init() {}
+    
+    /// Array of saved routine templates
+    var savedRoutines: [Routine] = []
+    
+    /// Active workout session
+    var activeWorkout: ActiveWorkout?
+    
+    /// Past completed workouts
+    var completedWorkouts: [CompletedWorkout] = []
+    
+    // Helper method to add a routine
+    func addRoutine(_ routine: Routine) {
+        savedRoutines.append(routine)
+        print("✅ Routine saved: \(routine.name)")
+        print("📊 Total routines: \(savedRoutines.count)")
+    }
+    
+    // Helper method to get a specific routine
+    func getRoutine(at index: Int) -> Routine? {
+        guard index >= 0 && index < savedRoutines.count else { return nil }
+        return savedRoutines[index]
+    }
+    
+    // Helper method to delete a routine
+    func deleteRoutine(at index: Int) {
+        guard index >= 0 && index < savedRoutines.count else { return }
+        savedRoutines.remove(at: index)
+    }
+}
 
 
 

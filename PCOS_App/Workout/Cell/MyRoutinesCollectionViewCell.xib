@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24412" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="my_routines_cell" id="gTV-IL-0wX" customClass="MyRoutinesCollectionViewCell" customModule="PCOS_App" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="338" height="143"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="338" height="143"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oOp-lA-weA">
+                        <rect key="frame" x="0.0" y="0.0" width="338" height="143"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nO4-yo-olq">
+                                <rect key="frame" x="25" y="101" width="288" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="eUR-mT-4bg"/>
+                                </constraints>
+                                <color key="tintColor" red="0.99607843137254903" green="0.47843137254901957" blue="0.58823529411764708" alpha="0.80157900528169013" colorSpace="custom" customColorSpace="displayP3"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Start Routine"/>
+                                <connections>
+                                    <action selector="startRoutineTapped:" destination="gTV-IL-0wX" eventType="touchUpInside" id="H8g-nt-0L4"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Routine Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="V75-om-OLM">
+                                <rect key="frame" x="8" y="8" width="111.33333333333333" height="21"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DuQ-Ib-MLA">
+                                <rect key="frame" x="281" y="2" width="48" height="35"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="ellipsis" catalog="system"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="nO4-yo-olq" secondAttribute="bottom" constant="7" id="11M-kT-j0J"/>
+                            <constraint firstAttribute="trailing" secondItem="DuQ-Ib-MLA" secondAttribute="trailing" constant="9" id="9Va-97-bZI"/>
+                            <constraint firstItem="nO4-yo-olq" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" constant="25" id="CFN-1A-9Fo"/>
+                            <constraint firstItem="V75-om-OLM" firstAttribute="top" secondItem="oOp-lA-weA" secondAttribute="top" constant="8" id="I9m-w0-AaO"/>
+                            <constraint firstItem="V75-om-OLM" firstAttribute="leading" secondItem="oOp-lA-weA" secondAttribute="leading" constant="8" id="bex-bL-dlE"/>
+                            <constraint firstItem="DuQ-Ib-MLA" firstAttribute="top" secondItem="oOp-lA-weA" secondAttribute="top" constant="2" id="duO-J1-9XC"/>
+                            <constraint firstAttribute="trailing" secondItem="nO4-yo-olq" secondAttribute="trailing" constant="25" id="qzs-6i-t3f"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="oOp-lA-weA" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="3H4-Hr-a8d"/>
+                <constraint firstItem="oOp-lA-weA" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="FVy-gz-IWP"/>
+                <constraint firstAttribute="trailing" secondItem="oOp-lA-weA" secondAttribute="trailing" id="U9K-0X-uE2"/>
+                <constraint firstAttribute="bottom" secondItem="oOp-lA-weA" secondAttribute="bottom" id="vMx-Nr-qp2"/>
+            </constraints>
+            <size key="customSize" width="338" height="143"/>
+            <connections>
+                <outlet property="containerView" destination="oOp-lA-weA" id="m4l-SF-Fx2"/>
+                <outlet property="routineNameOutlet" destination="V75-om-OLM" id="PZU-eD-ILe"/>
+                <outlet property="startRoutineButtonOutlet" destination="nO4-yo-olq" id="dpU-SV-Bb2"/>
+            </connections>
+            <point key="canvasLocation" x="358.77862595419845" y="186.26760563380282"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
