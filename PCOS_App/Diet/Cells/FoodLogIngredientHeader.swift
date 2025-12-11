@@ -27,101 +27,66 @@ class FoodLogIngredientHeader: UIView {
     }
     
     private func setupUI() {
-        // Remove XIB constraints if they exist
-        FoodImageView.translatesAutoresizingMaskIntoConstraints = false
-        macrosContainerStack.translatesAutoresizingMaskIntoConstraints = false
-        
         // Image view styling
         FoodImageView.contentMode = .scaleAspectFill
         FoodImageView.clipsToBounds = true
-        FoodImageView.layer.cornerRadius = 12
+        FoodImageView.layer.cornerRadius = 16
+        FoodImageView.backgroundColor = .systemGray5
         
-        // Setup programmatic constraints
-        setupConstraints()
+        // Macros container styling - glass effect overlay
+        macrosContainerStack.backgroundColor = UIColor.white.withAlphaComponent(0.95)
+        macrosContainerStack.layer.cornerRadius = 16
+        macrosContainerStack.layer.shadowColor = UIColor.black.cgColor
+        macrosContainerStack.layer.shadowOpacity = 0.15
+        macrosContainerStack.layer.shadowOffset = CGSize(width: 0, height: 4)
+        macrosContainerStack.layer.shadowRadius = 12
         
-        // Add glass/blur effect to macros container
-        addGlassEffect(to: macrosContainerStack)
+        // Add blur effect
+        addBlurEffect()
         
-        // Add separators between macros
-        addSeparators()
+        macrosContainerStack.spacing = 0
+        macrosContainerStack.distribution = .fillEqually
+        macrosContainerStack.axis = .horizontal
+        macrosContainerStack.layoutMargins = UIEdgeInsets(top: 16, left: 12, bottom: 16, right: 12)
+        macrosContainerStack.isLayoutMarginsRelativeArrangement = true
+        
+        // Style the macro labels
+        styleMacroLabels()
     }
     
-    private func setupConstraints() {
-        // Make sure views are using auto layout
-        FoodImageView.translatesAutoresizingMaskIntoConstraints = false
-        macrosContainerStack.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            // Food Image constraints
-            FoodImageView.topAnchor.constraint(equalTo: topAnchor, constant: 20),
-            FoodImageView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            FoodImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            FoodImageView.heightAnchor.constraint(equalToConstant: 200),
-            
-            // Macros container constraints
-            macrosContainerStack.topAnchor.constraint(equalTo: FoodImageView.bottomAnchor, constant: 20),
-            macrosContainerStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 20),
-            macrosContainerStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -20),
-            macrosContainerStack.heightAnchor.constraint(equalToConstant: 80),
-            macrosContainerStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20)
-        ])
-    }
-    
-    private func addGlassEffect(to view: UIView) {
-        // Remove existing blur effect if any
-        view.subviews.filter { $0 is UIVisualEffectView }.forEach { $0.removeFromSuperview() }
+    private func addBlurEffect() {
+        // Remove any existing blur
+        macrosContainerStack.subviews.filter { $0 is UIVisualEffectView }.forEach { $0.removeFromSuperview() }
         
         // Create blur effect
-        let blurEffect = UIBlurEffect(style: .systemUltraThinMaterial)
+        let blurEffect = UIBlurEffect(style: .systemMaterial)
         let blurView = UIVisualEffectView(effect: blurEffect)
         blurView.translatesAutoresizingMaskIntoConstraints = false
-        blurView.layer.cornerRadius = 12
+        blurView.layer.cornerRadius = 16
         blurView.clipsToBounds = true
         
         // Insert blur as background
-        view.insertSubview(blurView, at: 0)
+        macrosContainerStack.insertSubview(blurView, at: 0)
         
-        // Constrain blur to fill the container
         NSLayoutConstraint.activate([
-            blurView.topAnchor.constraint(equalTo: view.topAnchor),
-            blurView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            blurView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            blurView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            blurView.topAnchor.constraint(equalTo: macrosContainerStack.topAnchor),
+            blurView.leadingAnchor.constraint(equalTo: macrosContainerStack.leadingAnchor),
+            blurView.trailingAnchor.constraint(equalTo: macrosContainerStack.trailingAnchor),
+            blurView.bottomAnchor.constraint(equalTo: macrosContainerStack.bottomAnchor)
         ])
         
-        // Make the container background clear so blur shows through
-        view.backgroundColor = .clear
-        
-        // Optional: Add subtle border
-        view.layer.borderWidth = 0.5
-        view.layer.borderColor = UIColor.separator.withAlphaComponent(0.3).cgColor
-        view.layer.cornerRadius = 12
+        // Make container background clear so blur shows
+        macrosContainerStack.backgroundColor = .clear
     }
     
-    private func addSeparators() {
-        // Get the vertical stacks from the horizontal stack
-        guard macrosContainerStack.arrangedSubviews.count >= 4 else { return }
-        
-        // Create separators between each section
-        for i in stride(from: 1, to: 7, by: 2) {
-            if i < macrosContainerStack.arrangedSubviews.count {
-                let separator = createSeparator()
-                macrosContainerStack.insertArrangedSubview(separator, at: i)
-            }
+    private func styleMacroLabels() {
+        // Style each macro label
+        [caloriesLabel, carbsLabel, fatsLabel, proteinLabel].forEach { label in
+            label?.font = .systemFont(ofSize: 15, weight: .semibold)
+            label?.textAlignment = .center
+            label?.numberOfLines = 2
+            label?.textColor = .label
         }
-    }
-    
-    private func createSeparator() -> UIView {
-        let separator = UIView()
-        separator.backgroundColor = UIColor.separator.withAlphaComponent(0.5)
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            separator.widthAnchor.constraint(equalToConstant: 1),
-            separator.heightAnchor.constraint(equalToConstant: 50)
-        ])
-        
-        return separator
     }
     
     // MARK: - Configure
@@ -129,31 +94,89 @@ class FoodLogIngredientHeader: UIView {
         self.food = food
         
         // Set image
-        if let imageName = food.image {
-            FoodImageView.image = UIImage(named: imageName)
+        if let imageName = food.image, let image = UIImage(named: imageName) {
+            FoodImageView.image = image
+            FoodImageView.backgroundColor = .clear
         } else {
-            FoodImageView.image = UIImage(named: "biryani")
+            FoodImageView.image = UIImage(named: "placeholder_food")
+            FoodImageView.backgroundColor = .systemGray5
         }
         
-        // Update macros with base values
+        // Update macros
         updateMacros()
     }
     
     private func updateMacros() {
         guard let food = food else { return }
         
-        caloriesLabel.text = "\(Int(food.calories)) kcal"
-        carbsLabel.text = "\(Int(food.carbsContent)) g"
-        fatsLabel.text = "\(Int(food.fatsContent)) g"
-        proteinLabel.text = "\(Int(food.proteinContent)) g"
+        // Calculate or use custom calories
+        let calories = food.customCalories ?? ((food.proteinContent * 4) + (food.carbsContent * 4) + (food.fatsContent * 9))
+        
+        // Format the labels to match your design (value on top, label below)
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.alignment = .center
+        paragraphStyle.lineSpacing = 2
+        
+        caloriesLabel.attributedText = formatMacroText(value: "\(Int(calories)) kcal", label: "Calories")
+        carbsLabel.attributedText = formatMacroText(value: "\(Int(food.carbsContent)) g", label: "Carbs")
+        fatsLabel.attributedText = formatMacroText(value: "\(Int(food.fatsContent)) g", label: "Fat")
+        proteinLabel.attributedText = formatMacroText(value: "\(Int(food.proteinContent)) g", label: "Protein")
     }
     
-    // MARK: - Static Loading (SIMPLIFIED METHOD)
+    private func formatMacroText(value: String, label: String) -> NSAttributedString {
+        let attributed = NSMutableAttributedString()
+        
+        // Label text (smaller, on top)
+        let labelAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 13, weight: .medium),
+            .foregroundColor: UIColor.secondaryLabel
+        ]
+        attributed.append(NSAttributedString(string: label + "\n", attributes: labelAttributes))
+        
+        // Value text (larger, bold, below)
+        let valueAttributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
+            .foregroundColor: UIColor.label
+        ]
+        attributed.append(NSAttributedString(string: value, attributes: valueAttributes))
+        
+        return attributed
+    }
+    
+    // MARK: - Layout Override
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Ensure constraints are set up properly
+        setupConstraintsIfNeeded()
+    }
+    
+    private func setupConstraintsIfNeeded() {
+        guard FoodImageView.constraints.isEmpty else { return }
+        
+        FoodImageView.translatesAutoresizingMaskIntoConstraints = false
+        macrosContainerStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            // Image fills the entire view
+            FoodImageView.topAnchor.constraint(equalTo: topAnchor),
+            FoodImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            FoodImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            FoodImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            // Macros container overlays on bottom of image
+            macrosContainerStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            macrosContainerStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            macrosContainerStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            macrosContainerStack.heightAnchor.constraint(equalToConstant: 70)
+        ])
+    }
+    
+    // MARK: - Static Loading
     static func loadFromNib() -> FoodLogIngredientHeader {
         let bundle = Bundle(for: FoodLogIngredientHeader.self)
         let nib = UINib(nibName: "FoodLogIngredientHeader", bundle: bundle)
         
-        // Directly load the view from XIB (no File's Owner needed)
         guard let view = nib.instantiate(withOwner: nil, options: nil).first as? FoodLogIngredientHeader else {
             fatalError("Could not load FoodLogIngredientHeader from nib")
         }

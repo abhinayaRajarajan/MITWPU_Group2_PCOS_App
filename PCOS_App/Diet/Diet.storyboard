@@ -125,7 +125,6 @@
             </objects>
             <point key="canvasLocation" x="2070.9923664122139" y="1008.4507042253522"/>
         </scene>
-
         <!--View Controller-->
         <scene sceneID="iog-g8-65r">
             <objects>
@@ -141,7 +140,6 @@
             </objects>
             <point key="canvasLocation" x="3265" y="1071"/>
         </scene>
-
         <!--Diet Calendar Logs View Controller-->
         <scene sceneID="LZC-G4-OWg">
             <objects>
@@ -193,7 +191,6 @@
             </objects>
             <point key="canvasLocation" x="1882" y="306"/>
         </scene>
-
         <!--Food Log Ingredient View Controller-->
         <scene sceneID="4hB-9g-I2P">
             <objects>
@@ -202,17 +199,12 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="1 serving" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lh-L5-ZrT">
-                                <rect key="frame" x="13" y="370" width="73.666666666666742" height="22"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1 serving" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lh-L5-ZrT">
+                                <rect key="frame" x="16" y="420" width="73.666666666666671" height="22"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="yYb-kn-EVW">
-                                <rect key="frame" x="95" y="365" width="94" height="32"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </stepper>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lkz-NJ-BtJ">
                                 <rect key="frame" x="204" y="355" width="170" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -233,9 +225,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.85047445779999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="yYb-kn-EVW">
+                                <rect key="frame" x="104.66666666666669" y="418" width="94" height="32"/>
+                            </stepper>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9XX-vY-pUv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8Lh-L5-ZrT" firstAttribute="leading" secondItem="9XX-vY-pUv" secondAttribute="leading" constant="16" id="XBM-Rp-fdG"/>
+                            <constraint firstItem="yYb-kn-EVW" firstAttribute="leading" secondItem="8Lh-L5-ZrT" secondAttribute="trailing" constant="15" id="lHd-Zn-HNd"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="FoodWeightLabel" destination="IV3-iW-EbT" id="dIx-oN-MQM"/>
