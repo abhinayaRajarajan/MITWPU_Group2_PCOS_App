@@ -205,29 +205,22 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="yYb-kn-EVW">
+                                <rect key="frame" x="104.66666666666669" y="418" width="94" height="32"/>
+                            </stepper>
                             <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lkz-NJ-BtJ">
-                                <rect key="frame" x="204" y="355" width="170" height="60"/>
+                                <rect key="frame" x="206.66666666666663" y="404" width="170.33333333333337" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weight Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1s-Xv-bi7">
-                                        <rect key="frame" x="10" y="10" width="81" height="17"/>
+                                        <rect key="frame" x="10" y="10" width="142" height="42"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="149 g" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IV3-iW-EbT">
-                                        <rect key="frame" x="11" y="29" width="47" height="22"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
-                                        <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
                                 <color key="backgroundColor" white="0.85047445779999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="yYb-kn-EVW">
-                                <rect key="frame" x="104.66666666666669" y="418" width="94" height="32"/>
-                            </stepper>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9XX-vY-pUv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -237,7 +230,7 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="FoodWeightLabel" destination="IV3-iW-EbT" id="dIx-oN-MQM"/>
+                        <outlet property="FoodWeightLabel" destination="S1s-Xv-bi7" id="Bpb-IV-wce"/>
                         <outlet property="foodweightView" destination="Lkz-NJ-BtJ" id="Cac-gp-crd"/>
                         <outlet property="servingNumberLabel" destination="8Lh-L5-ZrT" id="OCg-GT-p23"/>
                         <outlet property="servingStepper" destination="yYb-kn-EVW" id="Igp-n8-jMp"/>
@@ -245,7 +238,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ij-xc-K9k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3265" y="370"/>
+            <point key="canvasLocation" x="3264.8854961832058" y="369.71830985915494"/>
         </scene>
     </scenes>
     <resources>

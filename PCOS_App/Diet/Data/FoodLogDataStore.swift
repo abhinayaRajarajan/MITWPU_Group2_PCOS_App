@@ -93,7 +93,7 @@ struct FoodLogDataSource {
             image: "Almonds",
             timeStamp: Calendar.current.date(byAdding: .hour, value: -1, to: Date()) ?? Date(),
             quantity: 30,
-            weight: 3.0,
+            weight: 28.0,
             proteinContent: 6,
             carbsContent: 6,
             fatsContent: 14,
