@@ -20,6 +20,7 @@ class FoodLogIngredientHeader: UIView {
     
     
     private var food: Food?
+    private var constraintsSetUp = false
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -52,6 +53,33 @@ class FoodLogIngredientHeader: UIView {
         
         // Style the macro labels
         styleMacroLabels()
+        
+        // Setup constraints immediately
+        setupConstraints()
+    }
+    
+    private func setupConstraints() {
+        guard !constraintsSetUp else { return }
+        constraintsSetUp = true
+        
+        FoodImageView.translatesAutoresizingMaskIntoConstraints = false
+        macrosContainerStack.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            // Image fills the entire view
+            FoodImageView.topAnchor.constraint(equalTo: topAnchor),
+            FoodImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            FoodImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            FoodImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            // Macros container overlays on bottom of image
+            macrosContainerStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            macrosContainerStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+            macrosContainerStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
+            macrosContainerStack.heightAnchor.constraint(equalToConstant: 70)
+        ])
+        
+        print("DEBUG: FoodLogIngredientHeader constraints set up")
     }
     
     private func addBlurEffect() {
@@ -104,6 +132,8 @@ class FoodLogIngredientHeader: UIView {
         
         // Update macros
         updateMacros()
+        
+        print("DEBUG: Header configured with food: \(food.name)")
     }
     
     private func updateMacros() {
@@ -143,35 +173,6 @@ class FoodLogIngredientHeader: UIView {
         return attributed
     }
     
-    // MARK: - Layout Override
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        
-        // Ensure constraints are set up properly
-        setupConstraintsIfNeeded()
-    }
-    
-    private func setupConstraintsIfNeeded() {
-        guard FoodImageView.constraints.isEmpty else { return }
-        
-        FoodImageView.translatesAutoresizingMaskIntoConstraints = false
-        macrosContainerStack.translatesAutoresizingMaskIntoConstraints = false
-        
-        NSLayoutConstraint.activate([
-            // Image fills the entire view
-            FoodImageView.topAnchor.constraint(equalTo: topAnchor),
-            FoodImageView.leadingAnchor.constraint(equalTo: leadingAnchor),
-            FoodImageView.trailingAnchor.constraint(equalTo: trailingAnchor),
-            FoodImageView.bottomAnchor.constraint(equalTo: bottomAnchor),
-            
-            // Macros container overlays on bottom of image
-            macrosContainerStack.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            macrosContainerStack.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
-            macrosContainerStack.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            macrosContainerStack.heightAnchor.constraint(equalToConstant: 70)
-        ])
-    }
-    
     // MARK: - Static Loading
     static func loadFromNib() -> FoodLogIngredientHeader {
         let bundle = Bundle(for: FoodLogIngredientHeader.self)
@@ -181,6 +182,7 @@ class FoodLogIngredientHeader: UIView {
             fatalError("Could not load FoodLogIngredientHeader from nib")
         }
         
+        print("DEBUG: FoodLogIngredientHeader loaded from nib")
         return view
     }
 }

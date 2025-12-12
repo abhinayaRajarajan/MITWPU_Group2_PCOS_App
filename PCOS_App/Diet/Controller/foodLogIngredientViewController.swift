@@ -13,75 +13,62 @@ class foodLogIngredientViewController: UIViewController {
     @IBOutlet weak var servingNumberLabel: UILabel!
     @IBOutlet weak var foodweightView: UIView!
     @IBOutlet weak var FoodWeightLabel: UILabel!
+    @IBOutlet weak var horizontalStackView: UIStackView!
+    
     
     // Header view
-    private var headerView: FoodLogIngredientHeader!
-    
-    // Food data
-    var food: Food!
-    private var servingMultiplier: Double = 1.0
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+        private var headerView: FoodLogIngredientHeader!
         
-        print("DEBUG: viewDidLoad started")
+        // Food data
+        var food: Food!
+        private var servingMultiplier: Double = 1.0
         
-        // Validate food data exists
-        guard food != nil else {
-            print("Error: No food data provided")
-            navigationController?.popViewController(animated: true)
-            return
+        override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            print("DEBUG: viewDidLoad started")
+            
+            // Validate food data exists
+            guard food != nil else {
+                print("Error: No food data provided")
+                navigationController?.popViewController(animated: true)
+                return
+            }
+            
+            print("DEBUG: Food data exists - \(food.name)")
+            
+            // Set navigation title
+            title = food?.name ?? "Food Details"
+            
+            // Disable large title to prevent it from pushing content down
+            navigationController?.navigationBar.prefersLargeTitles = false
+            navigationItem.largeTitleDisplayMode = .never
+            
+            // Setup background color
+            view.backgroundColor = .systemBackground
+            
+            // Setup all UI elements
+            setupHeaderConstraints()
+            setupHeader()
+            setupStepper()
+            setupServingLabel()
+            setupWeightLabel()
+            updateServingDisplay()
+            
+            print("DEBUG: viewDidLoad completed successfully")
         }
         
-        print("DEBUG: Food data exists - \(food.name)")
-        
-        // Set navigation title
-        title = food?.name ?? "Food Details"
-        
-        // Setup background color
-        view.backgroundColor = .systemBackground
-        
-        // Setup all UI elements
-        setupConstraints()
-        setupHeader()
-        setupStepper()
-        setupServingLabel()
-        setupWeightLabel()
-        updateServingDisplay()
-        
-        print("DEBUG: viewDidLoad completed successfully")
-    }
-    
-    // MARK: - Setup Constraints
-        private func setupConstraints() {
-            // Enable auto layout for all outlets
-            foodweightView.translatesAutoresizingMaskIntoConstraints = false
-            servingNumberLabel.translatesAutoresizingMaskIntoConstraints = false
-            servingStepper.translatesAutoresizingMaskIntoConstraints = false
-            FoodWeightLabel.translatesAutoresizingMaskIntoConstraints = false
+        // MARK: - Setup Header Constraints
+        private func setupHeaderConstraints() {
+            guard let headerContainer = foodweightView else { return }
+            
+            headerContainer.translatesAutoresizingMaskIntoConstraints = false
             
             NSLayoutConstraint.activate([
-                // foodweightView - Header container (image with overlay)
-                foodweightView.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
-                foodweightView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                foodweightView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                foodweightView.heightAnchor.constraint(equalToConstant: 300),
-                
-                // servingNumberLabel - left side
-                servingNumberLabel.topAnchor.constraint(equalTo: foodweightView.bottomAnchor, constant: 32),
-                servingNumberLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-                
-                // servingStepper - next to serving label
-                servingStepper.centerYAnchor.constraint(equalTo: servingNumberLabel.centerYAnchor),
-                servingStepper.leadingAnchor.constraint(equalTo: servingNumberLabel.trailingAnchor, constant: 16),
-                servingStepper.widthAnchor.constraint(equalToConstant: 94),
-                
-                // FoodWeightLabel - right side
-                FoodWeightLabel.centerYAnchor.constraint(equalTo: servingNumberLabel.centerYAnchor),
-                FoodWeightLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-                FoodWeightLabel.widthAnchor.constraint(equalToConstant: 120),
-                FoodWeightLabel.heightAnchor.constraint(equalToConstant: 55),
-                FoodWeightLabel.leadingAnchor.constraint(greaterThanOrEqualTo: servingStepper.trailingAnchor, constant: 16)
+                headerContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 20),
+                headerContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+                headerContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+                headerContainer.heightAnchor.constraint(equalToConstant: 300)
             ])
         }
         

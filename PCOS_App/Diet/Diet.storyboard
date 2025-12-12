@@ -199,39 +199,52 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="1 serving" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lh-L5-ZrT">
-                                <rect key="frame" x="16" y="420" width="73.666666666666671" height="22"/>
-                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="yYb-kn-EVW">
-                                <rect key="frame" x="104.66666666666669" y="418" width="94" height="32"/>
-                            </stepper>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Lkz-NJ-BtJ">
-                                <rect key="frame" x="206.66666666666663" y="404" width="170.33333333333337" height="60"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lkz-NJ-BtJ">
+                                <rect key="frame" x="30" y="218" width="343" height="300"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="300" id="hk5-bR-Jhn"/>
+                                </constraints>
+                            </view>
+                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Qa9-pr-HrP">
+                                <rect key="frame" x="20" y="538" width="353" height="50"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Weight Total" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1s-Xv-bi7">
-                                        <rect key="frame" x="10" y="10" width="142" height="42"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="1 serving" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8Lh-L5-ZrT">
+                                        <rect key="frame" x="0.0" y="14.333333333333373" width="69" height="21.666666666666671"/>
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minimumValue="1" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="yYb-kn-EVW">
+                                        <rect key="frame" x="89" y="9" width="94" height="32"/>
+                                    </stepper>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Weight Total" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S1s-Xv-bi7">
+                                        <rect key="frame" x="203" y="0.0" width="150" height="50"/>
+                                        <color key="backgroundColor" white="0.90081870719178081" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="6LN-8e-QK1"/>
+                                            <constraint firstAttribute="width" constant="150" id="YO6-Zf-JkD"/>
+                                        </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" white="0.85047445779999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                            </view>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="9XX-vY-pUv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="8Lh-L5-ZrT" firstAttribute="leading" secondItem="9XX-vY-pUv" secondAttribute="leading" constant="16" id="XBM-Rp-fdG"/>
-                            <constraint firstItem="yYb-kn-EVW" firstAttribute="leading" secondItem="8Lh-L5-ZrT" secondAttribute="trailing" constant="15" id="lHd-Zn-HNd"/>
+                            <constraint firstItem="9XX-vY-pUv" firstAttribute="trailing" secondItem="Lkz-NJ-BtJ" secondAttribute="trailing" constant="20" id="42D-rr-X6Y"/>
+                            <constraint firstItem="Qa9-pr-HrP" firstAttribute="leading" secondItem="9XX-vY-pUv" secondAttribute="leading" constant="20" id="4UC-iY-LAL"/>
+                            <constraint firstItem="Qa9-pr-HrP" firstAttribute="top" secondItem="Lkz-NJ-BtJ" secondAttribute="bottom" constant="20" id="Dia-eb-9hf"/>
+                            <constraint firstItem="Lkz-NJ-BtJ" firstAttribute="leading" secondItem="9XX-vY-pUv" secondAttribute="leading" constant="30" id="fj8-Kx-vvz"/>
+                            <constraint firstItem="9XX-vY-pUv" firstAttribute="trailing" secondItem="Qa9-pr-HrP" secondAttribute="trailing" constant="20" id="ipj-Ed-k9g"/>
+                            <constraint firstItem="Lkz-NJ-BtJ" firstAttribute="top" secondItem="9XX-vY-pUv" secondAttribute="top" constant="100" id="kcx-8c-xzw"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="FoodWeightLabel" destination="S1s-Xv-bi7" id="Bpb-IV-wce"/>
                         <outlet property="foodweightView" destination="Lkz-NJ-BtJ" id="Cac-gp-crd"/>
+                        <outlet property="horizontalStackView" destination="Qa9-pr-HrP" id="2sT-sz-6H1"/>
                         <outlet property="servingNumberLabel" destination="8Lh-L5-ZrT" id="OCg-GT-p23"/>
                         <outlet property="servingStepper" destination="yYb-kn-EVW" id="Igp-n8-jMp"/>
                     </connections>
