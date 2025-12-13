@@ -24,8 +24,7 @@
                                     <color key="baseBackgroundColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 </buttonConfiguration>
                                 <connections>
-                                    <action selector="LogButton:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="nZO-YI-hF0"/>
-                                    <segue destination="IDJ-Z5-dCr" kind="show" id="P5c-zL-lcw"/>
+                                    <segue destination="IDJ-Z5-dCr" kind="show" identifier="showSymptomLogger" id="tJZ-0w-pcL"/>
                                 </connections>
                             </button>
                         </subviews>

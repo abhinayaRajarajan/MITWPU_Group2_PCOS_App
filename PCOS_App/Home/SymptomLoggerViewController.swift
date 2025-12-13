@@ -12,8 +12,15 @@ class SymptomLoggerViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Today's Symptoms"
+        navigationController?.navigationBar.prefersLargeTitles = true
+        
+//        let calendar = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarTapped))
+//        navigationItem.rightBarButtonItem = calendar
 
-        // Do any additional setup after loading the view.
+
+        
     }
     
 
