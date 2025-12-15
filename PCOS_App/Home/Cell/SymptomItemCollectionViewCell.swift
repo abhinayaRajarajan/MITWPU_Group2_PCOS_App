@@ -58,11 +58,9 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
     private func updateSelectionState(_ isSelected: Bool) {
         if isSelected {
                     contentView.backgroundColor = UIColor.systemGray3
-                    //IconImage.tintColor = .white
                     symptomLabel.textColor = .white
                 } else {
                     contentView.backgroundColor = .clear
-                    //IconImage.tintColor = .gray
                     symptomLabel.textColor = .gray
                 }
         }

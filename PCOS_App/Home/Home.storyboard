@@ -26,11 +26,11 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="100" id="r2r-Ih-JI9"/>
                                 </constraints>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="5" id="855-5M-8Mb">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="855-5M-8Mb">
                                     <size key="itemSize" width="110" height="140"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="16" minY="5" maxX="14" maxY="5"/>
+                                    <inset key="sectionInset" minX="16" minY="5" maxX="16" maxY="5"/>
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SymptomItemCollectionViewCell" id="evG-mD-vOy" customClass="SymptomItemCollectionViewCell" customModule="PCOS_App" customModuleProvider="target">
@@ -137,6 +137,7 @@
                                                 </label>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="GzQ-1C-llQ">
                                                     <rect key="frame" x="16" y="8" width="78" height="62"/>
+                                                    <color key="backgroundColor" systemColor="opaqueSeparatorColor"/>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
@@ -195,6 +196,9 @@
     </scenes>
     <resources>
         <image name="tempCycleimage" width="183" height="191"/>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
