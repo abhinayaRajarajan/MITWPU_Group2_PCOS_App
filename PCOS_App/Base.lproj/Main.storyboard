@@ -41,7 +41,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GY4-66-T2N" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1293.8931297709923" y="-1008.4507042253522"/>
+            <point key="canvasLocation" x="1343" y="-526"/>
         </scene>
         <!--Diet-->
         <scene sceneID="B0S-wo-Mx7">
@@ -57,7 +57,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pA1-ek-N2R" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1293.8931297709923" y="641.54929577464793"/>
+            <point key="canvasLocation" x="1343" y="466"/>
         </scene>
         <!--Workout-->
         <scene sceneID="oJZ-hk-TGq">
@@ -76,7 +76,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wRV-C0-SMo" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1293.8931297709923" y="1614.7887323943662"/>
+            <point key="canvasLocation" x="1343" y="1428"/>
         </scene>
         <!--Workout-->
         <scene sceneID="CsB-1T-2GK">
