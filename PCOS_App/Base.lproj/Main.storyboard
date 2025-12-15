@@ -4,21 +4,9 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24405"/>
         <capability name="Image references" minToolsVersion="12.0"/>
-        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
-        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Home-->
-        <scene sceneID="ghP-22-baF">
-            <objects>
-                <viewControllerPlaceholder storyboardIdentifier="HomeTab" storyboardName="Home" id="Nbc-xc-by1" sceneMemberID="viewController">
-                    <navigationItem key="navigationItem" id="NhM-ta-aVl"/>
-                </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="qRN-4G-3Ah" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-8" y="-413"/>
-        </scene>
         <!--Home-->
         <scene sceneID="tPS-Hf-W3m">
             <objects>
@@ -33,40 +21,10 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="Nbc-xc-by1" kind="relationship" relationship="rootViewController" id="fKo-Bz-afK"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oGn-JK-SIL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1046.5648854961833" y="-413.38028169014086"/>
-        </scene>
-        <!--Profile View Controller-->
-        <scene sceneID="dpI-xI-aSe">
-            <objects>
-                <viewController storyboardIdentifier="ProfileViewController" id="3uR-vI-xUi" customClass="ProfileViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="jKx-U4-1In">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="aar-o8-ZPQ">
-                                <rect key="frame" x="16" y="118" width="361" height="666"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                            </tableView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="6Nw-sv-dQv"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="aar-o8-ZPQ" firstAttribute="top" secondItem="6Nw-sv-dQv" secondAttribute="top" id="EXg-s8-l5O"/>
-                            <constraint firstItem="aar-o8-ZPQ" firstAttribute="leading" secondItem="6Nw-sv-dQv" secondAttribute="leading" constant="16" id="dmy-gm-bWE"/>
-                            <constraint firstItem="6Nw-sv-dQv" firstAttribute="bottom" secondItem="aar-o8-ZPQ" secondAttribute="bottom" id="piz-3t-5Ni"/>
-                            <constraint firstItem="6Nw-sv-dQv" firstAttribute="trailing" secondItem="aar-o8-ZPQ" secondAttribute="trailing" constant="16" id="z8I-Bb-ckG"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="0aC-Es-Ur3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2898" y="306"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="bpi-XP-0Bo">
@@ -109,22 +67,6 @@
             </objects>
             <point key="canvasLocation" x="-1048.0916030534352" y="307.74647887323943"/>
         </scene>
-        <!--Workout View Controller-->
-        <scene sceneID="3Bv-5K-riB">
-            <objects>
-                <viewController id="zCf-vk-3AY" customClass="WorkoutViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="fCp-Tx-yGy">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="735"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="6zJ-nc-bHn"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="Bjk-Rm-XV2"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8Kf-fy-ZKw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-121" y="1112"/>
-        </scene>
         <!--Workout-->
         <scene sceneID="Zyx-ub-wkL">
             <objects>
@@ -138,9 +80,6 @@
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="zCf-vk-3AY" kind="relationship" relationship="rootViewController" id="Zi8-Tl-5Av"/>
-                    </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pFh-9K-vHq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -161,8 +100,5 @@
         <image name="figure.strengthtraining.traditional" catalog="system" width="128" height="119"/>
         <image name="fork.knife" catalog="system" width="94" height="128"/>
         <image name="house" catalog="system" width="128" height="104"/>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
     </resources>
 </document>
