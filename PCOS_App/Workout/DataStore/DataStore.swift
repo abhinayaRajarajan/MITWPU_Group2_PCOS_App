@@ -53,7 +53,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "russian_twists",
             instructions: "Twist torso side to side while keeping core braced.",
-            gifUrl: "russian_twists.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s per twist",
             form: [
@@ -78,7 +78,7 @@ class ExerciseDataStore {
             equipment: .machine,
             image: "cable_crunches",
             instructions: "Crunch downward using abdominal muscles while holding cable rope.",
-            gifUrl: "cable_crunches.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "2s down, 2s up",
             form: [
@@ -103,7 +103,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "bicycle_crunches",
             instructions: "Alternate elbow-to-knee while keeping core tight.",
-            gifUrl: "bicycle_crunches.gif",
+            gifUrl: "treadmill.gif",
             level: "Beginner",
             tempo: "1–2s per rotation",
             form: [
@@ -130,7 +130,7 @@ class ExerciseDataStore {
             equipment: .barbell,
             image: "bench_press",
             instructions: "Lower bar to mid-chest and press upward while maintaining shoulder stability.",
-            gifUrl: "bench_press.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "2s down, 1s up",
             form: [
@@ -155,7 +155,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "dumbbell_bench_press",
             instructions: "Press dumbbells upward while maintaining shoulder stability.",
-            gifUrl: "dumbbell_press.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "2s down, 1s up",
             form: [
@@ -180,7 +180,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "pushups",
             instructions: "Lower chest to the floor and push back up while keeping body straight.",
-            gifUrl: "pushups.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "2s down, 1s up",
             form: [
@@ -205,7 +205,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "chest_fly",
             instructions: "Open arms wide and bring them together in a hugging motion.",
-            gifUrl: "chest_fly.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "2s stretch, 1s close",
             form: [
@@ -232,7 +232,7 @@ class ExerciseDataStore {
             equipment: .barbell,
             image: "deadlift",
             instructions: "Lift barbell from ground by extending hips and knees while keeping spine neutral.",
-            gifUrl: "deadlift.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Advanced",
             tempo: "2s up, 2s down",
             form: [
@@ -283,7 +283,7 @@ class ExerciseDataStore {
             equipment: .barbell,
             image: "barbell_row",
             instructions: "Pull barbell toward torso while maintaining hip hinge.",
-            gifUrl: "barbell_row.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "2s pull, 1s squeeze",
             form: [
@@ -308,7 +308,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "dumbbell_row",
             instructions: "Row dumbbell toward hip while keeping back flat.",
-            gifUrl: "dumbbell_row.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s pull, 2s lower",
             form: [
@@ -333,7 +333,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "pullups",
             instructions: "Pull body upward until chin passes bar.",
-            gifUrl: "pullups.gif",
+            gifUrl: "treadmill.gif",
             level: "Advanced",
             tempo: "2s pull, 2s lower",
             form: [
@@ -358,7 +358,7 @@ class ExerciseDataStore {
             equipment: .machine,
             image: "cable_row",
             instructions: "Pull cable handle to torso while keeping chest lifted.",
-            gifUrl: "cable_row.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s pull, 2s release",
             form: [
@@ -385,7 +385,7 @@ class ExerciseDataStore {
             equipment: .barbell,
             image: "barbell_squat",
             instructions: "Lower hips back and down while maintaining upright torso.",
-            gifUrl: "barbell_squat.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "3s down, 1s up",
             form: [
@@ -410,7 +410,7 @@ class ExerciseDataStore {
             equipment: .machine,
             image: "leg_press",
             instructions: "Press platform upward by extending knees and hips.",
-            gifUrl: "leg_press.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "2s press, 2s return",
             form: [
@@ -435,7 +435,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "lunges",
             instructions: "Step forward and lower knee toward floor.",
-            gifUrl: "lunges.gif",
+            gifUrl: "treadmill.gif",
             level: "Beginner",
             tempo: "1s down, 1s up",
             form: [
@@ -460,7 +460,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "dumbbell_lunges",
             instructions: "Perform lunges while holding dumbbells at sides.",
-            gifUrl: "dumbbell_lunges.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "1s down, 1s up",
             form: [
@@ -485,7 +485,7 @@ class ExerciseDataStore {
             equipment: .machine,
             image: "leg_extension",
             instructions: "Extend knees fully against machine resistance.",
-            gifUrl: "leg_extension.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s lift, 2s lower",
             form: [
@@ -510,7 +510,7 @@ class ExerciseDataStore {
             equipment: .machine,
             image: "leg_curl",
             instructions: "Curl heels toward glutes on machine.",
-            gifUrl: "leg_curl.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s curl, 2s lower",
             form: [
@@ -534,7 +534,7 @@ class ExerciseDataStore {
     equipment: .dumbbell,
     image: "goblet_squat",
     instructions: "Hold dumbbell at chest and squat down.",
-    gifUrl: "goblet_squat.gif",
+    gifUrl: "lat_pulldowns.gif",
     level: "Beginner",
     tempo: "3s down, 1s up",
     form: [
@@ -561,7 +561,7 @@ class ExerciseDataStore {
             equipment: .barbell,
             image: "overhead_press",
             instructions: "Press bar overhead while keeping core braced.",
-            gifUrl: "overhead_press.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "1–2s up, 2s down",
             form: [
@@ -586,7 +586,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "dumbbell_press",
             instructions: "Press dumbbells overhead with controlled movement.",
-            gifUrl: "dumbbell_press.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "2s up, 2s down",
             form: [
@@ -611,7 +611,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "lateral_raises",
             instructions: "Raise arms to sides until shoulder height.",
-            gifUrl: "lateral_raises.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s lift, 2s lower",
             form: [
@@ -636,7 +636,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "front_raises",
             instructions: "Lift dumbbells forward to shoulder height.",
-            gifUrl: "front_raises.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s up, 2s down",
             form: [
@@ -661,7 +661,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "step_up_chair",
             instructions: "Step onto a sturdy chair with one foot, press through the heel to stand up, then step back down with control.",
-            gifUrl: "step_up_chair.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s up, 2s down",
             form: [
@@ -689,7 +689,7 @@ class ExerciseDataStore {
             equipment: .barbell,
             image: "barbell_curl",
             instructions: "Curl bar upward while keeping elbows close to torso.",
-            gifUrl: "barbell_curl.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s up, 2s down",
             form: [
@@ -714,7 +714,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "dumbbell_curl",
             instructions: "Curl dumbbells while rotating palms upward.",
-            gifUrl: "dumbbell_curl.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s up, 2s down",
             form: [
@@ -739,7 +739,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "tricep_dips",
             instructions: "Lower body by bending elbows and push back up.",
-            gifUrl: "tricep_dips.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "2s down, 1s up",
             form: [
@@ -764,7 +764,7 @@ class ExerciseDataStore {
             equipment: .machine,
             image: "tricep_pushdown",
             instructions: "Push cable handle downward while keeping elbows fixed.",
-            gifUrl: "tricep_pushdown.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s push, 2s return",
             form: [
@@ -789,7 +789,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "hammer_curl",
             instructions: "Curl dumbbells with a neutral grip.",
-            gifUrl: "hammer_curl.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s up, 2s down",
             form: [
@@ -814,7 +814,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "overhead_tricep",
             instructions: "Lower dumbbell behind head and extend upward.",
-            gifUrl: "overhead_tricep.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "2s down, 1s up",
             form: [
@@ -841,7 +841,7 @@ class ExerciseDataStore {
             equipment: .barbell,
             image: "hip_thrust",
             instructions: "Drive hips upward while squeezing glutes.",
-            gifUrl: "hip_thrust.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "1s up, 3s down",
             form: [
@@ -866,7 +866,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "glute_bridge",
             instructions: "Lift hips off ground by squeezing glutes.",
-            gifUrl: "glute_bridge.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s up, 2s down",
             form: [
@@ -891,7 +891,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "bulgarian_split",
             instructions: "Lower into split squat with rear foot elevated.",
-            gifUrl: "bulgarian_split.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "2s down, 1s up",
             form: [
@@ -916,7 +916,7 @@ class ExerciseDataStore {
             equipment: .machine,
             image: "cable_kickbacks",
             instructions: "Kick leg backward while squeezing glute.",
-            gifUrl: "cable_kickbacks.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s back, 2s return",
             form: [
@@ -941,7 +941,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "romanian_deadlift",
             instructions: "Hinge at the hips while keeping a neutral spine and stretch hamstrings before returning to standing.",
-            gifUrl: "romanian_deadlift.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "3s down, 1s up",
             form: [
@@ -971,7 +971,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "jumping_jacks",
             instructions: "Jump legs out while raising arms overhead.",
-            gifUrl: "jumping_jacks.gif",
+            gifUrl: "treadmill.gif",
             level: "Beginner",
             tempo: "Fast-paced",
             form: [
@@ -996,7 +996,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "burpees",
             instructions: "Drop to plank, perform push-up, jump up explosively.",
-            gifUrl: "burpees.gif",
+            gifUrl: "treadmill.gif",
             level: "Intermediate",
             tempo: "Continuous",
             form: [
@@ -1021,7 +1021,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "mountain_climbers",
             instructions: "Alternate knees toward chest in plank position.",
-            gifUrl: "mountain_climbers.gif",
+            gifUrl: "treadmill.gif",
             level: "Beginner",
             tempo: "Fast-paced",
             form: [
@@ -1046,7 +1046,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "high_knees",
             instructions: "Run in place while lifting knees to hip height.",
-            gifUrl: "high_knees.gif",
+            gifUrl: "treadmill.gif",
             level: "Beginner",
             tempo: "Fast-paced",
             form: [
@@ -1071,7 +1071,7 @@ class ExerciseDataStore {
             equipment: .machine,
             image: "elliptical",
             instructions: "Move arms and legs in a smooth, continuous motion while maintaining an upright posture.",
-            gifUrl: "elliptical.gif",
+            gifUrl: "treadmill.gif",
             level: "Beginner",
             tempo: "Steady continuous pace",
             form: [
@@ -1097,7 +1097,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "jump_rope",
             instructions: "Jump rhythmically while spinning rope under feet.",
-            gifUrl: "jump_rope.gif",
+            gifUrl: "treadmill.gif",
             level: "Beginner",
             tempo: "Fast-paced",
             form: [
@@ -1124,7 +1124,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "cat_cow",
             instructions: "Alternate between arching and rounding spine.",
-            gifUrl: "cat_cow.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "Slow and controlled",
             form: [
@@ -1149,7 +1149,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "worlds_greatest",
             instructions: "Deep lunge with rotation to open hips and thoracic spine.",
-            gifUrl: "worlds_greatest.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "Slow",
             form: [
@@ -1174,7 +1174,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "hip_circles",
             instructions: "Circle leg to lubricate hip joint.",
-            gifUrl: "hip_circles.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "Controlled",
             form: [
@@ -1199,7 +1199,7 @@ class ExerciseDataStore {
             equipment: .resistanceBand,
             image: "shoulder_dislocations",
             instructions: "Bring band overhead and behind body to open shoulders.",
-            gifUrl: "shoulder_dislocations.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "Slow and controlled",
             form: [
@@ -1226,7 +1226,7 @@ class ExerciseDataStore {
             equipment: .kettlebell,
             image: "kettlebell_swing",
             instructions: "Hinge at hips to swing kettlebell to chest height.",
-            gifUrl: "kettlebell_swing.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "Explosive hip drive",
             form: [
@@ -1251,7 +1251,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "thrusters",
             instructions: "Squat down with dumbbells at shoulders and press overhead as you stand.",
-            gifUrl: "thrusters.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Intermediate",
             tempo: "Explosive up, 2s down",
             form: [
@@ -1276,7 +1276,7 @@ class ExerciseDataStore {
             equipment: .barbell,
             image: "clean_press",
             instructions: "Pull barbell to shoulders in a clean, then press overhead.",
-            gifUrl: "clean_press.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Advanced",
             tempo: "Explosive clean, controlled press",
             form: [
@@ -1301,7 +1301,7 @@ class ExerciseDataStore {
             equipment: .kettlebell,
             image: "turkish_getup",
             instructions: "Stand up and lie back down while holding weight overhead.",
-            gifUrl: "turkish_getup.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Advanced",
             tempo: "Slow and controlled",
             form: [
@@ -1326,7 +1326,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "tree_pose",
             instructions: "Stand on one leg and place the other foot on your calf or thigh while balancing.",
-            gifUrl: "tree_pose.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "Hold 20–40 seconds each side",
             form: [
@@ -1348,7 +1348,7 @@ class ExerciseDataStore {
     equipment: .resistanceBand,
     image: "leg_raises_band",
     instructions: "Raise and lower legs while lying down, keeping band tension.",
-    gifUrl: "leg_raises_band.gif",
+    gifUrl: "lat_pulldowns.gif",
     level: "Beginner",
     tempo: "2s up, 2s down",
     form: [
@@ -1371,7 +1371,7 @@ class ExerciseDataStore {
             equipment: .machine,
             image: "face_pulls_machine",
             instructions: "Pull handles toward face with elbows high.",
-            gifUrl: "face_pulls_machine.gif",
+            gifUrl: "lat_pulldowns.gif",
             level: "Beginner",
             tempo: "1s pull, 2s return",
             form: [

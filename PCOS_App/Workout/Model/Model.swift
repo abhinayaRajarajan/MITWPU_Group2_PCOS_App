@@ -4,6 +4,7 @@
 //
 //  Created by SDC-USER on 22/11/25.
 //
+import UIKit//for gif 
 import Foundation
 enum Equipment: String, Codable, CaseIterable {
     case allEquipment,none,barbell,dumbbell,kettlebell,machine,resistanceBand,plate
@@ -119,6 +120,10 @@ struct Exercise: Identifiable, Codable {
     var isCardio: Bool {
         muscleGroup.isCardio
     }
+    var gifImage: UIImage? {
+            guard let gifName = gifUrl else { return nil }
+            return GIFManager.shared.gif(named: gifName)
+        }
 }
 
 struct RoutineExercise: Codable, Identifiable {

@@ -75,6 +75,8 @@ class WorkoutViewController: UIViewController {
                         return section
                         
                     } else if sectionIndex == 1 {
+                        
+                        
                         // My Routines - horizontal scrolling cards
                         let itemSize = NSCollectionLayoutSize(
                             widthDimension: .absolute(200),
@@ -130,6 +132,10 @@ class WorkoutViewController: UIViewController {
             UINib(nibName: "ExploreRoutinesCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "explore_routines_cell"
         )
+        collectionView.register(
+            UINib(nibName: "MyRoutinesEmptyCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: "my_routines_empty_cell"
+        )
 
         collectionView.register(
             UINib(nibName: "MyRoutinesCollectionViewCell", bundle: nil),
@@ -149,6 +155,7 @@ class WorkoutViewController: UIViewController {
     //to reload the screen for latest routines to appear
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         collectionView.reloadData()
     }
 
@@ -168,7 +175,12 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
         if section == 0 {
             return cards.count
         } else if section == 1 {
-            return WorkoutSessionManager.shared.savedRoutines.count
+            let count = WorkoutSessionManager.shared.savedRoutines.count
+
+                // If empty → show ONE placeholder cell
+                return count == 0 ? 1 : count
+            //if true->return one cell and if false->return no of cells
+//            return WorkoutSessionManager.shared.savedRoutines.count
         } else {
             return exploreRoutine.count
         }
@@ -181,7 +193,19 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
             return cell
             
         } else if indexPath.section == 1 {
-            
+            //NEW
+            let routines = WorkoutSessionManager.shared.savedRoutines
+
+                // EMPTY STATE
+                if routines.isEmpty {
+                    let cell = collectionView.dequeueReusableCell(
+                        withReuseIdentifier: "my_routines_empty_cell",
+                        for: indexPath
+                    ) as! MyRoutinesEmptyCollectionViewCell
+
+                    return cell
+                }
+            //OLD
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "my_routines_cell", for: indexPath) as! MyRoutinesCollectionViewCell
             let routine = WorkoutSessionManager.shared.savedRoutines[indexPath.row]
             cell.configureCell(with: routine)
@@ -193,6 +217,7 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
                 self.performSegue(withIdentifier: "showStartRoutine", sender: nil)
             }
             return cell
+            
             
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "explore_routines_cell", for: indexPath) as! ExploreRoutinesCollectionViewCell
