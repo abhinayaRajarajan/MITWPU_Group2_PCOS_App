@@ -211,6 +211,7 @@ struct Card {
     let image: String
     var toBeDone: Double
     var done: Double?
+    var unit: String?
 }
 
 

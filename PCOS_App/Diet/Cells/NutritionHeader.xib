@@ -218,10 +218,7 @@
                     <rect key="frame" x="0.0" y="235" width="393" height="110"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Boost protein intake to stabilize blood sugar, increase fullness, manage weight, and improve PCOS symptoms." lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2xC-dV-nSC">
-                            <rect key="frame" x="21.666666666666657" y="46" width="350" height="52"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="350" id="0ie-JM-8dO"/>
-                            </constraints>
+                            <rect key="frame" x="16" y="46" width="361" height="52"/>
                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="13"/>
                             <color key="textColor" white="0.33000000000000002" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <nil key="highlightedColor"/>
@@ -264,7 +261,6 @@
                     </subviews>
                     <color key="backgroundColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                     <constraints>
-                        <constraint firstItem="2xC-dV-nSC" firstAttribute="centerX" secondItem="n9w-HA-h7W" secondAttribute="centerX" id="EmK-LB-9NO"/>
                         <constraint firstItem="4zi-4t-xfr" firstAttribute="centerY" secondItem="ys1-pj-Chx" secondAttribute="centerY" id="FSk-jc-zfb"/>
                         <constraint firstAttribute="height" constant="110" id="Fcb-ve-yLa"/>
                         <constraint firstItem="2xC-dV-nSC" firstAttribute="top" secondItem="4zi-4t-xfr" secondAttribute="bottom" constant="3" id="HaX-Zh-XVK"/>
@@ -273,6 +269,8 @@
                         <constraint firstAttribute="bottom" secondItem="4zi-4t-xfr" secondAttribute="bottom" constant="67" id="T5p-e8-4Gx"/>
                         <constraint firstItem="4zi-4t-xfr" firstAttribute="leading" secondItem="n9w-HA-h7W" secondAttribute="leading" constant="20" id="ebq-1Y-nqP"/>
                         <constraint firstItem="4zi-4t-xfr" firstAttribute="top" secondItem="n9w-HA-h7W" secondAttribute="top" constant="20" id="fND-Av-iDl"/>
+                        <constraint firstAttribute="trailing" secondItem="2xC-dV-nSC" secondAttribute="trailing" constant="16" id="fyJ-aL-eva"/>
+                        <constraint firstItem="2xC-dV-nSC" firstAttribute="leading" secondItem="n9w-HA-h7W" secondAttribute="leading" constant="16" id="rr4-H5-tfP"/>
                     </constraints>
                 </view>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's meals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="i0U-Pz-x9x">
@@ -320,19 +318,19 @@
         <image name="AppleIntelligenceIcon" width="500" height="500"/>
         <image name="fork.knife" catalog="system" width="94" height="128"/>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemIndigoColor">
-            <color red="0.38039215686274508" green="0.33333333333333331" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
-            <color red="1" green="0.55294117647058827" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemPurpleColor">
-            <color red="0.79607843137254897" green="0.18823529411764706" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

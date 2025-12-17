@@ -130,7 +130,7 @@ class AddMealViewController: UIViewController{
     private let describeMealButton: UIButton = {
         let button = createOptionButton(
             imageName: "text.bubble",
-            title: "Describe Meal"
+            title: "Describe"
         )
         button.tag = 3
         return button

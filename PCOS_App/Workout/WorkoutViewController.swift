@@ -9,7 +9,7 @@ import UIKit
 
 class WorkoutViewController: UIViewController {
     
-    private var cards: [Card] = [Card(name:"Calories burnt", image: "flame.fill", toBeDone: 300, done: 0),Card(name: "Steps", image: "figure.walk", toBeDone: 8000, done: 5000), Card(name: "Duration", image: "stopwatch.fill",toBeDone: 120, done: 0)]
+    private var cards: [Card] = [Card(name:"Calories burnt", image: "flame.fill", toBeDone: 300, done: 0, unit: "cal"),Card(name: "Steps", image: "figure.walk", toBeDone: 800, done: 500), Card(name: "Duration", image: "stopwatch.fill",toBeDone: 120, done: 0, unit: "s")]
     private var exploreRoutine: [Routine] = RoutineDataStore.shared.predefinedRoutines
     
     private var selectedPredefinedRoutine: Routine?
@@ -59,8 +59,9 @@ class WorkoutViewController: UIViewController {
                         // Daily Goals - horizontal, non-scrollable, dynamic sizing
                         let itemSize = NSCollectionLayoutSize(
                             widthDimension: .fractionalWidth(1.0 / 3.0),
-                            heightDimension: .fractionalWidth(1/3.0)
+                            heightDimension: .fractionalWidth(1.0 / 3.0)
                         )
+                
                         let item = NSCollectionLayoutItem(layoutSize: itemSize)
                         item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
                         
