@@ -33,7 +33,7 @@ class LogsTableViewCell: UITableViewCell {
         protein.text = "\(log.proteinContent)g"
         calories.text = "\(log.calories)kcal"
         foodImg.image = UIImage(named: log.image ?? "biryani")
-        foodImg.contentMode = .scaleAspectFill
+        //foodImg.contentMode = .scaleAspectFill
         foodImg.clipsToBounds = true
         foodImg.layer.cornerRadius = 10
     }

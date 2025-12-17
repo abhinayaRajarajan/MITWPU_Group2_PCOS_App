@@ -18,6 +18,7 @@ class PredefinedRoutinesViewController: UIViewController,UITableViewDelegate, UI
         super.viewDidLoad()
         
 //        routineNameLabel.text = routine.name
+        saveButtonOutlet.tintColor = UIColor(hex: "#FE7A96")
         title = routine.name
         navigationController?.navigationBar.prefersLargeTitles = false
         descriptionLabel.text = routine.routineDescription

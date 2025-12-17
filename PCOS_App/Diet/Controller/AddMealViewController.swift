@@ -553,12 +553,12 @@ extension AddMealViewController: BarcodeScannerDelegate {
         
         URLSession.shared.dataTask(with: url) { data, response, error in
             if let error = error {
-                print("❌ Network error:", error)
+                print("Network error:", error)
                 return
             }
             
             guard let data = data else {
-                print("❌ No data received.")
+                print("No data received.")
                 return
             }
             
@@ -566,7 +566,7 @@ extension AddMealViewController: BarcodeScannerDelegate {
                 let decoded = try JSONDecoder().decode(OFFResponse.self, from: data)
                 
                 guard decoded.status == 1, let product = decoded.product else {
-                    print("❌ Product not found in API")
+                    print("Product not found in API")
                     return
                 }
                 
@@ -578,7 +578,7 @@ extension AddMealViewController: BarcodeScannerDelegate {
                 }
                 
             } catch {
-                print("❌ JSON decode error:", error)
+                print("JSON decode error:", error)
                 print(String(data: data, encoding: .utf8) ?? "No readable data")
             }
             

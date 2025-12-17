@@ -13,6 +13,7 @@ class CreateRoutineViewController: UIViewController {
     
     @IBOutlet weak var saveRoutineButton: UIBarButtonItem!
     
+    @IBOutlet weak var addExerciseButton: UIButton!
     @IBOutlet weak var routineNameTextField: UITextField!
     
     @IBOutlet weak var estimatedDurationLabel: UILabel!
@@ -35,6 +36,12 @@ class CreateRoutineViewController: UIViewController {
         title = "Create New Routine"
         navigationController?.navigationBar.prefersLargeTitles = false
         saveRoutineButton.isEnabled = false
+        addExerciseButton.tintColor = UIColor(
+            red: 254/255,
+            green: 122/255,
+            blue: 150/255,
+            alpha: 0.8
+        )
         
         setupUI()
         registerCells()

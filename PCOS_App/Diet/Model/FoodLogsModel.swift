@@ -114,7 +114,7 @@ extension OFFProduct{
             let food: Food = Food(
                 id: UUID(),
                 name: product_name ?? "Unknown Food",
-                image: image_url,
+                image: "dietPlaceholder",
                 timeStamp: Date(),
                 quantity: 100,
                 proteinContent: nutr?.proteins100g ?? 0,
