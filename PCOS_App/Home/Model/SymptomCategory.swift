@@ -16,6 +16,11 @@ struct SymptomCategory {
             SymptomItem(name: "Red", icon: "RedSpottingIcon"),
             SymptomItem(name: "Brown", icon: "BrownSpottingIcon")
         ]),
+        SymptomCategory(title: "Flow", items: [
+            SymptomItem(name: "Heavy", icon: "RedSpottingIcon"),
+            SymptomItem(name: "Medium", icon: "RedSpottingIcon"),
+            SymptomItem(name: "Light", icon: "RedSpottingIcon")
+        ]),
         SymptomCategory(title: "Discharge", items: [
             SymptomItem(name: "Dry", icon: "DryIcon"),
             SymptomItem(name: "Sticky", icon: "StickyIcon"),

@@ -14,7 +14,7 @@
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" title="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Y6W-OH-hqX" customClass="HomeViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="1200"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tempCycleimage" translatesAutoresizingMaskIntoConstraints="NO" id="1hP-RX-9gr">
@@ -88,6 +88,11 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="yVn-8Q-YTr"/>
                                 </connections>
                             </collectionView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" estimatedRowHeight="100" sectionHeaderHeight="27" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wBp-Mg-VPq">
+                                <rect key="frame" x="16" y="552" width="361" height="298"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -104,7 +109,9 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="aDN-lD-A4I"/>
+                    <size key="freeformSize" width="393" height="1200"/>
                     <connections>
+                        <outlet property="recommendationsTableView" destination="wBp-Mg-VPq" id="hoj-tD-Bln"/>
                         <outlet property="symptomsCollectionView" destination="ur8-z2-NHi" id="5zN-Gq-YbA"/>
                     </connections>
                 </viewController>

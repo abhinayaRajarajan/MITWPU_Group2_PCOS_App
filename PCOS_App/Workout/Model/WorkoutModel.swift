@@ -310,8 +310,6 @@ class WorkoutSessionManager {
     // Helper method to add a routine
     func addRoutine(_ routine: Routine) {
         savedRoutines.append(routine)
-        print("✅ Routine saved: \(routine.name)")
-        print("📊 Total routines: \(savedRoutines.count)")
     }
     
     // Helper method to get a specific routine

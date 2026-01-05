@@ -11,6 +11,7 @@ class HomeViewController: UIViewController {
     
     
     @IBOutlet weak var symptomsCollectionView: UICollectionView!
+    @IBOutlet weak var recommendationsTableView: UITableView!
     
     // Storing selected symptoms
     private var selectedSymptoms: [LoggedSymptoms] = []
@@ -20,6 +21,9 @@ class HomeViewController: UIViewController {
         // Set title
         title = "Home"
         navigationController?.navigationBar.prefersLargeTitles = true
+        
+        view.backgroundColor = UIColor(red: 1.0, green: 0.94, blue: 0.96, alpha: 1.0)
+
         let profile = UIBarButtonItem(image:UIImage(systemName:"person.circle"), style: .plain, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem = profile
         
@@ -36,8 +40,29 @@ class HomeViewController: UIViewController {
         symptomsCollectionView.delegate = self
         symptomsCollectionView.dataSource = self
         
+        setupRecommendationsTableView()
+        
         loadTodaysSymptoms()
         
+    }
+    
+    private func setupRecommendationsTableView() {
+        recommendationsTableView.register(UINib(nibName: "RecommendationsTableViewCell", bundle: nil), forCellReuseIdentifier: "RecommendationsTableViewCell")
+        
+        // Set delegate and dataSource
+            recommendationsTableView.delegate = self
+            recommendationsTableView.dataSource = self
+            
+            // Configure table view
+            //recommendationsTableView.rowHeight = UITableView.automaticDimension
+            //recommendationsTableView.rowHeight = 140
+            //recommendationsTableView.estimatedRowHeight = 100
+            recommendationsTableView.separatorStyle = .none
+            recommendationsTableView.backgroundColor = .clear
+        
+        recommendationsTableView.separatorStyle = .singleLine
+        recommendationsTableView.separatorInset = UIEdgeInsets(top: 0, left: 32, bottom: 0, right: 32)
+        recommendationsTableView.separatorColor = UIColor(white: 0.9, alpha: 1.0)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -116,5 +141,54 @@ extension HomeViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         performSegue(withIdentifier: "showSymptomLogger", sender: self)
+    }
+}
+
+// MARK: - UITableViewDataSource
+extension HomeViewController: UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return recommendations.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "RecommendationsTableViewCell", for: indexPath) as! RecommendationsTableViewCell
+        
+        let recommendation = recommendations[indexPath.row]
+        cell.configure(with: recommendation)
+        
+        return cell
+    }
+}
+
+// MARK: - UITableViewDelegate
+extension HomeViewController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+            return "AI Recommendations"
+        }
+        
+        func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
+            if let headerView = view as? UITableViewHeaderFooterView {
+                headerView.textLabel?.font = .systemFont(ofSize: 22, weight: .bold)
+                headerView.textLabel?.textColor = .black
+            }
+        }
+        
+        func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+            return 60
+        }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let recommendation = recommendations[indexPath.row]
+        
+        // Handle navigation based on recommendation
+        print("Tapped: \(recommendation.title)")
+        
+        // You can add navigation logic here
+        // For example:
+        // if let navigationTarget = recommendation.navigationTarget {
+        //     // Navigate to specific screen
+        // }
     }
 }
