@@ -334,6 +334,17 @@ class WorkoutSessionManager {
         savedRoutines.remove(at: index)
     }
 }
+struct RoutineImageProvider {
+    static let images = [
+        "routine_1",
+        "routine_2"
+    ]
+    
+    static func random() -> String {
+        images.randomElement()!
+    }
+}
+
 
 
 

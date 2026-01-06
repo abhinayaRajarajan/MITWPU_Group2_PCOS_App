@@ -175,7 +175,9 @@ class CreateRoutineViewController: UIViewController {
             let routine = Routine(
                 id: UUID(),
                 name: name,
-                exercises: routineExercises
+                exercises: routineExercises,
+                thumbnailImageName: RoutineImageProvider.random(),
+                routineDescription: nil
             )
 
             // 4. Save to manager (FIXED: now uses addRoutine)

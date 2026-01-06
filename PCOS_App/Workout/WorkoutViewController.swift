@@ -13,7 +13,8 @@ class WorkoutViewController: UIViewController {
     private var exploreRoutine: [Routine] = RoutineDataStore.shared.predefinedRoutines
     
     private var selectedPredefinedRoutine: Routine?
-    
+    private var selectedRoutine: Routine?
+
     
     @IBOutlet weak var collectionView: UICollectionView!
 
@@ -172,6 +173,12 @@ class WorkoutViewController: UIViewController {
                 vc.routine = selectedPredefinedRoutine
             }
         }
+        //passing the routine data forward
+        if segue.identifier == "showRoutinePreview",
+           let vc = segue.destination as? RoutinePreviewViewController,
+           let routine = selectedRoutine {
+            vc.routine = routine
+        }
     }
 
 }
@@ -217,12 +224,11 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
             let routine = WorkoutSessionManager.shared.savedRoutines[indexPath.row]
             cell.configureCell(with: routine)
             cell.onStartTapped = { [weak self] in
-                guard let self = self else {return}
-                let workoutExercises = routine.exercises.map{$0.generateWorkoutExercise()}
-                let activeWorkout = ActiveWorkout(routine: routine, exercises: workoutExercises)
-                WorkoutSessionManager.shared.activeWorkout = activeWorkout
-                self.performSegue(withIdentifier: "showStartRoutine", sender: nil)
+                guard let self = self else { return }
+                self.selectedRoutine = routine
+                self.performSegue(withIdentifier: "showRoutinePreview", sender: nil)
             }
+
             return cell
             
             
@@ -263,6 +269,8 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
         
         performSegue(withIdentifier: "PredefinedRoutines", sender: nil)
     }
+   
     
+
 
 }
