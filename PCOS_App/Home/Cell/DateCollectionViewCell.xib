@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="date_cell" id="Byo-cQ-YO5" customClass="DateCollectionViewCell" customModule="PCOS_App">
+            <rect key="frame" x="0.0" y="0.0" width="70" height="110"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="M5d-Bv-VCq">
+                <rect key="frame" x="0.0" y="0.0" width="70" height="110"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="mwX-hc-b4Z">
+                        <rect key="frame" x="0.0" y="0.0" width="70" height="110"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xRK-kG-2uP">
+                                <rect key="frame" x="0.0" y="0.0" width="70" height="50"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ZJr-tV-ooP">
+                                <rect key="frame" x="0.0" y="50" width="70" height="60"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tcP-G0-FJ3">
+                                        <rect key="frame" x="0.0" y="0.0" width="70" height="60"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.39607843139999999" green="0.73333333329999995" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="tcP-G0-FJ3" secondAttribute="trailing" id="DXb-jZ-nH1"/>
+                                    <constraint firstAttribute="height" constant="60" id="LIQ-2r-ef6"/>
+                                    <constraint firstItem="tcP-G0-FJ3" firstAttribute="top" secondItem="ZJr-tV-ooP" secondAttribute="top" id="WRz-5r-2KC"/>
+                                    <constraint firstItem="tcP-G0-FJ3" firstAttribute="leading" secondItem="ZJr-tV-ooP" secondAttribute="leading" id="puZ-Rr-gM1"/>
+                                    <constraint firstAttribute="bottom" secondItem="tcP-G0-FJ3" secondAttribute="bottom" id="w1W-4X-c00"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <constraints>
+                            <constraint firstItem="xRK-kG-2uP" firstAttribute="top" secondItem="mwX-hc-b4Z" secondAttribute="top" id="7Kv-Vf-eBA"/>
+                            <constraint firstAttribute="bottom" secondItem="ZJr-tV-ooP" secondAttribute="bottom" id="KVE-5L-4I2"/>
+                            <constraint firstAttribute="trailing" secondItem="ZJr-tV-ooP" secondAttribute="trailing" id="Vaq-i2-AFh"/>
+                            <constraint firstItem="xRK-kG-2uP" firstAttribute="leading" secondItem="mwX-hc-b4Z" secondAttribute="leading" id="W7a-jW-kb1"/>
+                            <constraint firstItem="ZJr-tV-ooP" firstAttribute="leading" secondItem="mwX-hc-b4Z" secondAttribute="leading" id="mpx-zW-ABj"/>
+                            <constraint firstAttribute="trailing" secondItem="xRK-kG-2uP" secondAttribute="trailing" id="yKr-MG-HwI"/>
+                        </constraints>
+                    </stackView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="mwX-hc-b4Z" secondAttribute="bottom" id="8rb-v6-nzB"/>
+                    <constraint firstAttribute="trailing" secondItem="mwX-hc-b4Z" secondAttribute="trailing" id="CjC-6d-LWU"/>
+                    <constraint firstItem="mwX-hc-b4Z" firstAttribute="top" secondItem="M5d-Bv-VCq" secondAttribute="top" id="KBe-DW-JaR"/>
+                    <constraint firstItem="mwX-hc-b4Z" firstAttribute="leading" secondItem="M5d-Bv-VCq" secondAttribute="leading" id="T3C-NT-eHs"/>
+                </constraints>
+            </collectionViewCellContentView>
+            <size key="customSize" width="58" height="100"/>
+            <connections>
+                <outlet property="dateLabel" destination="tcP-G0-FJ3" id="nxt-bu-ASX"/>
+                <outlet property="dayLabel" destination="xRK-kG-2uP" id="aJT-4t-RZg"/>
+                <outlet property="viewDateCell" destination="ZJr-tV-ooP" id="wUa-m3-5wA"/>
+            </connections>
+            <point key="canvasLocation" x="138.93129770992365" y="54.929577464788736"/>
+        </collectionViewCell>
+    </objects>
+</document>
