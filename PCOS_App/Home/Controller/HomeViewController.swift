@@ -13,6 +13,7 @@ class HomeViewController: UIViewController {
     @IBOutlet weak var symptomsCollectionView: UICollectionView!
     @IBOutlet weak var recommendationsTableView: UITableView!
     
+    @IBOutlet weak var circleImageView: UIImageView!
     // Storing selected symptoms
     private var selectedSymptoms: [LoggedSymptoms] = []
     override func viewDidLoad() {
@@ -21,24 +22,13 @@ class HomeViewController: UIViewController {
         // Set title
         title = "Home"
         navigationController?.navigationBar.prefersLargeTitles = true
+        symptomsCollectionView.register(UINib(nibName: "SymptomEmptyCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "symptom_empty_cell")
         
         view.backgroundColor = UIColor(red: 1.0, green: 0.94, blue: 0.96, alpha: 1.0)
-        
         symptomsCollectionView.backgroundColor = UIColor(red: 1.0, green: 0.94, blue: 0.96, alpha: 1.0)
 
         let profile = UIBarButtonItem(image:UIImage(systemName:"person.circle"), style: .plain, target: self, action: #selector(addTapped))
         navigationItem.rightBarButtonItem = profile
-        
-        //        // Make sure LogButton is added to view and visible
-        //        view.addSubview(LogButton)
-        //        LogButton.translatesAutoresizingMaskIntoConstraints = false
-        //        NSLayoutConstraint.activate([
-        //            LogButton.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-        //            LogButton.centerYAnchor.constraint(equalTo: view.centerYAnchor)
-        //        ])
-        
-        
-        // Just assign delegate and dataSource (or you already connected in Storyboard)
         symptomsCollectionView.delegate = self
         symptomsCollectionView.dataSource = self
         
@@ -140,10 +130,10 @@ extension HomeViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension HomeViewController: UICollectionViewDelegate {
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        performSegue(withIdentifier: "showSymptomLogger", sender: self)
-    }
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        
+//        performSegue(withIdentifier: "showSymptomLogger", sender: self)
+//    }
 }
 
 // MARK: - UITableViewDataSource

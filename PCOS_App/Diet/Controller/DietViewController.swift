@@ -20,7 +20,9 @@ class DietViewController: UIViewController {
         super.viewDidLoad()
         title = "Diet"
                navigationController?.navigationBar.prefersLargeTitles = true
-
+        
+        view.backgroundColor = UIColor(red: 1.0, green: 0.94, blue: 0.96, alpha: 1.0)
+        
                setupNavigation()
                setupTableView()
                setupAddButtonStyle()
@@ -40,6 +42,9 @@ class DietViewController: UIViewController {
 
            private func setupTableView() {
                tableView.register(LogsTableViewCell.nib(), forCellReuseIdentifier: LogsTableViewCell.identifier)
+               
+               tableView.backgroundColor = UIColor(red: 1.0, green: 0.94, blue: 0.96, alpha: 1.0)//c
+               
                tableView.dataSource = self
                tableView.delegate = self
                tableView.estimatedRowHeight = 100
@@ -62,7 +67,7 @@ class DietViewController: UIViewController {
                }
                self.headerView = header
                header.configure()
-               header.frame.size.height = 460
+               //header.frame.size.height = 290
                tableView.tableHeaderView = header
            }
 
