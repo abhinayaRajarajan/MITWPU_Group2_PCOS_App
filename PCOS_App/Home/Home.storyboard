@@ -34,8 +34,8 @@
                                 </connections>
                             </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ur8-z2-NHi">
-                                <rect key="frame" x="0.0" y="385" width="393" height="140"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <rect key="frame" x="0.0" y="423" width="393" height="140"/>
+                                <color key="backgroundColor" red="0.99607843137254903" green="0.47843137254901957" blue="0.58823529411764708" alpha="0.20000000000000001" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="140" id="DTU-rQ-BWj"/>
                                 </constraints>
@@ -76,6 +76,7 @@
                                                 <constraint firstItem="Qd8-uc-YyP" firstAttribute="leading" secondItem="MKV-fQ-WEf" secondAttribute="leading" constant="5" id="soo-0y-jV0"/>
                                             </constraints>
                                         </collectionViewCellContentView>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <size key="customSize" width="88" height="105"/>
                                         <connections>
                                             <outlet property="IconImage" destination="oq5-7T-AIz" id="46t-Y7-H8R"/>
@@ -88,9 +89,20 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="yVn-8Q-YTr"/>
                                 </connections>
                             </collectionView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" estimatedRowHeight="100" sectionHeaderHeight="27" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wBp-Mg-VPq">
-                                <rect key="frame" x="16" y="552" width="361" height="298"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Today's Symptoms" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n5q-5z-w5U">
+                                <rect key="frame" x="16" y="395" width="180" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="AI Recommendations" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A6O-25-IKr">
+                                <rect key="frame" x="16" y="583" width="342" height="24"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="100" estimatedRowHeight="100" sectionHeaderHeight="27" estimatedSectionHeaderHeight="-1" sectionFooterHeight="28" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="wBp-Mg-VPq">
+                                <rect key="frame" x="16" y="595" width="361" height="537"/>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="5" maxX="0.0" maxY="5"/>
                             </tableView>
                         </subviews>
@@ -99,13 +111,21 @@
                         <constraints>
                             <constraint firstItem="1hP-RX-9gr" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="76" id="2z9-5m-lvl"/>
                             <constraint firstItem="ur8-z2-NHi" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" id="4NT-Pf-9he"/>
+                            <constraint firstItem="wBp-Mg-VPq" firstAttribute="top" secondItem="A6O-25-IKr" secondAttribute="bottom" constant="8" id="LGk-od-c0I"/>
                             <constraint firstItem="pYF-j1-AEs" firstAttribute="top" secondItem="1hP-RX-9gr" secondAttribute="bottom" constant="15" id="M13-LV-wpa"/>
-                            <constraint firstItem="ur8-z2-NHi" firstAttribute="top" secondItem="pYF-j1-AEs" secondAttribute="bottom" constant="10" id="QSo-5S-QII"/>
+                            <constraint firstItem="A6O-25-IKr" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="Qhg-DI-N9h"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="pYF-j1-AEs" secondAttribute="trailing" constant="150" id="d3m-4z-n4J"/>
                             <constraint firstItem="pYF-j1-AEs" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="150" id="den-ht-QRy"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="wBp-Mg-VPq" secondAttribute="bottom" id="evd-lZ-xyd"/>
+                            <constraint firstItem="n5q-5z-w5U" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="f4x-f0-uVN"/>
                             <constraint firstItem="ur8-z2-NHi" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="hvx-xR-HjC"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="wBp-Mg-VPq" secondAttribute="trailing" constant="16" id="kEc-YH-dgs"/>
                             <constraint firstItem="1hP-RX-9gr" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" constant="16" id="lKK-b6-mr5"/>
+                            <constraint firstItem="n5q-5z-w5U" firstAttribute="top" secondItem="pYF-j1-AEs" secondAttribute="bottom" constant="20" id="lYc-bf-WEH"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="1hP-RX-9gr" secondAttribute="trailing" constant="77" id="rd0-W8-iQK"/>
+                            <constraint firstItem="wBp-Mg-VPq" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="16" id="tlz-nL-wWf"/>
+                            <constraint firstItem="ur8-z2-NHi" firstAttribute="top" secondItem="n5q-5z-w5U" secondAttribute="bottom" constant="4" id="upe-wn-fJO"/>
+                            <constraint firstItem="A6O-25-IKr" firstAttribute="top" secondItem="ur8-z2-NHi" secondAttribute="bottom" id="zFW-HI-B7a"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="aDN-lD-A4I"/>
@@ -329,13 +349,13 @@
         <image name="profile" width="992" height="1056"/>
         <image name="tempCycleimage" width="183" height="191"/>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
