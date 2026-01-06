@@ -156,6 +156,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="aDN-lD-A4I"/>
                     <connections>
+                        <outlet property="monthLabel" destination="yKq-v1-tJv" id="MRU-tr-vaO"/>
                         <outlet property="symptomsCollectionView" destination="85h-sl-dg1" id="2kf-Re-ZXi"/>
                         <outlet property="weekCalendarContainer" destination="BUb-WP-Ql6" id="g7S-9F-2xs"/>
                     </connections>

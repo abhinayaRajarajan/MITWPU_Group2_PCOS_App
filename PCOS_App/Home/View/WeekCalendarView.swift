@@ -1,5 +1,5 @@
 //
-//  WeekCalendarView.swift
+//  WeekCalendarView.swift (or rename to MonthCalendarView.swift)
 //  PCOS_App
 //
 //  Created by SDC-USER on 05/01/26.
@@ -10,9 +10,14 @@ import UIKit
 class WeekCalendarView: UIView {
     
     var dateCollectionView: UICollectionView!
-    private var weekDays: [CalendarDay] = []
+    private var monthDays: [CalendarDay] = []
     private var hasScrolledToToday = false
     var selectedDate: Date = Date()
+    var currentMonth: Date = Date() {
+        didSet {
+            refreshCalendar()
+        }
+    }
     
     var onDateSelected: ((Date) -> Void)?
     
@@ -30,10 +35,10 @@ class WeekCalendarView: UIView {
     
     private func setupView() {
         print("🟢 Setting up WeekCalendarView...")
-        backgroundColor = .systemBlue
+        backgroundColor = .clear
         
-        weekDays = CalendarHelper.shared.generateWeekDays()
-        print("🟢 Generated \(weekDays.count) week days")
+        monthDays = CalendarHelper.shared.generateMonthDays(for: currentMonth)
+        print("🟢 Generated \(monthDays.count) month days")
         
         setupDateCollectionView()
         
@@ -55,11 +60,11 @@ class WeekCalendarView: UIView {
     }
     
     private func scrollToTodayIfNeeded() {
-        guard !hasScrolledToToday && weekDays.count > 0 else { return }
+        guard !hasScrolledToToday && monthDays.count > 0 else { return }
         
         print("🟢 Scrolling to today...")
         
-        if let todayIndex = weekDays.firstIndex(where: { CalendarHelper.shared.isToday($0.date) }) {
+        if let todayIndex = monthDays.firstIndex(where: { CalendarHelper.shared.isToday($0.date) }) {
             print("🟢 Today's index: \(todayIndex)")
             let indexPath = IndexPath(item: todayIndex, section: 0)
             
@@ -73,7 +78,7 @@ class WeekCalendarView: UIView {
                 )
                 
                 self.hasScrolledToToday = true
-                self.onDateSelected?(self.weekDays[todayIndex].date)
+                self.onDateSelected?(self.monthDays[todayIndex].date)
                 
                 print("✅ Scrolled to today successfully")
             }
@@ -91,10 +96,10 @@ class WeekCalendarView: UIView {
         layout.itemSize = CGSize(width: 70, height: 90)
         
         dateCollectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
-        dateCollectionView.backgroundColor = .systemPink
+        dateCollectionView.backgroundColor = .clear
         dateCollectionView.dataSource = self
         dateCollectionView.delegate = self
-        dateCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight] // Manual resizing
+        dateCollectionView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         
         // Register cell
         if Bundle.main.path(forResource: "DateCollectionViewCell", ofType: "nib") != nil {
@@ -120,10 +125,33 @@ class WeekCalendarView: UIView {
     }
     
     func refreshCalendar() {
-        weekDays = CalendarHelper.shared.generateWeekDays()
+        monthDays = CalendarHelper.shared.generateMonthDays(for: currentMonth)
         dateCollectionView.reloadData()
         hasScrolledToToday = false
-        setNeedsLayout()
+        
+        // Scroll to today if viewing current month
+        if Calendar.current.isDate(currentMonth, equalTo: Date(), toGranularity: .month) {
+            setNeedsLayout()
+        } else {
+            // Scroll to first day if viewing different month
+            if monthDays.count > 0 {
+                dateCollectionView.scrollToItem(
+                    at: IndexPath(item: 0, section: 0),
+                    at: .left,
+                    animated: true
+                )
+            }
+        }
+    }
+    
+    // Navigate to next month
+    func nextMonth() {
+        currentMonth = CalendarHelper.shared.nextMonth(from: currentMonth)
+    }
+    
+    // Navigate to previous month
+    func previousMonth() {
+        currentMonth = CalendarHelper.shared.previousMonth(from: currentMonth)
     }
 }
 
@@ -131,24 +159,20 @@ class WeekCalendarView: UIView {
 extension WeekCalendarView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("🟢 numberOfItemsInSection: \(weekDays.count)")
-        return weekDays.count
+        print("🟢 numberOfItemsInSection: \(monthDays.count)")
+        return monthDays.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        print("🟢 cellForItemAt: \(indexPath.row)")
         
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: "date_cell",
             for: indexPath
         ) as! DateCollectionViewCell
         
-        let day = weekDays[indexPath.row]
+        let day = monthDays[indexPath.row]
         cell.configureCell(date: day)
         cell.isToday = CalendarHelper.shared.isToday(day.date)
-        
-        // Debug color
-        cell.backgroundColor = .systemGreen
         
         return cell
     }
@@ -156,7 +180,7 @@ extension WeekCalendarView: UICollectionViewDataSource, UICollectionViewDelegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         collectionView.scrollToItem(at: indexPath, at: .centeredHorizontally, animated: true)
         
-        let selectedDay = weekDays[indexPath.row]
+        let selectedDay = monthDays[indexPath.row]
         selectedDate = selectedDay.date
         
         onDateSelected?(selectedDay.date)

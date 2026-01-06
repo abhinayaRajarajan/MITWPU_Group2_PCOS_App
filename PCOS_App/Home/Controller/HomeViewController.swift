@@ -12,6 +12,7 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var symptomsCollectionView: UICollectionView!
     @IBOutlet weak var weekCalendarContainer: UIView!
+    @IBOutlet weak var monthLabel: UILabel!
     @IBOutlet weak var dateCollectionView: UICollectionView!
     
     let weekCalendar = WeekCalendarView()
@@ -39,6 +40,7 @@ class HomeViewController: UIViewController {
             symptomsCollectionView.dataSource = self
             
             setupWeekCalendar()
+            updateMonthLabel()
             loadSymptomsForDate(Date())
         }
         
@@ -52,10 +54,6 @@ class HomeViewController: UIViewController {
             
             // Update frame when layout changes
             weekCalendar.frame = weekCalendarContainer.bounds
-            
-            print("📐 viewDidLayoutSubviews:")
-            print("   Container bounds: \(weekCalendarContainer.bounds)")
-            print("   Calendar frame: \(weekCalendar.frame)")
             
             if weekCalendar.frame.size.width > 0 {
                 weekCalendar.layoutSubviews()
@@ -71,25 +69,26 @@ class HomeViewController: UIViewController {
         private func setupWeekCalendar() {
             print("🔵 Setting up week calendar...")
             
-            // Use manual frame layout instead of Auto Layout
+            // Use manual frame layout
             weekCalendar.translatesAutoresizingMaskIntoConstraints = true
             weekCalendar.frame = weekCalendarContainer.bounds
             weekCalendar.autoresizingMask = [.flexibleWidth, .flexibleHeight]
             
             weekCalendarContainer.addSubview(weekCalendar)
             
-            // Debug colors
-            weekCalendar.backgroundColor = .systemYellow
-            weekCalendarContainer.backgroundColor = .systemPurple
-            
-            print("🔵 Calendar frame after setup: \(weekCalendar.frame)")
-            print("🔵 Container bounds: \(weekCalendarContainer.bounds)")
+            weekCalendar.backgroundColor = .clear
+            weekCalendarContainer.backgroundColor = .clear
             
             weekCalendar.onDateSelected = { [weak self] date in
                 print("📅 Date selected: \(date)")
                 self?.currentSelectedDate = date
                 self?.loadSymptomsForDate(date)
             }
+        }
+        
+        private func updateMonthLabel() {
+            // If you added a month label
+            monthLabel?.text = CalendarHelper.shared.getMonthName(from: weekCalendar.currentMonth)
         }
         
         private func loadSymptomsForDate(_ date: Date) {
@@ -108,6 +107,17 @@ class HomeViewController: UIViewController {
             if let vc = storyboard?.instantiateViewController(withIdentifier: "profileVC") as? ProfileViewController {
                 navigationController?.pushViewController(vc, animated: true)
             }
+        }
+        
+        // Optional: Add these if you want month navigation buttons
+        @IBAction func previousMonthTapped(_ sender: UIButton) {
+            weekCalendar.previousMonth()
+            updateMonthLabel()
+        }
+        
+        @IBAction func nextMonthTapped(_ sender: UIButton) {
+            weekCalendar.nextMonth()
+            updateMonthLabel()
         }
         
         @IBAction func logButtonTapped(_ sender: UIButton) {
