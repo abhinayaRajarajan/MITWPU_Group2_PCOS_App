@@ -86,14 +86,13 @@ class WeekCalendarView: UIView {
     }
     
     private func setupDateCollectionView() {
-        print("🟢 Setting up date collection view...")
         
         let layout = UICollectionViewFlowLayout()
         layout.scrollDirection = .horizontal
-        layout.minimumLineSpacing = 8
-        layout.minimumInteritemSpacing = 8
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
-        layout.itemSize = CGSize(width: 70, height: 90)
+        layout.minimumLineSpacing = 8 // More spacing between cells
+        layout.minimumInteritemSpacing = 12
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        layout.itemSize = CGSize(width: 50, height: 80) // Taller cells for day labels
         
         dateCollectionView = UICollectionView(frame: bounds, collectionViewLayout: layout)
         dateCollectionView.backgroundColor = .clear
@@ -103,13 +102,11 @@ class WeekCalendarView: UIView {
         
         // Register cell
         if Bundle.main.path(forResource: "DateCollectionViewCell", ofType: "nib") != nil {
-            print("✅ Found DateCollectionViewCell.xib")
             dateCollectionView.register(
                 UINib(nibName: "DateCollectionViewCell", bundle: nil),
                 forCellWithReuseIdentifier: "date_cell"
             )
         } else {
-            print("❌ DateCollectionViewCell.xib NOT FOUND!")
             dateCollectionView.register(
                 DateCollectionViewCell.self,
                 forCellWithReuseIdentifier: "date_cell"
@@ -121,7 +118,6 @@ class WeekCalendarView: UIView {
         
         addSubview(dateCollectionView)
         
-        print("🟢 Date collection view added with frame: \(dateCollectionView.frame)")
     }
     
     func refreshCalendar() {
@@ -159,7 +155,6 @@ class WeekCalendarView: UIView {
 extension WeekCalendarView: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("🟢 numberOfItemsInSection: \(monthDays.count)")
         return monthDays.count
     }
     

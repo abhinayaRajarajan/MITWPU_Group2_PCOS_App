@@ -58,6 +58,18 @@
                                             </collectionView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bci-FG-oBd">
                                                 <rect key="frame" x="16" y="168.33333333333331" width="361" height="180"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ypk-aI-Cde">
+                                                        <rect key="frame" x="118" y="128" width="126" height="35"/>
+                                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                        <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <state key="normal" title="Button"/>
+                                                        <buttonConfiguration key="configuration" style="filled" title="Cycle reports"/>
+                                                        <connections>
+                                                            <segue destination="zAH-Yf-Cdc" kind="show" id="EJh-Qc-ThF"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="180" id="Qc1-YI-VUO"/>
@@ -254,6 +266,89 @@
             </objects>
             <point key="canvasLocation" x="1041.9847328244275" y="91.549295774647888"/>
         </scene>
+        <!--CycleReportsViewController-->
+        <scene sceneID="CSU-r7-SQY">
+            <objects>
+                <viewController storyboardIdentifier="CycleReportsViewController" title="CycleReportsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="zAH-Yf-Cdc" customClass="CycleReportsViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="7FF-lI-fLW">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FBg-PT-awu">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jah-Fx-GWC">
+                                        <rect key="frame" x="0.0" y="3" width="424" height="801"/>
+                                        <subviews>
+                                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="twP-JU-g6S">
+                                                <rect key="frame" x="22" y="37" width="353" height="223"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="My Cycles" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t8l-DO-z3o">
+                                                        <rect key="frame" x="16" y="26" width="103" height="36"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="22"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="xy cycles history logged" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Niz-i6-ffW">
+                                                        <rect key="frame" x="16" y="81" width="169.66666666666666" height="21"/>
+                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xWB-j3-hjM">
+                                                        <rect key="frame" x="16" y="110" width="150" height="93"/>
+                                                        <color key="backgroundColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mb5-Ih-oHa">
+                                                        <rect key="frame" x="174" y="110" width="150" height="93"/>
+                                                        <color key="backgroundColor" systemColor="systemYellowColor"/>
+                                                    </view>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="Niz-i6-ffW" firstAttribute="top" secondItem="t8l-DO-z3o" secondAttribute="bottom" constant="5" id="3Fc-RC-V0y"/>
+                                                    <constraint firstItem="xWB-j3-hjM" firstAttribute="leading" secondItem="twP-JU-g6S" secondAttribute="leading" constant="16" id="B5r-2l-hPV"/>
+                                                    <constraint firstItem="t8l-DO-z3o" firstAttribute="leading" secondItem="twP-JU-g6S" secondAttribute="leading" constant="16" id="NPt-Gz-Bhu"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Mb5-Ih-oHa" secondAttribute="trailing" constant="16" id="pN3-ek-Zs4"/>
+                                                    <constraint firstItem="Niz-i6-ffW" firstAttribute="leading" secondItem="twP-JU-g6S" secondAttribute="leading" constant="16" id="z9C-Jz-8y3"/>
+                                                </constraints>
+                                            </view>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.82745098039999998" green="0.82745098039999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="jah-Fx-GWC" secondAttribute="bottom" constant="-10" id="82E-Df-iMa"/>
+                                    <constraint firstItem="jah-Fx-GWC" firstAttribute="top" secondItem="joI-bG-oQN" secondAttribute="top" constant="62" id="AUX-9p-xZ6"/>
+                                    <constraint firstAttribute="trailing" secondItem="jah-Fx-GWC" secondAttribute="trailing" constant="-31" id="JDU-f3-dnJ"/>
+                                    <constraint firstItem="jah-Fx-GWC" firstAttribute="leading" secondItem="FBg-PT-awu" secondAttribute="leading" id="Opm-RK-qrg"/>
+                                </constraints>
+                                <viewLayoutGuide key="contentLayoutGuide" id="qlh-GS-WLU"/>
+                                <viewLayoutGuide key="frameLayoutGuide" id="joI-bG-oQN"/>
+                            </scrollView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Fk6-ik-2q6"/>
+                        <color key="backgroundColor" red="0.82745098039215681" green="0.82745098039215681" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="FBg-PT-awu" firstAttribute="trailing" secondItem="Fk6-ik-2q6" secondAttribute="trailing" id="FcP-Nx-BfE"/>
+                            <constraint firstItem="FBg-PT-awu" firstAttribute="leading" secondItem="Fk6-ik-2q6" secondAttribute="leading" id="Hmi-OI-ucI"/>
+                            <constraint firstItem="jah-Fx-GWC" firstAttribute="width" secondItem="7FF-lI-fLW" secondAttribute="width" multiplier="1.07888" id="Io7-NS-3QN"/>
+                            <constraint firstItem="FBg-PT-awu" firstAttribute="top" secondItem="7FF-lI-fLW" secondAttribute="top" id="T1s-iL-OEe"/>
+                            <constraint firstItem="jah-Fx-GWC" firstAttribute="height" secondItem="7FF-lI-fLW" secondAttribute="height" multiplier="1.01009" id="wja-FW-i7K"/>
+                            <constraint firstItem="FBg-PT-awu" firstAttribute="bottom" secondItem="Fk6-ik-2q6" secondAttribute="bottom" id="yP2-bh-VFs"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="v6e-cf-G2V"/>
+                    <connections>
+                        <outlet property="cycleDaysCard" destination="Mb5-Ih-oHa" id="8Sp-ap-2sR"/>
+                        <outlet property="cyclesView" destination="twP-JU-g6S" id="iVH-9W-JoZ"/>
+                        <outlet property="periodDaysCard" destination="xWB-j3-hjM" id="eUU-f0-Edn"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="M96-oN-Leg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="139.69465648854961" y="869.71830985915494"/>
+        </scene>
         <!--Profile View Controller-->
         <scene sceneID="Nhj-W0-eFo">
             <objects>
@@ -385,6 +480,9 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemYellowColor">
+            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

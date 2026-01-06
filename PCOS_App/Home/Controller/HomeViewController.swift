@@ -49,25 +49,24 @@ class HomeViewController: UIViewController {
             loadSymptomsForDate(currentSelectedDate)
         }
         
-        override func viewDidLayoutSubviews() {
-            super.viewDidLayoutSubviews()
-            
-            // Update frame when layout changes
-            weekCalendar.frame = weekCalendarContainer.bounds
-            
-            if weekCalendar.frame.size.width > 0 {
-                weekCalendar.layoutSubviews()
-            }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // Give calendar more height
+        let calendarFrame = weekCalendarContainer.bounds
+        //calendarFrame.size.height = 120
+        weekCalendar.frame = calendarFrame
+        
+        if weekCalendar.frame.size.width > 0 {
+            weekCalendar.layoutSubviews()
         }
+    }
         
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
-            print("After layout - container frame: \(weekCalendarContainer.frame)")
-            print("After layout - calendar frame: \(weekCalendar.frame)")
         }
         
         private func setupWeekCalendar() {
-            print("🔵 Setting up week calendar...")
             
             // Use manual frame layout
             weekCalendar.translatesAutoresizingMaskIntoConstraints = true
@@ -80,16 +79,18 @@ class HomeViewController: UIViewController {
             weekCalendarContainer.backgroundColor = .clear
             
             weekCalendar.onDateSelected = { [weak self] date in
-                print("📅 Date selected: \(date)")
                 self?.currentSelectedDate = date
                 self?.loadSymptomsForDate(date)
             }
+            
+            updateMonthLabel()
         }
-        
-        private func updateMonthLabel() {
-            // If you added a month label
-            monthLabel?.text = CalendarHelper.shared.getMonthName(from: weekCalendar.currentMonth)
-        }
+    
+    private func updateMonthLabel() {
+        monthLabel.text = CalendarHelper.shared.getMonthName(from: weekCalendar.currentMonth)
+        monthLabel.font = UIFont.systemFont(ofSize: 16, weight: .medium)
+        monthLabel.textColor = .secondaryLabel
+    }
         
         private func loadSymptomsForDate(_ date: Date) {
             let dateKey = CalendarHelper.shared.dateKey(for: date)
@@ -121,7 +122,7 @@ class HomeViewController: UIViewController {
         }
         
         @IBAction func logButtonTapped(_ sender: UIButton) {
-            performSegue(withIdentifier: "showSymptomLogger", sender: self)
+            //performSegue(withIdentifier: "showSymptomLogger", sender: self)
         }
         
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
