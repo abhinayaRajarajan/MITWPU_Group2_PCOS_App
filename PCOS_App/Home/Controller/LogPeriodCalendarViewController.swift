@@ -24,6 +24,7 @@ class LogPeriodCalendarViewController: UIViewController {
         // Add DONE button to navigation bar
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped))
         navigationItem.rightBarButtonItem = doneButton
+        doneButton.tintColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 0.8)
         
         setupDisplayedMonths()
         setupCollectionView()

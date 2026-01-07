@@ -17,14 +17,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="tempCycleimage" translatesAutoresizingMaskIntoConstraints="NO" id="1hP-RX-9gr">
-                                <rect key="frame" x="76" y="134" width="240" height="191"/>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="tempCycleimage" translatesAutoresizingMaskIntoConstraints="NO" id="1hP-RX-9gr">
+                                <rect key="frame" x="76" y="83" width="240" height="191"/>
                             </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pYF-j1-AEs">
+                                <rect key="frame" x="37" y="291" width="93" height="35"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="35" id="szJ-jf-Sqs"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Log">
+                                    <color key="baseBackgroundColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <segue destination="IDJ-Z5-dCr" kind="show" identifier="showSymptomLogger" id="YQn-5L-2cT"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6WC-aj-38t">
+                                <rect key="frame" x="226" y="291" width="106" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Log Period"/>
+                                <connections>
+                                    <segue destination="RvY-hQ-L2c" kind="show" id="ias-CG-sNj"/>
+                                </connections>
+                            </button>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="ur8-z2-NHi">
-                                <rect key="frame" x="0.0" y="385" width="393" height="140"/>
+                                <rect key="frame" x="0.0" y="385" width="393" height="100"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="140" id="DTU-rQ-BWj"/>
+                                    <constraint firstAttribute="height" constant="100" id="DTU-rQ-BWj"/>
                                 </constraints>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="855-5M-8Mb">
                                     <size key="itemSize" width="88" height="105"/>
@@ -34,7 +57,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="SymptomItemCollectionViewCell" id="evG-mD-vOy" customClass="SymptomItemCollectionViewCell" customModule="PCOS_App" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="17.666666666666668" width="88" height="105"/>
+                                        <rect key="frame" x="16" y="-2.6666666666666665" width="88" height="105"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="MKV-fQ-WEf">
                                             <rect key="frame" x="0.0" y="0.0" width="88" height="105"/>
@@ -75,29 +98,11 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="yVn-8Q-YTr"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6WC-aj-38t">
-                                <rect key="frame" x="226" y="342" width="106" height="35"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" id="WSZ-Sg-FFB">
+                                <rect key="frame" x="16" y="521" width="361" height="289"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Log Period"/>
-                                <connections>
-                                    <segue destination="RvY-hQ-L2c" kind="show" id="ias-CG-sNj"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pYF-j1-AEs">
-                                <rect key="frame" x="37" y="342" width="93" height="35"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="szJ-jf-Sqs"/>
-                                </constraints>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="filled" title="Log">
-                                    <color key="baseBackgroundColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                </buttonConfiguration>
-                                <connections>
-                                    <segue destination="IDJ-Z5-dCr" kind="show" identifier="showSymptomLogger" id="YQn-5L-2cT"/>
-                                </connections>
-                            </button>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -115,6 +120,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="aDN-lD-A4I"/>
                     <connections>
+                        <outlet property="recommendationsTableView" destination="WSZ-Sg-FFB" id="zPy-te-tvN"/>
                         <outlet property="symptomsCollectionView" destination="ur8-z2-NHi" id="5zN-Gq-YbA"/>
                     </connections>
                 </viewController>

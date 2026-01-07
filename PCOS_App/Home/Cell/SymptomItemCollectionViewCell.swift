@@ -33,7 +33,7 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
             IconImage?.layer.cornerRadius = 25 // Will be 50x50, so half is 25
             IconImage?.clipsToBounds = true
             IconImage?.contentMode = .scaleAspectFit
-            IconImage?.backgroundColor = .white
+            IconImage?.backgroundColor = .clear
             
             // Label setup
 //            symptomLabel?.textAlignment = .center
