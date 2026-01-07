@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="home_header" id="gTV-IL-0wX" customClass="HomeHeaderCollectionViewCell" customModule="PCOS_App" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="361" height="199"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="361" height="199"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="HomeImage" translatesAutoresizingMaskIntoConstraints="NO" id="g2T-lj-wDu">
+                        <rect key="frame" x="0.0" y="0.0" width="361" height="199"/>
+                    </imageView>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstItem="g2T-lj-wDu" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0G5-ay-T7G"/>
+                <constraint firstAttribute="bottom" secondItem="g2T-lj-wDu" secondAttribute="bottom" id="0gL-d3-m3q"/>
+                <constraint firstItem="g2T-lj-wDu" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="LzK-ok-pNE"/>
+                <constraint firstAttribute="trailing" secondItem="g2T-lj-wDu" secondAttribute="trailing" id="nyB-1w-gRE"/>
+            </constraints>
+            <size key="customSize" width="361" height="199"/>
+            <point key="canvasLocation" x="135.1145038167939" y="203.16901408450704"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="HomeImage" width="736" height="1082"/>
+    </resources>
+</document>
