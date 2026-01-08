@@ -17,6 +17,7 @@ class LogsTableViewCell: UITableViewCell {
     @IBOutlet weak var foodName: UILabel!
     @IBOutlet weak var foodImg: UIImageView!
     
+    @IBOutlet weak var innerCell: UIView!
     static var identifier = "LogsTableViewCell"
     static func nib() -> UINib {
         return UINib(nibName: identifier, bundle: nil)
@@ -34,7 +35,7 @@ class LogsTableViewCell: UITableViewCell {
         protein.text = "\(Int(log.proteinContent))g"
         calories.text = "\(Int(log.calories))kcal"
         foodImg.image = UIImage(named: log.image ?? "biryani")
-        cell.layer.cornerRadius = 10
+        innerCell.layer.cornerRadius = 10
         foodImg.clipsToBounds = true
         foodImg.layer.cornerRadius = 10
     }
