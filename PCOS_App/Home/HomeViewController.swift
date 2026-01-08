@@ -11,27 +11,47 @@ class HomeViewController: UIViewController {
     
     @IBOutlet weak var symptomsCollectionView: UICollectionView!
     
-    @IBOutlet weak var headerCollectionView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
     // Storing selected symptoms
     private var selectedSymptoms: [LoggedSymptoms] = []
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Set title
-        title = "Hi Priya"
+        title = "Today"
         navigationController?.navigationBar.prefersLargeTitles = true
         
-        let profile = UIBarButtonItem(image:UIImage(systemName:"person.circle"), style: .plain, target: self, action: #selector(addTapped))
-        navigationItem.rightBarButtonItem = profile
+        let bgColor = UIColor(hex: "#FCEEED")
+            collectionView.backgroundColor = bgColor
+            view.backgroundColor = bgColor
         
-        headerCollectionView.dataSource = self
-        headerCollectionView.delegate = self
+        let calendar = UIBarButtonItem(
+            image: UIImage(systemName: "calendar"),
+            style: .plain,
+            target: self,
+            action: #selector(addTapped)
+        )
+
+        let profile = UIBarButtonItem(
+            image: UIImage(systemName: "person.circle"),
+            style: .plain,
+            target: self,
+            action: #selector(addTapped)
+        )
+
+        navigationItem.rightBarButtonItems = [profile, calendar]
+
+        
+        
+        collectionView.dataSource = self
+        collectionView.delegate = self
         
         registerCells()
+        collectionView.collectionViewLayout = createCompositionalLayout()
         
     }
     func registerCells() {
-        headerCollectionView.register(
+        collectionView.register(
             UINib(
                 nibName: "HomeHeaderCollectionViewCell",
                 bundle: nil
@@ -42,6 +62,27 @@ class HomeViewController: UIViewController {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "profileVC") as? ProfileViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
+    }
+    func createCompositionalLayout() -> UICollectionViewLayout {
+        return UICollectionViewCompositionalLayout { (sectionIndex, env) -> NSCollectionLayoutSection? in
+            switch sectionIndex {
+//            case 0: return self.createHomeHeaderSection()
+//            case 1: return self.createGardenSection()
+//            case 2: return self.createGoalsSection()
+//            case 3: return self.createUpcomingSection()
+//            case 4: return self.createMemoriesSection()
+//            case 5: return self.createArticlesSection()
+            default: return self.createHomeHeaderSection()
+            }
+        }
+    }
+    
+    func createHomeHeaderSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(500))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: itemSize, subitems: [NSCollectionLayoutItem(layoutSize: itemSize)])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .zero
+        return section
     }
 }
 
@@ -55,16 +96,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         return cell
     }
     
-    // 4. Define the size of your header
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // This makes the cell take up about 45% of the screen height
-        return CGSize(width: collectionView.frame.width, height: view.frame.height * 0.45)
-    }
+    
 }
-
-
-//        let profile = UIBarButtonItem(image:UIImage(systemName:"person.circle"), style: .plain, target: self, action: #selector(addTapped))
-//        navigationItem.rightBarButtonItem = profile
 
 
 // Just assign delegate and dataSource (or you already connected in Storyboard)

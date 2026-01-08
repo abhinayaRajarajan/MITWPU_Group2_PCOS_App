@@ -49,12 +49,12 @@
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="aDN-lD-A4I"/>
                     <connections>
-                        <outlet property="headerCollectionView" destination="UKk-TN-cVJ" id="aGy-xQ-kbE"/>
+                        <outlet property="collectionView" destination="UKk-TN-cVJ" id="aGy-xQ-kbE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139.69465648854961" y="91.549295774647888"/>
+            <point key="canvasLocation" x="-69" y="77"/>
         </scene>
         <!--Symptom Logger View Controller-->
         <scene sceneID="E5T-Zi-Izf">
@@ -143,7 +143,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mVK-Ro-sCR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1041.9847328244275" y="91.549295774647888"/>
+            <point key="canvasLocation" x="1373" y="77"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="Nhj-W0-eFo">
