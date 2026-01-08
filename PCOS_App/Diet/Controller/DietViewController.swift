@@ -45,7 +45,7 @@ class DietViewController: UIViewController {
                tableView.rowHeight = 100
                tableView.separatorStyle = .singleLine
                tableView.register(NutritionHeader.nib(), forHeaderFooterViewReuseIdentifier: NutritionHeader.identifier)
-               tableView.separatorStyle = .none 
+               tableView.separatorStyle = .none
            }
 
            private func setupAddButtonStyle() {
