@@ -1,0 +1,38 @@
+name: iOS Simulator Build
+
+on:
+  push:
+    branches: [ feature-diet ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode.app
+
+      - name: Build for iOS Simulator
+        run: |
+          xcodebuild \
+            -project PCOS_App.xcodeproj \
+            -scheme PCOS_App \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 14' \
+            -configuration Debug \
+            build \
+            CODE_SIGNING_ALLOWED=NO
+
+      - name: Locate .app
+        run: |
+          find ~/Library/Developer/Xcode/DerivedData -name "*.app"
+
+      - name: Upload .app artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ios-simulator-app
+          path: ~/Library/Developer/Xcode/DerivedData/**/Build/Products/Debug-iphonesimulator/*.app
