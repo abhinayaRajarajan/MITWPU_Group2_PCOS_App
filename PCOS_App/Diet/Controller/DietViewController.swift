@@ -19,13 +19,12 @@ class DietViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Diet"
-               navigationController?.navigationBar.prefersLargeTitles = true
-
-               setupNavigation()
-               setupTableView()
-               setupAddButtonStyle()
-               setupHeaderView()
-           }
+        navigationController?.navigationBar.prefersLargeTitles = true
+        setupNavigation()
+        setupTableView()
+        setupAddButtonStyle()
+        headerView?.setValues()
+    }
 
            override func viewWillAppear(_ animated: Bool) {
                super.viewWillAppear(animated)
@@ -45,6 +44,8 @@ class DietViewController: UIViewController {
                tableView.estimatedRowHeight = 100
                tableView.rowHeight = 100
                tableView.separatorStyle = .singleLine
+               tableView.register(NutritionHeader.nib(), forHeaderFooterViewReuseIdentifier: NutritionHeader.identifier)
+               tableView.separatorStyle = .none 
            }
 
            private func setupAddButtonStyle() {
@@ -56,15 +57,6 @@ class DietViewController: UIViewController {
                AddMealButton.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
            }
 
-           private func setupHeaderView() {
-               guard let header = Bundle.main.loadNibNamed("NutritionHeader", owner: self, options: nil)?.first as? NutritionHeader else {
-                   return
-               }
-               self.headerView = header
-               header.configure()
-               header.frame.size.height = 460
-               tableView.tableHeaderView = header
-           }
 
            //Actions
            @objc func calendarTapped() {
@@ -122,20 +114,22 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100
-//    }
-    
     //Handle Row Selection (THIS IS THE KEY METHOD)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
         let selectedFood = todaysFoods[indexPath.row]
-        
         print("🔍 Selected food: \(selectedFood.name)")
-        
-        // Navigate to foodLogIngredientViewController
         FoodLogIngredientViewController.present(from: self, with: selectedFood)
+    }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NutritionHeader.identifier) as! NutritionHeader
+        headerView.configure()
+        return headerView
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        240
     }
 }
 

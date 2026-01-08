@@ -7,12 +7,10 @@
 
 import UIKit
 
-class NutritionHeader: UIView {
+class NutritionHeader: UITableViewHeaderFooterView {
 
     @IBOutlet weak var nutritionCard: UIView!
     
-    @IBOutlet weak var recommendationCard: UIView!
-    @IBOutlet weak var AIToken: UIView!
     
     @IBOutlet weak var stackMacros: UIStackView!
     
@@ -35,21 +33,16 @@ class NutritionHeader: UIView {
     var carbs : Double = 0
     var fibre: Double = 0
     
+    static var identifier = "NutritionHeader"
+    static func nib() -> UINib {
+        return UINib(nibName: identifier, bundle: nil)
+    }
+    
     
     func configure(){
-        nutritionCard.layer.cornerRadius = 25
-        recommendationCard.layer.cornerRadius = 15
-        
-        nutritionCard.layer.borderWidth = 1
-        nutritionCard.layer.borderColor = UIColor.systemGray4.cgColor
-        
-        recommendationCard.layer.shadowColor = UIColor.black.cgColor
-        recommendationCard.layer.shadowOpacity = 0.2
-        
-        stackMacros.layer.cornerRadius = 25
-        //stackMacros.layer.backgroundColor = UIColor.systemGray6.cgColor
-        AIToken.layer.cornerRadius = 10
-        setValues()
+        nutritionCard.layer.cornerRadius = 20
+        nutritionCard.layer.masksToBounds = true
+        stackMacros.layer.cornerRadius = 20
     }
     
     func setValues(){

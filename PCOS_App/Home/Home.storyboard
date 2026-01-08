@@ -88,6 +88,12 @@
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="yVn-8Q-YTr"/>
                                 </connections>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="P9p-JY-zHx">
+                                <rect key="frame" x="111" y="649" width="128" height="35"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="protein intake"/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -200,6 +206,21 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mVK-Ro-sCR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1041.9847328244275" y="91.549295774647888"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="xsZ-W2-hjv">
+            <objects>
+                <viewController id="18G-zf-IRP" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="lY9-J2-YCi">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="OOV-6d-iqR"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yvc-E2-aef" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="91" y="846"/>
         </scene>
         <!--Profile View Controller-->
         <scene sceneID="Nhj-W0-eFo">
@@ -322,13 +343,13 @@
         <image name="profile" width="992" height="1056"/>
         <image name="tempCycleimage" width="183" height="191"/>
         <systemColor name="opaqueSeparatorColor">
-            <color red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGray4Color">
-            <color red="0.81960784310000001" green="0.81960784310000001" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -9,6 +9,7 @@ import UIKit
 
 class LogsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var cell: UIView!
     @IBOutlet weak var fats: UILabel!
     @IBOutlet weak var carbs: UILabel!
     @IBOutlet weak var protein: UILabel!
@@ -28,12 +29,12 @@ class LogsTableViewCell: UITableViewCell {
     
     func configure(with log: Food) {
         foodName.text = log.name
-        fats.text = "\(log.fatsContent)g"
-        carbs.text = "\(log.carbsContent)g"
-        protein.text = "\(log.proteinContent)g"
-        calories.text = "\(log.calories)kcal"
+        fats.text = "\(Int(log.fatsContent))g"
+        carbs.text = "\(Int(log.carbsContent))g"
+        protein.text = "\(Int(log.proteinContent))g"
+        calories.text = "\(Int(log.calories))kcal"
         foodImg.image = UIImage(named: log.image ?? "biryani")
-        //foodImg.contentMode = .scaleAspectFill
+        cell.layer.cornerRadius = 10
         foodImg.clipsToBounds = true
         foodImg.layer.cornerRadius = 10
     }

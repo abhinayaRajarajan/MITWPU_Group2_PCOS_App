@@ -18,7 +18,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="YNy-e6-oic">
                                 <rect key="frame" x="16" y="118" width="361" height="666"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                             </tableView>
                             <button opaque="NO" alpha="0.80000000000000004" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NAg-IL-1Sm">
                                 <rect key="frame" x="288" y="704" width="80" height="55"/>
@@ -32,7 +32,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.9882352941176471" green="0.93333333333333335" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="NAg-IL-1Sm" secondAttribute="bottom" constant="25" id="JZ0-6Z-1uc"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="YNy-e6-oic" secondAttribute="bottom" id="R3o-Lb-u70"/>
