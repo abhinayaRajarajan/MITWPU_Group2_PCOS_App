@@ -32,7 +32,7 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
             // Icon setup - circular white background
             IconImage?.layer.cornerRadius = 25 // Will be 50x50, so half is 25
             IconImage?.clipsToBounds = true
-            IconImage?.contentMode = .scaleAspectFit
+            IconImage?.contentMode = .scaleToFill
             IconImage?.backgroundColor = .clear
             
             // Label setup
@@ -49,7 +49,7 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
             }
             
             label.text = symptom.name
-            iconImage.image = UIImage(named: symptom.icon)
+          iconImage.image = UIImage(named: symptom.icon)
             
             updateSelectionState(isSelected)
                 
@@ -57,11 +57,12 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
     
     private func updateSelectionState(_ isSelected: Bool) {
         if isSelected {
-                    contentView.backgroundColor = UIColor.systemGray3
-                    symptomLabel.textColor = .white
+                    contentView.backgroundColor = UIColor.white
+                    symptomLabel.textColor = .black
+            
                 } else {
                     contentView.backgroundColor = .clear
-                    symptomLabel.textColor = .gray
+                    symptomLabel.textColor = .black
                 }
         }
     //Added this to ensure state is reset when cell is reused

@@ -44,6 +44,7 @@ class HomeViewController: UIViewController {
         symptomsCollectionView.delegate = self
         symptomsCollectionView.dataSource = self
         
+        
         loadTodaysSymptoms()
         
         setupRecommendationsTableView()

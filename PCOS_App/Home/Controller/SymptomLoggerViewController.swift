@@ -22,6 +22,9 @@ class SymptomLoggerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        collectionView.backgroundColor = UIColor(hex: "#FCEEED")
+        view.backgroundColor = UIColor(hex: "#FCEEED")
+        
         title = "Today's Symptoms"
         navigationController?.navigationBar.prefersLargeTitles = true
         
