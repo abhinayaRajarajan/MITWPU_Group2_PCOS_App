@@ -9,8 +9,8 @@ class AddMealViewController: UIViewController{
     @IBOutlet weak var foodTableView: UITableView!
     
     weak var delegate: AddMealDelegate?
-    private var foodItems: [FoodItem] = []
-    private var filteredFoodItems: [FoodItem] = []
+    private var foodItems: [InsulinFoodItem] = []
+    private var filteredFoodItems: [InsulinFoodItem] = []
     private var selectedQuantities: [String: Int] = [:]
     
     // handlebar UI
@@ -468,7 +468,7 @@ extension AddMealViewController: UITableViewDelegate {
         generator.impactOccurred()
     }
     
-    private func openFoodDetailScreen(for foodItem: FoodItem) {
+    private func openFoodDetailScreen(for foodItem: InsulinFoodItem) {
         // TODO: Create and push to FoodDetailViewController
         let storyboard = UIStoryboard(name: "Diet", bundle: nil)
         

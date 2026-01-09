@@ -61,7 +61,7 @@ class FoodListTeableViewCell: UITableViewCell {
      }
      
      // MARK: - Configuration
-     func configure(with foodItem: FoodItem) {
+     func configure(with foodItem: InsulinFoodItem) {
          foodNamleLabel.text = foodItem.name
      }
  }

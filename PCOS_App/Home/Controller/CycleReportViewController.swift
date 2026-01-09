@@ -18,6 +18,10 @@ class CycleReportViewController: UIViewController {
     @IBOutlet weak var cycleRegularityCard: UIView!
     
     @IBOutlet weak var periodCycleChartView: PeriodCycleChartView!
+    
+    @IBOutlet weak var OvulationCard: UIView!
+    @IBOutlet weak var ovulationWarningCard: UIView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -33,6 +37,9 @@ class CycleReportViewController: UIViewController {
         periodLengthCard.layer.cornerRadius = 20
         
         cycleRegularityCard.layer.cornerRadius = 20
+        
+        OvulationCard.layer.cornerRadius = 20
+        ovulationWarningCard.layer.cornerRadius = 20
         
         setupPeriodCycleChart()
     }

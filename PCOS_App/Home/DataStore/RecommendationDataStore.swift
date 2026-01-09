@@ -16,7 +16,7 @@ let recommendations: [Recommendation] = [
         priority: 3,
         confidence: 0.74,
         title: "Protein intake is lower than recommended",
-        summary: "Your protein intake has been consistently below the suggested range for PCOS.",
+        summary: "Your protein intake has been below the suggested range for PCOS in the last 3 days.",
         evidence: [
             "Protein averaged 15–16% of total calories",
             "Fatigue logged on multiple days"
@@ -57,8 +57,8 @@ let recommendations: [Recommendation] = [
         category: .workout,
         priority: 2,
         confidence: 0.65,
-        title: "Workout consistency dipped this week",
-        summary: "Movement supports insulin balance and mood regulation.",
+        title: "Workout focused more on cardio than strength training ",
+        summary: "Strength training builds muscles, helps with insulin sensitivity, and can reduce androgen levels.",
         evidence: [
             "Only 2 workouts logged this week",
             "Total activity time: 55 minutes"

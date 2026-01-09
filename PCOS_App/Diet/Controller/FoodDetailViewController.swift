@@ -5,7 +5,7 @@ import UIKit
 // Extend this later with your real UI.
 class FoodDetailViewController: UIViewController {
     // Inputs set by the presenter
-    var foodItem: FoodItem?
+    var foodItem: InsulinFoodItem?
     var currentQuantity: Int = 0
 
     // Callback to return selected quantity
@@ -63,7 +63,7 @@ class FoodDetailViewController: UIViewController {
         ])
     }
 
-    private func configure(with foodItem: FoodItem?, quantity: Int) {
+    private func configure(with foodItem: InsulinFoodItem?, quantity: Int) {
         nameLabel.text = foodItem?.name ?? "Food"
         quantityStepper.value = Double(quantity)
         updateQuantityLabel()
