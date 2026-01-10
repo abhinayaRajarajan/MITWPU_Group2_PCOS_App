@@ -18,7 +18,7 @@ class FoodLogIngredientHeader: UIView {
     
     @IBOutlet weak var macrosContainerStack: UIStackView!
     
-    
+    private var foodItem: FoodItem?
     private var food: Food?
     private var constraintsSetUp = false
     
@@ -129,6 +129,20 @@ class FoodLogIngredientHeader: UIView {
             FoodImageView.image = UIImage(named: "placeholder_food")
             FoodImageView.backgroundColor = .systemGray5
         }
+        
+        // Update macros
+        updateMacros()
+        
+        print("DEBUG: Header configured with food: \(food.name)")
+    }
+    
+    func configure(with food: FoodItem) {
+        self.foodItem = food
+        
+        // Set image
+        
+        FoodImageView.image = UIImage(named: "placeholder_food")
+        FoodImageView.backgroundColor = .systemGray5
         
         // Update macros
         updateMacros()

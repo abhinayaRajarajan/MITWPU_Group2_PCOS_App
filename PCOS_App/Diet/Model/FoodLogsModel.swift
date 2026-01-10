@@ -14,7 +14,9 @@ struct Food: Codable, Identifiable {
     var timeStamp: Date
     var quantity: Double
     var weight: Double? //Add more values for testing in datasource
-    
+    var isSelected: Bool = false
+    var isLogged: Bool = false
+    var desc: String = ""
     // Base macros (if not ingredient-based)
     var proteinContent: Double
     var carbsContent: Double

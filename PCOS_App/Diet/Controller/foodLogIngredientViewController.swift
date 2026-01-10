@@ -173,6 +173,7 @@ class FoodLogIngredientViewController: UIViewController {
             servingMultiplier = sender.value
             updateServingDisplay()
             updateMacros()
+            print(servingMultiplier)
         }
         
         // MARK: - Update Display

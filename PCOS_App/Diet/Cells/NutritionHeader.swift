@@ -40,9 +40,9 @@ class NutritionHeader: UITableViewHeaderFooterView {
     
     
     func configure(){
-        nutritionCard.layer.cornerRadius = 20
+        nutritionCard.layer.cornerRadius = 16
         nutritionCard.layer.masksToBounds = true
-        stackMacros.layer.cornerRadius = 20
+        stackMacros.layer.cornerRadius = 16
     }
     
     func setValues(){

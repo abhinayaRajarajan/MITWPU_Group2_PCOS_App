@@ -33,7 +33,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XQy-69-hqx" customClass="CompletionCircleView" customModule="PCOS_App" customModuleProvider="target">
-                                    <rect key="frame" x="293" y="0.0" width="100" height="100"/>
+                                    <rect key="frame" x="263" y="0.0" width="100" height="100"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.80000001192092896" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="fork.knife" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="O3Y-Df-w84">
                                             <rect key="frame" x="30" y="29" width="40" height="41"/>
@@ -69,7 +69,7 @@
                                 <constraint firstItem="XQy-69-hqx" firstAttribute="top" secondItem="2gC-wJ-zXA" secondAttribute="top" id="L4F-4f-VfG"/>
                                 <constraint firstAttribute="height" constant="100" id="YLo-5n-DOb"/>
                                 <constraint firstItem="T73-6Q-vzW" firstAttribute="top" secondItem="2gC-wJ-zXA" secondAttribute="top" constant="30" id="aAk-vG-dYJ"/>
-                                <constraint firstAttribute="trailing" secondItem="XQy-69-hqx" secondAttribute="trailing" id="awv-ly-rV8"/>
+                                <constraint firstAttribute="trailing" secondItem="XQy-69-hqx" secondAttribute="trailing" constant="30" id="awv-ly-rV8"/>
                                 <constraint firstItem="AmA-KX-xq9" firstAttribute="top" secondItem="2gC-wJ-zXA" secondAttribute="top" constant="57" id="nF3-EY-S9m"/>
                             </constraints>
                         </view>
@@ -274,13 +274,13 @@
     <resources>
         <image name="fork.knife" catalog="system" width="94" height="128"/>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemIndigoColor">
-            <color red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.38039215686274508" green="0.33333333333333331" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.55294117647058827" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

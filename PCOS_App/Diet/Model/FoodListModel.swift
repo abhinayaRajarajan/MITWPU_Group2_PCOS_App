@@ -8,12 +8,15 @@
 import Foundation
 
 struct FoodItem: Codable, Identifiable {
-    var id: String = UUID().uuidString
+    var id = UUID()
     let name: String
     let calories: Int
+    let image: String = "dietPlaceholder"
     let servingSize: String
     let protein: Double
     let carbs: Double
     let fat: Double
+    var isSelected: Bool = false
+    var desc: String = ""
 }
 

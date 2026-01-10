@@ -23,7 +23,6 @@ class DietViewController: UIViewController {
         setupNavigation()
         setupTableView()
         setupAddButtonStyle()
-        headerView?.setValues()
     }
 
            override func viewWillAppear(_ animated: Bool) {
@@ -70,20 +69,11 @@ class DietViewController: UIViewController {
                guard let addVC = storyboard.instantiateViewController(withIdentifier: "AddMealViewController") as? AddMealViewController else {
                    let addVC = AddMealViewController()
                    addVC.delegate = self
-                   present(addVC, animated: true)
+                   navigationController?.pushViewController(addVC, animated: true)
                    return
                }
                addVC.delegate = self
-               if let sheet = addVC.sheetPresentationController {
-                   if #available(iOS 16.0, *) {
-                       sheet.detents = [.medium(), .large()]
-                       sheet.prefersGrabberVisible = true
-                       sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-                       sheet.selectedDetentIdentifier = .medium
-                   }
-               }
-
-               present(addVC, animated: true)
+               navigationController?.pushViewController(addVC, animated: true)
            }
 
            //Data / Filtering
@@ -129,8 +119,12 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        240
+        250
     }
+    
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        
+//    }
 }
 
 // MARK: - AddMeal Delegate

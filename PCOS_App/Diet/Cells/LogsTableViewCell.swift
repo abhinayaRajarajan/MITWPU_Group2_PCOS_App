@@ -35,9 +35,9 @@ class LogsTableViewCell: UITableViewCell {
         protein.text = "\(Int(log.proteinContent))g"
         calories.text = "\(Int(log.calories))kcal"
         foodImg.image = UIImage(named: log.image ?? "biryani")
-        innerCell.layer.cornerRadius = 10
+        innerCell.layer.cornerRadius = 16
         foodImg.clipsToBounds = true
-        foodImg.layer.cornerRadius = 10
+        foodImg.layer.cornerRadius = 12
     }
 
     private func loadImage(from url: URL) {

@@ -11,6 +11,7 @@ class AddMealViewController: UIViewController{
     weak var delegate: AddMealDelegate?
     private var foodItems: [FoodItem] = []
     private var filteredFoodItems: [FoodItem] = []
+    private var selectedMeal = Set<UUID>()
     private var selectedQuantities: [String: Int] = [:]
     
     // handlebar UI
@@ -23,46 +24,46 @@ class AddMealViewController: UIViewController{
     }()
     
     //closebutton
-    private let closeButton: UIButton = {
-        let button = UIButton(type: .system)
-        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
-        let image = UIImage(systemName: "xmark", withConfiguration: config)
-        button.setImage(image, for: .normal)
-        button.tintColor = .systemGray
-        button.backgroundColor = UIColor.systemGray5
-        button.layer.cornerRadius = 25
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
-    }()
-    
-    //lbel
-    private let titleLabel: UILabel = {
-        let label = UILabel()
-        label.text = "Add meal"
-        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
-        label.textAlignment = .center
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    //done button
-    private let doneButton: UIButton = {
-        let button = UIButton(type: .system)
-        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
-        let image = UIImage(systemName: "checkmark", withConfiguration: config)
-        button.setImage(image, for: .normal)
-        button.tintColor = .systemGray
-        button.backgroundColor = UIColor.systemGray5
-        button.layer.cornerRadius = 25
-        button.translatesAutoresizingMaskIntoConstraints = false
-        return button
+//    private let closeButton: UIButton = {
 //        let button = UIButton(type: .system)
-//        button.setTitle("Done", for: .normal)
-//        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
-//        button.setTitleColor(UIColor(hexString: "fe7a96"), for: .normal)
+//        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+//        let image = UIImage(systemName: "xmark", withConfiguration: config)
+//        button.setImage(image, for: .normal)
+//        button.tintColor = .systemGray
+//        button.backgroundColor = UIColor.systemGray5
+//        button.layer.cornerRadius = 25
 //        button.translatesAutoresizingMaskIntoConstraints = false
 //        return button
-    }()
+//    }()
+    
+    //lbel
+//    private let titleLabel: UILabel = {
+//        let label = UILabel()
+//        label.text = "Add meal"
+//        label.font = UIFont.systemFont(ofSize: 20, weight: .semibold)
+//        label.textAlignment = .center
+//        label.translatesAutoresizingMaskIntoConstraints = false
+//        return label
+//    }()
+//    
+    //done button
+//    private let doneButton: UIButton = {
+//        let button = UIButton(type: .system)
+//        let config = UIImage.SymbolConfiguration(pointSize: 20, weight: .medium)
+//        let image = UIImage(systemName: "checkmark", withConfiguration: config)
+//        button.setImage(image, for: .normal)
+//        button.tintColor = .systemGray
+//        button.backgroundColor = UIColor.systemGray5
+//        button.layer.cornerRadius = 25
+//        button.translatesAutoresizingMaskIntoConstraints = false
+//        return button
+////        let button = UIButton(type: .system)
+////        button.setTitle("Done", for: .normal)
+////        button.titleLabel?.font = UIFont.systemFont(ofSize: 17, weight: .semibold)
+////        button.setTitleColor(UIColor(hexString: "fe7a96"), for: .normal)
+////        button.translatesAutoresizingMaskIntoConstraints = false
+////        return button
+//    }()
     
     private let searchContainer: UIView = {
         let view = UIView()
@@ -100,7 +101,7 @@ class AddMealViewController: UIViewController{
     }()
     
     private let segmentedControl: UISegmentedControl = {
-        let items = ["Recent", "Favorites"]
+        let items = ["Recent", "All meals"]
         let control = UISegmentedControl(items: items)
         control.selectedSegmentIndex = 0
         control.backgroundColor = UIColor.systemGray6
@@ -153,19 +154,19 @@ class AddMealViewController: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        setupUI()
-        setupActions()
+//        setupUI()
+//        setupActions()
         setupTableView()
-        setupSearchTextField()
+//        setupSearchTextField()
         loadFoodItems()
     }
     
     // MARK: - Setup
     private func setupUI() {
         view.addSubview(handleBar)
-        view.addSubview(closeButton)
-        view.addSubview(titleLabel)
-        view.addSubview(doneButton)
+//        view.addSubview(closeButton)
+//        view.addSubview(titleLabel)
+//        view.addSubview(doneButton)
         view.addSubview(searchContainer)
         
         searchContainer.addSubview(searchIconImageView)
@@ -185,25 +186,25 @@ class AddMealViewController: UIViewController{
             handleBar.heightAnchor.constraint(equalToConstant: 5),
             
             // Close Button
-            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            closeButton.topAnchor.constraint(equalTo: handleBar.bottomAnchor, constant: 20),
-            closeButton.widthAnchor.constraint(equalToConstant: 50),
-            closeButton.heightAnchor.constraint(equalToConstant: 50),
+//            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
+//            closeButton.topAnchor.constraint(equalTo: handleBar.bottomAnchor, constant: 20),
+//            closeButton.widthAnchor.constraint(equalToConstant: 50),
+//            closeButton.heightAnchor.constraint(equalToConstant: 50),
             
             // Title Label
-            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            titleLabel.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
+//            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+//            titleLabel.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
             
             // Done Button
-            doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            doneButton.topAnchor.constraint(equalTo: handleBar.bottomAnchor, constant: 20),
-            doneButton.widthAnchor.constraint(equalToConstant: 50),
-            doneButton.heightAnchor.constraint(equalToConstant: 50),
+//            doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
+//            doneButton.topAnchor.constraint(equalTo: handleBar.bottomAnchor, constant: 20),
+//            doneButton.widthAnchor.constraint(equalToConstant: 50),
+//            doneButton.heightAnchor.constraint(equalToConstant: 50),
             
 //            doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
 //            doneButton.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
             
-            optionsStackView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 20),
+//            optionsStackView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 20),
             optionsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             optionsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
             optionsStackView.heightAnchor.constraint(equalToConstant: 110),
@@ -239,8 +240,8 @@ class AddMealViewController: UIViewController{
     }
     
     private func setupActions() {
-        closeButton.addTarget(self, action: #selector(dismissModal), for: .touchUpInside)
-        doneButton.addTarget(self, action: #selector(dismissModal), for: .touchUpInside)
+//        closeButton.addTarget(self, action: #selector(dismissModal), for: .touchUpInside)
+//        doneButton.addTarget(self, action: #selector(dismissModal), for: .touchUpInside)
         scanBarcodeButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
         scanWithAIButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
         describeMealButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
@@ -304,9 +305,9 @@ class AddMealViewController: UIViewController{
             present(vc, animated: true)
         case 2:
             print("Scan with AI tapped")
-            for i in FoodLogDataSource.sampleFoods.indices {
-                print(FoodLogDataSource.sampleFoods[i].name)
-            }
+            let vc = BarcodeScannerViewController()
+            vc.delegate = self
+            present(vc, animated: true)
             // Implement AI scanning
         case 3:
             print("Describe Meal tapped")
@@ -364,7 +365,7 @@ class AddMealViewController: UIViewController{
         tableView.delegate = self
         tableView.dataSource = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = .systemGray6
+        tableView.backgroundColor = .white
         tableView.rowHeight = 60
         tableView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "FoodItemCell")
@@ -458,64 +459,72 @@ extension AddMealViewController {
 
 extension AddMealViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        tableView.deselectRow(at: indexPath, animated: true)
-        
-        let selectedFood = filteredFoodItems[indexPath.row]
-        openFoodDetailScreen(for: selectedFood)
-        
-        // Haptic feedback
-        let generator = UIImpactFeedbackGenerator(style: .light)
-        generator.impactOccurred()
+        let meal = filteredFoodItems[indexPath.row]
+        // Keep it selected (do not call deselect here)
+        selectedMeal.insert(meal.id)
+        // If you want custom visual feedback beyond default highlight, reload cell or update accessoryType:
+        if let cell = tableView.cellForRow(at: indexPath) { cell.accessoryType = .checkmark
+            //added to remove grey tint when row selected
+            cell.selectionStyle = .none
+        }
+    }
+
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        let meal = filteredFoodItems[indexPath.row]
+        selectedMeal.remove(meal.id)
+        if let cell = tableView.cellForRow(at: indexPath) {
+                cell.accessoryType = .none
+            }
     }
     
     private func openFoodDetailScreen(for foodItem: FoodItem) {
-        // TODO: Create and push to FoodDetailViewController
-        let storyboard = UIStoryboard(name: "Diet", bundle: nil)
-        
-        guard let detailVC = storyboard.instantiateViewController(withIdentifier: "FoodDetailViewController") as? FoodDetailViewController else {
-            print("Error: Could not instantiate FoodDetailViewController")
-            return
-        }
-        
-        // Pass the food item
-        detailVC.foodItem = foodItem
-        detailVC.currentQuantity = selectedQuantities[foodItem.id] ?? 0
-        
-        // Callback to receive the selected quantity
-        detailVC.onQuantitySelected = { [weak self] quantity in
-            self?.selectedQuantities[foodItem.id] = quantity
-            print(" Selected \(quantity) serving(s) of \(foodItem.name)")
-        }
-        
-        // Push to detail screen
-        if let navigationController = self.navigationController {
-            navigationController.pushViewController(detailVC, animated: true)
-        } else {
-            // If there's no navigation controller, present modally
-            detailVC.modalPresentationStyle = .pageSheet
-            if let sheet = detailVC.sheetPresentationController {
-                if #available(iOS 16.0, *) {
-                    sheet.detents = [
-                        .medium(),
-                        .large()
-                    ]
-                    sheet.prefersGrabberVisible = true
-                } else {
-                    // Fallback: leave default detents
-                }
-            }
-            present(detailVC, animated: true)
-        }
+//        // TODO: Create and push to FoodDetailViewController
+//        let storyboard = UIStoryboard(name: "Diet", bundle: nil)
+//        
+//        guard let detailVC = storyboard.instantiateViewController(withIdentifier: "FoodDetailViewController") as? FoodDetailViewController else {
+//            print("Error: Could not instantiate FoodDetailViewController")
+//            return
+//        }
+//        
+//        // Pass the food item
+//        detailVC.foodItem = foodItem
+//        detailVC.currentQuantity = selectedQuantities[foodItem.id] ?? 0
+//        
+//        // Callback to receive the selected quantity
+//        detailVC.onQuantitySelected = { [weak self] quantity in
+//            self?.selectedQuantities[foodItem.id] = quantity
+//            print(" Selected \(quantity) serving(s) of \(foodItem.name)")
+//        }
+//        
+//        // Push to detail screen
+//        if let navigationController = self.navigationController {
+//            navigationController.pushViewController(detailVC, animated: true)
+//        } else {
+//            // If there's no navigation controller, present modally
+//            detailVC.modalPresentationStyle = .pageSheet
+//            if let sheet = detailVC.sheetPresentationController {
+//                if #available(iOS 16.0, *) {
+//                    sheet.detents = [
+//                        .medium(),
+//                        .large()
+//                    ]
+//                    sheet.prefersGrabberVisible = true
+//                } else {
+//                    // Fallback: leave default detents
+//                }
+//            }
+//            present(detailVC, animated: true)
+//        }
     }
 }
 
 // MARK: - UITableViewDataSource
 extension AddMealViewController: UITableViewDataSource {
-    @objc func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredFoodItems.count
     }
     
-    @objc func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let reuseId = "FoodItemCell"
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseId) ?? UITableViewCell(style: .subtitle, reuseIdentifier: reuseId)
         
@@ -523,14 +532,16 @@ extension AddMealViewController: UITableViewDataSource {
         cell.layoutMargins = .zero
         cell.preservesSuperviewLayoutMargins = false
         cell.contentView.preservesSuperviewLayoutMargins = false
-        
         let foodItem = filteredFoodItems[indexPath.row]
         cell.textLabel?.text = foodItem.name
         cell.detailTextLabel?.text = "\(foodItem.calories) kcal • \(foodItem.servingSize)"
         cell.selectionStyle = .none
         return cell
     }
+    
 }
+
+
 
 // MARK: - UITextFieldDelegate
 extension AddMealViewController: UITextFieldDelegate {

@@ -56,8 +56,22 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
 
         if let metadataObj = metadataObjects.first as? AVMetadataMachineReadableCodeObject,
            let code = metadataObj.stringValue {
-            delegate?.didScanBarcode(code)
-            dismiss(animated: true)
+            let alert = UIAlertController(
+                title: "Confirm log",
+                message: "Do you want to log this?",
+                preferredStyle: .alert)
+            let yes = UIAlertAction(title: "Yes", style: .default) { _ in
+                self.delegate?.didScanBarcode(code)
+                self.dismiss(animated: true)
+            }
+            let no = UIAlertAction(title: "No", style: .default) { _ in
+                self.dismiss(animated: true)
+            }
+            alert.addAction(no)
+            alert.addAction(yes)
+            present(alert, animated: true)
+    
+            
         }
     }
 
