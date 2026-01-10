@@ -10,6 +10,7 @@ import UIKit
 class InsulinViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    var recommendation: Recommendation?
     
     @IBOutlet weak var warningcard: UIView!
     @IBOutlet weak var InsulinSummaryCardView: UIView!
@@ -19,6 +20,11 @@ class InsulinViewController: UIViewController {
     
     override func viewDidLoad() {
             super.viewDidLoad()
+        
+        if let rec = recommendation {
+                    print("Insulin recommendation: \(rec.title)")
+                    title = rec.title  // Set the title from recommendation
+                }
             
         warningcard.layer.cornerRadius=20
         

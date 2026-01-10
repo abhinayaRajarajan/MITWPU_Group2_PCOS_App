@@ -90,12 +90,12 @@ class WorkoutPieChart: UIView {
     }
 }
 
-// MARK: - WorkoutPieChartView (Complete Card with Legend)
+// WorkoutPieChartView (Complete Card with Legend)
 class WorkoutPieChartView: UIView {
     
     private let pieChart = WorkoutPieChart()
     private let legendStackView = UIStackView()
-    private let titleLabel = UILabel()
+    //private let titleLabel = UILabel()
     private let totalLabel = UILabel()
     
     // MARK: - Initialization
@@ -115,10 +115,10 @@ class WorkoutPieChartView: UIView {
         layer.cornerRadius = 16
         
         // Setup title
-        titleLabel.text = "Workout Distribution"
-        titleLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-        titleLabel.textColor = .label
-        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+//        titleLabel.text = "Workout Distribution"
+//        titleLabel.font = .systemFont(ofSize: 18, weight: .semibold)
+//        titleLabel.textColor = .label
+//        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Setup total label (center of donut)
         totalLabel.font = .systemFont(ofSize: 24, weight: .bold)
@@ -136,7 +136,7 @@ class WorkoutPieChartView: UIView {
         legendStackView.translatesAutoresizingMaskIntoConstraints = false
         
         // Add subviews
-        addSubview(titleLabel)
+        //addSubview(titleLabel)
         addSubview(pieChart)
         addSubview(totalLabel)
         addSubview(legendStackView)
@@ -147,12 +147,12 @@ class WorkoutPieChartView: UIView {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             // Title
-            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
+//            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+//            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+//            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             // Pie chart
-            pieChart.topAnchor.constraint(equalTo: titleLabel.bottomAnchor, constant: 20),
+            pieChart.topAnchor.constraint(equalTo: topAnchor, constant: 20),
             pieChart.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             pieChart.widthAnchor.constraint(equalToConstant: 150),
             pieChart.heightAnchor.constraint(equalToConstant: 150),

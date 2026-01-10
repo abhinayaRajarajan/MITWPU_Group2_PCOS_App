@@ -112,17 +112,11 @@
                                 <rect key="frame" x="134" y="261" width="75" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="insulin level"/>
-                                <connections>
-                                    <segue destination="I19-bv-JLN" kind="show" id="DU4-aV-hxh"/>
-                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Hdf-lW-xwC">
                                 <rect key="frame" x="16" y="242" width="116" height="87"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="gray" title="WorkoutPushScreen"/>
-                                <connections>
-                                    <segue destination="xdb-fh-GkZ" kind="show" id="b3n-Sn-Dil"/>
-                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
@@ -154,6 +148,9 @@
                     <connections>
                         <outlet property="recommendationsTableView" destination="WSZ-Sg-FFB" id="zPy-te-tvN"/>
                         <outlet property="symptomsCollectionView" destination="ur8-z2-NHi" id="5zN-Gq-YbA"/>
+                        <segue destination="uWg-s6-kq0" kind="show" identifier="showProtein" id="ewI-Qf-mmc"/>
+                        <segue destination="xdb-fh-GkZ" kind="show" identifier="showWorkoutPush" id="uhb-eF-tf1"/>
+                        <segue destination="I19-bv-JLN" kind="show" identifier="showInsulin" id="vHe-Lp-0yn"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -709,11 +706,11 @@
             <objects>
                 <viewController id="uWg-s6-kq0" customClass="ProteinViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="pZ9-uW-1AT">
-                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HYt-E5-qPe">
-                                <rect key="frame" x="0.0" y="118" width="393" height="666"/>
+                                <rect key="frame" x="0.0" y="59" width="393" height="734"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Zy8-sP-eYa">
                                         <rect key="frame" x="0.0" y="0.0" width="393" height="1018"/>
@@ -731,7 +728,7 @@
                                                 <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="8"/>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w1y-JC-S3a">
-                                                <rect key="frame" x="8" y="37.333333333333343" width="377" height="350"/>
+                                                <rect key="frame" x="8" y="37.333333333333314" width="377" height="350.00000000000006"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="gKw-NT-LjD">
                                                         <rect key="frame" x="0.0" y="0.0" width="377" height="55"/>
@@ -759,7 +756,7 @@
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="euO-Lg-c9Y">
-                                                <rect key="frame" x="8" y="397.33333333333343" width="377" height="612.66666666666652"/>
+                                                <rect key="frame" x="8" y="397.33333333333331" width="377" height="612.66666666666674"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why protein is important in a PCOS diet?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pgu-Xp-y6t">
                                                         <rect key="frame" x="16" y="7.9999999999999982" width="345" height="19.333333333333329"/>
@@ -768,10 +765,10 @@
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aY9-bq-afX">
-                                                        <rect key="frame" x="16" y="43.333333333333258" width="345" height="180"/>
+                                                        <rect key="frame" x="16" y="43.333333333333371" width="345" height="180"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6L2-0e-2li">
-                                                                <rect key="frame" x="16" y="16" width="313" height="148"/>
+                                                                <rect key="frame" x="16" y="15.999999999999943" width="313" height="148"/>
                                                                 <string key="text">Protein intake is important for women with Polycystic Ovary Syndrome (PCOS) because it helps to stabilize blood sugar and improve insulin sensitivity. It also aids in weight management and appetite control by promoting feelings of fullness and boosting metabolism. </string>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <nil key="textColor"/>
@@ -789,13 +786,13 @@
                                                         <edgeInsets key="layoutMargins" top="8" left="32" bottom="8" right="8"/>
                                                     </view>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How to increase protein intake?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YHz-2j-qSw">
-                                                        <rect key="frame" x="16" y="239.33333333333326" width="345" height="19.333333333333314"/>
+                                                        <rect key="frame" x="16" y="239.33333333333331" width="345" height="19.333333333333314"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lkY-XG-2yt">
-                                                        <rect key="frame" x="16" y="274.66666666666663" width="345" height="330"/>
+                                                        <rect key="frame" x="16" y="274.66666666666669" width="345" height="330.00000000000006"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="pRf-9Y-lYp">
                                                                 <rect key="frame" x="0.0" y="0.0" width="345" height="276"/>
@@ -1197,7 +1194,7 @@
                                 <rect key="frame" x="0.0" y="59" width="393" height="1432"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="D3R-be-dpl">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1071"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1261"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This week's overview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vr0-Gb-aRh">
                                                 <rect key="frame" x="8" y="7.9999999999999982" width="377" height="19.333333333333329"/>
@@ -1206,7 +1203,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QbS-xd-XSm">
-                                                <rect key="frame" x="8" y="37.333333333333314" width="377" height="51"/>
+                                                <rect key="frame" x="8" y="37.333333333333329" width="377" height="51"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="This is a pattern-based insight, not a medical diagnosis. Your body may respond differently over time." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NCm-3v-tpd">
                                                         <rect key="frame" x="78" y="8" width="287" height="35"/>
@@ -1233,7 +1230,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9gR-A9-GEj">
-                                                <rect key="frame" x="8" y="98.333333333333371" width="377" height="268.66666666666663"/>
+                                                <rect key="frame" x="8" y="98.333333333333343" width="377" height="268.66666666666663"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0qD-kh-dMX" customClass="WorkoutPieChart" customModule="PCOS_App" customModuleProvider="target">
                                                         <rect key="frame" x="16" y="52.666666666666657" width="345" height="200"/>
@@ -1242,7 +1239,7 @@
                                                             <constraint firstAttribute="height" constant="200" id="JED-nc-bwq"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This week, 63% of your workouts were cardio-based, while only 25% focused on strength training" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pzl-4g-zMW">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This week, 72% of your workouts were cardio-based, while only 28% focused on strength training." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pzl-4g-zMW">
                                                         <rect key="frame" x="16" y="16" width="345" height="28.666666666666671"/>
                                                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                                                         <nil key="textColor"/>
@@ -1293,34 +1290,75 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uRK-I1-Aop">
-                                                <rect key="frame" x="8" y="544.66666666666663" width="377" height="40"/>
+                                                <rect key="frame" x="8" y="544.66666666666663" width="377" height="230"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="BWa-jT-TwW">
+                                                        <rect key="frame" x="16" y="16" width="345" height="198"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ideal balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="24Y-o3-xgU">
+                                                                <rect key="frame" x="0.0" y="0.0" width="345" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hZA-ap-4HX" customClass="WorkoutProgressBarCardView" customModule="PCOS_App" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="33" width="345" height="15"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Current balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Zgt-J7-3nx">
+                                                                <rect key="frame" x="0.0" y="63" width="345" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q17-ZL-cSw" customClass="WorkoutProgressBarCardView" customModule="PCOS_App" customModuleProvider="target">
+                                                                <rect key="frame" x="0.0" y="96" width="345" height="0.0"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yhg-A8-gHb">
+                                                                <rect key="frame" x="0.0" y="111" width="345" height="87"/>
+                                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                            </view>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstItem="Zgt-J7-3nx" firstAttribute="top" secondItem="BWa-jT-TwW" secondAttribute="top" constant="63" id="Mo9-lM-cfw"/>
+                                                            <constraint firstItem="Yhg-A8-gHb" firstAttribute="leading" secondItem="BWa-jT-TwW" secondAttribute="leading" id="NBq-Wk-Tmr"/>
+                                                            <constraint firstItem="Yhg-A8-gHb" firstAttribute="top" secondItem="BWa-jT-TwW" secondAttribute="top" constant="111" id="bCv-c6-S5m"/>
+                                                            <constraint firstAttribute="trailing" secondItem="Yhg-A8-gHb" secondAttribute="trailing" id="zOw-dX-5Ir"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="40" id="Rmj-68-dYr"/>
+                                                    <constraint firstItem="BWa-jT-TwW" firstAttribute="top" secondItem="uRK-I1-Aop" secondAttribute="top" constant="16" id="4oH-Tc-KVM"/>
+                                                    <constraint firstAttribute="bottom" secondItem="BWa-jT-TwW" secondAttribute="bottom" constant="16" id="Ibx-yz-KMP"/>
+                                                    <constraint firstAttribute="height" constant="230" id="jqu-BD-TVg"/>
+                                                    <constraint firstItem="BWa-jT-TwW" firstAttribute="leading" secondItem="uRK-I1-Aop" secondAttribute="leading" constant="16" id="lCh-jF-YZ3"/>
+                                                    <constraint firstAttribute="trailing" secondItem="BWa-jT-TwW" secondAttribute="trailing" constant="16" id="rog-MN-Uze"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AW2-Ht-Sli">
-                                                <rect key="frame" x="8" y="594.66666666666663" width="377" height="468.33333333333337"/>
+                                                <rect key="frame" x="8" y="784.66666666666663" width="377" height="468.33333333333337"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ugx-vA-J6b">
                                                         <rect key="frame" x="16" y="16" width="345" height="436.33333333333331"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Micro-Challenge" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aNc-31-29I">
-                                                                <rect key="frame" x="0.0" y="0.0" width="345" height="385.66666666666669"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="345" height="392.66666666666669"/>
                                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Try adding one 15-minute strength session this week and see how your energy feels." textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zOH-KX-s1t">
-                                                                <rect key="frame" x="0.0" y="395.66666666666663" width="345" height="40.666666666666686"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <rect key="frame" x="0.0" y="402.66666666666663" width="345" height="33.666666666666686"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                         </subviews>
                                                     </stackView>
                                                 </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <color key="backgroundColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="0.30012103873239437" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <constraints>
                                                     <constraint firstItem="Ugx-vA-J6b" firstAttribute="leading" secondItem="AW2-Ht-Sli" secondAttribute="leading" constant="16" id="4wF-dJ-DfY"/>
                                                     <constraint firstItem="Ugx-vA-J6b" firstAttribute="top" secondItem="AW2-Ht-Sli" secondAttribute="top" constant="16" id="CK5-dv-2Fs"/>
@@ -1329,6 +1367,12 @@
                                                 </constraints>
                                             </view>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="AW2-Ht-Sli" firstAttribute="top" secondItem="uRK-I1-Aop" secondAttribute="bottom" constant="10" id="IDp-XC-SAQ"/>
+                                            <constraint firstItem="uRK-I1-Aop" firstAttribute="top" secondItem="6PL-cr-U8L" secondAttribute="bottom" constant="10" id="Mm7-hp-nPj"/>
+                                            <constraint firstItem="uRK-I1-Aop" firstAttribute="leading" secondItem="D3R-be-dpl" secondAttribute="leading" constant="8" id="mkQ-HL-i9e"/>
+                                            <constraint firstAttribute="trailing" secondItem="uRK-I1-Aop" secondAttribute="trailing" constant="8" id="nI9-vz-YOC"/>
+                                        </constraints>
                                         <edgeInsets key="layoutMargins" top="8" left="8" bottom="8" right="8"/>
                                     </stackView>
                                 </subviews>
@@ -1355,12 +1399,20 @@
                     <navigationItem key="navigationItem" title="Cardio Over Strength Training" id="EnX-YV-WYq"/>
                     <size key="freeformSize" width="393" height="1550"/>
                     <connections>
+                        <outlet property="MicroChallengeView" destination="AW2-Ht-Sli" id="J7L-vt-vWW"/>
+                        <outlet property="StrengthTrainingInfo" destination="XAE-zN-j26" id="Ssr-Hr-pzm"/>
+                        <outlet property="WarningLabel" destination="QbS-xd-XSm" id="CYf-S1-rxR"/>
                         <outlet property="WorkoutDonutChart" destination="0qD-kh-dMX" id="vJa-kN-9Sg"/>
+                        <outlet property="barProgressView" destination="uRK-I1-Aop" id="eJu-y0-A3d"/>
+                        <outlet property="currentWorkoutBarChart" destination="q17-ZL-cSw" id="LHH-Qk-HJf"/>
+                        <outlet property="idealWorkoutBarChart" destination="hZA-ap-4HX" id="kzc-EA-zU7"/>
+                        <outlet property="legendView" destination="Yhg-A8-gHb" id="5yx-WT-lB1"/>
+                        <outlet property="workoutOverviewCard" destination="9gR-A9-GEj" id="qWx-mi-bkj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4dT-yy-sfE" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2406.8702290076335" y="724.29577464788736"/>
+            <point key="canvasLocation" x="2406.8702290076335" y="723.94366197183103"/>
         </scene>
     </scenes>
     <resources>

@@ -95,27 +95,44 @@ class HomeViewController: UIViewController {
 //    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Handle symptom logger segue
         if segue.identifier == "showSymptomLogger" {
             if let symptomLoggerVC = segue.destination as? SymptomLoggerViewController {
-                
-                // Pre-select existing symptoms
                 symptomLoggerVC.setSelectedSymptoms(selectedSymptoms)
-                
-                // Handle callback when symptoms are selected
                 symptomLoggerVC.onSymptomsSelected = { [weak self] (symptoms: [LoggedSymptoms]) in
                     self?.selectedSymptoms = symptoms
-                    
-                    // Save to UserDefaults
                     if let encoded = try? JSONEncoder().encode(symptoms) {
                         UserDefaults.standard.set(encoded, forKey: "todaysSymptoms")
                     }
-                    
-                    // Reload collection view
                     self?.symptomsCollectionView.reloadData()
                 }
             }
+            return // Exit early
         }
+        
+        // Handle recommendation segues
+        guard let recommendation = sender as? Recommendation else { return }
+        
+        switch segue.identifier {
+        case "showProtein":
+            if let proteinVC = segue.destination as? ProteinViewController {
+                proteinVC.recommendation = recommendation
+            }
+            
+        case "showWorkoutPush":
+            if let workoutVC = segue.destination as? WorkoutPushViewController {
+                workoutVC.recommendation = recommendation
+            }
+            
+        case "showInsulin":
+            if let insulinVC = segue.destination as? InsulinViewController {
+                insulinVC.recommendation = recommendation
+            }
+            
+        default:
+            break
         }
+    }
         
     
 }
@@ -170,15 +187,29 @@ extension HomeViewController: UITableViewDataSource {
 extension HomeViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        
         let recommendation = recommendations[indexPath.row]
         
-        // Handle navigation based on recommendation
         print("Tapped: \(recommendation.title)")
         
-        // You can add navigation logic here
-        // For example:
-        // if let navigationTarget = recommendation.navigationTarget {
-        //     // Navigate to specific screen
-        // }
+        // Navigate based on category with CORRECT segue identifiers
+        switch recommendation.category {
+        case .nutrition:
+            performSegue(withIdentifier: "showProtein", sender: recommendation)
+            
+        case .workout:
+            performSegue(withIdentifier: "showWorkoutPush", sender: recommendation)
+            
+        case .foodPattern:
+            performSegue(withIdentifier: "showInsulin", sender: recommendation)
+            
+        default:
+            performSegue(withIdentifier: "showDetail", sender: recommendation)
+        }
     }
-}
+    
+    
+        
+        
+    }

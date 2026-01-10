@@ -12,9 +12,13 @@ class ProteinViewController: UIViewController {
     @IBOutlet weak var View2_1: UIView!
     @IBOutlet weak var View2: UIView!
     @IBOutlet weak var View1: UIView!
+    
+    var recommendation: Recommendation?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        if let rec = recommendation {print("Workout recommendation: \(rec.title)")}
         
         View1.layer.cornerRadius = 30
         View1.clipsToBounds = true
