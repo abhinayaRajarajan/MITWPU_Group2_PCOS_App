@@ -46,44 +46,16 @@
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Log Period"/>
                             </button>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uTD-oq-TZ1">
-                                <rect key="frame" x="16" y="424" width="455" height="50"/>
-                                <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="View Cycle Patterns" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cTZ-H0-mer">
-                                        <rect key="frame" x="16" y="14.666666666666686" width="152" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <nil key="textColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTo-wk-r1z">
-                                        <rect key="frame" x="399" y="7.6666666666666856" width="40" height="35"/>
-                                        <color key="tintColor" systemColor="systemGrayColor"/>
-                                        <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system"/>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <constraints>
-                                    <constraint firstItem="dTo-wk-r1z" firstAttribute="centerY" secondItem="uTD-oq-TZ1" secondAttribute="centerY" id="D34-0R-Sch"/>
-                                    <constraint firstAttribute="trailing" secondItem="dTo-wk-r1z" secondAttribute="trailing" constant="16" id="Jka-ir-T5x"/>
-                                    <constraint firstItem="cTZ-H0-mer" firstAttribute="centerY" secondItem="uTD-oq-TZ1" secondAttribute="centerY" id="RBO-SC-tqA"/>
-                                    <constraint firstAttribute="height" constant="50" id="WCV-xU-iv2"/>
-                                    <constraint firstItem="cTZ-H0-mer" firstAttribute="leading" secondItem="uTD-oq-TZ1" secondAttribute="leading" constant="16" id="ubc-4p-oea"/>
-                                </constraints>
-                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="xjf-z9-c6r" firstAttribute="top" secondItem="lyA-zA-4dJ" secondAttribute="bottom" constant="43" id="0xc-fS-AmS"/>
                             <constraint firstItem="ZbB-xp-tyV" firstAttribute="top" secondItem="aiV-Pd-smO" secondAttribute="top" constant="190" id="59I-Np-c6L"/>
-                            <constraint firstItem="uTD-oq-TZ1" firstAttribute="top" secondItem="xjf-z9-c6r" secondAttribute="bottom" constant="30" id="99r-8Q-2y4"/>
-                            <constraint firstItem="uTD-oq-TZ1" firstAttribute="leading" secondItem="aiV-Pd-smO" secondAttribute="leading" constant="16" id="I4t-1k-f5L"/>
                             <constraint firstAttribute="trailing" secondItem="lyA-zA-4dJ" secondAttribute="trailing" id="Ivc-gO-OED"/>
                             <constraint firstItem="lyA-zA-4dJ" firstAttribute="top" secondItem="ZbB-xp-tyV" secondAttribute="bottom" constant="35" id="UNS-NB-ghP"/>
                             <constraint firstAttribute="trailing" secondItem="ZbB-xp-tyV" secondAttribute="trailing" constant="20" id="V7F-R2-62P"/>
                             <constraint firstItem="ZbB-xp-tyV" firstAttribute="leading" secondItem="aiV-Pd-smO" secondAttribute="leading" constant="20" id="WnH-4F-rq5"/>
                             <constraint firstItem="lyA-zA-4dJ" firstAttribute="leading" secondItem="aiV-Pd-smO" secondAttribute="leading" id="lDq-m6-wEy"/>
-                            <constraint firstAttribute="trailing" secondItem="uTD-oq-TZ1" secondAttribute="trailing" constant="16" id="rfl-MK-Wis"/>
                             <constraint firstItem="xjf-z9-c6r" firstAttribute="centerX" secondItem="aiV-Pd-smO" secondAttribute="centerX" id="ySL-k0-qSs"/>
                         </constraints>
                     </view>
@@ -102,7 +74,6 @@
             </constraints>
             <size key="customSize" width="487" height="524"/>
             <connections>
-                <outlet property="cyclePatternView" destination="uTD-oq-TZ1" id="XQM-Sj-TZ5"/>
                 <outlet property="gradientOverlayView" destination="aiV-Pd-smO" id="gUC-jZ-QzX"/>
                 <outlet property="headerImageView" destination="7Uk-73-W3E" id="4UW-Tf-bva"/>
                 <outlet property="logPeriodButton" destination="xjf-z9-c6r" id="Kyk-6M-vpm"/>
@@ -112,12 +83,8 @@
         </collectionViewCell>
     </objects>
     <resources>
-        <image name="chevron.right" catalog="system" width="97" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemGrayColor">
-            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -22,8 +22,8 @@ class HomeViewController: UIViewController, DataPassDelegate {
     }
     
     
-   
-   
+    
+    
     @IBOutlet weak var collectionView: UICollectionView!
     // Storing selected symptoms
     private var selectedSymptoms: [SymptomItem] = []
@@ -35,8 +35,8 @@ class HomeViewController: UIViewController, DataPassDelegate {
         navigationController?.navigationBar.prefersLargeTitles = true
         
         let bgColor = UIColor(hex: "#FCEEED")
-            collectionView.backgroundColor = bgColor
-            view.backgroundColor = bgColor
+        collectionView.backgroundColor = bgColor
+        view.backgroundColor = bgColor
         
         let calendar = UIBarButtonItem(
             image: UIImage(systemName: "calendar"),
@@ -44,16 +44,16 @@ class HomeViewController: UIViewController, DataPassDelegate {
             target: self,
             action: #selector(addTapped)
         )
-
+        
         let profile = UIBarButtonItem(
             image: UIImage(systemName: "person.circle"),
             style: .plain,
             target: self,
             action: #selector(addTapped)
         )
-
+        
         navigationItem.rightBarButtonItems = [profile, calendar]
-
+        
         registerCells()
         
         collectionView.dataSource = self
@@ -99,18 +99,26 @@ class HomeViewController: UIViewController, DataPassDelegate {
             UINib(nibName: "HomeHeaderCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "home_header"
         )
-
+        
         collectionView.register(
             UINib(nibName: "AddSymptomCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "AddSymptomCollectionViewCell"
         )
-
+        
         collectionView.register(
             UINib(nibName: "SymptomItemCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: SymptomItemCollectionViewCell.identifier
         )
+        collectionView.register(
+            UINib(nibName: "CyclePatternCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: "cycle_pattern_cell"
+        )
+        collectionView.register(
+            UINib(nibName: "HomeRecommendationCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: "recommendation_cell"
+        )
     }
-
+    
     @objc func addTapped() {
         if let vc = storyboard?.instantiateViewController(withIdentifier: "profileVC") as? ProfileViewController {
             navigationController?.pushViewController(vc, animated: true)
@@ -122,6 +130,8 @@ class HomeViewController: UIViewController, DataPassDelegate {
             switch sectionIndex {
             case 0: return self.createHomeHeaderSection()
             case 1: return self.createSymptomSection()
+            case 2: return self.createCycleSection()
+            case 3: return self.createRecommendationSection()
             default:
                 return nil
             }
@@ -135,19 +145,81 @@ class HomeViewController: UIViewController, DataPassDelegate {
         section.contentInsets = .zero
         return section
     }
+    
+    func createSymptomSection() -> NSCollectionLayoutSection {
+        
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .absolute(80),
+            heightDimension: .absolute(100)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .estimated(80),
+            heightDimension: .absolute(100)
+        )
+        
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            subitems: [item]
+        )
+        
+        let section = NSCollectionLayoutSection(group: group)
+        section.interGroupSpacing = 12
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: 16, leading: 30, bottom: 16, trailing: 20
+        )
+        section.orthogonalScrollingBehavior = .continuous
+        
+        return section
+    }
+    
+    func createCycleSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(150))
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: itemSize, subitems: [NSCollectionLayoutItem(layoutSize: itemSize)])
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = .zero
+        return section
+    }
+    func createRecommendationSection() -> NSCollectionLayoutSection {
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(150)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        // Option A: per-item padding
+        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 8, bottom: 0, trailing: 8)
+        
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(150)
+        )
+        // One item per group
+        let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
+        
+        let section = NSCollectionLayoutSection(group: group)
+        // spacing between groups (each group contains one item)
+        section.interGroupSpacing = 20
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        return section
+    }
 }
 
 
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
-            case 0:
-                return 1
-            case 1:
-                return selectedSymptoms.count + 1
-            default:
-                return 0
-            }
+        case 0:
+            return 1
+        case 1:
+            return selectedSymptoms.count + 1
+        case 2:
+            return 1
+//        case 3:
+//            return 1
+        default:
+            return 0
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -155,7 +227,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "home_header", for: indexPath) as! HomeHeaderCollectionViewCell
             return cell
         }
-        else{
+        else if indexPath.section == 1 {
             if indexPath.item == 0 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AddSymptomCollectionViewCell", for: indexPath) as! AddSymptomCollectionViewCell
                 return cell
@@ -166,40 +238,55 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             cell.configure(with: symptom, isSelected: isSelected)
             return cell
         }
+        else if indexPath.section == 2 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cycle_pattern_cell", for: indexPath) as! CyclePatternCollectionViewCell
+            return cell
+        }
+        else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recommendation_cell", for: indexPath) as! HomeRecommendationCollectionViewCell
+//            let destination = topUrbanDestinations[indexPath.row]
+//            cell.configureCell(destination: destination)
+            return cell
+        }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 2
+        return 3
     }
     
     func collectionView(_ collectionView: UICollectionView,
                         didSelectItemAt indexPath: IndexPath) {
-
-        guard indexPath.section == 1 else { return }
-
-        if indexPath.item == 0 {
-            performSegue(withIdentifier: "showSymptomLogger", sender: self)
+        
+        if indexPath.section == 1 {
+            if indexPath.item == 0 {
+                performSegue(withIdentifier: "showSymptomLogger", sender: self)
+            }
         }
+
+        if indexPath.section == 2 {
+            performSegue(withIdentifier: "showCycleReport", sender: nil)
+        }
+
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showSymptomLogger",
            let symptomLoggerVC = segue.destination as? SymptomLoggerViewController {
             
             symptomLoggerVC.delegate = self
-
+            
             symptomLoggerVC.setSelectedSymptoms(selectedSymptoms)
-
+            
             symptomLoggerVC.onSymptomsSelected = { [weak self] symptoms in
                 guard let self = self else { return }
-
+                
                 self.selectedSymptoms = symptoms
-
+                
                 // Save with today's date key
                 let todaysKey = self.getTodaysKey()
                 if let encoded = try? JSONEncoder().encode(symptoms) {
                     UserDefaults.standard.set(encoded, forKey: todaysKey)
                 }
-
+                
                 DispatchQueue.main.async {
                     self.collectionView.reloadData()
                 }
@@ -212,41 +299,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         formatter.dateFormat = "yyyy-MM-dd"
         return "symptoms_\(formatter.string(from: Date()))"
     }
-
     
-
-    func createSymptomSection() -> NSCollectionLayoutSection {
-
-        let itemSize = NSCollectionLayoutSize(
-            widthDimension: .absolute(80),
-            heightDimension: .absolute(100)
-        )
-
-        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-
-        let groupSize = NSCollectionLayoutSize(
-            widthDimension: .estimated(80),
-            heightDimension: .absolute(100)
-        )
-
-        let group = NSCollectionLayoutGroup.horizontal(
-            layoutSize: groupSize,
-            subitems: [item]
-        )
-
-        let section = NSCollectionLayoutSection(group: group)
-        section.interGroupSpacing = 12
-        section.contentInsets = NSDirectionalEdgeInsets(
-            top: 16, leading: 20, bottom: 16, trailing: 20
-        )
-        section.orthogonalScrollingBehavior = .continuous
-
-
-        return section
-    }
-
-    
-
 }
 
 

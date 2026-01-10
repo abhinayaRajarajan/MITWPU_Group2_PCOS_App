@@ -1,5 +1,5 @@
 //
-//  HomeHeader2CollectionViewCell.swift
+//  HomeHeaderCollectionViewCell.swift
 //  PCOS_App
 //
 //  Created by SDC-USER on 08/01/26.
@@ -15,8 +15,6 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var quoteLabel: UILabel!
     
     @IBOutlet weak var logPeriodButton: UIButton!
-    
-    @IBOutlet weak var cyclePatternView: UIView!
     
     
     private let gradientLayer = CAGradientLayer()
@@ -35,7 +33,7 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
             logPeriodButton.layer.cornerRadius = logPeriodButton.frame.height / 2
             logPeriodButton.tintColor = UIColor(hex: "#FE7A96")
             
-            cyclePatternView.layer.cornerRadius = cyclePatternView.frame.height / 2
+            
         }
     private func setupMultiStopGradient() {
             // The color you want to blend into

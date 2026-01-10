@@ -47,7 +47,7 @@ struct SymptomCategory {
         ]),
         SymptomCategory(title: "Gut Health", items: [
             SymptomItem(name: "Bloating", icon: "BloatingIcon"),
-            SymptomItem(name: "Constipation", icon: "ConstipationIcon"),
+            SymptomItem(name: "Constipated", icon: "ConstipationIcon"),
             SymptomItem(name: "Diarrhea", icon: "DiarrheaIcon"),
             SymptomItem(name: "Gas", icon: "GasIcon")
         ]),

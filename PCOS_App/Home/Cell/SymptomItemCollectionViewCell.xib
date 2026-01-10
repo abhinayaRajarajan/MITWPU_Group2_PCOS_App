@@ -27,9 +27,9 @@
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Onl-Bi-UBH">
-                                <rect key="frame" x="33.666666666666657" y="62" width="75" height="28"/>
+                                <rect key="frame" x="31" y="62" width="80" height="28"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="75" id="cYa-zV-Um3"/>
+                                    <constraint firstAttribute="width" constant="80" id="cYa-zV-Um3"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <nil key="textColor"/>
