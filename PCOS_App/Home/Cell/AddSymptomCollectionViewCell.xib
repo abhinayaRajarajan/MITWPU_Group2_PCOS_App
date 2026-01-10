@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AddSymptomCollectionViewCell" id="gTV-IL-0wX" customClass="AddSymptomCollectionViewCell" customModule="PCOS_App" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="132" height="179"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="132" height="179"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nlj-hS-1Io">
+                        <rect key="frame" x="0.0" y="0.0" width="132" height="179"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="LbZ-BJ-by1">
+                                <rect key="frame" x="51" y="77" width="30" height="25.666666666666671"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="SUi-eE-I2e"/>
+                                    <constraint firstAttribute="width" constant="30" id="jqG-Sc-fNX"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="LbZ-BJ-by1" firstAttribute="centerX" secondItem="nlj-hS-1Io" secondAttribute="centerX" id="096-U0-UEh"/>
+                            <constraint firstItem="LbZ-BJ-by1" firstAttribute="centerY" secondItem="nlj-hS-1Io" secondAttribute="centerY" id="DU3-k3-LCs"/>
+                        </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="20"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="nlj-hS-1Io" secondAttribute="trailing" id="Dyq-2N-chO"/>
+                <constraint firstItem="nlj-hS-1Io" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="E7f-8Q-Nk7"/>
+                <constraint firstItem="nlj-hS-1Io" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="K9F-lr-aqL"/>
+                <constraint firstAttribute="bottom" secondItem="nlj-hS-1Io" secondAttribute="bottom" id="hCs-yy-fb8"/>
+            </constraints>
+            <size key="customSize" width="132" height="179"/>
+            <point key="canvasLocation" x="-490.07633587786256" y="198.94366197183101"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="plus" catalog="system" width="128" height="113"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

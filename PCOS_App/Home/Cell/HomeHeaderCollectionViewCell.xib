@@ -55,9 +55,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTo-wk-r1z">
-                                        <rect key="frame" x="390" y="11" width="40" height="35"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dTo-wk-r1z">
+                                        <rect key="frame" x="399" y="7.6666666666666856" width="40" height="35"/>
                                         <color key="tintColor" systemColor="systemGrayColor"/>
                                         <state key="normal" title="Button"/>
                                         <buttonConfiguration key="configuration" style="plain" image="chevron.right" catalog="system"/>
@@ -65,6 +64,8 @@
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
+                                    <constraint firstItem="dTo-wk-r1z" firstAttribute="centerY" secondItem="uTD-oq-TZ1" secondAttribute="centerY" id="D34-0R-Sch"/>
+                                    <constraint firstAttribute="trailing" secondItem="dTo-wk-r1z" secondAttribute="trailing" constant="16" id="Jka-ir-T5x"/>
                                     <constraint firstItem="cTZ-H0-mer" firstAttribute="centerY" secondItem="uTD-oq-TZ1" secondAttribute="centerY" id="RBO-SC-tqA"/>
                                     <constraint firstAttribute="height" constant="50" id="WCV-xU-iv2"/>
                                     <constraint firstItem="cTZ-H0-mer" firstAttribute="leading" secondItem="uTD-oq-TZ1" secondAttribute="leading" constant="16" id="ubc-4p-oea"/>
@@ -116,7 +117,7 @@
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -51,17 +51,7 @@ struct SymptomCategory {
             SymptomItem(name: "Diarrhea", icon: "DiarrheaIcon"),
             SymptomItem(name: "Gas", icon: "GasIcon")
         ]),
-        SymptomCategory(title: "Breast Self Exam", items: [
-            SymptomItem(name: "Everything is fine", icon: "FineIcon"),
-            SymptomItem(name: "Engorgement", icon: "EngorgementIcon"),
-            SymptomItem(name: "Lump", icon: "LumpIcon"),
-            SymptomItem(name: "Dimple", icon: "DimpleIcon"),
-            SymptomItem(name: "Skin Redness", icon: "SkinRednessIcon"),
-            SymptomItem(name: "Cracked nipples", icon: "CrackedNipplesIcon"),
-            SymptomItem(name: "Pain", icon: "PainIcon"),
-            SymptomItem(name: "Nipple Discharge", icon: "NippleDischargeIcon"),
 
-        ])
     ]
 }
 

@@ -8,18 +8,26 @@
 import Foundation
 
 // Symptom Item
-struct SymptomItem {
+struct SymptomItem: Encodable,Decodable {
     let name: String
     let icon: String
     var isSelected: Bool = false
+    var date: Date?
+    
+    init(name: String, icon: String){
+        self.name = name
+        self.icon = icon
+    }
+    
+    init(name: String, icon: String, isSelected: Bool, date: Date){
+        self.name = name
+        self.icon = icon
+        self.isSelected = isSelected
+        self.date = date
+    }
 }
 
 //LOgged Symptoms: codable for userdefaults storage
-struct LoggedSymptoms: Codable {
-    let date: Date
-    let name: String
-    let icon: String
-}
 
 //Symptom Category
 //struct SymptomCategory {

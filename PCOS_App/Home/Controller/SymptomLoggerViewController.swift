@@ -4,6 +4,9 @@
 //
 //  Created by SDC-USER on 12/12/25.
 //
+protocol DataPassDelegate: AnyObject {
+    func passData(symptoms: [SymptomItem]) -> [SymptomItem]
+}
 
 import UIKit
 
@@ -12,18 +15,18 @@ class SymptomLoggerViewController: UIViewController {
 
     
     @IBOutlet weak var collectionView: UICollectionView!
-    
+    weak var delegate: DataPassDelegate?
     private var categories = SymptomCategory.allCategories
     private var selectedSymptoms: Set<IndexPath> = []
     
-    var onSymptomsSelected: (([LoggedSymptoms]) -> Void)?
-    private var preSelectedSymptoms: [LoggedSymptoms] = []
+    var onSymptomsSelected: (([SymptomItem]) -> Void)?
+    private var preSelectedSymptoms: [SymptomItem] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         title = "Today's Symptoms"
-        navigationController?.navigationBar.prefersLargeTitles = true
+        navigationController?.navigationBar.prefersLargeTitles = false
         
         // Add Done button to navigation bar
             let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped(_:)))
@@ -42,11 +45,26 @@ class SymptomLoggerViewController: UIViewController {
     }
     
     private func setupCollectionView() {
-            collectionView.delegate = self
-            collectionView.dataSource = self
-        }
+        collectionView.delegate = self
+        collectionView.dataSource = self
+
+        // Cell
+        collectionView.register(
+            UINib(nibName: "SymptomItemCollectionViewCell", bundle: nil),
+            forCellWithReuseIdentifier: SymptomItemCollectionViewCell.identifier
+        )
+
+        // Section header
+        collectionView.register(
+            UINib(nibName: "SymptomLogSectionHeaderView", bundle: nil),
+            forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader,
+            withReuseIdentifier: "SymptomLogSectionHeaderView"
+        )
+        collectionView.collectionViewLayout = createCompositionalLayout()
+    }
+
     
-    func setSelectedSymptoms(_ symptoms: [LoggedSymptoms]) {
+    func setSelectedSymptoms(_ symptoms: [SymptomItem]) {
             self.preSelectedSymptoms = symptoms
         }
     
@@ -65,16 +83,17 @@ class SymptomLoggerViewController: UIViewController {
 
     @objc private func doneButtonTapped(_ sender: Any) {
             let symptoms = getSelectedSymptoms()
-        
-        onSymptomsSelected?(symptoms)
+        print(symptoms)
+        let returned = self.delegate?.passData(symptoms: symptoms)
+        print("Delegate returned symptoms: \(String(describing: returned))")
             navigationController?.popViewController(animated: true)
         }
         
-        private func getSelectedSymptoms() -> [LoggedSymptoms] {
-            var symptoms: [LoggedSymptoms] = []
+        private func getSelectedSymptoms() -> [SymptomItem] {
+            var symptoms: [SymptomItem] = []
             for indexPath in selectedSymptoms {
                 let symptom = categories[indexPath.section].items[indexPath.item]
-                let logged = LoggedSymptoms(date: Date(), name: symptom.name, icon: symptom.icon)
+                let logged = SymptomItem(name: symptom.name, icon: symptom.icon, isSelected: true, date: Date())
                 symptoms.append(logged)
             }
             return symptoms
@@ -121,43 +140,96 @@ class SymptomLoggerViewController: UIViewController {
     }
 
     // MARK: - UICollectionViewDelegate
-    extension SymptomLoggerViewController: UICollectionViewDelegate {
+extension SymptomLoggerViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print(selectedSymptoms)
         
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            if selectedSymptoms.contains(indexPath) {
-                selectedSymptoms.remove(indexPath)
-            } else {
-                selectedSymptoms.insert(indexPath)
-            }
-            collectionView.reloadItems(at: [indexPath])
+        if selectedSymptoms.contains(indexPath) {
+            selectedSymptoms.remove(indexPath)
+        } else {
+            selectedSymptoms.insert(indexPath)
+        }
+        
+        // Only reload the affected cell instead of entire collection view
+        collectionView.reloadItems(at: [indexPath])
+    }
+    
+    private func createCompositionalLayout() -> UICollectionViewLayout {
+        return UICollectionViewCompositionalLayout { (sectionIndex, layoutEnvironment) -> NSCollectionLayoutSection? in
+            return self.createGridSection()
         }
     }
-
-//// MARK: - UICollectionViewDelegateFlowLayout
-extension SymptomLoggerViewController: UICollectionViewDelegateFlowLayout {
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        // 4 items per row with reduced spacing
-        let padding: CGFloat = 20 + 20 // left + right insets
-        let spacing: CGFloat = 12 * 3 // 3 gaps between 4 items (reduced from 10)
-        let availableWidth = collectionView.bounds.width - padding - spacing
-        let itemWidth = availableWidth / 4
-        return CGSize(width: itemWidth, height: itemWidth * 1.2) // Slightly reduced height ratio
+    private func createGridSection() -> NSCollectionLayoutSection {
+        // Item size - each takes 1/4 of the group width
+        let itemSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(0.25),  // 25% = 1/4
+            heightDimension: .fractionalHeight(1.0)
+        )
+        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+        item.contentInsets = NSDirectionalEdgeInsets(top: 6, leading: 6, bottom: 6, trailing: 6)
+        
+        // Group size - 4 items horizontally
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),   // Full width
+            heightDimension: .absolute(120)           // Fixed height per row
+        )
+        let group = NSCollectionLayoutGroup.horizontal(
+            layoutSize: groupSize,
+            repeatingSubitem: item,
+            count: 4  // Exactly 4 items per row
+        )
+        
+        // Section
+        let section = NSCollectionLayoutSection(group: group)
+        section.contentInsets = NSDirectionalEdgeInsets(
+            top: 8,
+            leading: 10,
+            bottom: 16,
+            trailing: 10
+        )
+        
+        // Add section header
+        let headerSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(1.0),
+            heightDimension: .absolute(44)
+        )
+        let header = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: UICollectionView.elementKindSectionHeader,
+            alignment: .top
+        )
+        section.boundarySupplementaryItems = [header]
+        
+        return section
     }
+    //// MARK: - UICollectionViewDelegateFlowLayout
+    //extension SymptomLoggerViewController: UICollectionViewDelegateFlowLayout {
+    //
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    //        // 4 items per row with reduced spacing
+    //        let padding: CGFloat = 20 + 20 // left + right insets
+    //        let spacing: CGFloat = 12 * 3 // 3 gaps between 4 items (reduced from 10)
+    //        let availableWidth = collectionView.bounds.width - padding - spacing
+    //        let itemWidth = availableWidth / 4
+    //        return CGSize(width: itemWidth, height: itemWidth * 1.2) // Slightly reduced height ratio
+    //    }
+    //
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    //        return UIEdgeInsets(top: 8, left: 10, bottom: 16, right: 10) // Reduced bottom padding
+    //    }
+    //
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSection section: Int) -> CGFloat {
+    //        return 12 // Reduced from 10 to bring cells closer horizontally
+    //    }
+    //
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSection section: Int) -> CGFloat {
+    //        return 12 // Keep consistent vertical spacing
+    //    }
+    //
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    //        return CGSize(width: collectionView.bounds.width, height: 44)
+    //    }
+    //}
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return UIEdgeInsets(top: 8, left: 20, bottom: 16, right: 20) // Reduced bottom padding
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSection section: Int) -> CGFloat {
-        return 12 // Reduced from 10 to bring cells closer horizontally
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSection section: Int) -> CGFloat {
-        return 12 // Keep consistent vertical spacing
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: collectionView.bounds.width, height: 44)
-    }
 }
