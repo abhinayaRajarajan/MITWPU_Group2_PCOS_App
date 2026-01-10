@@ -213,11 +213,10 @@ class WorkoutPlayerViewController: UIViewController {
 
         let targetOffset = (state == .expanded) ? expandedOffset : collapsedOffset
 
-        //  CRITICAL: swap touch priority
         if state == .expanded {
             bottomContainerView.bringSubviewToFront(SecondaryControlViewOutlet)
             SecondaryControlViewOutlet.isUserInteractionEnabled = true
-            PrimaryControlViewOutlet.isUserInteractionEnabled = false
+            PrimaryControlViewOutlet.isUserInteractionEnabled = true  
         } else {
             bottomContainerView.bringSubviewToFront(PrimaryControlViewOutlet)
             SecondaryControlViewOutlet.isUserInteractionEnabled = false
@@ -293,7 +292,7 @@ class WorkoutPlayerViewController: UIViewController {
 //            }
 //    }
     @IBAction func endWorkoutTapped(_ sender: UIButton) {
-        
+                print("end workout tapped ")
                 self.finishWorkoutAndShowSummary()
             
 

@@ -11,7 +11,7 @@ class RestTimeViewController: UIViewController {
 
     @IBOutlet weak var RestCountdownOutlet: UILabel!
     @IBOutlet weak var RestTimeImageOutlet: UIImageView!
-    var secondsRemaining: Int = 30
+    var secondsRemaining: Int = 10
         var timer: Timer?
 
         var onRestFinished: (() -> Void)?
