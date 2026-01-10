@@ -20,26 +20,28 @@ class WorkoutViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+            
         title = "Workout"
         navigationController?.navigationBar.prefersLargeTitles = true
+        view.backgroundColor=UIColor(hex: "FCEEED")
         
         registerCells()
         collectionView.setCollectionViewLayout(generateLayout(), animated: true)
         collectionView.dataSource = self
         collectionView.delegate = self
+        
         //setupExploreData()
     }
     
     
-    @IBAction func createButtonTapped(_ sender: UIButton) {
-        // Navigate to your Create Routine screen
-        performSegue(withIdentifier: "showCreateRoutine", sender: nil)
-    }
+//    @IBAction func createButtonTapped(_ sender: UIButton) {
+//        // Navigate to your Create Routine screen
+//        performSegue(withIdentifier: "showCreateRoutine", sender: nil)
+//    }
     
     
     func generateLayout()->UICollectionViewLayout {
-        
+        collectionView.backgroundColor=UIColor(hex: "FCEEED")
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
                 configuration.interSectionSpacing = 20
 
@@ -83,42 +85,48 @@ class WorkoutViewController: UIViewController {
                         // My Routines - horizontal scrolling cards
                         let itemSize = NSCollectionLayoutSize(
                             widthDimension: .absolute(200),
-                            heightDimension: .absolute(125)
+                            heightDimension: .absolute(170)
                         )
                         let item = NSCollectionLayoutItem(layoutSize: itemSize)
                         
                         let groupSize = NSCollectionLayoutSize(
-                            widthDimension: .absolute(205),
-                            heightDimension: .absolute(125)
+                            widthDimension: .absolute(200),
+                            heightDimension: .absolute(150)
                         )
                         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                        
                         let section = NSCollectionLayoutSection(group: group)
                         section.orthogonalScrollingBehavior = .groupPaging
                         section.interGroupSpacing = 12
-                        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+                        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10)
                         section.boundarySupplementaryItems = [headerItem]
                         return section
                         
                     } else {
-                        // Explore Routines - 2 column grid
                         let itemSize = NSCollectionLayoutSize(
-                            widthDimension: .fractionalWidth(0.5),
-                            heightDimension: .absolute(170)
+                            widthDimension: .fractionalWidth(1.0),
+                            heightDimension: .absolute(140)
                         )
+
                         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 12, trailing: 6)
-                        
+                        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0)
+
                         let groupSize = NSCollectionLayoutSize(
                             widthDimension: .fractionalWidth(1.0),
-                            heightDimension: .absolute(170)
+                            heightDimension: .absolute(140)
                         )
-                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                        
+
+                        let group = NSCollectionLayoutGroup.vertical(
+                            layoutSize: groupSize,
+                            subitems: [item]
+                        )
+
                         let section = NSCollectionLayoutSection(group: group)
                         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+                        section.interGroupSpacing = 12
                         section.boundarySupplementaryItems = [headerItem]
+
                         return section
+
                     }
                 }, configuration: configuration)
 
@@ -223,12 +231,7 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "my_routines_cell", for: indexPath) as! MyRoutinesCollectionViewCell
             let routine = WorkoutSessionManager.shared.savedRoutines[indexPath.row]
             cell.configureCell(with: routine)
-            cell.onStartTapped = { [weak self] in
-                guard let self = self else { return }
-                self.selectedRoutine = routine
-                self.performSegue(withIdentifier: "showRoutinePreview", sender: nil)
-            }
-
+            
             return cell
             
             
@@ -259,18 +262,31 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
     }
     
     
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        // Only handle taps for Predefined Routines section
-        guard indexPath.section == 2 else { return }
-        
-        let routine = exploreRoutine[indexPath.item]
-        selectedPredefinedRoutine = routine
-        
-        performSegue(withIdentifier: "PredefinedRoutines", sender: nil)
-    }
-   
     
+        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+
+            switch indexPath.section {
+
+            case 1:
+                let routines = WorkoutSessionManager.shared.savedRoutines
+                guard !routines.isEmpty else { return }
+
+                let routine = routines[indexPath.item]
+                selectedRoutine = routine
+                performSegue(withIdentifier: "showRoutinePreview", sender: nil)
+
+//            case 2:
+//                let routine = exploreRoutine[indexPath.item]
+//                selectedPredefinedRoutine = routine
+//                performSegue(withIdentifier: "PredefinedRoutines", sender: nil)
+            case 2:
+                let routine = exploreRoutine[indexPath.item]
+                selectedRoutine = routine
+                performSegue(withIdentifier: "showRoutinePreview", sender: nil)
 
 
+            default:
+                return
+            }
+    }
 }

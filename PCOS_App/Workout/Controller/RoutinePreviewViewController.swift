@@ -33,36 +33,107 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
 
     @IBOutlet weak var EstRoutineTimeOutlet: UILabel!
     @IBOutlet weak var NoOfExerciseOutlet: UILabel!
-    @IBOutlet weak var RoutineNameOutlet: UILabel!
+   // @IBOutlet weak var RoutineNameOutlet: UILabel!
     @IBOutlet weak var RoutineImageOutlet: UIImageView!
-    @IBOutlet weak var RoutineDetailStack: UIStackView!
     
+    @IBOutlet weak var timeTagContainer: UIView!
+    
+    @IBOutlet weak var exerciseTagContainer: UIView!
     @IBOutlet weak var RoutinePreviewTableViewOutlet: UITableView!
+    @IBOutlet weak var playImageView: UIImageView!
+
     var routine: Routine!
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
+        title = routine.name
+        view.backgroundColor=UIColor(hex: "#FCEEED")
+        navigationController?.navigationBar.prefersLargeTitles = false
         setupContainerStyle()
         configureRoutineHeader()
         setupTable()
-      
+        setupPlayTap()
         
     }
-    
+    private func setupPlayTap() {
+        playImageView.isUserInteractionEnabled = true
+
+        let tapGesture = UITapGestureRecognizer(
+            target: self,
+            action: #selector(playTapped)
+        )
+
+        playImageView.addGestureRecognizer(tapGesture)
+    }
+    @objc private func playTapped() {
+        startWorkout()
+    }
+    private func startWorkout() {
+            // Create workout exercises from routine
+            let workoutExercises = routine.exercises.map {
+                $0.generateWorkoutExercise()
+            }
+
+            // Create active workout
+            let activeWorkout = ActiveWorkout(
+                routine: routine,
+                exercises: workoutExercises
+            )
+
+            WorkoutSessionManager.shared.activeWorkout = activeWorkout
+
+            let storyboard = UIStoryboard(name: "Workout", bundle: nil)
+
+            // Present countdown
+            guard let countdownVC = storyboard.instantiateViewController(
+                withIdentifier: "CountdownViewController"
+            ) as? CountdownViewController else {
+                print("❌ Failed to instantiate CountdownViewController")
+                return
+            }
+
+            countdownVC.modalPresentationStyle = .fullScreen
+
+            // Set up the callback for when countdown finishes
+            countdownVC.onCountdownFinished = { [weak self] in
+                guard let self = self else { return }
+
+                // Create the workout player
+                guard let workoutVC = storyboard.instantiateViewController(
+                    withIdentifier: "WorkoutPlayerViewController"
+                ) as? WorkoutPlayerViewController else {
+                    print("Failed to instantiate WorkoutPlayerViewController")
+                    return
+                }
+
+                // ✅ FIX: Pass the data BEFORE presenting
+                workoutVC.activeWorkout = activeWorkout
+                workoutVC.exerciseIndex = 0
+                workoutVC.workoutExercise = activeWorkout.exercises[0]
+
+                // ✅ FIX: Wrap in navigation controller
+                let navController = UINavigationController(rootViewController: workoutVC)
+                navController.modalPresentationStyle = .fullScreen
+
+                // Present the navigation controller
+                self.present(navController, animated: true)
+            }
+
+            // Present countdown
+            present(countdownVC, animated: false)
+        }
+
+
+
     private func setupContainerStyle() {
-        RoutineDetailStack.backgroundColor = UIColor.white.withAlphaComponent(0.95)
-        RoutineDetailStack.layer.cornerRadius = 16
-        RoutineDetailStack.layer.shadowColor = UIColor.black.cgColor
-        RoutineDetailStack.layer.shadowOpacity = 0.15
-        RoutineDetailStack.layer.shadowOffset = CGSize(width: 0, height: 4)
-        RoutineDetailStack.layer.shadowRadius = 12
-        
-        addBlurEffect()
+        timeTagContainer.backgroundColor = UIColor.white.withAlphaComponent(0.95)
+        timeTagContainer.layer.cornerRadius = exerciseTagContainer.frame.height / 2
+        exerciseTagContainer.backgroundColor = UIColor.white.withAlphaComponent(0.95)
+        exerciseTagContainer.layer.cornerRadius = exerciseTagContainer.frame.height / 2
     }
     private func configureRoutineHeader() {
-        RoutineNameOutlet.text = routine.name
+       // RoutineNameOutlet.text = routine.name
         NoOfExerciseOutlet.text = "\(routine.totalExercises)"
         EstRoutineTimeOutlet.text = routine.formattedDuration
         setRoutineImage()
@@ -71,12 +142,13 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
     private func setRoutineImage() {
         if let imageName = routine.thumbnailImageName {
             RoutineImageOutlet.image = UIImage(named: imageName)
+            RoutineImageOutlet.contentMode = .scaleAspectFill
         }
     }
     private func setupTable() {
         RoutinePreviewTableViewOutlet.delegate = self
         RoutinePreviewTableViewOutlet.dataSource = self
-       RoutinePreviewTableViewOutlet.rowHeight = UITableView.automaticDimension
+        RoutinePreviewTableViewOutlet.rowHeight = UITableView.automaticDimension
         RoutinePreviewTableViewOutlet.estimatedRowHeight = 120
         
         RoutinePreviewTableViewOutlet.register(
@@ -88,57 +160,49 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
         performSegue(withIdentifier: "InfoModal", sender: exercise)
     }
 
-    @IBAction func startWorkoutTapped(_ sender: UIButton) {
+//    @IBAction func startWorkoutTapped(_ sender: UIButton) {
+//
 //        let workoutExercises = routine.exercises.map {
-//            $0.generateWorkoutExercise()
-//        }
+//                $0.generateWorkoutExercise()
+//            }
 //
-//        let activeWorkout = ActiveWorkout(
-//            routine: routine,
-//            exercises: workoutExercises
-//        )
+//            let activeWorkout = ActiveWorkout(
+//                routine: routine,
+//                exercises: workoutExercises
+//            )
 //
-//        WorkoutSessionManager.shared.activeWorkout = activeWorkout
-//        performSegue(withIdentifier: "startWorkout", sender: nil)
-        let workoutExercises = routine.exercises.map {
-                $0.generateWorkoutExercise()
-            }
-
-            let activeWorkout = ActiveWorkout(
-                routine: routine,
-                exercises: workoutExercises
-            )
-
-            WorkoutSessionManager.shared.activeWorkout = activeWorkout
-
-            let storyboard = UIStoryboard(name: "Workout", bundle: nil)
-
-            guard let countdownVC = storyboard.instantiateViewController(
-                withIdentifier: "CountdownViewController"
-            ) as? CountdownViewController else { return }
-
-            countdownVC.modalPresentationStyle = .fullScreen
-
-            countdownVC.onCountdownFinished = { [weak self] in
-                guard let self = self else { return }
-
-                let workoutVC = storyboard.instantiateViewController(
-                    withIdentifier: "WorkoutPlayerViewController"
-                ) as! WorkoutPlayerViewController
-
-                workoutVC.workoutExercise = activeWorkout.exercises.first
-
-                self.navigationController?.pushViewController(workoutVC, animated: true)
-            }
-
-            present(countdownVC, animated: false)
-        
-        
-        
-        
-        
-        
-    }
+//            WorkoutSessionManager.shared.activeWorkout = activeWorkout
+//
+//            let storyboard = UIStoryboard(name: "Workout", bundle: nil)
+//
+//            guard let countdownVC = storyboard.instantiateViewController(
+//                withIdentifier: "CountdownViewController"
+//            ) as? CountdownViewController else { return }
+//
+//            countdownVC.modalPresentationStyle = .fullScreen
+//
+//            countdownVC.onCountdownFinished = { [weak self] in
+//                guard let self = self else { return }
+//
+//                let workoutVC = storyboard.instantiateViewController(
+//                    withIdentifier: "WorkoutPlayerViewController"
+//                ) as! WorkoutPlayerViewController
+//
+//                workoutVC.activeWorkout = activeWorkout
+//                workoutVC.exerciseIndex = 0
+//                workoutVC.workoutExercise = activeWorkout.exercises[0]
+//
+//                self.navigationController?.pushViewController(workoutVC, animated: true)
+//            }
+//
+//            present(countdownVC, animated: false)
+//        
+//        
+//        
+//        
+//        
+//        
+//    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "InfoModal" {
             
@@ -151,39 +215,9 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
             
             
         }
-//        if segue.identifier == "startWorkout",
-//               let workoutVC = segue.destination as? WorkoutPlayerViewController,
-//               let activeWorkout = WorkoutSessionManager.shared.activeWorkout {
-//
-//                // Start with first exercise
-//                workoutVC.workoutExercise = activeWorkout.exercises.first
-//            }
-
-//            
+           
     }
-    private func addBlurEffect() {
-        // Remove any existing blur
-        RoutineDetailStack.subviews.filter { $0 is UIVisualEffectView }.forEach { $0.removeFromSuperview() }
-        
-        // Create blur effect
-        let blurEffect = UIBlurEffect(style: .systemMaterial)
-        let blurView = UIVisualEffectView(effect: blurEffect)
-        blurView.translatesAutoresizingMaskIntoConstraints = false
-        blurView.layer.cornerRadius = 16
-        blurView.clipsToBounds = true
-        
-        // Insert blur as background
-        RoutineDetailStack.insertSubview(blurView, at: 0)
-        
-        NSLayoutConstraint.activate([
-            blurView.topAnchor.constraint(equalTo: RoutineDetailStack.topAnchor),
-            blurView.leadingAnchor.constraint(equalTo: RoutineDetailStack.leadingAnchor),
-            blurView.trailingAnchor.constraint(equalTo: RoutineDetailStack.trailingAnchor),
-            blurView.bottomAnchor.constraint(equalTo: RoutineDetailStack.bottomAnchor)
-        ])
-        
-        // Make container background clear so blur shows
-        RoutineDetailStack.backgroundColor = .clear
-    }
+    
+    
 
 }

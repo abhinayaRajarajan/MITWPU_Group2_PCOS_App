@@ -15,14 +15,14 @@ class MyRoutinesEmptyCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        containerView.layer.cornerRadius = 16
-        containerView.layer.borderWidth = 1
-        containerView.layer.borderColor = UIColor.systemGray5.cgColor
+        containerView.layer.cornerRadius = 20
+//        containerView.layer.borderWidth = 1
+//        containerView.layer.borderColor = UIColor.systemGray5.cgColor
         
         messageLabel.text = "Get started by creating a routine"
-        messageLabel.textColor = .systemGray3
+        messageLabel.textColor = .systemGray
         messageLabel.textAlignment = .center
-        messageLabel.font = .systemFont(ofSize: 16, weight: .medium)
+//        messageLabel.font = .systemFont(ofSize: 16, weight: .medium)
         
         
     }

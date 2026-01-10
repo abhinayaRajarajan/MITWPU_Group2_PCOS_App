@@ -29,8 +29,12 @@ class RoutinePreviewTableViewCell: UITableViewCell {
     }
     
     override func awakeFromNib() {
+        
+        
         super.awakeFromNib()
-        // Initialization code
+    
+        cardView.layer.cornerRadius = 16
+        cardView.clipsToBounds = true
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

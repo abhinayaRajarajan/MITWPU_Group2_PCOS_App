@@ -9,28 +9,32 @@ import UIKit
 
 class MyRoutinesCollectionViewCell: UICollectionViewCell {
 
-    @IBOutlet weak var startRoutineButtonOutlet: UIButton!
+    
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var routineNameOutlet: UILabel!
     
-    var onStartTapped: (() -> Void)?
+    @IBOutlet weak var MyRoutinesImageOutlet: UIImageView!
+    @IBOutlet weak var timeTagContainer: UIView!
+    
+    @IBOutlet weak var EstimatedTimeLabelOutlet: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        startRoutineButtonOutlet.isUserInteractionEnabled = true
         
-        containerView.layer.cornerRadius = 16
-                containerView.layer.masksToBounds = true
-                containerView.layer.borderWidth = 1
-                containerView.layer.borderColor = UIColor.systemGray5.cgColor
+        containerView.layer.cornerRadius = 20
+        containerView.layer.masksToBounds = true
+        //containerView.layer.borderWidth = 1
+        //containerView.layer.borderColor = UIColor.systemGray5.cgColor
+        timeTagContainer.layer.cornerRadius = timeTagContainer.frame.height/2
     }
     func configureCell(with routine: Routine) {
             routineNameOutlet.text = routine.name
-        startRoutineButtonOutlet.tintColor = UIColor(red: 254/255, green: 122/255, blue: 150/255, alpha: 0.8)
+        if let imageName = routine.thumbnailImageName {
+            MyRoutinesImageOutlet.image = UIImage(named: imageName)
+            MyRoutinesImageOutlet.contentMode = .scaleAspectFill
+        }
 
 
         }
-    @IBAction func startRoutineTapped(_ sender: UIButton) {
-            onStartTapped?()
-        }
+    
 }

@@ -56,7 +56,7 @@ class CountdownViewController: UIViewController {
 
             // Configure label
             countLabel.textColor = .label
-            countLabel.font = UIFont.systemFont(ofSize: 96, weight: .thin)
+            countLabel.font = UIFont.systemFont(ofSize: 46, weight: .thin)
             countLabel.textAlignment = .center
             countLabel.text = "READY"
             countLabel.alpha = 0

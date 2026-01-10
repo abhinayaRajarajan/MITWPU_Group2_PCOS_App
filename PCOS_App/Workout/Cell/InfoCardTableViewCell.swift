@@ -14,14 +14,11 @@ class InfoCardTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        containerView.layer.cornerRadius = 16
+        containerView.layer.cornerRadius = 10
         containerView.layer.masksToBounds = false
 
         // shadow
-        containerView.layer.shadowColor = UIColor.black.cgColor
-        containerView.layer.shadowOpacity = 0.1
-        containerView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        containerView.layer.shadowRadius = 6
+        
     }
 //    func configure(text: String) {
 //        infoLabel.text = "• " + text
@@ -30,7 +27,7 @@ class InfoCardTableViewCell: UITableViewCell {
 //        infoLabel.text = list.map { "• \($0)" }.joined(separator: "\n")
 //    }
     func configure(items: [String]) {
-        infoLabel.text = items.map { "• \($0)" }.joined(separator: "\n")
+        infoLabel.text = items.map { " \($0)" }.joined(separator: "\n")
     }
 
 //    override func setSelected(_ selected: Bool, animated: Bool) {

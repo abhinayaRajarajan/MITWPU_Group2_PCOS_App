@@ -235,7 +235,8 @@ struct Routine: Identifiable, Codable {
     var name: String
     var exercises: [RoutineExercise]
     var createdAt: Date = Date()
-    var thumbnailImageName: String?//new added property
+    var thumbnailImageName: String?
+    var routineTagline: String?
     var routineDescription: String?
     var totalExercises: Int { exercises.count }
     

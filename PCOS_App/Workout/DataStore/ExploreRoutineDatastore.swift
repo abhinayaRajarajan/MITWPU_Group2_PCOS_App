@@ -12,149 +12,145 @@ class RoutineDataStore {
 
     // MARK: - Predefined routines for Explore section
     let predefinedRoutines: [Routine] = [
-        // 1. WARM UP
-        Routine(
-            id:UUID(),
-            name: "Warm-Up",
-            exercises: [
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Jumping Jacks" }!,
-                    durationSeconds: 180     // 3 mins
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Cat-Cow Stretch" }!,
-                    durationSeconds: 90
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "World's Greatest Stretch" }!,
-                    durationSeconds: 120
-                )
-            ],
-            thumbnailImageName: "Plank",
-            routineDescription: "A gentle warm-up to prepare your muscles and joints."
-        ),
+        // MARK: - Workout Paths (PCOS-guided routines)
 
-        // 2. HIIT
-        Routine(
-            id:UUID(),
-            name: "HIIT",
-            exercises: [
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Burpees" }!,
-                    durationSeconds: 300      // 5 mins
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Mountain Climbers" }!,
-                    durationSeconds: 300
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "High Knees" }!,
-                    durationSeconds: 300
-                )
-            ],
-            thumbnailImageName: "mountain_climbers",
-            routineDescription: "A high-intensity routine designed to burn calories quickly."
-        
-        ),
+       
 
-        // 3. YOGA / MOBILITY
-        Routine(
-            id:UUID(),
-            name: "Yoga",
-            exercises: [
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Cat-Cow Stretch" }!,
-                    durationSeconds: 180
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Hip Circles" }!,
-                    durationSeconds: 180
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "World's Greatest Stretch" }!,
-                    durationSeconds: 240
-                )
-            ],
-            thumbnailImageName: "cat_cow",
-            routineDescription: "A calming yoga flow that improves mobility and breathing."
-        ),
+            // 1️⃣ LOW ENERGY MOVEMENT
+            Routine(
+                id: UUID(),
+                name: "Low Energy Movement",
+                exercises: [
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Cat-Cow Stretch" }!,
+                        durationSeconds: 120
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Hip Circles" }!,
+                        durationSeconds: 120
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Glute Bridge" }!,
+                        numberOfSets: 2,
+                        reps: 12
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "World's Greatest Stretch" }!,
+                        durationSeconds: 120
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Tree Pose" }!,
+                        durationSeconds: 60
+                    )
+                ],
+                createdAt: Date(),
+                thumbnailImageName: "routine_3",
+                routineTagline: "When fatigue is high and your body needs gentle support",
+                routineDescription: "Designed for days of low energy and physical fatigue, this routine prioritizes gentle activation and mobility to avoid excessive cortisol spikes. Slow, controlled movement supports hormonal balance, improves circulation, and encourages recovery without overloading the nervous system—making it ideal for PCOS users on depleted days."
+            ),
 
-        // 4. LEG DAY
-        Routine(
-            id:UUID(),
-            name: "Leg Day",
-            exercises: [
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Barbell Squat" }!,
-                    numberOfSets: 4,
-                    reps: 8,
-                    weightKg: 30
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Leg Press" }!,
-                    numberOfSets: 3,
-                    reps: 10,
-                    weightKg: 50
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Lunges" }!,
-                    numberOfSets: 3,
-                    reps: 12
-                )
-            ],
-            thumbnailImageName: "leg_press",
-            routineDescription: "A strength-focused routine to build lower body power."
-        ),
+            // 2️⃣ CALM & STEADY
+            Routine(
+                id: UUID(),
+                name: "Calm and Steady",
+                exercises: [
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Cat-Cow Stretch" }!,
+                        durationSeconds: 120
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "World's Greatest Stretch" }!,
+                        durationSeconds: 120
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Plank" }!,
+                        durationSeconds: 45
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Face Pulls" }!,
+                        numberOfSets: 2,
+                        reps: 12
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Seated Cable Row" }!,
+                        numberOfSets: 2,
+                        reps: 10
+                    )
+                ],
+                createdAt: Date(),
+                thumbnailImageName: "routine_3",
+                routineTagline: "When stress or overwhelm calls for slow, stabilizing movement",
+                routineDescription: "This routine supports stress regulation by emphasizing steady, grounding movements that help calm the nervous system. By reducing sympathetic overactivation and cortisol output, it aids hormonal stability while improving posture and muscular control—especially useful during mentally overwhelming or emotionally taxing days."
+            ),
 
-        // 5. UPPER BODY
-        Routine(
-            id:UUID(),
-            name: "Upper Body",
-            exercises: [
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Bench Press" }!,
-                    numberOfSets: 4,
-                    reps: 8,
-                    weightKg: 25
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Lat Pulldown" }!,
-                    numberOfSets: 3,
-                    reps: 10,
-                    weightKg: 30
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Dumbbell Shoulder Press" }!,
-                    numberOfSets: 3,
-                    reps: 10,
-                    weightKg: 10
-                )
-            ],
-            thumbnailImageName: "tricep_pushdown",
-            routineDescription: "Targets chest, back, shoulders, and arms for upper body strength."
-        ),
+            // 3️⃣ BUILD & BURN
+            Routine(
+                id: UUID(),
+                name: "Build and Burn",
+                exercises: [
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Barbell Squat" }!,
+                        numberOfSets: 3,
+                        reps: 8
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Dumbbell Romanian Deadlift" }!,
+                        numberOfSets: 3,
+                        reps: 10
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Bench Press" }!,
+                        numberOfSets: 3,
+                        reps: 8
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Lat Pulldown" }!,
+                        numberOfSets: 3,
+                        reps: 10
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Mountain Climbers" }!,
+                        durationSeconds: 60
+                    )
+                ],
+                createdAt: Date(),
+                thumbnailImageName: "routine_3",
+                routineTagline: "For days you feel motivated and ready to challenge your body",
+                routineDescription: "Built for high-motivation days, this routine focuses on compound strength movements that improve insulin sensitivity, lean muscle mass, and metabolic efficiency—key factors in PCOS management. Intensity is purposeful and structured to stimulate adaptation without unnecessary cortisol overload."
+            ),
 
-        // 6. STRETCHING
-        Routine(
-            id:UUID(),
-            name: "Stretching",
-            exercises: [
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Hip Circles" }!,
-                    durationSeconds: 120
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Cat-Cow Stretch" }!,
-                    durationSeconds: 120
-                ),
-                RoutineExercise(
-                    exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "World's Greatest Stretch" }!,
-                    durationSeconds: 180
-                )
-            ],
-            thumbnailImageName: "worlds_greatest",
-            routineDescription: "A flexibility routine that improves mobility and reduces tension."
-        )
-    ]
+            // 4️⃣ LIGHT & FLOW
+            Routine(
+                id: UUID(),
+                name: "Light and Flow",
+                exercises: [
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Hip Circles" }!,
+                        durationSeconds: 120
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "World's Greatest Stretch" }!,
+                        durationSeconds: 120
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Cat-Cow Stretch" }!,
+                        durationSeconds: 120
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Step-Up on Chair" }!,
+                        numberOfSets: 2,
+                        reps: 10
+                    ),
+                    RoutineExercise(
+                        exercise: ExerciseDataStore.shared.allExercises.first { $0.name == "Jumping Jacks" }!,
+                        durationSeconds: 60
+                    )
+                ],
+                createdAt: Date(),
+                thumbnailImageName: "routine_3",
+                routineTagline: "When bloating or heaviness makes lighter, flowing movement feel better",
+                routineDescription: "This routine emphasizes flow-based movement to support digestion, circulation, and lymphatic drainage—helping relieve bloating and pelvic heaviness common in PCOS. Gentle transitions reduce physical discomfort while keeping the body active without adding stress load."
+            )
+        ]
 }
 

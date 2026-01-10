@@ -114,10 +114,11 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
                    forSection section: Int) {
 
         guard let header = view as? UITableViewHeaderFooterView else { return }
-
-        header.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+    
+        header.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
         header.textLabel?.textColor = .label
         header.contentView.backgroundColor = .systemBackground
+        
     }
     func tableView(_ tableView: UITableView,
                    heightForHeaderInSection section: Int) -> CGFloat {
