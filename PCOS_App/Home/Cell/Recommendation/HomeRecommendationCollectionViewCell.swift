@@ -24,7 +24,7 @@ class HomeRecommendationCollectionViewCell: UICollectionViewCell {
         backgroundColor = .clear
         
         containerView.layer.cornerRadius = 16
-        iconContainerView.layer.cornerRadius = 30
+        iconContainerView.layer.cornerRadius = 16
         
         
     }

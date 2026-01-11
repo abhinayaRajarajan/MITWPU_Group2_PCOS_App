@@ -23,10 +23,11 @@ class HomeViewController: UIViewController, DataPassDelegate {
     
     
     
-    
     @IBOutlet weak var collectionView: UICollectionView!
     // Storing selected symptoms
     private var selectedSymptoms: [SymptomItem] = []
+    private var recommendationCards : [Recommendation] = recommendations
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -175,16 +176,16 @@ class HomeViewController: UIViewController, DataPassDelegate {
     }
     
     func createCycleSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(150))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(55))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: itemSize, subitems: [NSCollectionLayoutItem(layoutSize: itemSize)])
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = .zero
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
         return section
     }
     func createRecommendationSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(150)
+            heightDimension: .absolute(120)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         // Option A: per-item padding
@@ -192,15 +193,15 @@ class HomeViewController: UIViewController, DataPassDelegate {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(150)
+            heightDimension: .absolute(120)
         )
         // One item per group
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
         
         let section = NSCollectionLayoutSection(group: group)
         // spacing between groups (each group contains one item)
-        section.interGroupSpacing = 20
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+        section.interGroupSpacing = 10
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
         return section
     }
 }
@@ -215,8 +216,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             return selectedSymptoms.count + 1
         case 2:
             return 1
-//        case 3:
-//            return 1
+        case 3:
+            return recommendationCards.count
         default:
             return 0
         }
@@ -244,14 +245,14 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         }
         else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recommendation_cell", for: indexPath) as! HomeRecommendationCollectionViewCell
-//            let destination = topUrbanDestinations[indexPath.row]
-//            cell.configureCell(destination: destination)
+            let recommendation = recommendationCards[indexPath.item]
+            cell.configure(with: recommendation)
             return cell
         }
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 3
+        return 4
     }
     
     func collectionView(_ collectionView: UICollectionView,
@@ -265,6 +266,16 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
 
         if indexPath.section == 2 {
             performSegue(withIdentifier: "showCycleReport", sender: nil)
+        }
+        
+        if indexPath.section == 3 {
+            if indexPath.item == 0 {
+                performSegue(withIdentifier: "showProtein", sender: self)
+            } else if indexPath.item == 1 {
+                performSegue(withIdentifier: "showInsulin", sender: self)
+            } else if indexPath.item == 2 {
+                performSegue(withIdentifier: "showWorkoutPush", sender: self)
+            }
         }
 
     }

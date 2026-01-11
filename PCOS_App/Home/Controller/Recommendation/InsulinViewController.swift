@@ -14,7 +14,7 @@ class InsulinViewController: UIViewController {
     
     @IBOutlet weak var warningcard: UIView!
     @IBOutlet weak var InsulinSummaryCardView: UIView!
-    private var highSugarFoods: [FoodItem] = []
+    private var highSugarFoods: [InsulinFoodItem] = []
         
     @IBOutlet weak var summaryCardView: InsulinSummaryCardView!
     
@@ -40,21 +40,21 @@ class InsulinViewController: UIViewController {
         }
         private func setupSampleData() {
             highSugarFoods = [
-                FoodItem(
+                InsulinFoodItem(
                     name: "Chocolate Cake",
                     image: "🍰",
                     sugarContent: "High",
                     day: "Monday",
                     description: "Rich chocolate cake with frosting"
                 ),
-                FoodItem(
+                InsulinFoodItem(
                     name: "Rasgulla",
                     image: "🍡",
                     sugarContent: "Very High",
                     day: "Wednesday",
                     description: "Sweet Indian cottage cheese balls in syrup"
                 ),
-                FoodItem(
+                InsulinFoodItem(
                     name: "Ice Cream",
                     image: "🍨",
                     sugarContent: "High",
@@ -111,7 +111,7 @@ class InsulinViewController: UIViewController {
             showFoodDetail(for: selectedFood)
         }
         
-        private func showFoodDetail(for food: FoodItem) {
+        private func showFoodDetail(for food: InsulinFoodItem) {
             let alert = UIAlertController(
                 title: food.name,
                 message: "\(food.description)\nDay: \(food.day)\nSugar Level: \(food.sugarContent)",
@@ -123,7 +123,7 @@ class InsulinViewController: UIViewController {
     }
 
     // MARK: - FoodItem Model
-    struct FoodItem {
+    struct InsulinFoodItem {
         let name: String
         let image: String  // Can be emoji or image name
         let sugarContent: String

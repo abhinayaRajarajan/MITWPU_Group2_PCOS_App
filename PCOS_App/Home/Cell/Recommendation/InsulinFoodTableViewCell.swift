@@ -10,7 +10,7 @@ import UIKit
 class InsulinFoodTableViewCell: UITableViewCell {
 
     // Disambiguate FoodItem if multiple types exist with the same name
-    typealias CellFoodItem = PCOS_App.FoodItem
+    typealias CellFoodItem = PCOS_App.InsulinFoodItem
 
     @IBOutlet weak var foodImage: UIImageView!
     @IBOutlet weak var tableContentView: UIView!
