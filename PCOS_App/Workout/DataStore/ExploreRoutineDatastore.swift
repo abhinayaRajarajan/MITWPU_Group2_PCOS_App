@@ -44,7 +44,7 @@ class RoutineDataStore {
                     )
                 ],
                 createdAt: Date(),
-                thumbnailImageName: "routine8",
+                thumbnailImageName: "routine_11",
                 routineTagline: "When fatigue is high and your body needs gentle support",
                 routineDescription: "Designed for days of low energy and physical fatigue, this routine prioritizes gentle activation and mobility to avoid excessive cortisol spikes. Slow, controlled movement supports hormonal balance, improves circulation, and encourages recovery without overloading the nervous system—making it ideal for PCOS users on depleted days."
             ),
@@ -114,7 +114,7 @@ class RoutineDataStore {
                     )
                 ],
                 createdAt: Date(),
-                thumbnailImageName: "routine_3",
+                thumbnailImageName: "routine10",
                 routineTagline: "For days you feel motivated and ready to challenge your body",
                 routineDescription: "Built for high-motivation days, this routine focuses on compound strength movements that improve insulin sensitivity, lean muscle mass, and metabolic efficiency—key factors in PCOS management. Intensity is purposeful and structured to stimulate adaptation without unnecessary cortisol overload."
             ),
@@ -147,7 +147,7 @@ class RoutineDataStore {
                     )
                 ],
                 createdAt: Date(),
-                thumbnailImageName: "routine_3",
+                thumbnailImageName: "routine_12",
                 routineTagline: "When bloating or heaviness makes lighter, flowing movement feel better",
                 routineDescription: "This routine emphasizes flow-based movement to support digestion, circulation, and lymphatic drainage—helping relieve bloating and pelvic heaviness common in PCOS. Gentle transitions reduce physical discomfort while keeping the body active without adding stress load."
             )

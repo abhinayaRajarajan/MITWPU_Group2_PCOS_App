@@ -48,17 +48,9 @@ class WorkoutPlayerViewController: UIViewController {
     @IBOutlet weak var bottomContainerHeightConstraint: NSLayoutConstraint!
 
     
-    private let collapsedHeight: CGFloat = 120   // grabber + primary
+    private let collapsedHeight: CGFloat = 170   // grabber + primary
     private let expandedHeight: CGFloat = 220    // includes secondary
     private var panGestureRecognizer: UIPanGestureRecognizer!
-    
-
-    
-
-   
-        
-        
-      
 
     
     var activeWorkout: ActiveWorkout!
@@ -81,11 +73,11 @@ class WorkoutPlayerViewController: UIViewController {
         SecondaryControlViewOutlet.alpha = 0
         //SecondaryControlViewOutlet.isUserInteractionEnabled = false
         
-        pauseContainer.layer.cornerRadius = pauseContainer.frame.height / 2
+        pauseContainer.layer.cornerRadius = 20
   //      skipButton.layer.cornerRadius = skipButton.frame.height / 2
-        doneButton.layer.cornerRadius = doneButton.frame.height / 2
+        doneButton.layer.cornerRadius = 0
         
-        nextExerciseButton.layer.cornerRadius = 20
+        nextExerciseButton.layer.cornerRadius = 0
         endWorkoutButton.layer.cornerRadius = 100
         
         bottomContainerView.layer.cornerRadius = 24

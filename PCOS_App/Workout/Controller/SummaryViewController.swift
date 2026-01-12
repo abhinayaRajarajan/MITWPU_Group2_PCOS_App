@@ -69,6 +69,7 @@ class SummaryViewController: UIViewController {
     //    }
     
     func setupUI() {
+        containerView.layer.cornerRadius=24
         
         // ---- DURATION ----
         let totalSeconds = completedWorkout.durationSeconds
@@ -220,28 +221,15 @@ class SummaryViewController: UIViewController {
         }
     }
         @IBAction func doneButtonTapped(_ sender: UIButton) {
-            //NAVIGATION TO HOME VC
-            let homeVC = UIStoryboard(name: "Workout", bundle: nil)
-                .instantiateViewController(withIdentifier: "WorkoutHome") as! WorkoutViewController
-            navigationController?.pushViewController(homeVC, animated: true)
+            //NAVIGATION TO HOME VC-> but it comes embedded in a navigation bar,no tab bar
+//            let homeVC = UIStoryboard(name: "Workout", bundle: nil)
+//                .instantiateViewController(withIdentifier: "WorkoutHome") as! WorkoutViewController
+//            navigationController?.pushViewController(homeVC, animated: true)
+            
             //just uncomment to navigate to routine preview vc
-            //dismiss(animated: true)
+            dismiss(animated: true)
+            
+            
         }
         
     }
-//    extension UIColor {
-//        convenience init(hex: String) {
-//            var hexSanitized = hex.trimmingCharacters(in: .whitespacesAndNewlines)
-//            hexSanitized = hexSanitized.replacingOccurrences(of: "#", with: "")
-//            
-//            var rgb: UInt64 = 0
-//            Scanner(string: hexSanitized).scanHexInt64(&rgb)
-//            
-//            let red = CGFloat((rgb & 0xFF0000) >> 16) / 255.0
-//            let green = CGFloat((rgb & 0x00FF00) >> 8) / 255.0
-//            let blue = CGFloat(rgb & 0x0000FF) / 255.0
-//            
-//            self.init(red: red, green: green, blue: blue, alpha: 1.0)
-//        }
-//    }
-

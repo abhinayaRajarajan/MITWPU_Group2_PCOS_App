@@ -38,7 +38,7 @@ class RestTimeViewController: UIViewController {
         }
 
         private func updateLabel() {
-            RestCountdownOutlet.text = "Rest \(secondsRemaining)s"
+            RestCountdownOutlet.text = "\(secondsRemaining)s"
         }
 
         @IBAction func skipTapped(_ sender: UIButton) {

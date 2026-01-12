@@ -107,12 +107,12 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
                     return
                 }
 
-                // ✅ FIX: Pass the data BEFORE presenting
+                
                 workoutVC.activeWorkout = activeWorkout
                 workoutVC.exerciseIndex = 0
                 workoutVC.workoutExercise = activeWorkout.exercises[0]
 
-                // ✅ FIX: Wrap in navigation controller
+                // ✅ FIX: Wrap in navigation controller 
                 let navController = UINavigationController(rootViewController: workoutVC)
                 navController.modalPresentationStyle = .fullScreen
 

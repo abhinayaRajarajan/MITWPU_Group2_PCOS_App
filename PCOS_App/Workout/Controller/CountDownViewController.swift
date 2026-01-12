@@ -56,7 +56,6 @@ class CountdownViewController: UIViewController {
 
             // Configure label
             countLabel.textColor = .label
-            countLabel.font = UIFont.systemFont(ofSize: 46, weight: .thin)
             countLabel.textAlignment = .center
             countLabel.text = "READY"
             countLabel.alpha = 0
@@ -83,14 +82,15 @@ class CountdownViewController: UIViewController {
             // Track layer (background)
             trackLayer.path = circularPath.cgPath
             trackLayer.strokeColor = UIColor.systemGray5.cgColor
-            trackLayer.lineWidth = 12
+            trackLayer.lineWidth = 15
             trackLayer.fillColor = UIColor.clear.cgColor
             trackLayer.lineCap = .round
 
             // Progress layer (animated)
             ringLayer.path = circularPath.cgPath
-            ringLayer.strokeColor = UIColor.systemGreen.cgColor
-            ringLayer.lineWidth = 12
+            //ringLayer.strokeColor = UIColor.systemGreen.cgColor
+            ringLayer.strokeColor = UIColor(hex:"FE7A96").cgColor
+            ringLayer.lineWidth = 15
             ringLayer.fillColor = UIColor.clear.cgColor
             ringLayer.lineCap = .round
             ringLayer.strokeEnd = 0
