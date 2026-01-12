@@ -43,7 +43,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
             image: UIImage(systemName: "calendar"),
             style: .plain,
             target: self,
-            action: #selector(addTapped)
+            action: #selector(leftBarButtonTapped)
         )
         
         let profile = UIBarButtonItem(
@@ -68,6 +68,9 @@ class HomeViewController: UIViewController, DataPassDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("\nThis is HomeVC:",selectedSymptoms)
+        navigationController?.navigationBar.prefersLargeTitles = true
+        // Reload the header cell to update cycle day
+        //collectionView.reloadSections(IndexSet(integer: 0))
     }
     private func loadTodaysSymptoms() {
         if let data = UserDefaults.standard.data(forKey: "todaysSymptoms"),
@@ -121,7 +124,31 @@ class HomeViewController: UIViewController, DataPassDelegate {
     }
     
     @objc func addTapped() {
+        
         if let vc = storyboard?.instantiateViewController(withIdentifier: "profileVC") as? ProfileViewController {
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
+    
+    @objc func leftBarButtonTapped() {
+        
+        // COMMENTED OUT: Will pass period dates to FullCalendarViewController later
+                /*
+                if let vc = storyboard?.instantiateViewController(withIdentifier: "FullCalendarViewController") as? FullCalendarViewController {
+                    // Load saved period dates
+                    var periodDates: [Date] = []
+                    if let timestamps = UserDefaults.standard.array(forKey: "SavedPeriodDates") as? [TimeInterval] {
+                        periodDates = timestamps.map { Date(timeIntervalSince1970: $0) }.sorted()
+                    }
+                    
+                    // Pass the dates to FullCalendarViewController
+                    vc.periodDates = periodDates
+                    
+                    navigationController?.pushViewController(vc, animated: true)
+                }
+                */
+        
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "FullCalendarViewController") as? FullCalendarViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
@@ -226,6 +253,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if indexPath.section == 0 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "home_header", for: indexPath) as! HomeHeaderCollectionViewCell
+            cell.delegate = self
+            //the cell will load and display cycle data
             return cell
         }
         else if indexPath.section == 1 {
@@ -311,6 +340,44 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         return "symptoms_\(formatter.string(from: Date()))"
     }
     
+}
+extension HomeViewController: HomeHeaderCollectionViewCellDelegate {
+    func homeHeaderCellDidTapLogPeriod(_ cell: HomeHeaderCollectionViewCell) {
+        let calendarVC = LogPeriodCalendarViewController()
+        calendarVC.delegate = self
+                
+        // Present in a navigation controller for the navigation bar to show
+        let navController = UINavigationController(rootViewController: calendarVC)
+        navController.modalPresentationStyle = .pageSheet // or .formSheet for smaller size
+                
+        // Optional: Configure sheet presentation (iOS 15+)
+        if let sheet = navController.sheetPresentationController {
+            sheet.detents = [.large()] // Full screen height
+            sheet.prefersGrabberVisible = true // Show the handle at top
+        }
+        
+        present(navController, animated: true)
+    }
+}
+
+// LogPeriodCalendarDelegate
+extension HomeViewController: LogPeriodCalendarDelegate {
+    func didSavePeriodDates(_ dates: [Date], cycleDay: Int) {
+        print("✅ Received period dates: \(dates.count) dates")
+        print("✅ Current cycle day: \(cycleDay)")
+        
+        // Reload the header section to update the cycle day label
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadSections(IndexSet(integer: 0))
+        }
+        
+        // Debug: Print all dates
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        dates.forEach { date in
+            print("Period date: \(formatter.string(from: date))")
+        }
+    }
 }
 
 

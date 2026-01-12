@@ -26,11 +26,8 @@
                                     <constraint firstAttribute="height" constant="50" id="VKG-rm-rq9"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Onl-Bi-UBH">
-                                <rect key="frame" x="31" y="62" width="80" height="28"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="80" id="cYa-zV-Um3"/>
-                                </constraints>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Onl-Bi-UBH">
+                                <rect key="frame" x="0.0" y="62" width="142" height="28"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -42,6 +39,8 @@
                             <constraint firstItem="lcU-FZ-5Oy" firstAttribute="centerX" secondItem="uao-HM-WtK" secondAttribute="centerX" id="Lfw-8D-ZHY"/>
                             <constraint firstItem="Onl-Bi-UBH" firstAttribute="centerX" secondItem="uao-HM-WtK" secondAttribute="centerX" id="e7F-Rz-rqu"/>
                             <constraint firstItem="Onl-Bi-UBH" firstAttribute="top" secondItem="lcU-FZ-5Oy" secondAttribute="bottom" constant="4" id="gs6-bd-enA"/>
+                            <constraint firstItem="Onl-Bi-UBH" firstAttribute="leading" secondItem="uao-HM-WtK" secondAttribute="leading" id="odU-Cp-6aS"/>
+                            <constraint firstAttribute="trailing" secondItem="Onl-Bi-UBH" secondAttribute="trailing" id="rfS-jV-SUD"/>
                             <constraint firstItem="lcU-FZ-5Oy" firstAttribute="top" secondItem="uao-HM-WtK" secondAttribute="top" constant="8" id="xcg-SN-h5r"/>
                         </constraints>
                     </view>

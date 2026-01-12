@@ -16,8 +16,10 @@ class InsulinViewController: UIViewController {
     @IBOutlet weak var InsulinSummaryCardView: UIView!
     private var highSugarFoods: [InsulinFoodItem] = []
         
+    @IBOutlet weak var InfoCard: UIView!
     @IBOutlet weak var summaryCardView: InsulinSummaryCardView!
     
+    @IBOutlet weak var ReasoningCard: UIView!
     override func viewDidLoad() {
             super.viewDidLoad()
         
@@ -29,7 +31,8 @@ class InsulinViewController: UIViewController {
         warningcard.layer.cornerRadius=20
         
         summaryCardView.layer.cornerRadius=20
-        
+        InfoCard.layer.cornerRadius=20
+        ReasoningCard.layer.cornerRadius=20
             setupSampleData()
             setupTableView()
             setupSummaryCard()
@@ -42,21 +45,21 @@ class InsulinViewController: UIViewController {
             highSugarFoods = [
                 InsulinFoodItem(
                     name: "Chocolate Cake",
-                    image: "🍰",
+                    image: "ChocolateCake",
                     sugarContent: "High",
                     day: "Monday",
                     description: "Rich chocolate cake with frosting"
                 ),
                 InsulinFoodItem(
                     name: "Rasgulla",
-                    image: "🍡",
+                    image: "Rasgulla",
                     sugarContent: "Very High",
                     day: "Wednesday",
                     description: "Sweet Indian cottage cheese balls in syrup"
                 ),
                 InsulinFoodItem(
                     name: "Ice Cream",
-                    image: "🍨",
+                    image: "Icecream",
                     sugarContent: "High",
                     day: "Friday",
                     description: "Creamy vanilla ice cream"

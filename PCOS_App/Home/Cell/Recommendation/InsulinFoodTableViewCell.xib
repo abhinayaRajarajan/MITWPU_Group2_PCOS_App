@@ -49,14 +49,14 @@
                                 <rect key="frame" x="415" y="10" width="80" height="80"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="AcneIcon" translatesAutoresizingMaskIntoConstraints="NO" id="2sO-x2-Xx3">
-                                        <rect key="frame" x="15" y="5" width="50" height="50"/>
+                                        <rect key="frame" x="17.666666666666686" y="5" width="45" height="45"/>
                                         <constraints>
-                                            <constraint firstAttribute="height" constant="50" id="086-BP-LN9"/>
-                                            <constraint firstAttribute="width" constant="50" id="dna-iD-V0q"/>
+                                            <constraint firstAttribute="height" constant="45" id="086-BP-LN9"/>
+                                            <constraint firstAttribute="width" constant="45" id="dna-iD-V0q"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acne Logged" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ul1-KB-b5J">
-                                        <rect key="frame" x="3" y="60" width="74" height="15"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Acne Logged" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ul1-KB-b5J">
+                                        <rect key="frame" x="13" y="49.333333333333314" width="54" height="28.666666666666657"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -65,14 +65,13 @@
                                 <color key="backgroundColor" red="0.9882352941176471" green="0.93333333333333335" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="80" id="0Sv-eZ-Pms"/>
-                                    <constraint firstAttribute="trailing" secondItem="ul1-KB-b5J" secondAttribute="trailing" constant="3" id="4RD-Mk-ub5"/>
+                                    <constraint firstAttribute="trailing" secondItem="ul1-KB-b5J" secondAttribute="trailing" constant="13" id="4RD-Mk-ub5"/>
                                     <constraint firstItem="ul1-KB-b5J" firstAttribute="centerX" secondItem="K8L-z6-PDE" secondAttribute="centerX" id="8c9-q3-DzU"/>
                                     <constraint firstItem="2sO-x2-Xx3" firstAttribute="centerX" secondItem="K8L-z6-PDE" secondAttribute="centerX" id="9h4-0J-uad"/>
                                     <constraint firstAttribute="height" constant="80" id="GJZ-iB-NFP"/>
-                                    <constraint firstItem="ul1-KB-b5J" firstAttribute="top" secondItem="2sO-x2-Xx3" secondAttribute="bottom" constant="5" id="HB3-h7-hf0"/>
                                     <constraint firstItem="2sO-x2-Xx3" firstAttribute="top" secondItem="K8L-z6-PDE" secondAttribute="top" constant="5" id="Zdj-hK-dmi"/>
-                                    <constraint firstItem="ul1-KB-b5J" firstAttribute="leading" secondItem="K8L-z6-PDE" secondAttribute="leading" constant="3" id="ud4-CD-ouz"/>
-                                    <constraint firstAttribute="bottom" secondItem="ul1-KB-b5J" secondAttribute="bottom" constant="5" id="vc7-I7-ck8"/>
+                                    <constraint firstItem="ul1-KB-b5J" firstAttribute="leading" secondItem="K8L-z6-PDE" secondAttribute="leading" constant="13" id="ud4-CD-ouz"/>
+                                    <constraint firstAttribute="bottom" secondItem="ul1-KB-b5J" secondAttribute="bottom" constant="2" id="vc7-I7-ck8"/>
                                 </constraints>
                             </view>
                         </subviews>

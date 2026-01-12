@@ -74,6 +74,7 @@
             </constraints>
             <size key="customSize" width="487" height="524"/>
             <connections>
+                <outlet property="cycleDayLabel" destination="lyA-zA-4dJ" id="sxm-1Q-z5P"/>
                 <outlet property="gradientOverlayView" destination="aiV-Pd-smO" id="gUC-jZ-QzX"/>
                 <outlet property="headerImageView" destination="7Uk-73-W3E" id="4UW-Tf-bva"/>
                 <outlet property="logPeriodButton" destination="xjf-z9-c6r" id="Kyk-6M-vpm"/>

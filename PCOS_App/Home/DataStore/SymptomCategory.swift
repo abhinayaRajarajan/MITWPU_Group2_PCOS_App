@@ -37,7 +37,7 @@ struct SymptomCategory {
             SymptomItem(name: "Acne", icon: "AcneIcon"),
             SymptomItem(name: "Hair Loss", icon: "HairLossIcon"),
             SymptomItem(name: "Skin Darkening", icon: "SkinDarkeningIcon"),
-            SymptomItem(name: "Hirutism", icon: "HirutismIcon")
+            SymptomItem(name: "Hirsutism", icon: "HirutismIcon")
         ]),
         SymptomCategory(title: "Lifestyle", items: [
             SymptomItem(name: "Fatigue", icon: "FatigueIcon"),
