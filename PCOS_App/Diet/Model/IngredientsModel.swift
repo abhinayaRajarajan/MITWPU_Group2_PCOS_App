@@ -22,7 +22,7 @@ struct Ingredient: Codable, Identifiable {
     var tags: [ImpactTags]
     
     // Calories for ONLY this ingredient
-    var calories: Double {
+    var calories: Double? {
         (protein * 4) + (carbs * 4) + (fats * 9)
     }
 }

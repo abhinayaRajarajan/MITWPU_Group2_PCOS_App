@@ -12,6 +12,10 @@ struct FoodLogDataSource {
     static func addFoodBarCode(_ barCode: Food) {
         sampleFoods.append(barCode)
     }
+    static var shared = FoodLogDataSource()
+    static var todaysMeal: [Food] {
+        return sampleFoods.filter { Calendar.current.isDate(Date(), inSameDayAs: $0.timeStamp) }
+    }
     
     static var ingredient = Ingredient(id: UUID(), name: "Default Ingredient", quantity: 0, protein: 0, carbs: 0, fats: 0, fibre: 0, tags: [.none])
     
@@ -31,7 +35,7 @@ struct FoodLogDataSource {
             name: "Greek Yogurt with Berries",
             image: "GreekYogurtWithBerries",
             timeStamp: Calendar.current.date(byAdding: .hour, value: -2, to: Date()) ?? Date(),
-            quantity: 200,
+            servingSize: 200,
             weight: 6.0,
             proteinContent: 17,
             carbsContent: 15,
@@ -78,7 +82,7 @@ struct FoodLogDataSource {
             name: "Avocado Toast",
             image: "AvacadoToast",
             timeStamp: Calendar.current.date(byAdding: .hour, value: -5, to: Date()) ?? Date(),
-            quantity: 150,
+            servingSize: 150,
             weight: 15.0,
             proteinContent: 6,
             carbsContent: 25,
@@ -102,7 +106,7 @@ struct FoodLogDataSource {
             name: "Almonds",
             image: "Almonds",
             timeStamp: Calendar.current.date(byAdding: .hour, value: -1, to: Date()) ?? Date(),
-            quantity: 30,
+            servingSize: 30,
             weight: 28.0,
             proteinContent: 6,
             carbsContent: 6,
@@ -117,7 +121,7 @@ struct FoodLogDataSource {
             name: "Oatmeal with Chia Seeds",
             image: nil,
             timeStamp: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
-            quantity: 250,
+            servingSize: 250,
             
             proteinContent: 12,
             carbsContent: 45,
@@ -131,7 +135,7 @@ struct FoodLogDataSource {
             name: "Grilled Chicken Salad",
             image: nil,
             timeStamp: Calendar.current.date(byAdding: .day, value: -1, to: Date()) ?? Date(),
-            quantity: 350,
+            servingSize: 350,
             proteinContent: 32,
             carbsContent: 12,
             fatsContent: 10,
@@ -156,7 +160,7 @@ struct FoodLogDataSource {
             name: "Salmon with Quinoa",
             image: nil,
             timeStamp: Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date(),
-            quantity: 400,
+            servingSize: 400,
             proteinContent: 35,
             carbsContent: 40,
             fatsContent: 18,
@@ -168,7 +172,7 @@ struct FoodLogDataSource {
             name: "Chocolate Milkshake",
             image: nil,
             timeStamp: Calendar.current.date(byAdding: .day, value: -2, to: Date()) ?? Date(),
-            quantity: 300,
+            servingSize: 300,
             proteinContent: 8,
             carbsContent: 55,
             fatsContent: 12,
@@ -182,7 +186,7 @@ struct FoodLogDataSource {
             name: "Spinach Smoothie",
             image: nil,
             timeStamp: Calendar.current.date(byAdding: .day, value: -3, to: Date()) ?? Date(),
-            quantity: 350,
+            servingSize: 350,
             proteinContent: 10,
             carbsContent: 28,
             fatsContent: 5,
@@ -196,7 +200,7 @@ struct FoodLogDataSource {
             name: "Lentil Soup",
             image: nil,
             timeStamp: Calendar.current.date(byAdding: .day, value: -4, to: Date()) ?? Date(),
-            quantity: 300,
+            servingSize: 300,
             proteinContent: 18,
             carbsContent: 40,
             fatsContent: 3,
@@ -210,7 +214,7 @@ struct FoodLogDataSource {
             name: "Egg White Omelette",
             image: nil,
             timeStamp: Calendar.current.date(byAdding: .day, value: -5, to: Date()) ?? Date(),
-            quantity: 200,
+            servingSize: 200,
             proteinContent: 25,
             carbsContent: 5,
             fatsContent: 2,

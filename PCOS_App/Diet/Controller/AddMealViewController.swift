@@ -8,21 +8,24 @@ class AddMealViewController: UIViewController{
     
     @IBOutlet weak var foodTableView: UITableView!
     
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var searchTextField: UISearchBar!
+    @IBOutlet weak var optionsStackView: UIStackView!
+    
     weak var delegate: AddMealDelegate?
     private var foodItems: [FoodItem] = []
     private var filteredFoodItems: [FoodItem] = []
-    private var selectedMeal = Set<UUID>()
-    private var selectedQuantities: [String: Int] = [:]
+    
     
     // handlebar UI
-    private let handleBar: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray3
-        view.layer.cornerRadius = 2.5
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
-    
+//    private let handleBar: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = .systemGray3
+//        view.layer.cornerRadius = 2.5
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
+//    
     //closebutton
 //    private let closeButton: UIButton = {
 //        let button = UIButton(type: .system)
@@ -65,30 +68,30 @@ class AddMealViewController: UIViewController{
 ////        return button
 //    }()
     
-    private let searchContainer: UIView = {
-        let view = UIView()
-        view.backgroundColor = UIColor.systemGray6
-        view.layer.cornerRadius = 12
-        view.translatesAutoresizingMaskIntoConstraints = false
-        return view
-    }()
+//    private let searchContainer: UIView = {
+//        let view = UIView()
+//        view.backgroundColor = UIColor.systemGray6
+//        view.layer.cornerRadius = 12
+//        view.translatesAutoresizingMaskIntoConstraints = false
+//        return view
+//    }()
+//    
+//    private let searchIconImageView: UIImageView = {
+//        let imageView = UIImageView()
+//        let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .regular)
+//        imageView.image = UIImage(systemName: "magnifyingglass", withConfiguration: config)
+//        imageView.tintColor = .systemGray
+//        imageView.translatesAutoresizingMaskIntoConstraints = false
+//        return imageView
+//    }()
     
-    private let searchIconImageView: UIImageView = {
-        let imageView = UIImageView()
-        let config = UIImage.SymbolConfiguration(pointSize: 18, weight: .regular)
-        imageView.image = UIImage(systemName: "magnifyingglass", withConfiguration: config)
-        imageView.tintColor = .systemGray
-        imageView.translatesAutoresizingMaskIntoConstraints = false
-        return imageView
-    }()
-    
-    private let searchTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Search for food"
-        textField.font = UIFont.systemFont(ofSize: 17)
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        return textField
-    }()
+//    private let searchTextField: UITextField = {
+//        let textField = UITextField()
+//        textField.placeholder = "Search for food"
+//        textField.font = UIFont.systemFont(ofSize: 17)
+//        textField.translatesAutoresizingMaskIntoConstraints = false
+//        return textField
+//    }()
     
     private let micButton: UIButton = {
         let button = UIButton(type: .system)
@@ -100,15 +103,15 @@ class AddMealViewController: UIViewController{
         return button
     }()
     
-    private let segmentedControl: UISegmentedControl = {
-        let items = ["Recent", "All meals"]
-        let control = UISegmentedControl(items: items)
-        control.selectedSegmentIndex = 0
-        control.backgroundColor = UIColor.systemGray6
-        control.selectedSegmentTintColor = .white
-        control.translatesAutoresizingMaskIntoConstraints = false
-        return control
-    }()
+//    private let segmentedControl: UISegmentedControl = {
+//        let items = ["Recent", "All meals"]
+//        let control = UISegmentedControl(items: items)
+//        control.selectedSegmentIndex = 0
+//        control.backgroundColor = UIColor.systemGray6
+//        control.selectedSegmentTintColor = .white
+//        control.translatesAutoresizingMaskIntoConstraints = false
+//        return control
+//    }()
     
     private let scanBarcodeButton: UIButton = {
         let button = createOptionButton(
@@ -137,111 +140,42 @@ class AddMealViewController: UIViewController{
         return button
     }()
     
-    private lazy var optionsStackView: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [
-            scanBarcodeButton,
-            scanWithAIButton,
-            describeMealButton
-        ])
-        stack.axis = .horizontal
-        stack.distribution = .fillEqually
-        stack.spacing = 12
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
-    }()
+//    private lazy var optionsStackView: UIStackView = {
+//        let stack = UIStackView(arrangedSubviews: [
+//            scanBarcodeButton,
+//            scanWithAIButton,
+//            describeMealButton
+//        ])
+//        stack.axis = .horizontal
+//        stack.distribution = .fillEqually
+//        stack.spacing = 12
+//        stack.translatesAutoresizingMaskIntoConstraints = false
+//        return stack
+//    }()
     
     // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-//        setupUI()
-//        setupActions()
+        navigationController?.navigationBar.prefersLargeTitles = false
+        title = "Add Meal"
+        optionsStackView.addArrangedSubview(scanBarcodeButton)
+        optionsStackView.addArrangedSubview(scanWithAIButton)
+        optionsStackView.addArrangedSubview(describeMealButton)
+        optionsStackView.axis = .horizontal
+        optionsStackView.distribution = .fillEqually
+        optionsStackView.spacing = 12
+        optionsStackView.translatesAutoresizingMaskIntoConstraints = false
+        searchTextField.placeholder = "Search for a meal"
+        searchTextField.delegate = self
+        setupActions()
         setupTableView()
 //        setupSearchTextField()
         loadFoodItems()
     }
     
-    // MARK: - Setup
-    private func setupUI() {
-        view.addSubview(handleBar)
-//        view.addSubview(closeButton)
-//        view.addSubview(titleLabel)
-//        view.addSubview(doneButton)
-        view.addSubview(searchContainer)
-        
-        searchContainer.addSubview(searchIconImageView)
-        searchContainer.addSubview(searchTextField)
-        searchContainer.addSubview(micButton)
-        
-        view.addSubview(segmentedControl)
-        view.addSubview(optionsStackView)
-        
-        handleBar.isHidden = true
-        
-        NSLayoutConstraint.activate([
-            // Handle Bar
-            handleBar.topAnchor.constraint(equalTo: view.topAnchor, constant: 8),
-            handleBar.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            handleBar.widthAnchor.constraint(equalToConstant: 40),
-            handleBar.heightAnchor.constraint(equalToConstant: 5),
-            
-            // Close Button
-//            closeButton.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-//            closeButton.topAnchor.constraint(equalTo: handleBar.bottomAnchor, constant: 20),
-//            closeButton.widthAnchor.constraint(equalToConstant: 50),
-//            closeButton.heightAnchor.constraint(equalToConstant: 50),
-            
-            // Title Label
-//            titleLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-//            titleLabel.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
-            
-            // Done Button
-//            doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//            doneButton.topAnchor.constraint(equalTo: handleBar.bottomAnchor, constant: 20),
-//            doneButton.widthAnchor.constraint(equalToConstant: 50),
-//            doneButton.heightAnchor.constraint(equalToConstant: 50),
-            
-//            doneButton.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-//            doneButton.centerYAnchor.constraint(equalTo: closeButton.centerYAnchor),
-            
-//            optionsStackView.topAnchor.constraint(equalTo: closeButton.bottomAnchor, constant: 20),
-            optionsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            optionsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            optionsStackView.heightAnchor.constraint(equalToConstant: 110),
-
-            searchContainer.topAnchor.constraint(equalTo: optionsStackView.bottomAnchor, constant: 16),
-            searchContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            searchContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            searchContainer.heightAnchor.constraint(equalToConstant: 50),
-            
-            // Search Icon
-            searchIconImageView.leadingAnchor.constraint(equalTo: searchContainer.leadingAnchor, constant: 12),
-            searchIconImageView.centerYAnchor.constraint(equalTo: searchContainer.centerYAnchor),
-            searchIconImageView.widthAnchor.constraint(equalToConstant: 20),
-            searchIconImageView.heightAnchor.constraint(equalToConstant: 20),
-            
-            // Search Text Field
-            searchTextField.leadingAnchor.constraint(equalTo: searchIconImageView.trailingAnchor, constant: 8),
-            searchTextField.trailingAnchor.constraint(equalTo: micButton.leadingAnchor, constant: -8),
-            searchTextField.centerYAnchor.constraint(equalTo: searchContainer.centerYAnchor),
-            
-            // Mic Button
-            micButton.trailingAnchor.constraint(equalTo: searchContainer.trailingAnchor, constant: -12),
-            micButton.centerYAnchor.constraint(equalTo: searchContainer.centerYAnchor),
-            micButton.widthAnchor.constraint(equalToConstant: 30),
-            micButton.heightAnchor.constraint(equalToConstant: 30),
-            
-            // Segmented Control
-            segmentedControl.topAnchor.constraint(equalTo: searchContainer.bottomAnchor, constant: 16),
-            segmentedControl.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            segmentedControl.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            segmentedControl.heightAnchor.constraint(equalToConstant: 44)
-        ])
-    }
     
     private func setupActions() {
-//        closeButton.addTarget(self, action: #selector(dismissModal), for: .touchUpInside)
-//        doneButton.addTarget(self, action: #selector(dismissModal), for: .touchUpInside)
         scanBarcodeButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
         scanWithAIButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
         describeMealButton.addTarget(self, action: #selector(optionButtonTapped(_:)), for: .touchUpInside)
@@ -386,28 +320,13 @@ class AddMealViewController: UIViewController{
     
     private func setupSearchTextField() {
         searchTextField.delegate = self
-        searchTextField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
+//        searchTextField.addTarget(self, action: #selector(searchTextChanged), for: .editingChanged)
     }
     
     // MARK: - Data Loading
     private func loadFoodItems() {
         foodItems = FoodListdataStore.shared.loadFoodItems()
         filteredFoodItems = foodItems
-        foodTableView.reloadData()
-    }
-    
-    // MARK: - Search
-    @objc private func searchTextChanged() {
-        let query = searchTextField.text ?? ""
-        
-        if query.isEmpty {
-            filteredFoodItems = foodItems
-        } else {
-            filteredFoodItems = foodItems.filter {
-                $0.name.lowercased().contains(query.lowercased())
-            }
-        }
-        
         foodTableView.reloadData()
     }
     
@@ -458,24 +377,7 @@ extension AddMealViewController {
 }
 
 extension AddMealViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let meal = filteredFoodItems[indexPath.row]
-        // Keep it selected (do not call deselect here)
-        selectedMeal.insert(meal.id)
-        // If you want custom visual feedback beyond default highlight, reload cell or update accessoryType:
-        if let cell = tableView.cellForRow(at: indexPath) { cell.accessoryType = .checkmark
-            //added to remove grey tint when row selected
-            cell.selectionStyle = .none
-        }
-    }
-
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        let meal = filteredFoodItems[indexPath.row]
-        selectedMeal.remove(meal.id)
-        if let cell = tableView.cellForRow(at: indexPath) {
-                cell.accessoryType = .none
-            }
-    }
+    
     
     private func openFoodDetailScreen(for foodItem: FoodItem) {
 //        // TODO: Create and push to FoodDetailViewController
@@ -541,15 +443,25 @@ extension AddMealViewController: UITableViewDataSource {
     
 }
 
-
-
-// MARK: - UITextFieldDelegate
-extension AddMealViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        return true
+extension AddMealViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let query = searchText
+        
+        if query.isEmpty {
+            filteredFoodItems = foodItems
+        } else {
+            filteredFoodItems = foodItems.filter {
+                $0.name.lowercased().contains(query.lowercased())
+            }
+        }
+        foodTableView.reloadData()
     }
 }
+
+//extension AddMealViewController: UISegmentedControl{
+//
+//}
+
 
 extension AddMealViewController: BarcodeScannerDelegate {
     

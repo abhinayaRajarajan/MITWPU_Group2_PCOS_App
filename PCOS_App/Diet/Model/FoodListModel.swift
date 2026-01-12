@@ -11,12 +11,14 @@ struct FoodItem: Codable, Identifiable {
     var id = UUID()
     let name: String
     let calories: Int
-    let image: String = "dietPlaceholder"
-    let servingSize: String
+    var image: String = "dietPlaceholder"
+    let servingSize: Double
+    var unit: String = "g"
     let protein: Double
     let carbs: Double
     let fat: Double
     var isSelected: Bool = false
     var desc: String = ""
+    var ingredients: [Ingredient] = []
 }
 

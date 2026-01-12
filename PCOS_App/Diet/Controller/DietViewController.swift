@@ -27,7 +27,9 @@ class DietViewController: UIViewController {
 
            override func viewWillAppear(_ animated: Bool) {
                super.viewWillAppear(animated)
+               navigationController?.navigationBar.prefersLargeTitles = true
                filterTodaysFoods()
+               print("Todays foods are ", FoodLogDataSource.todaysMeal)
            }
 
            //Setup Helpers

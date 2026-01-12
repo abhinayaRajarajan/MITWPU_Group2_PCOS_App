@@ -43,14 +43,23 @@ class NutritionHeader: UITableViewHeaderFooterView {
         nutritionCard.layer.cornerRadius = 16
         nutritionCard.layer.masksToBounds = true
         stackMacros.layer.cornerRadius = 16
+        setValues()
     }
     
     func setValues(){
-        for food in FoodLogDataSource.filteredFoods(){
-            calories += food.calories
-            fats += food.fatsContent
-            protein += food.proteinContent
-            carbs += food.carbsContent
+        for index in FoodLogDataSource.todaysMeal.indices {
+            var food = FoodLogDataSource.todaysMeal[index]
+            if !food.isLogged {
+                calories += food.calories
+                fats += food.fatsContent
+                protein += food.proteinContent
+                carbs += food.carbsContent
+
+                // mark as logged on the actual element
+                food.isLogged = true // or food.toggleLog()
+                let ptr = FoodLogDataSource.sampleFoods.firstIndex(where: {$0.id == food.id})
+                FoodLogDataSource.sampleFoods[ptr!] = food// write back
+            }
         }
         calToBeConsumed.text = "/2000"
         caloriesConsumed.text = "\(Int(calories))"

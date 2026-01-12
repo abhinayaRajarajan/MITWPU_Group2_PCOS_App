@@ -12,7 +12,8 @@ class DescribeFoodViewController: UIViewController {
     @IBOutlet weak var dietInfoLabel: UILabel!    
     @IBOutlet weak var describeYourMealText: UITextField!
     @IBOutlet weak var addDescribedMealButton: UIButton!
-    
+    var foodItems = FoodListdataStore.shared.loadFoodItems()
+    var foods = FoodLogDataSource.sampleFoods
     // Closure to pass data back
     var onFoodAdded: ((String) -> Void)?
     
@@ -32,7 +33,7 @@ class DescribeFoodViewController: UIViewController {
         let image = UIImage(systemName: "xmark", withConfiguration: config)
         button.setImage(image, for: UIControl.State.normal)
         button.tintColor = .systemGray
-        button.backgroundColor = UIColor.systemGray6
+        button.backgroundColor = UIColor.white
         button.layer.cornerRadius = 16
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -84,6 +85,68 @@ class DescribeFoodViewController: UIViewController {
         print("Label connected: \(dietInfoLabel != nil)")
         print("Button connected: \(addDescribedMealButton != nil)")
     }
+    
+    @IBAction func addMealTapped(_ sender: UIButton) {
+//        performSegue(withIdentifier: "addDescribe", sender: nil)
+        processAddMeal()
+    }
+    
+    private func processAddMeal() {
+            guard let text = describeYourMealText.text, !text.isEmpty else {
+                showAlert(message: "Please describe your meal")
+                return
+            }
+            
+            print("DEBUG: Searching for: '\(text)'")
+            
+            // 1. Check foodItems array
+            if let match = foodItems.first(where: { $0.desc.localizedCaseInsensitiveContains(text) }) {
+                print("DEBUG: Found match in foodItems: \(match.name)")
+                let vc = storyboard?.instantiateViewController(identifier: "AddDescribedMealViewController") as! AddDescribedMealViewController
+                vc.foodItem = match
+                performSegue(withIdentifier: "addDescribe", sender: match)
+                return
+            }
+            
+            // 2. Check foods array
+            if let match = foods.first(where: { $0.name.localizedCaseInsensitiveContains(text) }) {
+                print("DEBUG: Found match in foods: \(match.name)")
+                let vc = storyboard?.instantiateViewController(identifier: "AddDescribedMealViewController") as! AddDescribedMealViewController
+                vc.food = match
+                performSegue(withIdentifier: "addDescribe", sender: match)
+                return
+            }
+            
+            // 3. No match found
+            print("DEBUG: No match found")
+            showAlert(message: "No matching food found. Please try describing it differently.")
+        }
+        
+        // MARK: - Prepare for Segue (REQUIRED to pass data)
+        override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+            print("DEBUG: prepare(for segue:) called with identifier: \(segue.identifier ?? "nil")")
+            
+            if segue.identifier == "addDescribe" {
+                guard let destVC = segue.destination as? AddDescribedMealViewController else {
+                    print("ERROR: Destination is not AddDescribedMealViewController")
+                    print("ERROR: Actual destination: \(type(of: segue.destination))")
+                    return
+                }
+                
+                if let foodItem = sender as? FoodItem {
+                    print("DEBUG: Passing FoodItem: \(foodItem.name)")
+                    destVC.foodItem = foodItem
+                    destVC.label = describeYourMealText?.text
+                } else if let food = sender as? Food {
+                    print("DEBUG: Passing Food: \(food.name)")
+                    destVC.food = food
+                    destVC.label = describeYourMealText?.text
+                } else {
+                    print("ERROR: Sender is neither FoodItem nor Food. Sender type: \(type(of: sender))")
+                }
+            }
+        }
+        
     
     // MARK: - Setup Header
     private func setupHeaderViews() {
@@ -157,7 +220,7 @@ class DescribeFoodViewController: UIViewController {
             button.topAnchor.constraint(equalTo: label.bottomAnchor, constant: 20),
             button.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
             button.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            button.heightAnchor.constraint(equalToConstant: 50)
+            button.heightAnchor.constraint(equalToConstant: 55)
         ])
     }
     
@@ -211,7 +274,7 @@ class DescribeFoodViewController: UIViewController {
     private func setupActions() {
         closeButton.addTarget(self, action: #selector(closeTapped), for: UIControl.Event.touchUpInside)
         doneButton.addTarget(self, action: #selector(doneTapped), for: UIControl.Event.touchUpInside)
-        addDescribedMealButton?.addTarget(self, action: #selector(addMealTapped), for: UIControl.Event.touchUpInside)
+//        addDescribedMealButton?.addTarget(self, action: #selector(addMealTapped), for: UIControl.Event.touchUpInside)
     }
     
     @objc private func dismissKeyboard() {
@@ -249,7 +312,10 @@ class DescribeFoodViewController: UIViewController {
         alert.addAction(UIAlertAction(title: "OK", style: .default))
         present(alert, animated: true)
     }
+    
+    
 }
+
 
 // MARK: - UIColor Extension
 extension UIColor {
