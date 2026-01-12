@@ -6,6 +6,7 @@
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="UIMenu" message="Requires Xcode 11 or later." minToolsVersion="11.0" requiredIntegratedClassName="UICommandDiff"/>
         <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -353,7 +354,7 @@
                     </constraints>
                 </view>
             </objects>
-            <point key="canvasLocation" x="3658.7786259541981" y="3429.5774647887324"/>
+            <point key="canvasLocation" x="4585.4961832061063" y="3429.5774647887324"/>
         </scene>
         <!--Summary View Controller-->
         <scene sceneID="nLT-JQ-nhT">
@@ -628,7 +629,7 @@
                     <connections>
                         <outlet property="countLabel" destination="zwH-UR-Bz1" id="5X8-pV-mKT"/>
                         <outlet property="ringContainerView" destination="8dq-kX-6rk" id="NSg-kY-0Rs"/>
-                        <segue destination="GdX-L9-6Xr" kind="presentation" identifier="startWorkout" modalPresentationStyle="fullScreen" id="7VN-Yn-LGE"/>
+                        <segue destination="DQh-py-x06" kind="presentation" identifier="startWorkout" modalPresentationStyle="fullScreen" id="7VN-Yn-LGE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5iv-oY-igf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -644,7 +645,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPT-8H-rtP">
-                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                                <rect key="frame" x="0.0" y="113" width="393" height="739"/>
                                 <subviews>
                                     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zol-aX-f05">
                                         <rect key="frame" x="20" y="20" width="352" height="4"/>
@@ -680,9 +681,25 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" showsMenuAsPrimaryAction="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OXA-gD-BLg">
+                                        <rect key="frame" x="270" y="41.666666666666657" width="101" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="101" id="Yck-M8-4F8"/>
+                                        </constraints>
+                                        <menu key="menu" id="sa4-MO-W9g">
+                                            <children>
+                                                <command title="Item 1" id="eEb-aL-aXr"/>
+                                                <command title="Item 2" id="84h-y7-FiW"/>
+                                            </children>
+                                        </menu>
+                                        <state key="normal" title="Pace">
+                                            <color key="titleColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="nJa-CM-qfZ" firstAttribute="top" secondItem="OXA-gD-BLg" secondAttribute="bottom" constant="20" id="5Qp-IG-wE8"/>
                                     <constraint firstItem="nPI-Ci-gpd" firstAttribute="top" secondItem="nJa-CM-qfZ" secondAttribute="bottom" constant="20" id="63h-2b-nd5"/>
                                     <constraint firstAttribute="trailing" secondItem="nJa-CM-qfZ" secondAttribute="trailing" constant="20" id="BnX-68-Wbp"/>
                                     <constraint firstItem="FaI-z4-eyT" firstAttribute="top" secondItem="zol-aX-f05" secondAttribute="bottom" constant="20" id="DlO-Qt-SxR"/>
@@ -691,13 +708,14 @@
                                     <constraint firstItem="FaI-z4-eyT" firstAttribute="centerX" secondItem="WPT-8H-rtP" secondAttribute="centerX" id="P02-nM-fP3"/>
                                     <constraint firstItem="EbY-Cr-lzM" firstAttribute="top" secondItem="nPI-Ci-gpd" secondAttribute="bottom" constant="4" id="Toq-ZP-IRt"/>
                                     <constraint firstItem="nPI-Ci-gpd" firstAttribute="centerX" secondItem="WPT-8H-rtP" secondAttribute="centerX" id="VgO-d2-2Uu"/>
+                                    <constraint firstAttribute="trailing" secondItem="OXA-gD-BLg" secondAttribute="trailing" constant="22" id="X8a-oe-ngV"/>
                                     <constraint firstItem="nJa-CM-qfZ" firstAttribute="top" secondItem="FaI-z4-eyT" secondAttribute="bottom" constant="20" id="fgH-OD-iCq"/>
                                     <constraint firstItem="zol-aX-f05" firstAttribute="top" secondItem="WPT-8H-rtP" secondAttribute="top" constant="20" id="hZO-WO-Pji"/>
                                     <constraint firstItem="zol-aX-f05" firstAttribute="leading" secondItem="WPT-8H-rtP" secondAttribute="leading" constant="20" id="uvs-9C-cgm"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAd-RE-V3h">
-                                <rect key="frame" x="0.0" y="618" width="393" height="200"/>
+                                <rect key="frame" x="0.0" y="658" width="393" height="160"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgd-ic-HWY">
                                         <rect key="frame" x="171.66666666666666" y="8" width="50" height="5"/>
@@ -707,7 +725,7 @@
                                             <constraint firstAttribute="width" constant="50" id="PeG-Lm-jWT"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="C7y-gJ-2SH">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C7y-gJ-2SH">
                                         <rect key="frame" x="0.0" y="15" width="393" height="130"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="HHQ-Nw-3DC">
@@ -739,7 +757,7 @@
                                                                         <state key="normal" title="Button"/>
                                                                         <buttonConfiguration key="configuration" style="plain" image="backward" catalog="system"/>
                                                                         <connections>
-                                                                            <action selector="skipExerciseTapped:" destination="GdX-L9-6Xr" eventType="touchUpInside" id="2bf-JU-dmk"/>
+                                                                            <action selector="previousTapped:" destination="GdX-L9-6Xr" eventType="touchUpInside" id="exo-TK-T64"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -753,19 +771,28 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1Fa-hd-wjK">
                                                                 <rect key="frame" x="131" y="0.0" width="131" height="70"/>
                                                                 <subviews>
-                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pause" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="5jh-9J-V0E">
-                                                                        <rect key="frame" x="40.666666666666657" y="12.333333333333336" width="50" height="45.666666666666671"/>
-                                                                        <color key="tintColor" systemColor="labelColor"/>
+                                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pY9-Jc-u83">
+                                                                        <rect key="frame" x="25.666666666666657" y="15" width="80" height="40"/>
+                                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                                         <constraints>
-                                                                            <constraint firstAttribute="width" constant="50" id="Fwd-Ut-Thv"/>
-                                                                            <constraint firstAttribute="height" constant="50" id="oq3-qe-QOt"/>
+                                                                            <constraint firstAttribute="height" constant="40" id="Rxr-rO-H7t"/>
+                                                                            <constraint firstAttribute="width" constant="80" id="pDe-qy-5uk"/>
                                                                         </constraints>
-                                                                    </imageView>
+                                                                        <color key="tintColor" systemColor="labelColor"/>
+                                                                        <state key="normal" title="Button"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" image="pause.fill" catalog="system"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="pauseButtonTapped:" destination="GdX-L9-6Xr" eventType="touchUpInside" id="D9V-OQ-rMG"/>
+                                                                        </connections>
+                                                                    </button>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemGray6Color"/>
                                                                 <constraints>
-                                                                    <constraint firstItem="5jh-9J-V0E" firstAttribute="centerY" secondItem="1Fa-hd-wjK" secondAttribute="centerY" id="Rbh-2C-HhJ"/>
-                                                                    <constraint firstItem="5jh-9J-V0E" firstAttribute="centerX" secondItem="1Fa-hd-wjK" secondAttribute="centerX" id="Zfk-lm-j9R"/>
+                                                                    <constraint firstItem="pY9-Jc-u83" firstAttribute="centerX" secondItem="1Fa-hd-wjK" secondAttribute="centerX" id="dmi-vx-SEJ"/>
+                                                                    <constraint firstItem="pY9-Jc-u83" firstAttribute="centerY" secondItem="1Fa-hd-wjK" secondAttribute="centerY" id="fUe-Tn-BlJ"/>
                                                                 </constraints>
                                                                 <userDefinedRuntimeAttributes>
                                                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -791,7 +818,7 @@
                                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
                                                                         </userDefinedRuntimeAttributes>
                                                                         <connections>
-                                                                            <action selector="doneTapped:" destination="GdX-L9-6Xr" eventType="touchUpInside" id="9Qq-1Y-DMA"/>
+                                                                            <action selector="nextTapped:" destination="GdX-L9-6Xr" eventType="touchUpInside" id="vhK-JJ-9P5"/>
                                                                         </connections>
                                                                     </button>
                                                                 </subviews>
@@ -823,44 +850,15 @@
                                             <constraint firstAttribute="bottom" secondItem="HHQ-Nw-3DC" secondAttribute="bottom" id="Pcx-ak-mh4"/>
                                         </constraints>
                                     </view>
-                                    <view alpha="0.0" contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iIj-j5-1L6">
-                                        <rect key="frame" x="0.0" y="153" width="393" height="67"/>
-                                        <subviews>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VXw-Yr-C2n">
-                                                <rect key="frame" x="16" y="16" width="361" height="10"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="10" id="VPv-O6-Bw8"/>
-                                                </constraints>
-                                                <color key="tintColor" systemColor="systemRedColor"/>
-                                                <state key="normal" title="Button"/>
-                                                <buttonConfiguration key="configuration" style="tinted" title="End Workout"/>
-                                                <connections>
-                                                    <action selector="endWorkoutTapped:" destination="GdX-L9-6Xr" eventType="touchUpInside" id="ul3-Dl-XLR"/>
-                                                </connections>
-                                            </button>
-                                        </subviews>
-                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="48" id="6BS-Ie-c4b"/>
-                                            <constraint firstItem="VXw-Yr-C2n" firstAttribute="top" secondItem="iIj-j5-1L6" secondAttribute="top" constant="16" id="iQQ-4B-3HP"/>
-                                            <constraint firstItem="VXw-Yr-C2n" firstAttribute="leading" secondItem="iIj-j5-1L6" secondAttribute="leading" constant="16" id="kXE-0U-EwT"/>
-                                            <constraint firstAttribute="trailing" secondItem="VXw-Yr-C2n" secondAttribute="trailing" constant="16" id="qkB-GZ-C55"/>
-                                            <constraint firstAttribute="bottom" secondItem="VXw-Yr-C2n" secondAttribute="bottom" constant="16" id="sLM-qt-9AZ"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="C7y-gJ-2SH" secondAttribute="trailing" id="20m-mN-jy8"/>
                                     <constraint firstItem="C7y-gJ-2SH" firstAttribute="top" secondItem="sgd-ic-HWY" secondAttribute="bottom" constant="2" id="CCr-Sm-8rk"/>
-                                    <constraint firstItem="iIj-j5-1L6" firstAttribute="top" secondItem="C7y-gJ-2SH" secondAttribute="bottom" constant="8" id="Kj4-Lj-G0m"/>
-                                    <constraint firstAttribute="height" constant="200" id="Nnb-D9-CXa"/>
+                                    <constraint firstAttribute="height" constant="160" id="Nnb-D9-CXa"/>
                                     <constraint firstItem="C7y-gJ-2SH" firstAttribute="leading" secondItem="KAd-RE-V3h" secondAttribute="leading" id="Ydd-g2-ZF6"/>
-                                    <constraint firstItem="iIj-j5-1L6" firstAttribute="leading" secondItem="KAd-RE-V3h" secondAttribute="leading" id="eLv-vg-4vh"/>
                                     <constraint firstItem="sgd-ic-HWY" firstAttribute="centerX" secondItem="KAd-RE-V3h" secondAttribute="centerX" id="mhu-Es-R4s"/>
-                                    <constraint firstAttribute="bottom" secondItem="iIj-j5-1L6" secondAttribute="bottom" constant="-20" id="o8T-yl-hAc"/>
                                     <constraint firstItem="sgd-ic-HWY" firstAttribute="top" secondItem="KAd-RE-V3h" secondAttribute="top" constant="8" id="vWo-L9-6eB"/>
-                                    <constraint firstAttribute="trailing" secondItem="iIj-j5-1L6" secondAttribute="trailing" id="x8L-xv-TCB"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="" value="YES"/>
@@ -880,23 +878,32 @@
                             <constraint firstItem="KAd-RE-V3h" firstAttribute="leading" secondItem="ybt-ft-0ZN" secondAttribute="leading" id="v3n-jc-alf"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Jme-GP-MZn"/>
+                    <navigationItem key="navigationItem" id="Jme-GP-MZn">
+                        <barButtonItem key="leftBarButtonItem" style="plain" systemItem="cancel" id="Atq-6s-mtX">
+                            <connections>
+                                <action selector="crossTapped:" destination="GdX-L9-6Xr" id="lvY-Ju-rBn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" style="plain" systemItem="save" id="Yt1-gb-xuW">
+                            <connections>
+                                <action selector="endWorkoutTapped:" destination="GdX-L9-6Xr" id="3VF-HN-YsZ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="GifOutlet" destination="nJa-CM-qfZ" id="NfC-8j-qnu"/>
-                        <outlet property="PrimaryControlViewOutlet" destination="C7y-gJ-2SH" id="cXa-Ph-wJw"/>
+                        <outlet property="PrimaryControlViewOutlet" destination="C7y-gJ-2SH" id="DHJ-ba-FDG"/>
                         <outlet property="ProgressWidthConstraint" destination="ccc-wl-M2i" id="Dz8-Qa-rUn"/>
                         <outlet property="RepsOutlet" destination="nPI-Ci-gpd" id="ZbO-04-ErC"/>
-                        <outlet property="SecondaryControlViewOutlet" destination="iIj-j5-1L6" id="pfe-8Z-aPY"/>
                         <outlet property="SetNumberOutlet" destination="FaI-z4-eyT" id="v4l-lr-YPX"/>
-                        <outlet property="bottomContainerBottomConstraint" destination="NXf-a3-51q" id="n9O-QT-oUj"/>
-                        <outlet property="bottomContainerHeightConstraint" destination="Nnb-D9-CXa" id="AAl-xh-nhj"/>
                         <outlet property="bottomContainerView" destination="KAd-RE-V3h" id="ijp-k9-jb2"/>
-                        <outlet property="doneButton" destination="kxl-Bg-P42" id="gcu-Rp-P22"/>
-                        <outlet property="endWorkoutButton" destination="VXw-Yr-C2n" id="6Rd-5y-bU4"/>
+                        <outlet property="endWorkoutButton" destination="Yt1-gb-xuW" id="KcU-wT-ndA"/>
                         <outlet property="grabberView" destination="sgd-ic-HWY" id="x1l-hx-e1v"/>
-                        <outlet property="nextExerciseButton" destination="59J-3l-vf0" id="SsM-ga-udK"/>
+                        <outlet property="nextExerciseButton" destination="kxl-Bg-P42" id="6HV-7b-T5f"/>
+                        <outlet property="paceButton" destination="OXA-gD-BLg" id="ode-EM-MdJ"/>
                         <outlet property="pauseContainer" destination="1Fa-hd-wjK" id="XD3-WD-ZdB"/>
-                        <outlet property="pauseOutlet" destination="5jh-9J-V0E" id="Sfx-Sd-hhf"/>
+                        <outlet property="prevExerciseButton" destination="59J-3l-vf0" id="cTV-pe-wdO"/>
+                        <outlet property="repetitionsText" destination="EbY-Cr-lzM" id="cBI-eH-wE3"/>
                         <outlet property="timerLabel" destination="xSY-eQ-9GZ" id="Uxa-Uf-J2J"/>
                         <segue destination="7jD-uH-yNN" kind="presentation" identifier="RestTimeStart" modalPresentationStyle="fullScreen" id="p86-lu-Ojd"/>
                         <segue destination="5Ft-uz-dM7" kind="presentation" identifier="EndWorkout" modalPresentationStyle="fullScreen" id="Fot-tL-gDX"/>
@@ -904,7 +911,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="UrP-sX-obQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2394.6564885496182" y="3595.7746478873241"/>
+            <point key="canvasLocation" x="-852.67175572519079" y="3595.7746478873241"/>
         </scene>
         <!--Create New Routine-->
         <scene sceneID="XaX-1m-4dk">
@@ -1443,7 +1450,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wdD-ii-fII" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2181" y="3430"/>
+            <point key="canvasLocation" x="3107.6335877862593" y="3429.5774647887324"/>
         </scene>
         <!--Routine Name-->
         <scene sceneID="vfo-wU-71f">
@@ -1832,7 +1839,25 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qVd-GN-mnu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1416.030534351145" y="3595.7746478873241"/>
+            <point key="canvasLocation" x="173.2824427480916" y="3595.7746478873241"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="cNY-zq-Gh1">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="DQh-py-x06" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="ZyN-Sd-69N">
+                        <rect key="frame" x="0.0" y="59" width="393" height="54"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="GdX-L9-6Xr" kind="relationship" relationship="rootViewController" id="rUK-xF-32W"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="noo-NX-cIL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1779.3893129770991" y="3595.7746478873241"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
@@ -1849,7 +1874,7 @@
         <image name="forward" catalog="system" width="128" height="76"/>
         <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
         <image name="medal" catalog="system" width="121" height="128"/>
-        <image name="pause" catalog="system" width="88" height="128"/>
+        <image name="pause.fill" catalog="system" width="114" height="128"/>
         <image name="play.circle.fill" catalog="system" width="128" height="123"/>
         <image name="stopwatch" catalog="system" width="121" height="128"/>
         <image name="trophy.fill" catalog="system" width="128" height="128"/>
@@ -1886,9 +1911,6 @@
         </systemColor>
         <systemColor name="systemOrangeColor">
             <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
