@@ -692,7 +692,7 @@
                                                 <command title="Item 2" id="84h-y7-FiW"/>
                                             </children>
                                         </menu>
-                                        <state key="normal" title="Pace">
+                                        <state key="normal" title="Medium Pace">
                                             <color key="titleColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>

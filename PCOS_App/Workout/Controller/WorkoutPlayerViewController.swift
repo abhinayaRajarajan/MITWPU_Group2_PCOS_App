@@ -547,12 +547,24 @@ class WorkoutPlayerViewController: UIViewController {
     @IBAction func nextTapped(_ sender: UIButton) {
         timer?.invalidate()
 
-            // Cardio skipped early → not completed
+            // 🫀 Cardio → skip entire exercise
             if workoutExercise.exercise.isCardio {
                 cardioCompleted = false
+                advanceToNextExerciseImmediately()
+                return
             }
 
-            advanceToNextExerciseImmediately()
+            // 🏋️ Strength → skip current set only
+            let totalSets = workoutExercise.sets.count
+
+            if currentSetIndex + 1 < totalSets {
+                // Move to next set
+                currentSetIndex += 1
+                loadCurrentSetWithoutCompletion()
+            } else {
+                // No sets left → move to next exercise
+                advanceToNextExerciseImmediately()
+            }
     }
     //initially :loadcurrentset
     private func loadNextFirstSet() {
