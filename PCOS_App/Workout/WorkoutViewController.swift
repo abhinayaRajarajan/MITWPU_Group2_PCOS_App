@@ -14,13 +14,13 @@ class WorkoutViewController: UIViewController {
     
     private var selectedPredefinedRoutine: Routine?
     private var selectedRoutine: Routine?
-
+    
     
     @IBOutlet weak var collectionView: UICollectionView!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-            
+        
         title = "Workout"
         navigationController?.navigationBar.prefersLargeTitles = true
         view.backgroundColor=UIColor(hex: "FCEEED")
@@ -34,103 +34,97 @@ class WorkoutViewController: UIViewController {
     }
     
     
-//    @IBAction func createButtonTapped(_ sender: UIButton) {
-//        // Navigate to your Create Routine screen
-//        performSegue(withIdentifier: "showCreateRoutine", sender: nil)
-//    }
-    
-    
     func generateLayout()->UICollectionViewLayout {
         collectionView.backgroundColor=UIColor(hex: "FCEEED")
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
-                configuration.interSectionSpacing = 20
-
-                let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex: Int, env: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-                    
-                    // Header for all sections
-                    let headerSize = NSCollectionLayoutSize(
-                        widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .absolute(50)
-                    )
-                    let headerItem = NSCollectionLayoutBoundarySupplementaryItem(
-                        layoutSize: headerSize,
-                        elementKind: "header",
-                        alignment: .top
-                    )
-                    
-                    if sectionIndex == 0 {
-                        // Daily Goals - horizontal, non-scrollable, dynamic sizing
-                        let itemSize = NSCollectionLayoutSize(
-                            widthDimension: .fractionalWidth(1.0 / 3.0),
-                            heightDimension: .fractionalWidth(1.0 / 3.0)
-                        )
+        configuration.interSectionSpacing = 20
+        
+        let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex: Int, env: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+            
+            // Header for all sections
+            let headerSize = NSCollectionLayoutSize(
+                widthDimension: .fractionalWidth(1.0),
+                heightDimension: .absolute(50)
+            )
+            let headerItem = NSCollectionLayoutBoundarySupplementaryItem(
+                layoutSize: headerSize,
+                elementKind: "header",
+                alignment: .top
+            )
+            
+            if sectionIndex == 0 {
+                // Daily Goals - horizontal, non-scrollable, dynamic sizing
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0 / 3.0),
+                    heightDimension: .fractionalWidth(1.0 / 3.0)
+                )
                 
-                        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-                        
-                        let groupSize = NSCollectionLayoutSize(
-                            widthDimension: .fractionalWidth(1.0),
-                            heightDimension: .estimated(120)
-                        )
-                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                        
-                        let section = NSCollectionLayoutSection(group: group)
-                        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-                        section.boundarySupplementaryItems = [headerItem]
-                        return section
-                        
-                    } else if sectionIndex == 1 {
-                        
-                        
-                        // My Routines - horizontal scrolling cards
-                        let itemSize = NSCollectionLayoutSize(
-                            widthDimension: .absolute(200),
-                            heightDimension: .absolute(170)
-                        )
-                        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                        
-                        let groupSize = NSCollectionLayoutSize(
-                            widthDimension: .absolute(200),
-                            heightDimension: .absolute(150)
-                        )
-                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                        let section = NSCollectionLayoutSection(group: group)
-                        section.orthogonalScrollingBehavior = .groupPaging
-                        section.interGroupSpacing = 12
-                        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10)
-                        section.boundarySupplementaryItems = [headerItem]
-                        return section
-                        
-                    } else {
-                        let itemSize = NSCollectionLayoutSize(
-                            widthDimension: .fractionalWidth(1.0),
-                            heightDimension: .absolute(140)
-                        )
-
-                        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0)
-
-                        let groupSize = NSCollectionLayoutSize(
-                            widthDimension: .fractionalWidth(1.0),
-                            heightDimension: .absolute(140)
-                        )
-
-                        let group = NSCollectionLayoutGroup.vertical(
-                            layoutSize: groupSize,
-                            subitems: [item]
-                        )
-
-                        let section = NSCollectionLayoutSection(group: group)
-                        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
-                        section.interGroupSpacing = 12
-                        section.boundarySupplementaryItems = [headerItem]
-
-                        return section
-
-                    }
-                }, configuration: configuration)
-
-                return layout
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
+                
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .estimated(120)
+                )
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                section.boundarySupplementaryItems = [headerItem]
+                return section
+                
+            } else if sectionIndex == 1 {
+                
+                
+                // My Routines - horizontal scrolling cards
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .absolute(200),
+                    heightDimension: .absolute(170)
+                )
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .absolute(200),
+                    heightDimension: .absolute(150)
+                )
+                let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                let section = NSCollectionLayoutSection(group: group)
+                section.orthogonalScrollingBehavior = .groupPaging
+                section.interGroupSpacing = 12
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 10, trailing: 10)
+                section.boundarySupplementaryItems = [headerItem]
+                return section
+                
+            } else {
+                let itemSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .absolute(140)
+                )
+                
+                let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 12, trailing: 0)
+                
+                let groupSize = NSCollectionLayoutSize(
+                    widthDimension: .fractionalWidth(1.0),
+                    heightDimension: .absolute(140)
+                )
+                
+                let group = NSCollectionLayoutGroup.vertical(
+                    layoutSize: groupSize,
+                    subitems: [item]
+                )
+                
+                let section = NSCollectionLayoutSection(group: group)
+                section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+                section.interGroupSpacing = 0
+                section.boundarySupplementaryItems = [headerItem]
+                
+                return section
+                
+            }
+        }, configuration: configuration)
+        
+        return layout
     }
     
     
@@ -147,7 +141,7 @@ class WorkoutViewController: UIViewController {
             UINib(nibName: "MyRoutinesEmptyCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "my_routines_empty_cell"
         )
-
+        
         collectionView.register(
             UINib(nibName: "MyRoutinesCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "my_routines_cell"
@@ -174,7 +168,7 @@ class WorkoutViewController: UIViewController {
         }
         collectionView.reloadData()
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PredefinedRoutines" {
             if let vc = segue.destination as? PredefinedRoutinesViewController {
@@ -188,9 +182,9 @@ class WorkoutViewController: UIViewController {
             vc.routine = routine
         }
     }
-
-}
     
+}
+
 extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -198,11 +192,11 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
             return cards.count
         } else if section == 1 {
             let count = WorkoutSessionManager.shared.savedRoutines.count
-
-                // If empty → show ONE placeholder cell
-                return count == 0 ? 1 : count
+            
+            // If empty → show ONE placeholder cell
+            return count == 0 ? 1 : count + 1
             //if true->return one cell and if false->return no of cells
-//            return WorkoutSessionManager.shared.savedRoutines.count
+            //            return WorkoutSessionManager.shared.savedRoutines.count
         } else {
             return exploreRoutine.count
         }
@@ -217,23 +211,31 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
         } else if indexPath.section == 1 {
             //NEW
             let routines = WorkoutSessionManager.shared.savedRoutines
-
-                // EMPTY STATE
-                if routines.isEmpty {
+            
+            // EMPTY STATE
+            if routines.isEmpty {
+                let cell = collectionView.dequeueReusableCell(
+                    withReuseIdentifier: "my_routines_empty_cell",
+                    for: indexPath
+                ) as! MyRoutinesEmptyCollectionViewCell
+                
+                return cell
+            } else {
+                if indexPath.item != routines.count {
+                    let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "my_routines_cell", for: indexPath) as! MyRoutinesCollectionViewCell
+                    let routine = WorkoutSessionManager.shared.savedRoutines[indexPath.row]
+                    cell.configureCell(with: routine)
+                    
+                    return cell
+                } else {
                     let cell = collectionView.dequeueReusableCell(
                         withReuseIdentifier: "my_routines_empty_cell",
                         for: indexPath
                     ) as! MyRoutinesEmptyCollectionViewCell
-
+                    
                     return cell
                 }
-            //OLD
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "my_routines_cell", for: indexPath) as! MyRoutinesCollectionViewCell
-            let routine = WorkoutSessionManager.shared.savedRoutines[indexPath.row]
-            cell.configureCell(with: routine)
-            
-            return cell
-            
+            }
             
         } else {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "explore_routines_cell", for: indexPath) as! ExploreRoutinesCollectionViewCell
@@ -263,30 +265,40 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
     
     
     
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        switch indexPath.section {
+            
+        case 1:
+            let routines = WorkoutSessionManager.shared.savedRoutines
+            //guard !routines.isEmpty else { return }
+            if routines.isEmpty {
+                if indexPath.item == 0 {
+                    performSegue(withIdentifier: "showCreateRoutine", sender: nil)
+                }
+            } else {
+                if indexPath.item < routines.count {
+                    let routine = routines[indexPath.item]
+                    selectedRoutine = routine
+                    performSegue(withIdentifier: "showRoutinePreview", sender: nil)
 
-            switch indexPath.section {
-
-            case 1:
-                let routines = WorkoutSessionManager.shared.savedRoutines
-                guard !routines.isEmpty else { return }
-
-                let routine = routines[indexPath.item]
-                selectedRoutine = routine
-                performSegue(withIdentifier: "showRoutinePreview", sender: nil)
-
-//            case 2:
-//                let routine = exploreRoutine[indexPath.item]
-//                selectedPredefinedRoutine = routine
-//                performSegue(withIdentifier: "PredefinedRoutines", sender: nil)
-            case 2:
-                let routine = exploreRoutine[indexPath.item]
-                selectedRoutine = routine
-                performSegue(withIdentifier: "showRoutinePreview", sender: nil)
-
-
-            default:
-                return
+                } else {
+                    performSegue(withIdentifier: "showCreateRoutine", sender: nil)
+                }
             }
+            
+            //            case 2:
+            //                let routine = exploreRoutine[indexPath.item]
+            //                selectedPredefinedRoutine = routine
+            //                performSegue(withIdentifier: "PredefinedRoutines", sender: nil)
+        case 2:
+            let routine = exploreRoutine[indexPath.item]
+            selectedRoutine = routine
+            performSegue(withIdentifier: "showRoutinePreview", sender: nil)
+            
+            
+        default:
+            return
+        }
     }
 }

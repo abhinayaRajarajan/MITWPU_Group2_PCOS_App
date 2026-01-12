@@ -266,7 +266,7 @@ struct Routine: Identifiable, Codable {
         if minutes > 60 {
             return "\(minutes/60)h \(minutes%60)m"
         }
-        return "\(minutes)m"
+        return "\(minutes) min"
     }
 }
 

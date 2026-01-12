@@ -35,6 +35,8 @@ class RoutinePreviewTableViewCell: UITableViewCell {
     
         cardView.layer.cornerRadius = 16
         cardView.clipsToBounds = true
+        exerciseImageView.contentMode = .scaleAspectFit
+        
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

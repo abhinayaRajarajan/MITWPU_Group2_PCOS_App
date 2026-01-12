@@ -44,7 +44,7 @@ class RoutineDataStore {
                     )
                 ],
                 createdAt: Date(),
-                thumbnailImageName: "routine_3",
+                thumbnailImageName: "routine8",
                 routineTagline: "When fatigue is high and your body needs gentle support",
                 routineDescription: "Designed for days of low energy and physical fatigue, this routine prioritizes gentle activation and mobility to avoid excessive cortisol spikes. Slow, controlled movement supports hormonal balance, improves circulation, and encourages recovery without overloading the nervous system—making it ideal for PCOS users on depleted days."
             ),
@@ -78,7 +78,7 @@ class RoutineDataStore {
                     )
                 ],
                 createdAt: Date(),
-                thumbnailImageName: "routine_3",
+                thumbnailImageName: "routine9",
                 routineTagline: "When stress or overwhelm calls for slow, stabilizing movement",
                 routineDescription: "This routine supports stress regulation by emphasizing steady, grounding movements that help calm the nervous system. By reducing sympathetic overactivation and cortisol output, it aids hormonal stability while improving posture and muscular control—especially useful during mentally overwhelming or emotionally taxing days."
             ),

@@ -42,6 +42,8 @@ class CreateRoutineViewController: UIViewController {
             blue: 150/255,
             alpha: 0.8
         )
+        exerciseTableView.separatorStyle = .none
+        
         
         setupUI()
         registerCells()

@@ -10,7 +10,7 @@
         <scene sceneID="tabbar-scene">
             <objects>
                 <tabBarController id="TabBarRoot" sceneMemberID="viewController">
-                    <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="wMD-Wr-ReT">
+                    <tabBar key="tabBar" contentMode="scaleToFill" id="wMD-Wr-ReT">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <color key="selectedImageTintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

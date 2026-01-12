@@ -38,6 +38,8 @@ class RoutineExerciseTableViewCell: UITableViewCell {
         super.awakeFromNib()
         containerView.layer.cornerRadius = 16
         
+        selectionStyle = .none
+        
         // Shadow
         containerView.layer.shadowColor = UIColor.black.cgColor
         containerView.layer.shadowOpacity = 0.08   // very soft

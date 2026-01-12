@@ -13,7 +13,8 @@ class InfoCardTableViewCell: UITableViewCell {
     @IBOutlet weak var infoLabel: UILabel!
     override func awakeFromNib() {
         super.awakeFromNib()
-
+        
+        selectionStyle = .none
         containerView.layer.cornerRadius = 10
         containerView.layer.masksToBounds = false
 

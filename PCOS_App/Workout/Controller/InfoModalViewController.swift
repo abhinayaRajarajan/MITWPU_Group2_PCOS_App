@@ -11,6 +11,8 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     var exercise:Exercise!
     
+    @IBOutlet weak var gifImageContainer: UIView!
+
     @IBOutlet weak var gifImageView: UIImageView!
     @IBOutlet weak var exerciseLevelLabel: UILabel!
     @IBOutlet weak var exerciseMuscleNameLabel: UILabel!
@@ -37,7 +39,7 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
         guard exercise != nil else {
                 fatalError("InfoModalViewController: exercise must be set before presenting")
             }
-        
+        gifImageContainer.layer.cornerRadius = 20
 //        if let dataAsset = NSDataAsset(name: "plank") {
 //            gifImageView.image = UIImage.gifImageWithData(dataAsset.data)
 //        }

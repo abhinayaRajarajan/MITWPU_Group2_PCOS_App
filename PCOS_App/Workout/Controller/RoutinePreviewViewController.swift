@@ -131,10 +131,11 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
         timeTagContainer.layer.cornerRadius = exerciseTagContainer.frame.height / 2
         exerciseTagContainer.backgroundColor = UIColor.white.withAlphaComponent(0.95)
         exerciseTagContainer.layer.cornerRadius = exerciseTagContainer.frame.height / 2
+        RoutineImageOutlet.layer.cornerRadius=0
     }
     private func configureRoutineHeader() {
        // RoutineNameOutlet.text = routine.name
-        NoOfExerciseOutlet.text = "\(routine.totalExercises)"
+        NoOfExerciseOutlet.text = "\(routine.totalExercises) Exercises"
         EstRoutineTimeOutlet.text = routine.formattedDuration
         setRoutineImage()
     }
@@ -148,9 +149,9 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
     private func setupTable() {
         RoutinePreviewTableViewOutlet.delegate = self
         RoutinePreviewTableViewOutlet.dataSource = self
-        RoutinePreviewTableViewOutlet.rowHeight = UITableView.automaticDimension
-        RoutinePreviewTableViewOutlet.estimatedRowHeight = 120
-        
+        //RoutinePreviewTableViewOutlet.rowHeight = UITableView.automaticDimension
+        //RoutinePreviewTableViewOutlet.estimatedRowHeight = 200
+        RoutinePreviewTableViewOutlet.rowHeight = 120
         RoutinePreviewTableViewOutlet.register(
             UINib(nibName: "RoutinePreviewTableViewCell", bundle: nil),
             forCellReuseIdentifier: "routine_preview_cell"
@@ -160,49 +161,6 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
         performSegue(withIdentifier: "InfoModal", sender: exercise)
     }
 
-//    @IBAction func startWorkoutTapped(_ sender: UIButton) {
-//
-//        let workoutExercises = routine.exercises.map {
-//                $0.generateWorkoutExercise()
-//            }
-//
-//            let activeWorkout = ActiveWorkout(
-//                routine: routine,
-//                exercises: workoutExercises
-//            )
-//
-//            WorkoutSessionManager.shared.activeWorkout = activeWorkout
-//
-//            let storyboard = UIStoryboard(name: "Workout", bundle: nil)
-//
-//            guard let countdownVC = storyboard.instantiateViewController(
-//                withIdentifier: "CountdownViewController"
-//            ) as? CountdownViewController else { return }
-//
-//            countdownVC.modalPresentationStyle = .fullScreen
-//
-//            countdownVC.onCountdownFinished = { [weak self] in
-//                guard let self = self else { return }
-//
-//                let workoutVC = storyboard.instantiateViewController(
-//                    withIdentifier: "WorkoutPlayerViewController"
-//                ) as! WorkoutPlayerViewController
-//
-//                workoutVC.activeWorkout = activeWorkout
-//                workoutVC.exerciseIndex = 0
-//                workoutVC.workoutExercise = activeWorkout.exercises[0]
-//
-//                self.navigationController?.pushViewController(workoutVC, animated: true)
-//            }
-//
-//            present(countdownVC, animated: false)
-//        
-//        
-//        
-//        
-//        
-//        
-//    }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "InfoModal" {
             
