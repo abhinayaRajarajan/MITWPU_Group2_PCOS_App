@@ -14,9 +14,9 @@ struct FoodItem: Codable, Identifiable {
     var image: String = "dietPlaceholder"
     let servingSize: Double
     var unit: String = "g"
-    let protein: Double
-    let carbs: Double
-    let fat: Double
+    var protein: Double
+    var carbs: Double
+    var fat: Double
     var isSelected: Bool = false
     var desc: String = ""
     var ingredients: [Ingredient] = []

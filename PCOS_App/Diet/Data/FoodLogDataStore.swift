@@ -97,6 +97,9 @@ struct FoodLogDataSource {
                                        tags: [.healthyFats]),
                             Ingredient(id: UUID(), name: "Whole Grain Bread", quantity: 80,
                                        protein: 4.5, carbs: 20, fats: 1.2, fibre: 4,
+                                       tags: [.wholeFood, .lowGlycemic]),
+                            Ingredient(id: UUID(), name: "Egg", quantity: 1,
+                                       protein: 4.5, carbs: 20, fats: 3, fibre: 2,
                                        tags: [.wholeFood, .lowGlycemic])
                         ]
         ),

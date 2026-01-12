@@ -497,7 +497,7 @@ extension AddMealViewController: BarcodeScannerDelegate {
                 
                 DispatchQueue.main.async {
                     self.delegate?.didAddMeal(food)
-                    self.dismiss(animated: true)
+                    self.navigationController?.popToRootViewController(animated: true)
                 }
                 
             } catch {

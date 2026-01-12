@@ -102,8 +102,8 @@ class DescribeFoodViewController: UIViewController {
             // 1. Check foodItems array
             if let match = foodItems.first(where: { $0.desc.localizedCaseInsensitiveContains(text) }) {
                 print("DEBUG: Found match in foodItems: \(match.name)")
-                let vc = storyboard?.instantiateViewController(identifier: "AddDescribedMealViewController") as! AddDescribedMealViewController
-                vc.foodItem = match
+//                let vc = storyboard?.instantiateViewController(identifier: "AddDescribedMealViewController") as! AddDescribedMealViewController
+//                vc.foodItem = match
                 performSegue(withIdentifier: "addDescribe", sender: match)
                 return
             }
@@ -111,8 +111,8 @@ class DescribeFoodViewController: UIViewController {
             // 2. Check foods array
             if let match = foods.first(where: { $0.name.localizedCaseInsensitiveContains(text) }) {
                 print("DEBUG: Found match in foods: \(match.name)")
-                let vc = storyboard?.instantiateViewController(identifier: "AddDescribedMealViewController") as! AddDescribedMealViewController
-                vc.food = match
+//                let vc = storyboard?.instantiateViewController(identifier: "AddDescribedMealViewController") as! AddDescribedMealViewController
+//                vc.food = match
                 performSegue(withIdentifier: "addDescribe", sender: match)
                 return
             }
@@ -124,27 +124,22 @@ class DescribeFoodViewController: UIViewController {
         
         // MARK: - Prepare for Segue (REQUIRED to pass data)
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-            print("DEBUG: prepare(for segue:) called with identifier: \(segue.identifier ?? "nil")")
-            
             if segue.identifier == "addDescribe" {
-                guard let destVC = segue.destination as? AddDescribedMealViewController else {
-                    print("ERROR: Destination is not AddDescribedMealViewController")
-                    print("ERROR: Actual destination: \(type(of: segue.destination))")
-                    return
+                    if let navigationController = segue.destination as? UINavigationController,
+                       let addDescribedVC = navigationController.topViewController as? AddDescribedMealViewController {
+                        
+                        // Determine which data to pass based on what you have
+                        if let foodData = sender as? Food {
+                            addDescribedVC.food = foodData
+                            addDescribedVC.label = foodData.name
+                        } else if let foodItemData = sender as? FoodItem {
+                            addDescribedVC.foodItem = foodItemData
+                            addDescribedVC.label = foodItemData.name
+                        }
+                        
+                        print("DEBUG: Segue preparation complete")
+                    }
                 }
-                
-                if let foodItem = sender as? FoodItem {
-                    print("DEBUG: Passing FoodItem: \(foodItem.name)")
-                    destVC.foodItem = foodItem
-                    destVC.label = describeYourMealText?.text
-                } else if let food = sender as? Food {
-                    print("DEBUG: Passing Food: \(food.name)")
-                    destVC.food = food
-                    destVC.label = describeYourMealText?.text
-                } else {
-                    print("ERROR: Sender is neither FoodItem nor Food. Sender type: \(type(of: sender))")
-                }
-            }
         }
         
     
