@@ -4,12 +4,16 @@
 //
 //  Created by SDC-USER on 10/01/26.
 //
+protocol AddDescribedMealDelegate: AnyObject {
+    func didConfirmMeal(_ food: Food)
+}
 
 import UIKit
 
 class AddDescribedMealViewController: UIViewController {
     
     
+    @IBOutlet weak var foodName: UILabel!
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var FoodWeightLabel: UILabel!
     @IBOutlet weak var servingNumberLabel: UILabel!
@@ -18,7 +22,7 @@ class AddDescribedMealViewController: UIViewController {
     var foodItem: FoodItem!
     var ingredientsLength: Int = 0
     var food: Food!
-    var label: String!
+    weak var delegate: AddDescribedMealDelegate?
     private var servingMultiplier: Double = 1.0
     private var headerView: FoodLogIngredientHeader!
     private var ingredients: [Ingredient] = []
@@ -44,8 +48,10 @@ class AddDescribedMealViewController: UIViewController {
     private func loadIngredients() {
             if let food = food {
                 ingredients = food.ingredients ?? []
+                foodName.text = food.name
             } else if let foodItem = foodItem {
                 ingredients = foodItem.ingredients
+                foodName.text = foodItem.name
             }
             
             print("DEBUG: Loaded \(ingredients.count) ingredients")
@@ -171,12 +177,112 @@ class AddDescribedMealViewController: UIViewController {
         }
         
     @IBAction func saveButtonTapped(_ sender: Any) {
-        
+        guard let finalFood = createFinalFoodObject() else {
+                print("ERROR: Could not create final food object")
+                return
+            }
+            
+            print("DEBUG: Final food created: \(finalFood.name)")
+            print("DEBUG: Delegate is: \(delegate != nil ? "set" : "nil")")
+            
+            // Pass it back to DietViewController through delegate
+            delegate?.didConfirmMeal(finalFood)
+            
+            // Dismiss all modals back to DietVC
+            // First dismiss this modal
+            dismiss(animated: true) { [weak self] in
+                // Then dismiss the DescribeFoodVC modal
+                self?.presentingViewController?.dismiss(animated: true) {
+                    // AddMealVC will pop itself or you can pop it here
+                    print("All modals dismissed")
+                }
+            }
+            
+            print("Meal confirmed and dismissing")
     }
     
+    private func createFinalFoodObject() -> Food? {
+            if let food = food {
+                // Calculate final macros based on current ingredients and serving multiplier
+                var totalProtein: Double = 0
+                var totalCarbs: Double = 0
+                var totalFat: Double = 0
+                
+                for ingredient in ingredients {
+                    let factor = ingredient.quantity / 100.0
+                    totalProtein += ingredient.protein * factor
+                    totalCarbs += ingredient.carbs * factor
+                    totalFat += ingredient.fats * factor
+                }
+                
+                totalProtein *= servingMultiplier
+                totalCarbs *= servingMultiplier
+                totalFat *= servingMultiplier
+                
+                // Create the final Food object
+                return Food(
+                    id: UUID(), // New ID for the logged meal
+                    name: food.name,
+                    image: food.image,
+                    timeStamp: Date(), // Current time
+                    servingSize: food.servingSize * servingMultiplier,
+                    weight: food.weight,
+                    isSelected: false,
+                    isLogged: true, // Mark as logged
+                    desc: food.desc,
+                    proteinContent: totalProtein,
+                    carbsContent: totalCarbs,
+                    fatsContent: totalFat,
+                    fibreContent: food.fibreContent,
+                    customCalories: nil,
+                    tags: food.tags,
+                    ingredients: ingredients,
+                    Insights: food.Insights
+                )
+            } else if let foodItem = foodItem {
+                // Similar for FoodItem
+                var totalProtein: Double = 0
+                var totalCarbs: Double = 0
+                var totalFat: Double = 0
+                
+                for ingredient in ingredients {
+                    let factor = ingredient.quantity / 100.0
+                    totalProtein += ingredient.protein * factor
+                    totalCarbs += ingredient.carbs * factor
+                    totalFat += ingredient.fats * factor
+                }
+                
+                totalProtein *= servingMultiplier
+                totalCarbs *= servingMultiplier
+                totalFat *= servingMultiplier
+                
+                // Convert FoodItem to Food
+                return Food(
+                    id: UUID(),
+                    name: foodItem.name,
+                    image: foodItem.image,
+                    timeStamp: Date(),
+                    servingSize: foodItem.servingSize * servingMultiplier,
+                    weight: nil,
+                    isSelected: false,
+                    isLogged: true,
+                    desc: foodItem.desc,
+                    proteinContent: totalProtein,
+                    carbsContent: totalCarbs,
+                    fatsContent: totalFat,
+                    fibreContent: 0,
+                    customCalories: nil,
+                    tags: [],
+                    ingredients: ingredients,
+                    Insights: nil
+                )
+            }
+            
+            return nil
+        }
     
     @IBAction func cancelButtonTapped(_ sender: Any) {
-        
+        self.dismiss(animated: true)
     }
     
     private func updateWeightLabel() {
@@ -184,14 +290,15 @@ class AddDescribedMealViewController: UIViewController {
             
             // Calculate total weight based on type
             var totalWeight: Double = 0
-            
+        var unit: String = "g"
             if let food = food {
                 totalWeight = (food.servingSize) * servingMultiplier
             } else if let foodItem = foodItem {
                 totalWeight = (foodItem.servingSize) * servingMultiplier
+                unit = foodItem.unit
             }
             
-            label.text = String(format: "Total\n%.0f g", totalWeight)
+            label.text = String(format: "Total\n%.0f \(unit)", totalWeight)
         }
         
         // MARK: - Update Header With Current Ingredients
@@ -405,20 +512,16 @@ class AddDescribedMealViewController: UIViewController {
             let ingredient = ingredients[indexPath.row]
             print("DEBUG: Deleting ingredient: \(ingredient.name)")
             
-            // Remove from array
             ingredients.remove(at: indexPath.row)
             
-            // Update table view with animation
             if ingredients.isEmpty {
-                // If no ingredients left, reload to show "No ingredients" message
                 tableView.reloadData()
             } else {
-                // Delete with animation
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
             
-            // Optional: Recalculate macros based on remaining ingredients
-            recalculateMacros()
+            // ✅ Use this instead of recalculateMacros()
+            updateHeaderWithCurrentIngredients()
             
             print("DEBUG: \(ingredients.count) ingredients remaining")
         }
@@ -456,22 +559,19 @@ class AddDescribedMealViewController: UIViewController {
                 let quantityText = alert.textFields?[0].text ?? ""
                 let unitText = alert.textFields?[1].text ?? ""
                 
-                // Update ingredient
                 var updatedIngredient = ingredient
                 updatedIngredient.quantity = Double(quantityText) ?? 100
                 updatedIngredient.unit = unitText.isEmpty ? "g" : unitText
                 
-                // Update in array
                 self.ingredients[indexPath.row] = updatedIngredient
-                
-                // Reload row
                 self.tableView.reloadRows(at: [indexPath], with: .automatic)
                 
-                // Recalculate macros
-                self.recalculateMacros()
+                // ✅ Use this instead of recalculateMacros()
+                self.updateHeaderWithCurrentIngredients()
                 
                 print("DEBUG: Updated ingredient: \(updatedIngredient.name)")
             }
+        
             
             alert.addAction(cancelAction)
             alert.addAction(saveAction)

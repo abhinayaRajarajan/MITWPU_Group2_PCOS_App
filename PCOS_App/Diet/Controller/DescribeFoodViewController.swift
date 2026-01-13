@@ -16,6 +16,7 @@ class DescribeFoodViewController: UIViewController {
     var foods = FoodLogDataSource.sampleFoods
     // Closure to pass data back
     var onFoodAdded: ((String) -> Void)?
+    weak var dietDelegate: AddDescribedMealDelegate?
     
     // handlebar UI
     private let handleBar: UIView = {
@@ -125,21 +126,22 @@ class DescribeFoodViewController: UIViewController {
         // MARK: - Prepare for Segue (REQUIRED to pass data)
         override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
             if segue.identifier == "addDescribe" {
-                    if let navigationController = segue.destination as? UINavigationController,
-                       let addDescribedVC = navigationController.topViewController as? AddDescribedMealViewController {
-                        
-                        // Determine which data to pass based on what you have
-                        if let foodData = sender as? Food {
-                            addDescribedVC.food = foodData
-                            addDescribedVC.label = foodData.name
-                        } else if let foodItemData = sender as? FoodItem {
-                            addDescribedVC.foodItem = foodItemData
-                            addDescribedVC.label = foodItemData.name
+                        if let navigationController = segue.destination as? UINavigationController,
+                           let addDescribedVC = navigationController.topViewController as? AddDescribedMealViewController {
+                            
+                            // Pass the data
+                            if let foodData = sender as? Food {
+                                addDescribedVC.food = foodData
+                            } else if let foodItemData = sender as? FoodItem {
+                                addDescribedVC.foodItem = foodItemData
+                            }
+                            
+                            // IMPORTANT: Pass the delegate through
+                            addDescribedVC.delegate = self.dietDelegate
+                            
+                            print("DEBUG: Segue preparation complete with delegate")
                         }
-                        
-                        print("DEBUG: Segue preparation complete")
                     }
-                }
         }
         
     

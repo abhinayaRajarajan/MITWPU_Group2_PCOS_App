@@ -51,7 +51,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="35h-3y-IKN" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="452.67175572519085" y="305.63380281690144"/>
+            <point key="canvasLocation" x="-18" y="306"/>
         </scene>
         <!--Add Meal View Controller-->
         <scene sceneID="wzV-8j-dp2">
@@ -123,7 +123,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wxe-2p-PG8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="452.67175572519085" y="980.98591549295782"/>
+            <point key="canvasLocation" x="851" y="306"/>
         </scene>
         <!--Describe Food View Controller-->
         <scene sceneID="mFb-F1-EZo">
@@ -162,7 +162,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="SY4-YD-Dm6">
-                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="n2w-QX-2C6"/>
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="n2w-QX-2C6">
+                            <connections>
+                                <action selector="closeTapped:" destination="Mvm-DV-Wjd" id="5pc-rq-dkJ"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addDescribedMealButton" destination="Lss-t1-tbF" id="uXA-G7-XkZ"/>
@@ -173,7 +177,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ssY-vR-WcS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3172" y="961"/>
+            <point key="canvasLocation" x="1695" y="306"/>
         </scene>
         <!--Add Described Meal View Controller-->
         <scene sceneID="kox-Ht-jLJ">
@@ -190,8 +194,28 @@
                                     <constraint firstAttribute="height" constant="300" id="8JE-TR-c5N"/>
                                 </constraints>
                             </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="justified" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bRk-QB-6Pa">
+                                <rect key="frame" x="16" y="398" width="361" height="24"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nzi-t1-g0P">
+                                <rect key="frame" x="16" y="488" width="361" height="305"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="9gn-2j-GKt">
+                                        <rect key="frame" x="0.0" y="50" width="361" height="51"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9gn-2j-GKt" id="Cuz-Tt-zi0">
+                                            <rect key="frame" x="0.0" y="0.0" width="361" height="51"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="Dev-6t-RBR">
-                                <rect key="frame" x="16" y="394" width="361" height="50"/>
+                                <rect key="frame" x="16" y="438" width="361" height="50"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="1 serving" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jT0-rO-wSf">
                                         <rect key="frame" x="0.0" y="14.333333333333316" width="100" height="21.666666666666671"/>
@@ -225,25 +249,13 @@
                                     <constraint firstItem="jT0-rO-wSf" firstAttribute="leading" secondItem="Dev-6t-RBR" secondAttribute="leading" id="HvJ-gu-hv0"/>
                                 </constraints>
                             </stackView>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="nzi-t1-g0P">
-                                <rect key="frame" x="16" y="444" width="361" height="349"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="cell" id="9gn-2j-GKt">
-                                        <rect key="frame" x="0.0" y="50" width="361" height="51"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="9gn-2j-GKt" id="Cuz-Tt-zi0">
-                                            <rect key="frame" x="0.0" y="0.0" width="361" height="51"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </prototypes>
-                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="5w6-lf-ONS"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="Dev-6t-RBR" firstAttribute="top" secondItem="KUK-HV-55y" secondAttribute="bottom" constant="16" id="3xW-VX-Dcy"/>
+                            <constraint firstItem="bRk-QB-6Pa" firstAttribute="top" secondItem="KUK-HV-55y" secondAttribute="bottom" constant="20" id="1jJ-hF-q0J"/>
+                            <constraint firstItem="bRk-QB-6Pa" firstAttribute="leading" secondItem="5w6-lf-ONS" secondAttribute="leading" constant="16" id="440-To-VfY"/>
+                            <constraint firstItem="Dev-6t-RBR" firstAttribute="top" secondItem="bRk-QB-6Pa" secondAttribute="bottom" constant="16" id="50F-Fp-syt"/>
                             <constraint firstItem="Dev-6t-RBR" firstAttribute="leading" secondItem="5w6-lf-ONS" secondAttribute="leading" constant="16" id="HAy-cv-GDk"/>
                             <constraint firstItem="5w6-lf-ONS" firstAttribute="trailing" secondItem="Dev-6t-RBR" secondAttribute="trailing" constant="16" id="RC0-0n-q78"/>
                             <constraint firstItem="KUK-HV-55y" firstAttribute="leading" secondItem="5w6-lf-ONS" secondAttribute="leading" constant="16" id="RNW-cc-lsN"/>
@@ -253,6 +265,7 @@
                             <constraint firstItem="5w6-lf-ONS" firstAttribute="bottom" secondItem="nzi-t1-g0P" secondAttribute="bottom" id="lMk-nY-Ybq"/>
                             <constraint firstItem="KUK-HV-55y" firstAttribute="top" secondItem="5w6-lf-ONS" secondAttribute="top" constant="8" id="mcc-5O-RUJ"/>
                             <constraint firstItem="nzi-t1-g0P" firstAttribute="leading" secondItem="5w6-lf-ONS" secondAttribute="leading" constant="16" id="rTe-yT-edm"/>
+                            <constraint firstItem="5w6-lf-ONS" firstAttribute="trailing" secondItem="bRk-QB-6Pa" secondAttribute="trailing" constant="16" id="u28-s3-k2i"/>
                         </constraints>
                     </view>
                     <toolbarItems/>
@@ -271,6 +284,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="FoodWeightLabel" destination="2go-Cm-PUA" id="C9A-Ni-JXA"/>
+                        <outlet property="foodName" destination="bRk-QB-6Pa" id="8V0-Md-CWN"/>
                         <outlet property="foodWeightView" destination="KUK-HV-55y" id="SPZ-XB-MrS"/>
                         <outlet property="servingNumberLabel" destination="jT0-rO-wSf" id="Cca-ie-LT6"/>
                         <outlet property="servingStepper" destination="ETu-AZ-F7D" id="dkk-IK-LeL"/>
@@ -279,7 +293,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="zcy-cy-uMX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="5863" y="961"/>
+            <point key="canvasLocation" x="3292" y="306"/>
         </scene>
         <!--Diet Calendar Logs View Controller-->
         <scene sceneID="LZC-G4-OWg">
@@ -330,7 +344,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ACq-tf-1kQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1249.6183206106871" y="305.63380281690144"/>
+            <point key="canvasLocation" x="1219" y="-429"/>
         </scene>
         <!--Food Log Ingredient View Controller-->
         <scene sceneID="4hB-9g-I2P">
@@ -417,7 +431,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8Ij-xc-K9k" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2933.5877862595416" y="305.63380281690144"/>
+            <point key="canvasLocation" x="850" y="1080"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="a0d-o2-Jbg">
@@ -435,7 +449,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="non-M3-vGq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4659" y="961"/>
+            <point key="canvasLocation" x="2479" y="306"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="x8q-KZ-n65">
@@ -453,7 +467,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="t1c-Xb-lLT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2006.8702290076335" y="305.63380281690144"/>
+            <point key="canvasLocation" x="-19" y="1080"/>
         </scene>
     </scenes>
     <resources>

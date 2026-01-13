@@ -29,7 +29,10 @@ class DietViewController: UIViewController {
                super.viewWillAppear(animated)
                navigationController?.navigationBar.prefersLargeTitles = true
                filterTodaysFoods()
-               print("Todays foods are ", FoodLogDataSource.todaysMeal)
+               for i in FoodLogDataSource.todaysMeal{
+                   print(i.name)
+               }
+               
            }
 
            //Setup Helpers
@@ -68,14 +71,16 @@ class DietViewController: UIViewController {
 
            @IBAction func addButtonTapped(_ sender: UIButton) {
                let storyboard = UIStoryboard(name: "Diet", bundle: nil)
-               guard let addVC = storyboard.instantiateViewController(withIdentifier: "AddMealViewController") as? AddMealViewController else {
-                   let addVC = AddMealViewController()
+                   guard let addVC = storyboard.instantiateViewController(withIdentifier: "AddMealViewController") as? AddMealViewController else {
+                       let addVC = AddMealViewController()
+                       addVC.delegate = self
+                       addVC.dietDelegate = self  // Add this line
+                       navigationController?.pushViewController(addVC, animated: true)
+                       return
+                   }
                    addVC.delegate = self
+                   addVC.dietDelegate = self  // Add this line
                    navigationController?.pushViewController(addVC, animated: true)
-                   return
-               }
-               addVC.delegate = self
-               navigationController?.pushViewController(addVC, animated: true)
            }
 
            //Data / Filtering
@@ -115,9 +120,10 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let headerView = tableView.dequeueReusableHeaderFooterView(withIdentifier: NutritionHeader.identifier) as! NutritionHeader
-        headerView.configure()
-        return headerView
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: NutritionHeader.identifier) as! NutritionHeader
+                header.configure()
+                self.headerView = header
+                return header
     }
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
@@ -146,5 +152,38 @@ extension DietViewController: AddMealDelegate {
         filterTodaysFoods()
         print("Added food: \(food.name)")
     }
+}
+
+extension DietViewController: AddDescribedMealDelegate {
+    func didConfirmMeal(_ food: Food) {
+        print("🎉 didConfirmMeal called with: \(food.name)")
+                
+                // Add to data source
+                FoodLogDataSource.addFoodBarCode(food)
+                
+                // Dismiss all presented modals
+                if presentedViewController != nil {
+                    dismiss(animated: true) { [weak self] in
+                        // Pop AddMealVC to return to DietVC
+                        self?.navigationController?.popToRootViewController(animated: true)
+                    }
+                } else {
+                    // If no modals, just pop
+                    navigationController?.popToRootViewController(animated: true)
+                }
+                
+                // Refresh the list
+                filterTodaysFoods()
+                
+                // Update header if it's today's meal
+                let startOfToday = Calendar.current.startOfDay(for: Date())
+                let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday)!
+                if food.timeStamp >= startOfToday && food.timeStamp < startOfTomorrow {
+                    print("📊 Updating header")
+                    headerView?.updateValues(food)
+                }
+                
+                print("✅ Meal added successfully")
+            }
 }
 

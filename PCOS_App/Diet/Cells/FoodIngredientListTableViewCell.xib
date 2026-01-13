@@ -17,12 +17,12 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ingredient title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mBK-Ny-mQP">
-                        <rect key="frame" x="15" y="5" width="114" height="18"/>
+                        <rect key="frame" x="16" y="14.999999999999998" width="114" height="20.333333333333329"/>
                         <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="cal kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5aJ-lB-Rf4">
+                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="cal kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5aJ-lB-Rf4">
                         <rect key="frame" x="15" y="28" width="46" height="16"/>
                         <fontDescription key="fontDescription" type="system" pointSize="13"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -37,12 +37,11 @@
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="5aJ-lB-Rf4" secondAttribute="bottom" constant="6" id="8Qe-Rg-x2O"/>
-                    <constraint firstItem="mBK-Ny-mQP" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="ORL-se-xKW"/>
-                    <constraint firstItem="mBK-Ny-mQP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="fom-em-BbF"/>
+                    <constraint firstItem="mBK-Ny-mQP" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="c3r-Yd-GUK"/>
+                    <constraint firstItem="mBK-Ny-mQP" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="fom-em-BbF"/>
                     <constraint firstItem="5aJ-lB-Rf4" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="q3v-oH-azT"/>
                     <constraint firstAttribute="trailing" secondItem="PL2-ui-wqv" secondAttribute="trailing" constant="15" id="q40-6z-9wi"/>
                     <constraint firstItem="PL2-ui-wqv" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="uwZ-f6-nw0"/>
-                    <constraint firstItem="5aJ-lB-Rf4" firstAttribute="top" secondItem="mBK-Ny-mQP" secondAttribute="bottom" constant="5" id="xMy-MX-SD5"/>
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>

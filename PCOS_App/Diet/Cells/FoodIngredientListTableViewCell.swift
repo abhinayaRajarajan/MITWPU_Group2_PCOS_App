@@ -32,7 +32,7 @@ class FoodIngredientListTableViewCell: UITableViewCell {
     func configureCell(with ingredient: Ingredient){
         IngredientNameLabel.text = ingredient.name
         IngredientCalorieLabel.text = "\(ingredient.calories) kcal"
-        IngredientWeightLabel.text = "\((ingredient.weight) ?? 100) g"
+        IngredientWeightLabel.text = "\(Int(((ingredient.weight) ?? 100))) g"
     }
     
 }
