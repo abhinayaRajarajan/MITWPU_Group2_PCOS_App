@@ -35,7 +35,8 @@ class InsulinSummaryCardView: UIView {
     private let highEmojiLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "🔴"
+        label.text = "●"
+        label.textColor = UIColor(hex: "#B24F57")
         label.font = .systemFont(ofSize: 24)
         return label
     }()
@@ -54,7 +55,7 @@ class InsulinSummaryCardView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "3 meals"
         label.font = .systemFont(ofSize: 16, weight: .bold)
-        label.textColor = UIColor(red: 1.0, green: 0.3, blue: 0.3, alpha: 1.0)
+        label.textColor = UIColor(hex: "#B24F57")
         return label
     }()
     
@@ -68,7 +69,8 @@ class InsulinSummaryCardView: UIView {
     private let moderateEmojiLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "🟠"
+        label.text = "●"
+        label.textColor = UIColor(hex: "#D98FAA")
         label.font = .systemFont(ofSize: 24)
         return label
     }()
@@ -87,7 +89,7 @@ class InsulinSummaryCardView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "2 meals"
         label.font = .systemFont(ofSize: 16, weight: .bold)
-        label.textColor = UIColor(red: 1.0, green: 0.6, blue: 0.2, alpha: 1.0)
+        label.textColor = UIColor(hex: "#D98FAA")
         return label
     }()
     
@@ -101,7 +103,8 @@ class InsulinSummaryCardView: UIView {
     private let lowEmojiLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "🟢"
+        label.text = "●"
+        label.textColor = UIColor(hex: "#F2B6C6")
         label.font = .systemFont(ofSize: 24)
         return label
     }()
@@ -120,7 +123,7 @@ class InsulinSummaryCardView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = "5 meals"
         label.font = .systemFont(ofSize: 16, weight: .bold)
-        label.textColor = UIColor(red: 0.3, green: 0.8, blue: 0.4, alpha: 1.0)
+        label.textColor = UIColor(hex: "#F2B6C6")
         return label
     }()
     
@@ -281,8 +284,9 @@ class InsulinSummaryCardView: UIView {
         moderateCountLabel.text = "\(moderate) meals"
         lowCountLabel.text = "\(low) meals"
         
-        createDots(in: highDotsView, count: high, color: UIColor(red: 1.0, green: 0.3, blue: 0.3, alpha: 1.0))
-        createDots(in: moderateDotsView, count: moderate, color: UIColor(red: 1.0, green: 0.6, blue: 0.2, alpha: 1.0))
-        createDots(in: lowDotsView, count: low, color: UIColor(red: 0.3, green: 0.8, blue: 0.4, alpha: 1.0))
+        createDots(in: highDotsView, count: high, color: UIColor(hex: "#B24F57"))
+        createDots(in: moderateDotsView, count: moderate, color: UIColor(hex: "#D98FAA"))
+        createDots(in: lowDotsView, count: low, color: UIColor(hex: "#F2B6C6"))
     }
 }
+

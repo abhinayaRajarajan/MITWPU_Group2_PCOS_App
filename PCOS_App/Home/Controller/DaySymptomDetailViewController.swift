@@ -137,7 +137,7 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
     
     // MARK: - Public Method to Update Date
     func updateDate(_ newDate: Date) {
-        print("📲 Updating modal with new date: \(newDate)")
+        
         selectedDate = newDate
         loadAndDisplay()
     }

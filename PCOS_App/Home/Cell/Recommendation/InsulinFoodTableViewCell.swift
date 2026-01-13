@@ -70,28 +70,11 @@ class InsulinFoodTableViewCell: UITableViewCell {
         // Configure cell with food data
         func configure(with food: CellFoodItem) {
             foodNameLabel.text = food.name
-            sugarLevelLabel.text = "\(food.sugarContent) Sugar"
+            sugarLevelLabel.text = "\(food.sugarContent) Glycemic Load"
             dayLabel.text = "\(food.day)"
+            foodImage.image = UIImage(named: food.image)
             
-            // If using emoji as image
-            if food.image.count <= 2 {
-                // It's an emoji
-                let label = UILabel(frame: foodImage.bounds)
-                label.text = food.image
-                label.font = .systemFont(ofSize: 40)
-                label.textAlignment = .center
-                foodImage.addSubview(label)
-            } else {
-                // It's an image name
-                foodImage.image = UIImage(named: food.image)
-            }
         }
         
-        override func prepareForReuse() {
-            super.prepareForReuse()
-            // Clear emoji label if exists
-            foodImage.subviews.forEach { $0.removeFromSuperview() }
-            foodImage.image = nil
-        }
     }
 

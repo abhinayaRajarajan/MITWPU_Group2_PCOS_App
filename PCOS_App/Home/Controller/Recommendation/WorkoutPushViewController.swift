@@ -62,8 +62,8 @@ class WorkoutPushViewController: UIViewController {
             
             // Configure
             let workoutData: [WorkoutPieChart.WorkoutData] = [
-                WorkoutPieChart.WorkoutData(name: "Cardio", value: 5, color: UIColor(hex: "#D98FAA")),
-                WorkoutPieChart.WorkoutData(name: "Strength", value: 2, color: UIColor(hex: "#D97398")),
+                WorkoutPieChart.WorkoutData(name: "Cardio", value: 5, color: UIColor(hex: "#F2B6C6")),
+                WorkoutPieChart.WorkoutData(name: "Strength", value: 2, color: UIColor(hex: "#D98FAA")),
             ]
             
             chartView.configure(with: workoutData)
@@ -74,12 +74,12 @@ class WorkoutPushViewController: UIViewController {
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Strength Training",
                     value: 3,
-                    color: UIColor(hex: "#D97398")
+                    color: UIColor(hex: "#D98FAA")
                 ),
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Cardio",
                     value: 3,
-                    color: UIColor(hex: "#D98FAA")
+                    color: UIColor(hex: "#F2B6C6")
                 )
             ]
             
@@ -92,12 +92,12 @@ class WorkoutPushViewController: UIViewController {
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Strength Training",
                     value: 2,
-                    color: UIColor(hex: "#D97398")
+                    color: UIColor(hex: "#D98FAA")
                 ),
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Cardio",
                     value: 5,
-                    color: UIColor(hex: "#D98FAA")
+                    color: UIColor(hex: "#F2B6C6")
                 )
             ]
             
@@ -111,12 +111,12 @@ class WorkoutPushViewController: UIViewController {
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Strength Training",
                     value: 3,
-                    color: UIColor(hex: "#D97398")
+                    color: UIColor(hex: "#D98FAA")
                 ),
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Cardio",
                     value: 3,
-                    color: UIColor(hex: "#D98FAA")
+                    color: UIColor(hex: "#F2B6C6")
                 )
             ]
             
