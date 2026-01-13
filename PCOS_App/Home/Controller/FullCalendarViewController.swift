@@ -9,13 +9,16 @@ import UIKit
 
 class FullCalendarViewController: UIViewController {
     
-    // MARK: - Properties
     private var collectionView: UICollectionView!
     private var periodDates: Set<Date> = []
     private var symptomDates: Set<Date> = []
     private var displayedMonths: [Date] = []
     private let calendar = Calendar.current
     private var hasScrolledToCurrentMonth = false
+    
+    // Keep reference to the modal
+    private var symptomDetailVC: DaySymptomDetailViewController?
+    
     
     // MARK: - Lifecycle
     override func viewDidLoad() {

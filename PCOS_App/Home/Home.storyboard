@@ -139,7 +139,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No symptoms logged for this day" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vq4-lK-xAb">
-                                        <rect key="frame" x="70.666666666666671" y="322.66666666666669" width="251.66666666666657" height="21"/>
+                                        <rect key="frame" x="70.666666666666671" y="322.66666666666669" width="251.66666666666663" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -175,6 +175,7 @@
                                                         <constraint firstItem="qOY-m5-8Js" firstAttribute="top" secondItem="OmA-C0-Why" secondAttribute="topMargin" id="YGf-O2-AtE"/>
                                                         <constraint firstItem="mSx-KY-Rja" firstAttribute="leading" secondItem="OmA-C0-Why" secondAttribute="leading" constant="15" id="goS-aQ-oKs"/>
                                                         <constraint firstItem="qOY-m5-8Js" firstAttribute="bottom" secondItem="OmA-C0-Why" secondAttribute="bottomMargin" id="hmo-yj-hEV"/>
+                                                        <constraint firstItem="mSx-KY-Rja" firstAttribute="top" secondItem="OmA-C0-Why" secondAttribute="topMargin" constant="-69" id="wmT-th-rUG"/>
                                                     </constraints>
                                                 </tableViewCellContentView>
                                             </tableViewCell>
