@@ -56,6 +56,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
         navigationItem.rightBarButtonItems = [profile, calendar]
         
         registerCells()
+        //collectionView.setCollectionViewLayout(generateLayout(), animated: true)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -65,6 +66,93 @@ class HomeViewController: UIViewController, DataPassDelegate {
         
         
     }
+    func generateLayout()->UICollectionViewLayout {
+        
+        let configuration = UICollectionViewCompositionalLayoutConfiguration()
+                configuration.interSectionSpacing = 20
+
+                let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex: Int, env: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
+                    
+                    // Header for all sections
+                    let headerSize = NSCollectionLayoutSize(
+                        widthDimension: .fractionalWidth(1.0),
+                        heightDimension: .absolute(50)
+                    )
+                    let headerItem = NSCollectionLayoutBoundarySupplementaryItem(
+                        layoutSize: headerSize,
+                        elementKind: "header",
+                        alignment: .top
+                    )
+                    
+                    if sectionIndex == 0 {
+                        // Daily Goals - horizontal, non-scrollable, dynamic sizing
+                        let itemSize = NSCollectionLayoutSize(
+                            widthDimension: .fractionalWidth(1.0 / 3.0),
+                            heightDimension: .fractionalWidth(1.0 / 3.0)
+                        )
+                
+                        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
+                        
+                        let groupSize = NSCollectionLayoutSize(
+                            widthDimension: .fractionalWidth(1.0),
+                            heightDimension: .estimated(120)
+                        )
+                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                        
+                        let section = NSCollectionLayoutSection(group: group)
+                        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
+                        section.boundarySupplementaryItems = [headerItem]
+                        return section
+                        
+                    } else if sectionIndex == 1 {
+                        
+                        
+                        // My Routines - horizontal scrolling cards
+                        let itemSize = NSCollectionLayoutSize(
+                            widthDimension: .absolute(200),
+                            heightDimension: .absolute(125)
+                        )
+                        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                        
+                        let groupSize = NSCollectionLayoutSize(
+                            widthDimension: .absolute(205),
+                            heightDimension: .absolute(125)
+                        )
+                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                        
+                        let section = NSCollectionLayoutSection(group: group)
+                        section.orthogonalScrollingBehavior = .groupPaging
+                        section.interGroupSpacing = 12
+                        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+                        section.boundarySupplementaryItems = [headerItem]
+                        return section
+                        
+                    } else {
+                        // Explore Routines - 2 column grid
+                        let itemSize = NSCollectionLayoutSize(
+                            widthDimension: .fractionalWidth(0.5),
+                            heightDimension: .absolute(170)
+                        )
+                        let item = NSCollectionLayoutItem(layoutSize: itemSize)
+                        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 12, trailing: 6)
+                        
+                        let groupSize = NSCollectionLayoutSize(
+                            widthDimension: .fractionalWidth(1.0),
+                            heightDimension: .absolute(170)
+                        )
+                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
+                        
+                        let section = NSCollectionLayoutSection(group: group)
+                        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
+                        section.boundarySupplementaryItems = [headerItem]
+                        return section
+                    }
+                }, configuration: configuration)
+
+                return layout
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         print("\nThis is HomeVC:",selectedSymptoms)
@@ -282,6 +370,24 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 4
+    }
+    
+    
+    func collectionView(_ collectionView: UICollectionView,viewForSupplementaryElementOfKind kind: String,at indexPath:IndexPath)->UICollectionReusableView{
+        
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: "home_header_cell", for: indexPath) as! HeaderCollectionReusableView
+       
+        
+        if indexPath.section == 0 {
+            headerView.configureHeader(with:"Daily Goals")
+        } else if indexPath.section == 1{
+            headerView.configureHeader(with:"My Routines")
+        }else if indexPath.section == 2{
+            headerView.configureHeader(with:"My Routines")
+        }else {
+            headerView.configureHeader(with:"Explore Routines")
+        }
+        return headerView
     }
     
     func collectionView(_ collectionView: UICollectionView,
