@@ -44,7 +44,7 @@ class RoutineDataStore {
                     )
                 ],
                 createdAt: Date(),
-                thumbnailImageName: "routine_11",
+                thumbnailImageName: "routine_13",
                 routineTagline: "When fatigue is high and your body needs gentle support",
                 routineDescription: "Designed for days of low energy and physical fatigue, this routine prioritizes gentle activation and mobility to avoid excessive cortisol spikes. Slow, controlled movement supports hormonal balance, improves circulation, and encourages recovery without overloading the nervous system—making it ideal for PCOS users on depleted days."
             ),

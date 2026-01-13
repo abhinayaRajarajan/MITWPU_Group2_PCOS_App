@@ -30,6 +30,12 @@ class WorkoutViewController: UIViewController {
         collectionView.dataSource = self
         collectionView.delegate = self
         
+        let longPressGesture = UILongPressGestureRecognizer(
+                target: self,
+                action: #selector(handleLongPress(_:))
+            )
+            longPressGesture.minimumPressDuration = 0.5
+            collectionView.addGestureRecognizer(longPressGesture)
         //setupExploreData()
     }
     
@@ -301,4 +307,54 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
             return
         }
     }
+    
+    @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
+
+        // We only want one trigger
+        guard gesture.state == .began else { return }
+
+        let point = gesture.location(in: collectionView)
+
+        guard let indexPath = collectionView.indexPathForItem(at: point) else {
+            return
+        }
+
+        // Only allow delete in "My Routines" section
+        guard indexPath.section == 1 else { return }
+
+        let routines = WorkoutSessionManager.shared.savedRoutines
+
+        // Ignore empty/add cell
+        guard !routines.isEmpty, indexPath.item < routines.count else {
+            return
+        }
+
+        let routine = routines[indexPath.item]
+        //hapticbefore deleting 
+        UIImpactFeedbackGenerator(style: .medium).impactOccurred()
+
+        showDeleteAlert(for: routine, at: indexPath)
+    }
+    private func showDeleteAlert(for routine: Routine, at indexPath: IndexPath) {
+
+        let alert = UIAlertController(
+            title: "Delete Routine?",
+            message: "This routine will be permanently deleted.",
+            preferredStyle: .alert
+        )
+
+        let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { _ in
+            WorkoutSessionManager.shared.savedRoutines.remove(at: indexPath.item)
+            self.collectionView.reloadSections(IndexSet(integer: 1))
+        }
+
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
+
+        alert.addAction(cancelAction)
+        alert.addAction(deleteAction)
+
+        present(alert, animated: true)
+    }
+
+    
 }

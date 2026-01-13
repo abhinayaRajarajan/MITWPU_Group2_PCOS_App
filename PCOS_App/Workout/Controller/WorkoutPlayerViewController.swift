@@ -215,7 +215,7 @@ class WorkoutPlayerViewController: UIViewController {
             let exercise = activeWorkout.exercises[index]
             let progress: CGFloat
 
-            // 🫀 CARDIO
+            //  CARDIO
             if exercise.exercise.isCardio {
                 guard let duration = exercise.sets.first?.durationSeconds, duration > 0 else {
                     progress = 0
@@ -231,16 +231,16 @@ class WorkoutPlayerViewController: UIViewController {
                     progress = 0
                 }
             }
-            // 🏋️ STRENGTH
+            // STRENGTH
             else {
                 let totalSets = exercise.sets.count
                 let completedSets = exercise.sets.filter { $0.isCompleted }.count
                 progress = CGFloat(completedSets) / CGFloat(max(totalSets, 1))
             }
 
-            // 📐 UPDATE THE CONSTRAINT
+            //  UPDATE THE CONSTRAINT
             let maxWidth = segment.container.bounds.width
-            segment.widthConstraint.constant = maxWidth * progress  // ✅ USE STORED CONSTRAINT
+            segment.widthConstraint.constant = maxWidth * progress  //  USE STORED CONSTRAINT
 
             segment.fill.alpha = progress == 1 ? 1.0 : 0.5
         }
@@ -319,12 +319,12 @@ class WorkoutPlayerViewController: UIViewController {
         let exercise = workoutExercise.exercise
         let currentSet = workoutExercise.sets[currentSetIndex]
 
-        // 🫀 Cardio → fixed duration
+        //  Cardio → fixed duration
         if exercise.isCardio {
             return currentSet.durationSeconds ?? 0
         }
 
-        // 🏋️ Strength → reps × pace
+        // Strength → reps × pace
         return currentSet.reps * selectedPace.secondsPerRep
     }
 
@@ -455,8 +455,8 @@ class WorkoutPlayerViewController: UIViewController {
         //ExerciseNameOutlet.text = exercise.name
 //        RepsOutlet.text = "\(currentSet.reps)"
         if workoutExercise.exercise.isCardio {
-            RepsOutlet.text = "Duration: \(currentSet.durationSeconds ?? 0)s"
-            repetitionsText.isHidden=true
+            RepsOutlet.text = "\(currentSet.durationSeconds ?? 0) sec"
+            repetitionsText.text="Duration"
         } else {
             RepsOutlet.text = "\(currentSet.reps)"
             repetitionsText.isHidden=false
