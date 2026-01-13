@@ -23,7 +23,7 @@ class WorkoutViewController: UIViewController {
         
         title = "Workout"
         navigationController?.navigationBar.prefersLargeTitles = true
-        view.backgroundColor=UIColor(hex: "FCEEED")
+        //view.backgroundColor=UIColor(hex: "FCEEED")
         
         registerCells()
         collectionView.setCollectionViewLayout(generateLayout(), animated: true)
@@ -41,7 +41,7 @@ class WorkoutViewController: UIViewController {
     
     
     func generateLayout()->UICollectionViewLayout {
-        collectionView.backgroundColor=UIColor(hex: "FCEEED")
+        //collectionView.backgroundColor=UIColor(hex: "FCEEED")
         let configuration = UICollectionViewCompositionalLayoutConfiguration()
         configuration.interSectionSpacing = 20
         

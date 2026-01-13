@@ -13,6 +13,8 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
     
     @IBOutlet weak var gifImageContainer: UIView!
 
+    @IBOutlet weak var levelTag: UIView!
+    @IBOutlet weak var muscleTag: UIView!
     @IBOutlet weak var gifImageView: UIImageView!
     @IBOutlet weak var exerciseLevelLabel: UILabel!
     @IBOutlet weak var exerciseMuscleNameLabel: UILabel!
@@ -44,13 +46,16 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
 //            gifImageView.image = UIImage.gifImageWithData(dataAsset.data)
 //        }
         gifImageView.image = exercise.gifImage
-
+        levelTag.layer.cornerRadius = levelTag.frame.height/2
+        muscleTag.layer.cornerRadius = muscleTag.frame.height/2
+        
+        tableView.backgroundColor = .clear
         
         let level:String=exercise.level
         exerciseLevelLabel.text=level
-        let tempo:String=exercise.tempo
-        exerciseTempoLabel.text=tempo
-        let muscle:String="\(exercise.muscleGroup)"
+        //let tempo:String=exercise.tempo
+        //exerciseTempoLabel.text=tempo
+        let muscle:String="\(exercise.muscleGroup.displayName)"
         exerciseMuscleNameLabel.text=muscle
         
         buildSections()
@@ -117,9 +122,9 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
 
         guard let header = view as? UITableViewHeaderFooterView else { return }
     
-        header.textLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        header.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         header.textLabel?.textColor = .label
-        header.contentView.backgroundColor = .systemBackground
+        header.contentView.backgroundColor = UIColor(hex:"FCEEED")
         
     }
     func tableView(_ tableView: UITableView,
