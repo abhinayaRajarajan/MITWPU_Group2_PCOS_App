@@ -84,7 +84,6 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
         // Load saved dates from UserDefaults
                 if let timestamps = UserDefaults.standard.array(forKey: "SavedPeriodDates") as? [TimeInterval] {
                     periodDates = timestamps.map { Date(timeIntervalSince1970: $0) }.sorted()
-                    print("HomeHeaderCell: Loaded \(periodDates.count) saved period dates")
                 } else {
                     //HomeHeaderCell: No saved period dates found
                     periodDates = []
@@ -97,11 +96,9 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
     private func updateCycleDayLabel() {
         let cycleDay = calculateCurrentCycleDay()
                 if cycleDay > 0 {
-                    cycleDayLabel.text = "\(cycleDay) of Cycle"
-                    print("HomeHeaderCell: Displaying cycle day \(cycleDay)")
+                    cycleDayLabel.text = "Day \(cycleDay) of Cycle"
                 } else {
                     cycleDayLabel.text = "Log Period"
-                    print("HomeHeaderCell: No cycle data, showing 'Log Period'")
                 }
         }
     
@@ -136,12 +133,7 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
             // Cycle day is daysDifference + 1 (since first day is day 1, not day 0)
             let cycleDay = daysDifference + 1
             
-            // Debug log
-            let formatter = DateFormatter()
-            formatter.dateStyle = .medium
-            print("First period date this month: \(formatter.string(from: firstPeriodDate))")
-            print("Today: \(formatter.string(from: today))")
-            print("Calculated cycle day: \(cycleDay)")
+            
             
             return cycleDay
         }

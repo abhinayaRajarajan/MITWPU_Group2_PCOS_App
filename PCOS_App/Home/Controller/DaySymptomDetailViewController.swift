@@ -22,19 +22,11 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
     override func viewDidLoad() {
         super.viewDidLoad()
         setupUI()
-        loadSymptoms()
         setupTableView()
-        updateCycleDay()
+        loadAndDisplay()
     }
     
     private func setupUI() {
-        // Format and display the date
-        let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, MMMM d, yyyy"
-        dateLabel.text = formatter.string(from: selectedDate)
-        dateLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-        dateLabel.textAlignment = .center
-        
         // Initially hide no symptoms label
         noSymptomsLabel.isHidden = true
         noSymptomsLabel.text = "No symptoms logged for this day"
@@ -60,7 +52,25 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
         daysSymptom.register(UITableViewCell.self, forCellReuseIdentifier: "SymptomCell")
     }
     
+    private func loadAndDisplay() {
+        updateDateLabel()
+        loadSymptoms()
+        updateCycleDay()
+    }
+    
+    private func updateDateLabel() {
+        guard let selectedDate = selectedDate else { return }
+        
+        let formatter = DateFormatter()
+        formatter.dateFormat = "EEEE, MMMM d, yyyy"
+        dateLabel.text = formatter.string(from: selectedDate)
+        dateLabel.font = .systemFont(ofSize: 18, weight: .semibold)
+        dateLabel.textAlignment = .center
+    }
+    
     private func loadSymptoms() {
+        guard let selectedDate = selectedDate else { return }
+        
         symptoms = SymptomDataStore.loadSymptoms(for: selectedDate)
         
         if symptoms.isEmpty {
@@ -75,6 +85,8 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
     }
     
     private func updateCycleDay() {
+        guard let selectedDate = selectedDate else { return }
+        
         let cycleDay = calculateCycleDay(for: selectedDate)
         
         if let day = cycleDay {
@@ -121,6 +133,13 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
         }
         
         return nil
+    }
+    
+    // MARK: - Public Method to Update Date
+    func updateDate(_ newDate: Date) {
+        print("📲 Updating modal with new date: \(newDate)")
+        selectedDate = newDate
+        loadAndDisplay()
     }
 
     // MARK: - UITableViewDataSource

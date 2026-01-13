@@ -155,7 +155,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("\nThis is HomeVC:",selectedSymptoms)
+       
         navigationController?.navigationBar.prefersLargeTitles = true
         // Reload the header cell to update cycle day
         //collectionView.reloadSections(IndexSet(integer: 0))
@@ -469,20 +469,14 @@ extension HomeViewController: HomeHeaderCollectionViewCellDelegate {
 // LogPeriodCalendarDelegate
 extension HomeViewController: LogPeriodCalendarDelegate {
     func didSavePeriodDates(_ dates: [Date], cycleDay: Int) {
-        print("✅ Received period dates: \(dates.count) dates")
-        print("✅ Current cycle day: \(cycleDay)")
+        
         
         // Reload the header section to update the cycle day label
         DispatchQueue.main.async { [weak self] in
             self?.collectionView.reloadSections(IndexSet(integer: 0))
         }
         
-        // Debug: Print all dates
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        dates.forEach { date in
-            print("Period date: \(formatter.string(from: date))")
-        }
+        
     }
 }
 

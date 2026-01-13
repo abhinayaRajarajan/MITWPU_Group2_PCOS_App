@@ -126,9 +126,6 @@ class LogPeriodCalendarViewController: UIViewController {
         // Pass data back to delegate
         delegate?.didSavePeriodDates(sortedDates, cycleDay: cycleDay)
         
-        print("Selected dates: \(sortedDates)")
-        print("Cycle Day: \(cycleDay)")
-        
         dismiss(animated: true)
     }
     

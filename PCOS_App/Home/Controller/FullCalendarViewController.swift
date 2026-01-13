@@ -17,7 +17,7 @@ class FullCalendarViewController: UIViewController {
     private var hasScrolledToCurrentMonth = false
     
     // Keep reference to the modal
-    private var symptomDetailVC: DaySymptomDetailViewController?
+    private weak var symptomDetailVC: DaySymptomDetailViewController?
     
     
     // MARK: - Lifecycle
@@ -39,8 +39,7 @@ class FullCalendarViewController: UIViewController {
         loadSymptomDates()
         collectionView.reloadData()
     }
-    
-    // MARK: - Setup
+
     private func setupDisplayedMonths() {
         let today = Date()
         for i in -6...6 {
@@ -89,11 +88,10 @@ class FullCalendarViewController: UIViewController {
         ])
     }
     
-    // MARK: - Data Loading
+    // Data Loading
     private func loadPeriodDates() {
         if let timestamps = UserDefaults.standard.array(forKey: "SavedPeriodDates") as? [TimeInterval] {
             periodDates = Set(timestamps.map { calendar.startOfDay(for: Date(timeIntervalSince1970: $0)) })
-            print("📅 Loaded \(periodDates.count) period dates")
         }
     }
     
@@ -109,11 +107,9 @@ class FullCalendarViewController: UIViewController {
                 }
             }
         }
-        
-        print("💊 Loaded \(symptomDates.count) dates with symptoms")
     }
     
-    // MARK: - Helper Methods
+    //Helper Methods
     private func getDaysInMonth(for date: Date) -> [Date?] {
         guard let monthInterval = calendar.dateInterval(of: .month, for: date),
               let monthFirstWeek = calendar.dateInterval(of: .weekOfMonth, for: monthInterval.start) else {
@@ -156,18 +152,27 @@ class FullCalendarViewController: UIViewController {
     }
     
     private func showSymptomDetail(for date: Date) {
-        if let detailVC = storyboard?.instantiateViewController(withIdentifier: "DaySymptomDetailViewController") as? DaySymptomDetailViewController {
-            detailVC.selectedDate = date
-            detailVC.modalPresentationStyle = .pageSheet
-            
-            if let sheet = detailVC.sheetPresentationController {
-                sheet.detents = [.medium(), .large()]
-                sheet.prefersGrabberVisible = true
-                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-                sheet.largestUndimmedDetentIdentifier = .medium
+        // If modal is already presented, just update the date
+        if let existingVC = symptomDetailVC, existingVC.isBeingPresented || presentedViewController == existingVC {
+                existingVC.updateDate(date)
+        } else {
+            // Present new modal
+            if let detailVC = storyboard?.instantiateViewController(withIdentifier: "DaySymptomDetailViewController") as? DaySymptomDetailViewController {
+                detailVC.selectedDate = date
+                detailVC.modalPresentationStyle = .pageSheet
+                
+                if let sheet = detailVC.sheetPresentationController {
+                    sheet.detents = [.medium(), .large()]
+                    sheet.prefersGrabberVisible = true
+                    sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+                    sheet.largestUndimmedDetentIdentifier = .medium
+                }
+                
+                // Store weak reference
+                symptomDetailVC = detailVC
+                
+                present(detailVC, animated: true)
             }
-            
-            present(detailVC, animated: true)
         }
     }
 }
@@ -300,7 +305,6 @@ class FullCalendarDayCell: UICollectionViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        // Ensure circle stays circular
         backgroundCircle.layer.cornerRadius = 22 // Half of 44
     }
     
