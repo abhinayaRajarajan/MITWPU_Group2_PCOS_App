@@ -43,8 +43,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalCompressionResistancePriority="751" text="rec description label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwf-TU-heE">
-                                <rect key="frame" x="93" y="36" width="263" height="49"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hwU-CP-f8P">
+                                <rect key="frame" x="93" y="34" width="263" height="14.333333333333336"/>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -53,12 +53,11 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="k1T-uC-Hg0" firstAttribute="top" secondItem="QWe-Dr-yty" secondAttribute="top" id="70Q-IB-1IM"/>
-                            <constraint firstAttribute="bottom" secondItem="dwf-TU-heE" secondAttribute="bottom" constant="16" id="D4A-JJ-flz"/>
                             <constraint firstItem="k1T-uC-Hg0" firstAttribute="leading" secondItem="dVt-sr-CGK" secondAttribute="leading" constant="16" id="GE6-9j-f1t"/>
+                            <constraint firstItem="hwU-CP-f8P" firstAttribute="top" secondItem="QWe-Dr-yty" secondAttribute="bottom" id="Og8-ZE-nAm"/>
                             <constraint firstItem="QWe-Dr-yty" firstAttribute="top" secondItem="dVt-sr-CGK" secondAttribute="top" constant="16" id="Ohb-MY-ujt"/>
-                            <constraint firstItem="dwf-TU-heE" firstAttribute="leading" secondItem="k1T-uC-Hg0" secondAttribute="trailing" constant="12" id="TV6-Dw-Xxr"/>
-                            <constraint firstAttribute="trailing" secondItem="dwf-TU-heE" secondAttribute="trailing" constant="16" id="ThM-aP-kmo"/>
-                            <constraint firstItem="dwf-TU-heE" firstAttribute="top" secondItem="QWe-Dr-yty" secondAttribute="bottom" constant="2" id="ZqZ-ls-6hy"/>
+                            <constraint firstItem="hwU-CP-f8P" firstAttribute="leading" secondItem="k1T-uC-Hg0" secondAttribute="trailing" constant="12" id="Y8f-9P-MS9"/>
+                            <constraint firstAttribute="trailing" secondItem="hwU-CP-f8P" secondAttribute="trailing" constant="16" id="YTw-0s-tom"/>
                             <constraint firstAttribute="trailing" secondItem="QWe-Dr-yty" secondAttribute="trailing" id="mt5-Jy-utD"/>
                             <constraint firstItem="QWe-Dr-yty" firstAttribute="leading" secondItem="k1T-uC-Hg0" secondAttribute="trailing" constant="12" id="twG-zY-AnK"/>
                         </constraints>
@@ -75,7 +74,7 @@
             <size key="customSize" width="372" height="101"/>
             <connections>
                 <outlet property="containerView" destination="dVt-sr-CGK" id="Kcp-IH-lqj"/>
-                <outlet property="descriptionLabel" destination="dwf-TU-heE" id="9NR-9D-pTd"/>
+                <outlet property="descriptionLabel" destination="hwU-CP-f8P" id="WGd-1E-0h0"/>
                 <outlet property="iconContainerView" destination="k1T-uC-Hg0" id="KGw-im-iid"/>
                 <outlet property="iconImageView" destination="5CU-dh-OWQ" id="Xf6-1i-ndW"/>
                 <outlet property="titleLabel" destination="QWe-Dr-yty" id="XGJ-GN-moy"/>

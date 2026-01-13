@@ -30,7 +30,7 @@ class CycleReportViewController: UIViewController {
         
         
         NextCycleCard.layer.cornerRadius = 20
-        warningNextCycleView.layer.cornerRadius = 20
+        warningNextCycleView.layer.cornerRadius = 10
         
         CycleOverview.layer.cornerRadius = 20
         cycleLengthCard.layer.cornerRadius = 20
@@ -39,7 +39,7 @@ class CycleReportViewController: UIViewController {
         cycleRegularityCard.layer.cornerRadius = 20
         
         OvulationCard.layer.cornerRadius = 20
-        ovulationWarningCard.layer.cornerRadius = 20
+        ovulationWarningCard.layer.cornerRadius = 10
         
         setupPeriodCycleChart()
     }

@@ -63,14 +63,14 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
             
             gradientLayer.colors = [
                 UIColor.clear.cgColor,                // 0% Top: Pure image
-                UIColor.clear.cgColor,                // 60% Middle: Still pure image
-                blendColor.withAlphaComponent(0.4).cgColor, // 80% Start: Soft transition
-                blendColor.cgColor,                   // 95%: Solid color
+                UIColor.clear.cgColor,                // 70% Middle: Still pure image
+                blendColor.withAlphaComponent(0.4).cgColor, // 85% Start: Soft transition
+                blendColor.withAlphaComponent(0.7).cgColor,// 95%: Solid color
                 blendColor.cgColor                    // 100% Bottom: Solid color
             ]
             
             // top 75% of your image crystal clear
-            gradientLayer.locations = [0.0, 0.75, 0.85, 1.0]
+            gradientLayer.locations = [0.0, 0.70, 0.85, 0.95, 1.0]
             
             gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
             gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
@@ -149,6 +149,7 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
         override func layoutSubviews() {
             super.layoutSubviews()
             gradientLayer.frame = headerImageView.bounds
+
         }
     
     // PUBLIC METHOD: Call this to refresh the cycle day label from outside

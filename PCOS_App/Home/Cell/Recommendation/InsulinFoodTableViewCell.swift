@@ -31,7 +31,7 @@ class InsulinFoodTableViewCell: UITableViewCell {
         override func awakeFromNib() {
             super.awakeFromNib()
             
-            acneview.layer.cornerRadius = 20
+            //acneview.layer.cornerRadius = 20
             
             // Cell styling
             selectionStyle = .none

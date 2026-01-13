@@ -66,92 +66,6 @@ class HomeViewController: UIViewController, DataPassDelegate {
         
         
     }
-    func generateLayout()->UICollectionViewLayout {
-        
-        let configuration = UICollectionViewCompositionalLayoutConfiguration()
-                configuration.interSectionSpacing = 20
-
-                let layout = UICollectionViewCompositionalLayout(sectionProvider: { (sectionIndex: Int, env: NSCollectionLayoutEnvironment) -> NSCollectionLayoutSection? in
-                    
-                    // Header for all sections
-                    let headerSize = NSCollectionLayoutSize(
-                        widthDimension: .fractionalWidth(1.0),
-                        heightDimension: .absolute(50)
-                    )
-                    let headerItem = NSCollectionLayoutBoundarySupplementaryItem(
-                        layoutSize: headerSize,
-                        elementKind: "header",
-                        alignment: .top
-                    )
-                    
-                    if sectionIndex == 0 {
-                        // Daily Goals - horizontal, non-scrollable, dynamic sizing
-                        let itemSize = NSCollectionLayoutSize(
-                            widthDimension: .fractionalWidth(1.0 / 3.0),
-                            heightDimension: .fractionalWidth(1.0 / 3.0)
-                        )
-                
-                        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 0, trailing: 6)
-                        
-                        let groupSize = NSCollectionLayoutSize(
-                            widthDimension: .fractionalWidth(1.0),
-                            heightDimension: .estimated(120)
-                        )
-                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                        
-                        let section = NSCollectionLayoutSection(group: group)
-                        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 0, bottom: 0, trailing: 0)
-                        section.boundarySupplementaryItems = [headerItem]
-                        return section
-                        
-                    } else if sectionIndex == 1 {
-                        
-                        
-                        // My Routines - horizontal scrolling cards
-                        let itemSize = NSCollectionLayoutSize(
-                            widthDimension: .absolute(200),
-                            heightDimension: .absolute(125)
-                        )
-                        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                        
-                        let groupSize = NSCollectionLayoutSize(
-                            widthDimension: .absolute(205),
-                            heightDimension: .absolute(125)
-                        )
-                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                        
-                        let section = NSCollectionLayoutSection(group: group)
-                        section.orthogonalScrollingBehavior = .groupPaging
-                        section.interGroupSpacing = 12
-                        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
-                        section.boundarySupplementaryItems = [headerItem]
-                        return section
-                        
-                    } else {
-                        // Explore Routines - 2 column grid
-                        let itemSize = NSCollectionLayoutSize(
-                            widthDimension: .fractionalWidth(0.5),
-                            heightDimension: .absolute(170)
-                        )
-                        let item = NSCollectionLayoutItem(layoutSize: itemSize)
-                        item.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 6, bottom: 12, trailing: 6)
-                        
-                        let groupSize = NSCollectionLayoutSize(
-                            widthDimension: .fractionalWidth(1.0),
-                            heightDimension: .absolute(170)
-                        )
-                        let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize, subitems: [item])
-                        
-                        let section = NSCollectionLayoutSection(group: group)
-                        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 10, bottom: 0, trailing: 10)
-                        section.boundarySupplementaryItems = [headerItem]
-                        return section
-                    }
-                }, configuration: configuration)
-
-                return layout
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -209,6 +123,11 @@ class HomeViewController: UIViewController, DataPassDelegate {
             UINib(nibName: "HomeRecommendationCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: "recommendation_cell"
         )
+        collectionView.register(
+            UINib(nibName: "HeaderCollectionReusableView", bundle: nil),
+            forSupplementaryViewOfKind: "header",
+            withReuseIdentifier: "header_cell"
+        )
     }
     
     @objc func addTapped() {
@@ -255,7 +174,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
     }
     
     func createHomeHeaderSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(500))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(450))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: itemSize, subitems: [NSCollectionLayoutItem(layoutSize: itemSize)])
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .zero
@@ -283,24 +202,24 @@ class HomeViewController: UIViewController, DataPassDelegate {
         let section = NSCollectionLayoutSection(group: group)
         section.interGroupSpacing = 12
         section.contentInsets = NSDirectionalEdgeInsets(
-            top: 16, leading: 30, bottom: 16, trailing: 20
+            top: 0, leading: 16, bottom: 16, trailing: 20
         )
         section.orthogonalScrollingBehavior = .continuous
-        
+        addHeader(to: section)
         return section
     }
     
     func createCycleSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(55))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(50))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: itemSize, subitems: [NSCollectionLayoutItem(layoutSize: itemSize)])
         let section = NSCollectionLayoutSection(group: group)
-        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 10, trailing: 16)
         return section
     }
     func createRecommendationSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(120)
+            heightDimension: .absolute(110)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         // Option A: per-item padding
@@ -308,7 +227,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(120)
+            heightDimension: .absolute(110)
         )
         // One item per group
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
@@ -317,7 +236,17 @@ class HomeViewController: UIViewController, DataPassDelegate {
         // spacing between groups (each group contains one item)
         section.interGroupSpacing = 10
         section.contentInsets = NSDirectionalEdgeInsets(top: 0, leading: 16, bottom: 0, trailing: 16)
+        addHeader(to: section)
         return section
+    }
+    func addHeader(to section: NSCollectionLayoutSection) {
+        let headerSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1.0), heightDimension: .absolute(40))
+        let headerItem = NSCollectionLayoutBoundarySupplementaryItem(
+            layoutSize: headerSize,
+            elementKind: "header",
+            alignment: .top
+        )
+        section.boundarySupplementaryItems = [headerItem]
     }
 }
 
@@ -375,15 +304,12 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     
     func collectionView(_ collectionView: UICollectionView,viewForSupplementaryElementOfKind kind: String,at indexPath:IndexPath)->UICollectionReusableView{
         
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: "home_header_cell", for: indexPath) as! HeaderCollectionReusableView
-       
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: "header_cell", for: indexPath) as! HeaderCollectionReusableView
         
-        if indexPath.section == 0 {
-            headerView.configureHeader(with:"Daily Goals")
-        } else if indexPath.section == 1{
-            headerView.configureHeader(with:"My Routines")
-        }else if indexPath.section == 2{
-            headerView.configureHeader(with:"My Routines")
+        if indexPath.section == 1 {
+            headerView.configureHeader(with:"Log Symptoms")
+        } else if indexPath.section == 3{
+            headerView.configureHeader(with:"Summary")
         }else {
             headerView.configureHeader(with:"Explore Routines")
         }
@@ -469,8 +395,8 @@ extension HomeViewController: HomeHeaderCollectionViewCellDelegate {
 // LogPeriodCalendarDelegate
 extension HomeViewController: LogPeriodCalendarDelegate {
     func didSavePeriodDates(_ dates: [Date], cycleDay: Int) {
-        print("✅ Received period dates: \(dates.count) dates")
-        print("✅ Current cycle day: \(cycleDay)")
+        print("Received period dates: \(dates.count) dates")
+        print("Current cycle day: \(cycleDay)")
         
         // Reload the header section to update the cycle day label
         DispatchQueue.main.async { [weak self] in

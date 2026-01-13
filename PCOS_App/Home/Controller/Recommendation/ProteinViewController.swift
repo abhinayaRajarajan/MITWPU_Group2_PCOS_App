@@ -26,7 +26,7 @@ class ProteinViewController: UIViewController {
         View2.layer.cornerRadius = 30
         View2.clipsToBounds = true
         
-        View2_1.layer.cornerRadius = 30
+        View2_1.layer.cornerRadius = 20
         View2_1.clipsToBounds = true
         // Do any additional setup after loading the view.
     }
