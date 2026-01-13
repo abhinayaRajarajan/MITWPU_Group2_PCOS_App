@@ -9,11 +9,12 @@ import UIKit
 
 class WorkoutPlayerViewController: UIViewController {
 
+    @IBOutlet weak var progressViewBar2: UIView!
     @IBOutlet weak var repetitionsText: UILabel!
     
     @IBOutlet weak var RepsOutlet: UILabel!
     @IBOutlet weak var SetNumberOutlet: UILabel!
-    @IBOutlet weak var ProgressWidthConstraint: NSLayoutConstraint!
+    //@IBOutlet weak var ProgressWidthConstraint: NSLayoutConstraint!
     @IBOutlet weak var GifOutlet: UIImageView!
     
     @IBOutlet weak var PrimaryControlViewOutlet: UIView!
@@ -43,6 +44,77 @@ class WorkoutPlayerViewController: UIViewController {
     @IBOutlet weak var prevExerciseButton: UIButton!
     @IBOutlet weak var endWorkoutButton: UIBarButtonItem!
     
+    
+    private struct ExerciseSegment {
+        let container: UIView
+        let fill: UIView
+        var widthConstraint: NSLayoutConstraint  // ADD THIS
+    }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        // Only setup once after layout is complete
+        if exerciseSegments.isEmpty {
+            print("Setting up progress bar")
+            print("Frame: \(progressViewBar2.frame)")
+            
+            progressViewBar2.backgroundColor = .systemGray6  // Change from red
+            setupExerciseProgressBar()
+            updateExerciseProgressBar()
+        }
+    }
+    private var exerciseSegments: [ExerciseSegment] = []
+    private func setupExerciseProgressBar() {
+        progressViewBar2.subviews.forEach { $0.removeFromSuperview() }
+        exerciseSegments.removeAll()
+
+        let stack = UIStackView()
+        stack.axis = .horizontal
+        stack.spacing = 6
+        stack.distribution = .fillEqually
+        stack.translatesAutoresizingMaskIntoConstraints = false
+
+        progressViewBar2.addSubview(stack)
+
+        NSLayoutConstraint.activate([
+            stack.topAnchor.constraint(equalTo: progressViewBar2.topAnchor),
+            stack.bottomAnchor.constraint(equalTo: progressViewBar2.bottomAnchor),
+            stack.leadingAnchor.constraint(equalTo: progressViewBar2.leadingAnchor),
+            stack.trailingAnchor.constraint(equalTo: progressViewBar2.trailingAnchor)
+        ])
+
+        for _ in activeWorkout.exercises {
+            let container = UIView()
+            container.backgroundColor = .systemGray4
+            container.layer.cornerRadius = 3
+            container.clipsToBounds = true
+
+            let fill = UIView()
+            fill.backgroundColor = .systemPink
+            fill.translatesAutoresizingMaskIntoConstraints = false
+            container.addSubview(fill)
+
+            // STORing the width constraint
+            let widthConstraint = fill.widthAnchor.constraint(equalToConstant: 0)
+            
+            NSLayoutConstraint.activate([
+                fill.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+                fill.topAnchor.constraint(equalTo: container.topAnchor),
+                fill.bottomAnchor.constraint(equalTo: container.bottomAnchor),
+                widthConstraint
+            ])
+
+            stack.addArrangedSubview(container)
+            
+            // PASS the constraint to the struct
+            exerciseSegments.append(.init(
+                container: container,
+                fill: fill,
+                widthConstraint: widthConstraint
+            ))
+        }
+    }
+
     
    // @IBOutlet weak var bottomContainerBottomConstraint: NSLayoutConstraint!
 
@@ -105,8 +177,76 @@ class WorkoutPlayerViewController: UIViewController {
       //  setupPlayTap()
         configureUI()
         setupPaceMenu()
+        
+        
+
+        
+        
+        
         //setupBottomSheet()
     }
+    private func progressForExercise(_ exercise: WorkoutExercise) -> CGFloat {
+
+        if exercise.exercise.isCardio {
+            guard let duration = exercise.sets.first?.durationSeconds, duration > 0 else {
+                return 0
+            }
+            let elapsed = duration - elapsedSeconds
+            return min(max(CGFloat(elapsed) / CGFloat(duration), 0), 1)
+        }
+
+        let totalSets = exercise.sets.count
+        let completedSets = exercise.sets.filter { $0.isCompleted }.count
+        return CGFloat(completedSets) / CGFloat(max(totalSets, 1))
+    }
+//    private func updateExerciseProgressBar() {
+//        for (index, segment) in exerciseSegments.enumerated() {
+//            let exercise = activeWorkout.exercises[index]
+//            let progress = progressForExercise(exercise)
+//
+//            let maxWidth = segment.container.bounds.width
+//            segment.fill.frame.size.width = maxWidth * progress
+//
+//            segment.fill.alpha = progress == 1 ? 1.0 : 0.6
+//        }
+//    }
+    private func updateExerciseProgressBar() {
+        for (index, segment) in exerciseSegments.enumerated() {
+            let exercise = activeWorkout.exercises[index]
+            let progress: CGFloat
+
+            // 🫀 CARDIO
+            if exercise.exercise.isCardio {
+                guard let duration = exercise.sets.first?.durationSeconds, duration > 0 else {
+                    progress = 0
+                    continue
+                }
+
+                if exercise.sets.first?.isCompleted == true {
+                    progress = 1.0
+                } else if index == exerciseIndex {
+                    let elapsed = duration - elapsedSeconds
+                    progress = max(0, min(CGFloat(elapsed) / CGFloat(duration), 1))
+                } else {
+                    progress = 0
+                }
+            }
+            // 🏋️ STRENGTH
+            else {
+                let totalSets = exercise.sets.count
+                let completedSets = exercise.sets.filter { $0.isCompleted }.count
+                progress = CGFloat(completedSets) / CGFloat(max(totalSets, 1))
+            }
+
+            // 📐 UPDATE THE CONSTRAINT
+            let maxWidth = segment.container.bounds.width
+            segment.widthConstraint.constant = maxWidth * progress  // ✅ USE STORED CONSTRAINT
+
+            segment.fill.alpha = progress == 1 ? 1.0 : 0.5
+        }
+    }
+
+
     private func setupPaceMenu() {
         let low = UIAction(title: "Low", image: UIImage(systemName: "tortoise")) { _ in
             self.setPace(.low)
@@ -343,6 +483,10 @@ class WorkoutPlayerViewController: UIViewController {
         updateTimerDisplay()
         
         
+        
+        updateExerciseProgressBar()
+
+        
     }
 
     @IBAction func crossTapped(_ sender: UIBarButtonItem) {
@@ -463,11 +607,19 @@ class WorkoutPlayerViewController: UIViewController {
 
             self.elapsedSeconds -= 1
             self.updateTimerDisplay()
-
+            
+            
+//for cardio updating eevery sec 
+            if self.workoutExercise.exercise.isCardio {
+                    self.updateExerciseProgressBar()
+                }
+            
             if self.elapsedSeconds <= 0 {
                 self.timer?.invalidate()
                 self.timer = nil
                 self.handleTimerFinished()
+                self.updateExerciseProgressBar()
+
             }
         }
     }
@@ -508,8 +660,8 @@ class WorkoutPlayerViewController: UIViewController {
         
         let progress = CGFloat(completed) / CGFloat(max(total, 1))
         
-        ProgressWidthConstraint.constant = progress * view.bounds.width
-        
+//        ProgressWidthConstraint.constant = progress * view.bounds.width
+//        
         UIView.animate(withDuration: 0.25) {
             self.view.layoutIfNeeded()
         }
@@ -530,7 +682,14 @@ class WorkoutPlayerViewController: UIViewController {
             activeWorkout.exercises[exerciseIndex] = exercise
             cardioCompleted = true
 
-            updateProgressBar()
+            //updateProgressBar()
+           
+            
+            updateExerciseProgressBar()
+
+
+
+
             goToRestBeforeNext()
             return
         }
@@ -816,6 +975,12 @@ class WorkoutPlayerViewController: UIViewController {
         nextExerciseButton.alpha = nextExerciseButton.isEnabled ? 1.0 : 0.4
     }
 
+    private func isExerciseFullyCompleted(_ exercise: WorkoutExercise) -> Bool {
+        if exercise.exercise.isCardio {
+            return exercise.sets.first?.isCompleted == true
+        }
+        return exercise.sets.allSatisfy { $0.isCompleted }
+    }
 
    
 }

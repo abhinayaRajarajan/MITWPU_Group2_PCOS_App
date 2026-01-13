@@ -474,7 +474,7 @@
                                                 <rect key="frame" x="213.33333333333334" y="0.0" width="99.666666666666657" height="60"/>
                                                 <subviews>
                                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="xYs-lP-OTe">
-                                                        <rect key="frame" x="7.9999999999999716" y="15.666666666666664" width="30" height="28.666666666666671"/>
+                                                        <rect key="frame" x="7.9999999999999716" y="15.666666666666666" width="30" height="28.666666666666671"/>
                                                         <color key="tintColor" systemColor="systemIndigoColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="Dtf-xV-dJE"/>
@@ -647,16 +647,6 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WPT-8H-rtP">
                                 <rect key="frame" x="0.0" y="113" width="393" height="739"/>
                                 <subviews>
-                                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="zol-aX-f05">
-                                        <rect key="frame" x="20" y="20" width="352" height="4"/>
-                                        <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="4" id="PzO-cP-lXD"/>
-                                            <constraint firstAttribute="width" constant="352" id="ccc-wl-M2i"/>
-                                        </constraints>
-                                        <color key="progressTintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                        <color key="trackTintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
-                                    </progressView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Set 1" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FaI-z4-eyT">
                                         <rect key="frame" x="172" y="44" width="49" height="27.666666666666671"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="23"/>
@@ -696,26 +686,34 @@
                                             <color key="titleColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                     </button>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="94d-i5-ZeZ">
+                                        <rect key="frame" x="8" y="0.0" width="377" height="8"/>
+                                        <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="8" id="1KA-CF-lu8"/>
+                                            <constraint firstAttribute="width" constant="377" id="DZb-YA-Jrs"/>
+                                        </constraints>
+                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
+                                    <constraint firstItem="94d-i5-ZeZ" firstAttribute="leading" secondItem="WPT-8H-rtP" secondAttribute="leading" constant="8" id="59V-b1-i1n"/>
                                     <constraint firstItem="nJa-CM-qfZ" firstAttribute="top" secondItem="OXA-gD-BLg" secondAttribute="bottom" constant="20" id="5Qp-IG-wE8"/>
                                     <constraint firstItem="nPI-Ci-gpd" firstAttribute="top" secondItem="nJa-CM-qfZ" secondAttribute="bottom" constant="20" id="63h-2b-nd5"/>
                                     <constraint firstAttribute="trailing" secondItem="nJa-CM-qfZ" secondAttribute="trailing" constant="20" id="BnX-68-Wbp"/>
-                                    <constraint firstItem="FaI-z4-eyT" firstAttribute="top" secondItem="zol-aX-f05" secondAttribute="bottom" constant="20" id="DlO-Qt-SxR"/>
                                     <constraint firstItem="nJa-CM-qfZ" firstAttribute="leading" secondItem="WPT-8H-rtP" secondAttribute="leading" constant="20" id="L3O-Y1-Hwf"/>
                                     <constraint firstItem="EbY-Cr-lzM" firstAttribute="centerX" secondItem="WPT-8H-rtP" secondAttribute="centerX" id="L7T-MA-G94"/>
                                     <constraint firstItem="FaI-z4-eyT" firstAttribute="centerX" secondItem="WPT-8H-rtP" secondAttribute="centerX" id="P02-nM-fP3"/>
+                                    <constraint firstItem="94d-i5-ZeZ" firstAttribute="top" secondItem="WPT-8H-rtP" secondAttribute="top" id="RWc-Yh-2iz"/>
                                     <constraint firstItem="EbY-Cr-lzM" firstAttribute="top" secondItem="nPI-Ci-gpd" secondAttribute="bottom" constant="4" id="Toq-ZP-IRt"/>
+                                    <constraint firstItem="FaI-z4-eyT" firstAttribute="top" secondItem="WPT-8H-rtP" secondAttribute="top" constant="44" id="Tvo-tQ-t6V"/>
                                     <constraint firstItem="nPI-Ci-gpd" firstAttribute="centerX" secondItem="WPT-8H-rtP" secondAttribute="centerX" id="VgO-d2-2Uu"/>
                                     <constraint firstAttribute="trailing" secondItem="OXA-gD-BLg" secondAttribute="trailing" constant="22" id="X8a-oe-ngV"/>
                                     <constraint firstItem="nJa-CM-qfZ" firstAttribute="top" secondItem="FaI-z4-eyT" secondAttribute="bottom" constant="20" id="fgH-OD-iCq"/>
-                                    <constraint firstItem="zol-aX-f05" firstAttribute="top" secondItem="WPT-8H-rtP" secondAttribute="top" constant="20" id="hZO-WO-Pji"/>
-                                    <constraint firstItem="zol-aX-f05" firstAttribute="leading" secondItem="WPT-8H-rtP" secondAttribute="leading" constant="20" id="uvs-9C-cgm"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KAd-RE-V3h">
-                                <rect key="frame" x="0.0" y="658" width="393" height="160"/>
+                                <rect key="frame" x="0.0" y="658" width="393" height="194"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sgd-ic-HWY">
                                         <rect key="frame" x="171.66666666666666" y="8" width="50" height="5"/>
@@ -855,7 +853,7 @@
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="C7y-gJ-2SH" secondAttribute="trailing" id="20m-mN-jy8"/>
                                     <constraint firstItem="C7y-gJ-2SH" firstAttribute="top" secondItem="sgd-ic-HWY" secondAttribute="bottom" constant="2" id="CCr-Sm-8rk"/>
-                                    <constraint firstAttribute="height" constant="160" id="Nnb-D9-CXa"/>
+                                    <constraint firstAttribute="height" constant="194" id="UT2-lB-Acb"/>
                                     <constraint firstItem="C7y-gJ-2SH" firstAttribute="leading" secondItem="KAd-RE-V3h" secondAttribute="leading" id="Ydd-g2-ZF6"/>
                                     <constraint firstItem="sgd-ic-HWY" firstAttribute="centerX" secondItem="KAd-RE-V3h" secondAttribute="centerX" id="mhu-Es-R4s"/>
                                     <constraint firstItem="sgd-ic-HWY" firstAttribute="top" secondItem="KAd-RE-V3h" secondAttribute="top" constant="8" id="vWo-L9-6eB"/>
@@ -870,7 +868,7 @@
                         <constraints>
                             <constraint firstItem="WPT-8H-rtP" firstAttribute="top" secondItem="pgy-rE-Je5" secondAttribute="top" id="E6n-7x-2ph"/>
                             <constraint firstItem="pgy-rE-Je5" firstAttribute="trailing" secondItem="KAd-RE-V3h" secondAttribute="trailing" id="F6e-7M-SzI"/>
-                            <constraint firstItem="pgy-rE-Je5" firstAttribute="bottom" secondItem="KAd-RE-V3h" secondAttribute="bottom" id="NXf-a3-51q"/>
+                            <constraint firstAttribute="bottom" secondItem="KAd-RE-V3h" secondAttribute="bottom" id="HWY-YQ-b6v"/>
                             <constraint firstItem="WPT-8H-rtP" firstAttribute="leading" secondItem="pgy-rE-Je5" secondAttribute="leading" id="c4g-aE-dkI"/>
                             <constraint firstAttribute="trailing" secondItem="KAd-RE-V3h" secondAttribute="trailing" id="dlP-dc-Miu"/>
                             <constraint firstAttribute="bottom" secondItem="WPT-8H-rtP" secondAttribute="bottom" id="kip-N7-Zox"/>
@@ -893,7 +891,6 @@
                     <connections>
                         <outlet property="GifOutlet" destination="nJa-CM-qfZ" id="NfC-8j-qnu"/>
                         <outlet property="PrimaryControlViewOutlet" destination="C7y-gJ-2SH" id="DHJ-ba-FDG"/>
-                        <outlet property="ProgressWidthConstraint" destination="ccc-wl-M2i" id="Dz8-Qa-rUn"/>
                         <outlet property="RepsOutlet" destination="nPI-Ci-gpd" id="ZbO-04-ErC"/>
                         <outlet property="SetNumberOutlet" destination="FaI-z4-eyT" id="v4l-lr-YPX"/>
                         <outlet property="bottomContainerView" destination="KAd-RE-V3h" id="ijp-k9-jb2"/>
@@ -903,6 +900,7 @@
                         <outlet property="paceButton" destination="OXA-gD-BLg" id="ode-EM-MdJ"/>
                         <outlet property="pauseContainer" destination="1Fa-hd-wjK" id="XD3-WD-ZdB"/>
                         <outlet property="prevExerciseButton" destination="59J-3l-vf0" id="cTV-pe-wdO"/>
+                        <outlet property="progressViewBar2" destination="94d-i5-ZeZ" id="rhO-bo-m54"/>
                         <outlet property="repetitionsText" destination="EbY-Cr-lzM" id="cBI-eH-wE3"/>
                         <outlet property="timerLabel" destination="xSY-eQ-9GZ" id="Uxa-Uf-J2J"/>
                         <segue destination="7jD-uH-yNN" kind="presentation" identifier="RestTimeStart" modalPresentationStyle="fullScreen" id="p86-lu-Ojd"/>
@@ -1883,34 +1881,37 @@
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="secondaryLabelColor">
-            <color red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemBrownColor">
-            <color red="0.63529411759999999" green="0.51764705879999995" blue="0.36862745099999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.67450980392156867" green="0.49803921568627452" blue="0.36862745098039218" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray2Color">
-            <color red="0.68235294120000001" green="0.68235294120000001" blue="0.69803921570000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray5Color">
-            <color red="0.8980392157" green="0.8980392157" blue="0.91764705879999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray6Color">
-            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
-            <color red="0.5568627451" green="0.5568627451" blue="0.57647058819999997" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemIndigoColor">
-            <color red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.38039215686274508" green="0.33333333333333331" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
-            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.55294117647058827" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.79607843137254897" green="0.18823529411764706" blue="0.8784313725490196" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

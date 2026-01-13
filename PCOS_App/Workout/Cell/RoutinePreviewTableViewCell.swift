@@ -16,7 +16,7 @@ class RoutinePreviewTableViewCell: UITableViewCell {
     @IBOutlet weak var setCountLabel: UILabel!
     //@IBOutlet weak var weightLabel: UILabel!
     //@IBOutlet weak var repsLabel: UILabel!
-    
+    @IBOutlet weak var levelLabel: UILabel!
     
     
     var onInfoTapped: (() -> Void)?
@@ -49,6 +49,7 @@ class RoutinePreviewTableViewCell: UITableViewCell {
         
         exerciseNameLabel.text = exercise.name
         muscleLabel.text = exercise.muscleGroup.displayName
+        levelLabel.text = exercise.level
         setCountLabel.text = exercise.isCardio
         ? "\(routineExercise.durationSeconds ?? 0 / 60) min"
         : "\(routineExercise.numberOfSets) sets"
