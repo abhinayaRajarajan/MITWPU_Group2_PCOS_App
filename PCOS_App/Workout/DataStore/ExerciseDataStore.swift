@@ -28,7 +28,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "burpees",
             instructions: "Maintain a straight spine while holding the plank position.",
-            gifUrl: "plank.gif",
+            gifUrl: "Plankgif.gif",
             level: "Beginner",
             tempo: "Hold steady",
             form: [
