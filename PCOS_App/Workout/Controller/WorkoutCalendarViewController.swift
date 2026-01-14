@@ -7,8 +7,8 @@
 
 import UIKit
 
-class FullCalendarViewController: UIViewController {
-    
+//class FullCalendarViewController: UIViewController {
+//    
 //    private var collectionView: UICollectionView!
 //    private var periodDates: Set<Date> = []
 //    private var symptomDates: Set<Date> = []
@@ -410,4 +410,4 @@ class FullCalendarViewController: UIViewController {
 //        
 //        weekdayStackView.isHidden = !showWeekdays
 //    }
-}
+//}
