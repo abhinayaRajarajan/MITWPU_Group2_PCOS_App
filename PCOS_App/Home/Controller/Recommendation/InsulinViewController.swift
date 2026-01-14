@@ -28,7 +28,7 @@ class InsulinViewController: UIViewController {
                     title = rec.title  // Set the title from recommendation
                 }
             
-        warningcard.layer.cornerRadius=20
+        warningcard.layer.cornerRadius=15
         
         summaryCardView.layer.cornerRadius=20
         InfoCard.layer.cornerRadius=20
@@ -84,6 +84,13 @@ class InsulinViewController: UIViewController {
             // Add padding
             tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
         }
+    @IBAction func openLinkTapped(_ sender: UIButton) {
+        guard let url = URL(string: "https://www.mayoclinic.org/diseases-conditions/pcos/symptoms-causes/syc-20353439") else {
+            return
+        }
+
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
     }
 
     // MARK: - UITableView DataSource & Delegate

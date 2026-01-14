@@ -97,7 +97,7 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
     private func updateCycleDayLabel() {
         let cycleDay = calculateCurrentCycleDay()
                 if cycleDay > 0 {
-                    cycleDayLabel.text = "\(cycleDay) of Cycle"
+                    cycleDayLabel.text = "Day \(cycleDay) of Cycle"
                     print("HomeHeaderCell: Displaying cycle day \(cycleDay)")
                 } else {
                     cycleDayLabel.text = "Log Period"

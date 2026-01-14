@@ -12,6 +12,7 @@ class InsulinFoodTableViewCell: UITableViewCell {
     // Disambiguate FoodItem if multiple types exist with the same name
     typealias CellFoodItem = PCOS_App.InsulinFoodItem
 
+    @IBOutlet weak var symptomTag: UIView!
     @IBOutlet weak var foodImage: UIImageView!
     @IBOutlet weak var tableContentView: UIView!
     @IBOutlet weak var sugarLevelLabel: UILabel!
@@ -40,31 +41,18 @@ class InsulinFoodTableViewCell: UITableViewCell {
             // Content view styling
             tableContentView.layer.cornerRadius = 20
             tableContentView.backgroundColor = .white
-            tableContentView.layer.shadowColor = UIColor.black.cgColor
-            tableContentView.layer.shadowOpacity = 0.05
-            tableContentView.layer.shadowOffset = CGSize(width: 0, height: 2)
-            tableContentView.layer.shadowRadius = 4
+//            tableContentView.layer.shadowColor = UIColor.black.cgColor
+//            tableContentView.layer.shadowOpacity = 0.05
+//            tableContentView.layer.shadowOffset = CGSize(width: 0, height: 2)
+//            tableContentView.layer.shadowRadius = 4
+            
+            symptomTag.layer.cornerRadius = 10
             
             // Image styling
             foodImage.layer.cornerRadius = 20
             foodImage.clipsToBounds = true
             foodImage.contentMode = .scaleAspectFill
             foodImage.backgroundColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 0.1)
-            
-            // Label styling
-//            foodNameLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-//            foodNameLabel.textColor = .black
-            
-//            sugarLevelLabel.font = .systemFont(ofSize: 14, weight: .medium)
-//            sugarLevelLabel.textColor = .systemRed
-//            
-//            caloriesLabel.font = .systemFont(ofSize: 14, weight: .regular)
-//            caloriesLabel.textColor = .gray
-        }
-
-        override func setSelected(_ selected: Bool, animated: Bool) {
-            super.setSelected(selected, animated: animated)
-            // Configure the view for the selected state
         }
         
         // Configure cell with food data

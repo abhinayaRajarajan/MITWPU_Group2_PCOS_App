@@ -243,19 +243,19 @@ class WorkoutPieChartView: UIView {
 }
 
 // MARK: - Usage Example
-extension WorkoutPieChartView {
-    
-    static func createSampleChart() -> WorkoutPieChartView {
-        let chartView = WorkoutPieChartView()
-        
-        let workoutData: [WorkoutPieChart.WorkoutData] = [
-            WorkoutPieChart.WorkoutData(name: "Cardio", value: 5, color: .systemPink),
-            WorkoutPieChart.WorkoutData(name: "Strength", value: 2, color: .systemBlue),
-            WorkoutPieChart.WorkoutData(name: "Yoga", value: 1, color: .systemPurple)
-        ]
-        
-        chartView.configure(with: workoutData)
-        
-        return chartView
-    }
-}
+//extension WorkoutPieChartView {
+//    
+//    static func createSampleChart() -> WorkoutPieChartView {
+//        let chartView = WorkoutPieChartView()
+//        
+//        let workoutData: [WorkoutPieChart.WorkoutData] = [
+//            WorkoutPieChart.WorkoutData(name: "Cardio", value: 5, color: .systemPink),
+//            WorkoutPieChart.WorkoutData(name: "Strength", value: 2, color: .systemBlue),
+//            WorkoutPieChart.WorkoutData(name: "Yoga", value: 1, color: .systemPurple)
+//        ]
+//        
+//        chartView.configure(with: workoutData)
+//        
+//        return chartView
+//    }
+//}

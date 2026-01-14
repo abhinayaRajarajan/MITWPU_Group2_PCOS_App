@@ -174,7 +174,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
     }
     
     func createHomeHeaderSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(450))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(500))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: itemSize, subitems: [NSCollectionLayoutItem(layoutSize: itemSize)])
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .zero
@@ -219,7 +219,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
     func createRecommendationSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(110)
+            heightDimension: .absolute(80)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         // Option A: per-item padding
@@ -227,7 +227,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(110)
+            heightDimension: .absolute(80)
         )
         // One item per group
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])
@@ -282,7 +282,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SymptomItemCollectionViewCell", for: indexPath) as! SymptomItemCollectionViewCell
             let symptom = selectedSymptoms[indexPath.item - 1]
             let isSelected = true
-            cell.configure(with: symptom, isSelected: isSelected)
+            cell.configure(with: symptom, isSelected: false)
             return cell
         }
         else if indexPath.section == 2 {
@@ -309,7 +309,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         if indexPath.section == 1 {
             headerView.configureHeader(with:"Log Symptoms")
         } else if indexPath.section == 3{
-            headerView.configureHeader(with:"Summary")
+            headerView.configureHeader(with:"Health Insights")
         }else {
             headerView.configureHeader(with:"Explore Routines")
         }

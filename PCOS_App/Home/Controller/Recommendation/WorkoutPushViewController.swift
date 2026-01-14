@@ -16,13 +16,13 @@ class WorkoutPushViewController: UIViewController {
     @IBOutlet weak var workoutOverviewCard: UIView!
     @IBOutlet weak var WorkoutDonutChart: WorkoutPieChart!
     
-    @IBOutlet weak var MicroChallengeView: UIView!
+    //@IBOutlet weak var MicroChallengeView: UIView!
     @IBOutlet weak var StrengthTrainingInfo: UIView!
     
     
-    @IBOutlet weak var barProgressView: UIView!
-    @IBOutlet weak var idealWorkoutBarChart: WorkoutProgressBarCardView!
-    @IBOutlet weak var currentWorkoutBarChart: WorkoutProgressBarCardView!
+//    @IBOutlet weak var barProgressView: UIView!
+//    @IBOutlet weak var idealWorkoutBarChart: WorkoutProgressBarCardView!
+//    @IBOutlet weak var currentWorkoutBarChart: WorkoutProgressBarCardView!
     
     @IBOutlet weak var legendView: UIView!
     
@@ -39,8 +39,8 @@ class WorkoutPushViewController: UIViewController {
             
             StrengthTrainingInfo.layer.cornerRadius = 20
             
-            MicroChallengeView.layer.cornerRadius = 20
-            barProgressView.layer.cornerRadius = 20
+            //MicroChallengeView.layer.cornerRadius = 20
+            //barProgressView.layer.cornerRadius = 20
 
             addWorkoutPieChart()
             
@@ -48,7 +48,7 @@ class WorkoutPushViewController: UIViewController {
             addcurrentWorkoutBarChart()
             
             // Add legend to the legendView outlet
-            setupLegend()
+            //setupLegend()
         }
         
         private func addWorkoutPieChart() {
@@ -64,6 +64,7 @@ class WorkoutPushViewController: UIViewController {
             let workoutData: [WorkoutPieChart.WorkoutData] = [
                 WorkoutPieChart.WorkoutData(name: "Cardio", value: 5, color: .systemPink),
                 WorkoutPieChart.WorkoutData(name: "Strength", value: 2, color: .systemBlue),
+                WorkoutPieChart.WorkoutData(name: "Yoga", value: 1, color: .systemYellow)
             ]
             
             chartView.configure(with: workoutData)
@@ -84,7 +85,7 @@ class WorkoutPushViewController: UIViewController {
             ]
             
             // Configure the outlet directly
-            idealWorkoutBarChart.configure(with: segments)
+            //idealWorkoutBarChart.configure(with: segments)
         }
         
         private func addcurrentWorkoutBarChart() {
@@ -102,7 +103,7 @@ class WorkoutPushViewController: UIViewController {
             ]
             
             // Configure the outlet directly
-            currentWorkoutBarChart.configure(with: segmentsCurrent)
+            //currentWorkoutBarChart.configure(with: segmentsCurrent)
         }
         
         private func setupLegend() {
