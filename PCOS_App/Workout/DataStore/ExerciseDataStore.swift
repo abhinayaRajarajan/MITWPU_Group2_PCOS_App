@@ -1124,7 +1124,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "cat_cow",
             instructions: "Alternate between arching and rounding spine.",
-            gifUrl: "squats.gif",
+            gifUrl: "jump_ropegif.gif",
             level: "Beginner",
             tempo: "Slow and controlled",
             form: [
