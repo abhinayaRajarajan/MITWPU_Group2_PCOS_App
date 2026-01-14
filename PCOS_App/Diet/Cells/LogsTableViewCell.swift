@@ -9,6 +9,7 @@ import UIKit
 
 class LogsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var cell: UIView!
     @IBOutlet weak var fats: UILabel!
     @IBOutlet weak var carbs: UILabel!
     @IBOutlet weak var protein: UILabel!
@@ -16,6 +17,7 @@ class LogsTableViewCell: UITableViewCell {
     @IBOutlet weak var foodName: UILabel!
     @IBOutlet weak var foodImg: UIImageView!
     
+    @IBOutlet weak var innerCell: UIView!
     static var identifier = "LogsTableViewCell"
     static func nib() -> UINib {
         return UINib(nibName: identifier, bundle: nil)
@@ -28,14 +30,14 @@ class LogsTableViewCell: UITableViewCell {
     
     func configure(with log: Food) {
         foodName.text = log.name
-        fats.text = "\(log.fatsContent)g"
-        carbs.text = "\(log.carbsContent)g"
-        protein.text = "\(log.proteinContent)g"
-        calories.text = "\(log.calories)kcal"
+        fats.text = "\(Int(log.fatsContent))g"
+        carbs.text = "\(Int(log.carbsContent))g"
+        protein.text = "\(Int(log.proteinContent))g"
+        calories.text = "\(Int(log.calories))kcal"
         foodImg.image = UIImage(named: log.image ?? "biryani")
-        //foodImg.contentMode = .scaleAspectFill
+        innerCell.layer.cornerRadius = 16
         foodImg.clipsToBounds = true
-        foodImg.layer.cornerRadius = 10
+        foodImg.layer.cornerRadius = 12
     }
 
     private func loadImage(from url: URL) {

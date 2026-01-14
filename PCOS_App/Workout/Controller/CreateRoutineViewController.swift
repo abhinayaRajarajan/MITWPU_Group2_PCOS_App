@@ -42,6 +42,8 @@ class CreateRoutineViewController: UIViewController {
             blue: 150/255,
             alpha: 0.8
         )
+        exerciseTableView.separatorStyle = .none
+        
         
         setupUI()
         registerCells()
@@ -175,7 +177,9 @@ class CreateRoutineViewController: UIViewController {
             let routine = Routine(
                 id: UUID(),
                 name: name,
-                exercises: routineExercises
+                exercises: routineExercises,
+                thumbnailImageName: RoutineImageProvider.random(),
+                routineDescription: nil
             )
 
             // 4. Save to manager (FIXED: now uses addRoutine)

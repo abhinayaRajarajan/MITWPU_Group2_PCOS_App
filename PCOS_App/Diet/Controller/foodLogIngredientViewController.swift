@@ -133,7 +133,7 @@ class FoodLogIngredientViewController: UIViewController {
             
             // Style the stepper to match design
             stepper.tintColor = .label
-            stepper.backgroundColor = .systemGray5
+//            stepper.backgroundColor = .systemGray5
             stepper.layer.cornerRadius = 10
             stepper.clipsToBounds = true
         }
@@ -173,6 +173,7 @@ class FoodLogIngredientViewController: UIViewController {
             servingMultiplier = sender.value
             updateServingDisplay()
             updateMacros()
+            print(servingMultiplier)
         }
         
         // MARK: - Update Display
@@ -200,9 +201,9 @@ class FoodLogIngredientViewController: UIViewController {
                 // Use weight if available
                 let totalWeight = Int(baseWeight * servingMultiplier)
                 weightText = "Weight total\n\(totalWeight) g"
-            } else if food.quantity > 0 {
+            } else if food.servingSize > 0 {
                 // Fallback to quantity
-                let totalWeight = Int(food.quantity * servingMultiplier)
+                let totalWeight = Int(food.servingSize * servingMultiplier)
                 weightText = "Weight total\n\(totalWeight) g"
             } else {
                 // No data available
@@ -256,7 +257,7 @@ class FoodLogIngredientViewController: UIViewController {
             multipliedFood.fibreContent = food.fibreContent * servingMultiplier
             
             // Update quantity
-            multipliedFood.quantity = food.quantity * servingMultiplier
+            multipliedFood.servingSize = food.servingSize * servingMultiplier
             
             // Update weight if available
             if let weight = food.weight {

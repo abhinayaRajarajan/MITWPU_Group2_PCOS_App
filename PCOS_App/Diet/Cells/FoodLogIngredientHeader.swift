@@ -18,7 +18,7 @@ class FoodLogIngredientHeader: UIView {
     
     @IBOutlet weak var macrosContainerStack: UIStackView!
     
-    
+    private var foodItem: FoodItem?
     private var food: Food?
     private var constraintsSetUp = false
     
@@ -119,59 +119,83 @@ class FoodLogIngredientHeader: UIView {
     
     // MARK: - Configure
     func configure(with food: Food) {
-        self.food = food
-        
-        // Set image
-        if let imageName = food.image, let image = UIImage(named: imageName) {
-            FoodImageView.image = image
-            FoodImageView.backgroundColor = .clear
-        } else {
-            FoodImageView.image = UIImage(named: "placeholder_food")
-            FoodImageView.backgroundColor = .systemGray5
+            self.food = food
+            self.foodItem = nil
+            
+            if let imageName = food.image, let image = UIImage(named: imageName) {
+                FoodImageView.image = image
+                FoodImageView.backgroundColor = .clear
+            } else {
+                FoodImageView.image = UIImage(named: food.image ?? "dietPlaceholder")
+                FoodImageView.backgroundColor = .systemGray5
+            }
+            
+            updateMacros()
+            print("DEBUG: Header configured with Food: \(food.name)")
         }
         
-        // Update macros
-        updateMacros()
+        func configure(with foodItem: FoodItem) {
+            self.foodItem = foodItem
+            self.food = nil
+            
+            FoodImageView.image = UIImage(named: foodItem.image)
+            FoodImageView.backgroundColor = .systemGray5
+            
+            updateMacros()
+            print("DEBUG: Header configured with FoodItem: \(foodItem.name)")
+        }
         
-        print("DEBUG: Header configured with food: \(food.name)")
-    }
-    
-    private func updateMacros() {
-        guard let food = food else { return }
+        private func updateMacros() {
+            // Handle both Food and FoodItem types
+            if let food = food {
+                updateMacrosForFood(food)
+            } else if let foodItem = foodItem {
+                updateMacrosForFoodItem(foodItem)
+            } else {
+                print("DEBUG: No food data available to update macros")
+            }
+        }
         
-        // Calculate or use custom calories
-        let calories = food.customCalories ?? ((food.proteinContent * 4) + (food.carbsContent * 4) + (food.fatsContent * 9))
+        private func updateMacrosForFood(_ food: Food) {
+            let calories = food.customCalories ?? ((food.proteinContent * 4) + (food.carbsContent * 4) + (food.fatsContent * 9))
+            
+            caloriesLabel.attributedText = formatMacroText(value: "\(Int(calories)) kcal", label: "Calories")
+            carbsLabel.attributedText = formatMacroText(value: "\(Int(food.carbsContent)) g", label: "Carbs")
+            fatsLabel.attributedText = formatMacroText(value: "\(Int(food.fatsContent)) g", label: "Fat")
+            proteinLabel.attributedText = formatMacroText(value: "\(Int(food.proteinContent)) g", label: "Protein")
+            
+            print("DEBUG: Macros updated for Food - Cal: \(Int(calories)), Carbs: \(Int(food.carbsContent)), Fat: \(Int(food.fatsContent)), Protein: \(Int(food.proteinContent))")
+        }
         
-        // Format the labels to match your design (value on top, label below)
-        let paragraphStyle = NSMutableParagraphStyle()
-        paragraphStyle.alignment = .center
-        paragraphStyle.lineSpacing = 2
+        private func updateMacrosForFoodItem(_ foodItem: FoodItem) {
+            // Calculate calories from macros
+            let calories = (foodItem.protein * 4) + (foodItem.carbs * 4) + (foodItem.fat * 9)
+            
+            caloriesLabel.attributedText = formatMacroText(value: "\(Int(calories)) kcal", label: "Calories")
+            carbsLabel.attributedText = formatMacroText(value: "\(Int(foodItem.carbs)) g", label: "Carbs")
+            fatsLabel.attributedText = formatMacroText(value: "\(Int(foodItem.fat)) g", label: "Fat")
+            proteinLabel.attributedText = formatMacroText(value: "\(Int(foodItem.protein)) g", label: "Protein")
+            
+            print("DEBUG: Macros updated for FoodItem - Cal: \(Int(calories)), Carbs: \(Int(foodItem.carbs)), Fat: \(Int(foodItem.fat)), Protein: \(Int(foodItem.protein))")
+        }
         
-        caloriesLabel.attributedText = formatMacroText(value: "\(Int(calories)) kcal", label: "Calories")
-        carbsLabel.attributedText = formatMacroText(value: "\(Int(food.carbsContent)) g", label: "Carbs")
-        fatsLabel.attributedText = formatMacroText(value: "\(Int(food.fatsContent)) g", label: "Fat")
-        proteinLabel.attributedText = formatMacroText(value: "\(Int(food.proteinContent)) g", label: "Protein")
-    }
-    
-    private func formatMacroText(value: String, label: String) -> NSAttributedString {
-        let attributed = NSMutableAttributedString()
-        
-        // Label text (smaller, on top)
-        let labelAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 13, weight: .medium),
-            .foregroundColor: UIColor.secondaryLabel
-        ]
-        attributed.append(NSAttributedString(string: label + "\n", attributes: labelAttributes))
-        
-        // Value text (larger, bold, below)
-        let valueAttributes: [NSAttributedString.Key: Any] = [
-            .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
-            .foregroundColor: UIColor.label
-        ]
-        attributed.append(NSAttributedString(string: value, attributes: valueAttributes))
-        
-        return attributed
-    }
+        private func formatMacroText(value: String, label: String) -> NSAttributedString {
+            let attributed = NSMutableAttributedString()
+            
+            let labelAttributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 13, weight: .medium),
+                .foregroundColor: UIColor.secondaryLabel
+            ]
+            attributed.append(NSAttributedString(string: label + "\n", attributes: labelAttributes))
+            
+            let valueAttributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 15, weight: .semibold),
+                .foregroundColor: UIColor.label
+            ]
+            attributed.append(NSAttributedString(string: value, attributes: valueAttributes))
+            
+            return attributed
+        }
     
     // MARK: - Static Loading
     static func loadFromNib() -> FoodLogIngredientHeader {

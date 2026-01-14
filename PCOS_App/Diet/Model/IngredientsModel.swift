@@ -12,7 +12,7 @@ struct Ingredient: Codable, Identifiable {
     var name: String
     var quantity: Double
     var weight: Double? //add this values in datasource for testing
-    
+    var unit = "g"
     // Macro breakdown for THIS ingredient
     var protein: Double
     var carbs: Double
@@ -22,7 +22,7 @@ struct Ingredient: Codable, Identifiable {
     var tags: [ImpactTags]
     
     // Calories for ONLY this ingredient
-    var calories: Double {
+    var calories: Double? {
         (protein * 4) + (carbs * 4) + (fats * 9)
     }
 }

@@ -11,6 +11,10 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
     @IBOutlet weak var tableView: UITableView!
     var exercise:Exercise!
     
+    @IBOutlet weak var gifImageContainer: UIView!
+
+    @IBOutlet weak var levelTag: UIView!
+    @IBOutlet weak var muscleTag: UIView!
     @IBOutlet weak var gifImageView: UIImageView!
     @IBOutlet weak var exerciseLevelLabel: UILabel!
     @IBOutlet weak var exerciseMuscleNameLabel: UILabel!
@@ -37,18 +41,21 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
         guard exercise != nil else {
                 fatalError("InfoModalViewController: exercise must be set before presenting")
             }
-        
+        gifImageContainer.layer.cornerRadius = 20
 //        if let dataAsset = NSDataAsset(name: "plank") {
 //            gifImageView.image = UIImage.gifImageWithData(dataAsset.data)
 //        }
         gifImageView.image = exercise.gifImage
-
+        levelTag.layer.cornerRadius = levelTag.frame.height/2
+        muscleTag.layer.cornerRadius = muscleTag.frame.height/2
+        
+        tableView.backgroundColor = .clear
         
         let level:String=exercise.level
         exerciseLevelLabel.text=level
-        let tempo:String=exercise.tempo
-        exerciseTempoLabel.text=tempo
-        let muscle:String="\(exercise.muscleGroup)"
+        //let tempo:String=exercise.tempo
+        //exerciseTempoLabel.text=tempo
+        let muscle:String="\(exercise.muscleGroup.displayName)"
         exerciseMuscleNameLabel.text=muscle
         
         buildSections()
@@ -114,10 +121,11 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
                    forSection section: Int) {
 
         guard let header = view as? UITableViewHeaderFooterView else { return }
-
-        header.textLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+    
+        header.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
         header.textLabel?.textColor = .label
-        header.contentView.backgroundColor = .systemBackground
+        header.contentView.backgroundColor = UIColor(hex:"FCEEED")
+        
     }
     func tableView(_ tableView: UITableView,
                    heightForHeaderInSection section: Int) -> CGFloat {

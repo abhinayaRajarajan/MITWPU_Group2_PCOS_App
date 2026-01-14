@@ -7,12 +7,10 @@
 
 import UIKit
 
-class NutritionHeader: UIView {
+class NutritionHeader: UITableViewHeaderFooterView {
 
     @IBOutlet weak var nutritionCard: UIView!
     
-    @IBOutlet weak var recommendationCard: UIView!
-    @IBOutlet weak var AIToken: UIView!
     
     @IBOutlet weak var stackMacros: UIStackView!
     
@@ -35,29 +33,33 @@ class NutritionHeader: UIView {
     var carbs : Double = 0
     var fibre: Double = 0
     
+    static var identifier = "NutritionHeader"
+    static func nib() -> UINib {
+        return UINib(nibName: identifier, bundle: nil)
+    }
+    
     
     func configure(){
-        nutritionCard.layer.cornerRadius = 25
-        recommendationCard.layer.cornerRadius = 15
-        
-        nutritionCard.layer.borderWidth = 1
-        nutritionCard.layer.borderColor = UIColor.systemGray4.cgColor
-        
-        recommendationCard.layer.shadowColor = UIColor.black.cgColor
-        recommendationCard.layer.shadowOpacity = 0.2
-        
-        stackMacros.layer.cornerRadius = 25
-        //stackMacros.layer.backgroundColor = UIColor.systemGray6.cgColor
-        AIToken.layer.cornerRadius = 10
+        nutritionCard.layer.cornerRadius = 16
+        nutritionCard.layer.masksToBounds = true
+        stackMacros.layer.cornerRadius = 16
         setValues()
     }
     
     func setValues(){
-        for food in FoodLogDataSource.filteredFoods(){
-            calories += food.calories
-            fats += food.fatsContent
-            protein += food.proteinContent
-            carbs += food.carbsContent
+        for index in FoodLogDataSource.todaysMeal.indices {
+            var food = FoodLogDataSource.todaysMeal[index]
+            if !food.isLogged {
+                calories += food.calories
+                fats += food.fatsContent
+                protein += food.proteinContent
+                carbs += food.carbsContent
+
+                // mark as logged on the actual element
+                food.isLogged = true // or food.toggleLog()
+                let ptr = FoodLogDataSource.sampleFoods.firstIndex(where: {$0.id == food.id})
+                FoodLogDataSource.sampleFoods[ptr!] = food// write back
+            }
         }
         calToBeConsumed.text = "/2000"
         caloriesConsumed.text = "\(Int(calories))"

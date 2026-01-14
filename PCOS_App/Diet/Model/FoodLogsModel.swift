@@ -12,14 +12,16 @@ struct Food: Codable, Identifiable {
     var name: String
     var image: String?
     var timeStamp: Date
-    var quantity: Double
+    var servingSize: Double
     var weight: Double? //Add more values for testing in datasource
-    
+    var isSelected: Bool = false
+    var isLogged: Bool = false
+    var desc: String = ""
     // Base macros (if not ingredient-based)
     var proteinContent: Double
     var carbsContent: Double
     var fatsContent: Double
-    var fibreContent: Double
+    var fibreContent: Double = 0
     
     // Optional override
     var customCalories: Double?
@@ -38,7 +40,7 @@ struct Food: Codable, Identifiable {
             
             // 2: Ingredient-based calories
             if let ingredients = ingredients {
-                let total = ingredients.reduce(0) { $0 + $1.calories }
+                let total = ingredients.reduce(0) { $0 + $1.calories! }
                 return total.rounded(toPlaces: 2)
             }
             
@@ -116,7 +118,7 @@ extension OFFProduct{
                 name: product_name ?? "Unknown Food",
                 image: "dietPlaceholder",
                 timeStamp: Date(),
-                quantity: 100,
+                servingSize: 100,
                 proteinContent: nutr?.proteins100g ?? 0,
                 carbsContent: nutr?.carbohydrates100g ?? 0,
                 fatsContent: nutr?.fat100g ?? 0,

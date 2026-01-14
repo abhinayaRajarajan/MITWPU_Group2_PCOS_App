@@ -27,9 +27,9 @@ class GoalCards: UICollectionViewCell {
         imageView.image = UIImage(systemName: model.image)
         card.layer.cornerRadius = 16
         card.layer.masksToBounds = true
-        card.layer.borderWidth = 1
-        card.layer.borderColor = UIColor.systemGray5.cgColor
-        
+        //card.layer.borderWidth = 1
+        //card.layer.borderColor = UIColor.systemGray5.cgColor
+        card.backgroundColor = .systemBackground
         done.text = "\(Int(model.done ?? 0))"
         toBeDone.text = "/\(Int(model.toBeDone))" + (model.unit ?? "")
         progressView.setProgress(to: Float(CGFloat(model.done ?? 0) / CGFloat(model.toBeDone)))

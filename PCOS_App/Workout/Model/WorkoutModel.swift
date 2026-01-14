@@ -235,7 +235,8 @@ struct Routine: Identifiable, Codable {
     var name: String
     var exercises: [RoutineExercise]
     var createdAt: Date = Date()
-    var thumbnailImageName: String?//new added property
+    var thumbnailImageName: String?
+    var routineTagline: String?
     var routineDescription: String?
     var totalExercises: Int { exercises.count }
     
@@ -265,7 +266,7 @@ struct Routine: Identifiable, Codable {
         if minutes > 60 {
             return "\(minutes/60)h \(minutes%60)m"
         }
-        return "\(minutes)m"
+        return "\(minutes) min"
     }
 }
 
@@ -294,6 +295,7 @@ struct CompletedWorkout {
     var exercises: [WorkoutExercise]
     
 }
+//read why using class and not struct here
 class WorkoutSessionManager {
     static let shared = WorkoutSessionManager()
     private init() {}
@@ -310,8 +312,6 @@ class WorkoutSessionManager {
     // Helper method to add a routine
     func addRoutine(_ routine: Routine) {
         savedRoutines.append(routine)
-        print("✅ Routine saved: \(routine.name)")
-        print("📊 Total routines: \(savedRoutines.count)")
     }
     
     // Helper method to get a specific routine
@@ -334,6 +334,17 @@ class WorkoutSessionManager {
         savedRoutines.remove(at: index)
     }
 }
+struct RoutineImageProvider {
+    static let images = [
+        "routine_1",
+        "routine_2"
+    ]
+    
+    static func random() -> String {
+        images.randomElement()!
+    }
+}
+
 
 
 

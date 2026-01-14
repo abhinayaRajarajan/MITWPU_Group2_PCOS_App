@@ -155,7 +155,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "dumbbell_bench_press",
             instructions: "Press dumbbells upward while maintaining shoulder stability.",
-            gifUrl: "lat_pulldowns.gif",
+            gifUrl: "squats.gif",
             level: "Beginner",
             tempo: "2s down, 1s up",
             form: [
@@ -385,7 +385,7 @@ class ExerciseDataStore {
             equipment: .barbell,
             image: "barbell_squat",
             instructions: "Lower hips back and down while maintaining upright torso.",
-            gifUrl: "lat_pulldowns.gif",
+            gifUrl: "squats.gif",
             level: "Intermediate",
             tempo: "3s down, 1s up",
             form: [
@@ -410,7 +410,7 @@ class ExerciseDataStore {
             equipment: .machine,
             image: "leg_press",
             instructions: "Press platform upward by extending knees and hips.",
-            gifUrl: "lat_pulldowns.gif",
+            gifUrl: "squats.gif",
             level: "Beginner",
             tempo: "2s press, 2s return",
             form: [
@@ -485,7 +485,7 @@ class ExerciseDataStore {
             equipment: .machine,
             image: "leg_extension",
             instructions: "Extend knees fully against machine resistance.",
-            gifUrl: "lat_pulldowns.gif",
+            gifUrl: "squats.gif",
             level: "Beginner",
             tempo: "1s lift, 2s lower",
             form: [
@@ -941,7 +941,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "romanian_deadlift",
             instructions: "Hinge at the hips while keeping a neutral spine and stretch hamstrings before returning to standing.",
-            gifUrl: "lat_pulldowns.gif",
+            gifUrl: "squats.gif",
             level: "Intermediate",
             tempo: "3s down, 1s up",
             form: [
@@ -1124,7 +1124,7 @@ class ExerciseDataStore {
             equipment: .none,
             image: "cat_cow",
             instructions: "Alternate between arching and rounding spine.",
-            gifUrl: "lat_pulldowns.gif",
+            gifUrl: "jump_ropegif.gif",
             level: "Beginner",
             tempo: "Slow and controlled",
             form: [

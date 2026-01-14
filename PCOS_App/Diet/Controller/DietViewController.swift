@@ -19,17 +19,20 @@ class DietViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         title = "Diet"
-               navigationController?.navigationBar.prefersLargeTitles = true
-
-               setupNavigation()
-               setupTableView()
-               setupAddButtonStyle()
-               setupHeaderView()
-           }
+        navigationController?.navigationBar.prefersLargeTitles = true
+        setupNavigation()
+        setupTableView()
+        setupAddButtonStyle()
+    }
 
            override func viewWillAppear(_ animated: Bool) {
                super.viewWillAppear(animated)
+               navigationController?.navigationBar.prefersLargeTitles = true
                filterTodaysFoods()
+               for i in FoodLogDataSource.todaysMeal{
+                   print(i.name)
+               }
+               
            }
 
            //Setup Helpers
@@ -45,6 +48,8 @@ class DietViewController: UIViewController {
                tableView.estimatedRowHeight = 100
                tableView.rowHeight = 100
                tableView.separatorStyle = .singleLine
+               tableView.register(NutritionHeader.nib(), forHeaderFooterViewReuseIdentifier: NutritionHeader.identifier)
+               tableView.separatorStyle = .none
            }
 
            private func setupAddButtonStyle() {
@@ -56,15 +61,6 @@ class DietViewController: UIViewController {
                AddMealButton.addTarget(self, action: #selector(addButtonTapped(_:)), for: .touchUpInside)
            }
 
-           private func setupHeaderView() {
-               guard let header = Bundle.main.loadNibNamed("NutritionHeader", owner: self, options: nil)?.first as? NutritionHeader else {
-                   return
-               }
-               self.headerView = header
-               header.configure()
-               header.frame.size.height = 460
-               tableView.tableHeaderView = header
-           }
 
            //Actions
            @objc func calendarTapped() {
@@ -75,23 +71,16 @@ class DietViewController: UIViewController {
 
            @IBAction func addButtonTapped(_ sender: UIButton) {
                let storyboard = UIStoryboard(name: "Diet", bundle: nil)
-               guard let addVC = storyboard.instantiateViewController(withIdentifier: "AddMealViewController") as? AddMealViewController else {
-                   let addVC = AddMealViewController()
-                   addVC.delegate = self
-                   present(addVC, animated: true)
-                   return
-               }
-               addVC.delegate = self
-               if let sheet = addVC.sheetPresentationController {
-                   if #available(iOS 16.0, *) {
-                       sheet.detents = [.medium(), .large()]
-                       sheet.prefersGrabberVisible = true
-                       sheet.prefersScrollingExpandsWhenScrolledToEdge = false
-                       sheet.selectedDetentIdentifier = .medium
+                   guard let addVC = storyboard.instantiateViewController(withIdentifier: "AddMealViewController") as? AddMealViewController else {
+                       let addVC = AddMealViewController()
+                       addVC.delegate = self
+                       addVC.dietDelegate = self  // Add this line
+                       navigationController?.pushViewController(addVC, animated: true)
+                       return
                    }
-               }
-
-               present(addVC, animated: true)
+                   addVC.delegate = self
+                   addVC.dietDelegate = self  // Add this line
+                   navigationController?.pushViewController(addVC, animated: true)
            }
 
            //Data / Filtering
@@ -122,21 +111,28 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return 100
-//    }
-    
     //Handle Row Selection (THIS IS THE KEY METHOD)
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
         let selectedFood = todaysFoods[indexPath.row]
-        
         print("🔍 Selected food: \(selectedFood.name)")
-        
-        // Navigate to foodLogIngredientViewController
         FoodLogIngredientViewController.present(from: self, with: selectedFood)
     }
+    
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: NutritionHeader.identifier) as! NutritionHeader
+                header.configure()
+                self.headerView = header
+                return header
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        250
+    }
+    
+//    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+//        
+//    }
 }
 
 // MARK: - AddMeal Delegate
@@ -156,5 +152,38 @@ extension DietViewController: AddMealDelegate {
         filterTodaysFoods()
         print("Added food: \(food.name)")
     }
+}
+
+extension DietViewController: AddDescribedMealDelegate {
+    func didConfirmMeal(_ food: Food) {
+        print("🎉 didConfirmMeal called with: \(food.name)")
+                
+                // Add to data source
+                FoodLogDataSource.addFoodBarCode(food)
+                
+                // Dismiss all presented modals
+                if presentedViewController != nil {
+                    dismiss(animated: true) { [weak self] in
+                        // Pop AddMealVC to return to DietVC
+                        self?.navigationController?.popToRootViewController(animated: true)
+                    }
+                } else {
+                    // If no modals, just pop
+                    navigationController?.popToRootViewController(animated: true)
+                }
+                
+                // Refresh the list
+                filterTodaysFoods()
+                
+                // Update header if it's today's meal
+                let startOfToday = Calendar.current.startOfDay(for: Date())
+                let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday)!
+                if food.timeStamp >= startOfToday && food.timeStamp < startOfTomorrow {
+                    print("📊 Updating header")
+                    headerView?.updateValues(food)
+                }
+                
+                print("✅ Meal added successfully")
+            }
 }
 
