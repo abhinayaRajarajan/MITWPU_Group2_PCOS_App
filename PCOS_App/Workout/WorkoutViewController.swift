@@ -24,7 +24,7 @@ class WorkoutViewController: UIViewController {
         title = "Workout"
         navigationController?.navigationBar.prefersLargeTitles = true
         //view.backgroundColor=UIColor(hex: "FCEEED")
-        
+        setupNavigation()
         registerCells()
         collectionView.setCollectionViewLayout(generateLayout(), animated: true)
         collectionView.dataSource = self
@@ -38,7 +38,17 @@ class WorkoutViewController: UIViewController {
             collectionView.addGestureRecognizer(longPressGesture)
         //setupExploreData()
     }
-    
+    //calendar 
+    private func setupNavigation() {
+        let calendar = UIBarButtonItem(image: UIImage(systemName: "calendar"), style: .plain, target: self, action: #selector(calendarTapped))
+        navigationItem.rightBarButtonItem = calendar
+    }
+    //why to use obj c function here?
+    @objc func calendarTapped() {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "WorkoutCalendarViewController") as? WorkoutCalendarViewController {
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
     func generateLayout()->UICollectionViewLayout {
         //collectionView.backgroundColor=UIColor(hex: "FCEEED")
