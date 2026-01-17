@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="24506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="24504"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="noFoodCell" id="pby-3f-c9z">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="pby-3f-c9z" id="SS5-CJ-9tu">
+                <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Vp2-zg-Ukh">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="90"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Get started by logging your first meal" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="KJv-7h-CYt">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="90"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="KJv-7h-CYt" firstAttribute="top" secondItem="Vp2-zg-Ukh" secondAttribute="top" id="35e-AS-WBT"/>
+                            <constraint firstAttribute="bottom" secondItem="KJv-7h-CYt" secondAttribute="bottom" id="aXl-Sd-sJ6"/>
+                            <constraint firstItem="KJv-7h-CYt" firstAttribute="leading" secondItem="Vp2-zg-Ukh" secondAttribute="leading" id="pPM-C2-rXz"/>
+                            <constraint firstAttribute="trailing" secondItem="KJv-7h-CYt" secondAttribute="trailing" id="wbT-oJ-ZeG"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="Vp2-zg-Ukh" secondAttribute="trailing" id="96P-xU-XOZ"/>
+                    <constraint firstAttribute="bottom" secondItem="Vp2-zg-Ukh" secondAttribute="bottom" constant="10" id="Fhu-LM-zYl"/>
+                    <constraint firstItem="Vp2-zg-Ukh" firstAttribute="top" secondItem="SS5-CJ-9tu" secondAttribute="top" id="Spb-5A-lAX"/>
+                    <constraint firstItem="Vp2-zg-Ukh" firstAttribute="leading" secondItem="SS5-CJ-9tu" secondAttribute="leading" id="pRf-2K-AaJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
+            <point key="canvasLocation" x="237" y="-16"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
