@@ -75,12 +75,12 @@ class WorkoutPushViewController: UIViewController {
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Strength Training",
                     value: 3,
-                    color: UIColor(hexString: "FF9500")
+                    color: UIColor(hex: "FF9500")
                 ),
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Cardio",
                     value: 3,
-                    color: UIColor(hexString: "D1D1D6")
+                    color: UIColor(hex: "D1D1D6")
                 )
             ]
             
@@ -93,12 +93,12 @@ class WorkoutPushViewController: UIViewController {
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Strength Training",
                     value: 2,
-                    color: UIColor(hexString: "FF9500")
+                    color: UIColor(hex: "FF9500")
                 ),
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Cardio",
                     value: 5,
-                    color: UIColor(hexString: "D1D1D6")
+                    color: UIColor(hex: "D1D1D6")
                 )
             ]
             
@@ -112,12 +112,12 @@ class WorkoutPushViewController: UIViewController {
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Strength Training",
                     value: 3,
-                    color: UIColor(hexString: "FF9500")
+                    color: UIColor(hex: "FF9500")
                 ),
                 WorkoutOverviewBarChart.SegmentData(
                     name: "Cardio",
                     value: 3,
-                    color: UIColor(hexString: "D1D1D6")
+                    color: UIColor(hex: "D1D1D6")
                 )
             ]
             

@@ -57,12 +57,12 @@ class AddDescribedMealViewController: UIViewController {
             print("DEBUG: Loaded \(ingredients.count) ingredients")
         }
         
-        private func setupHeaderConstraints() {
+    private func setupHeaderConstraints() {
             guard let headerContainer = foodWeightView else { return }
             headerContainer.translatesAutoresizingMaskIntoConstraints = false
         }
         
-        private func setupHeader() {
+    private func setupHeader() {
             guard let containerView = foodWeightView else {
                 print("ERROR: foodWeightView is nil!")
                 return
@@ -103,13 +103,13 @@ class AddDescribedMealViewController: UIViewController {
             }
         }
         
-        private func setupTableView() {
+    private func setupTableView() {
             tableView.delegate = self
             tableView.dataSource = self
             tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         }
         
-        private func setupStepper() {
+    private func setupStepper() {
             guard let stepper = servingStepper else {
                 print("Error: servingStepper outlet is not connected!")
                 return
@@ -128,7 +128,7 @@ class AddDescribedMealViewController: UIViewController {
             stepper.addTarget(self, action: #selector(servingStepperChanged(_:)), for: .valueChanged)
         }
         
-        @objc private func servingStepperChanged(_ sender: UIStepper) {
+    @objc private func servingStepperChanged(_ sender: UIStepper) {
             servingMultiplier = sender.value
             
             // Update serving label
@@ -139,7 +139,7 @@ class AddDescribedMealViewController: UIViewController {
                 servingText = String(format: "%.1f servings", servingMultiplier)
             }
             servingNumberLabel.text = servingText
-            
+            print(sender.value)
             // Update weight label
             updateWeightLabel()
             
@@ -147,7 +147,7 @@ class AddDescribedMealViewController: UIViewController {
             updateHeaderWithCurrentIngredients()
         }
         
-        private func setupServingLabel() {
+    private func setupServingLabel() {
             guard let label = servingNumberLabel else { return }
             
             label.font = .systemFont(ofSize: 18, weight: .medium)
@@ -155,7 +155,7 @@ class AddDescribedMealViewController: UIViewController {
             label.text = "1 serving"
         }
         
-        private func setupWeightLabel() {
+    private func setupWeightLabel() {
             guard let label = FoodWeightLabel else {
                 print("Error: FoodWeightLabel outlet is not connected!")
                 return

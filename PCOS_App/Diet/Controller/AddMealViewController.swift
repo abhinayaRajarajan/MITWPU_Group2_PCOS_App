@@ -222,23 +222,26 @@ class AddMealViewController: UIViewController{
         // MARK: - Describe Meal Navigation
         private func describeMealTapped() {
             let storyboard = UIStoryboard(name: "Diet", bundle: nil)
-            guard let vc = storyboard.instantiateViewController(withIdentifier: "DescribeFoodViewController") as? DescribeFoodViewController else {
-                print("Error: Could not instantiate DescribeFoodViewController from storyboard")
-                return
-            }
-            
-            vc.dietDelegate = self.dietDelegate
-            vc.modalPresentationStyle = .pageSheet
-            
-            if let sheet = vc.sheetPresentationController {
-                if #available(iOS 16.0, *) {
-                    sheet.detents = [.medium(), .large()]
-                    sheet.prefersGrabberVisible = true
-                    sheet.selectedDetentIdentifier = .medium
-                }
-            }
-            
-            present(vc, animated: true)
+                    guard let vc = storyboard.instantiateViewController(withIdentifier: "DescribeFoodViewController") as? DescribeFoodViewController else {
+                        print("Error: Could not instantiate DescribeFoodViewController from storyboard")
+                        return
+                    }
+                    
+                    vc.dietDelegate = self.dietDelegate
+                    
+                    // Wrap in navigation controller to show navigation bar
+                    let navController = UINavigationController(rootViewController: vc)
+                    navController.modalPresentationStyle = .pageSheet
+                    
+                    if let sheet = navController.sheetPresentationController {
+                        if #available(iOS 16.0, *) {
+                            sheet.detents = [.medium(), .large()]
+                            sheet.prefersGrabberVisible = true
+                            sheet.selectedDetentIdentifier = .medium
+                        }
+                    }
+                    
+                    present(navController, animated: true)
         }
         
         // MARK: - Navigation to AddDescribedMealVC
