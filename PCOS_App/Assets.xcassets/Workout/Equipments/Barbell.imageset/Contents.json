@@ -1,7 +1,6 @@
 {
   "images" : [
     {
-      "filename" : "Barbell.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
@@ -14,6 +13,7 @@
       "scale" : "3x"
     },
     {
+      "filename" : "Barbell.png",
       "idiom" : "universal",
       "scale" : "1x",
       "width-class" : "compact"
