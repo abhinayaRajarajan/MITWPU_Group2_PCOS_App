@@ -23,14 +23,14 @@
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="top" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="1BN-8k-txm">
                                 <rect key="frame" x="4" y="16.666666666666671" width="378" height="75"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="mEz-IQ-QmM">
-                                        <rect key="frame" x="8" y="0.0" width="75" height="72"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mEz-IQ-QmM">
+                                        <rect key="frame" x="0.0" y="0.0" width="75" height="72"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="75" id="spt-bt-3rT"/>
                                         </constraints>
                                     </imageView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xgm-8h-3B2">
-                                        <rect key="frame" x="95" y="0.0" width="219" height="75"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="xgm-8h-3B2">
+                                        <rect key="frame" x="87" y="0.0" width="219" height="75"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="OYF-SN-IJ6">
                                                 <rect key="frame" x="0.0" y="0.0" width="219" height="21.666666666666668"/>
@@ -85,6 +85,7 @@
                                                 </subviews>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="12" id="KO8-9J-xGv"/>
+                                                    <constraint firstAttribute="width" constant="219" id="Uzx-zQ-H3o"/>
                                                 </constraints>
                                             </stackView>
                                             <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" verticalCompressionResistancePriority="751" progress="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="JU1-ky-XEd">
@@ -92,15 +93,19 @@
                                                 <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="3" id="S0R-7T-UNz"/>
+                                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="8" id="ZV6-Fk-S9Q"/>
                                                 </constraints>
+                                                <color key="progressTintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="trackTintColor" systemColor="systemGray6Color"/>
                                             </progressView>
                                         </subviews>
                                         <constraints>
+                                            <constraint firstAttribute="width" constant="219" id="Avv-qT-ftp"/>
                                             <constraint firstItem="YY6-QV-b8y" firstAttribute="top" secondItem="OYF-SN-IJ6" secondAttribute="bottom" constant="5" id="ugb-Gg-yd3"/>
                                         </constraints>
                                     </stackView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7q-gi-nvZ">
-                                        <rect key="frame" x="326" y="0.0" width="49.666666666666686" height="34"/>
+                                    <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i7q-gi-nvZ">
+                                        <rect key="frame" x="318" y="0.0" width="49.666666666666686" height="34"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="49.670000000000002" id="KgU-2X-eYv"/>
                                             <constraint firstAttribute="height" constant="34.329999999999998" id="PWt-WB-jJh"/>
@@ -126,6 +131,7 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="1BN-8k-txm" firstAttribute="leading" secondItem="qD2-4b-pTD" secondAttribute="leading" constant="4" id="IB0-eN-UPJ"/>
+                            <constraint firstAttribute="width" constant="386" id="rqv-01-6Z6"/>
                             <constraint firstAttribute="trailing" secondItem="1BN-8k-txm" secondAttribute="trailing" constant="4" id="t50-0Y-wR9"/>
                             <constraint firstItem="1BN-8k-txm" firstAttribute="centerY" secondItem="qD2-4b-pTD" secondAttribute="centerY" id="yth-kL-RnX"/>
                         </constraints>
@@ -141,12 +147,13 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="8VB-18-IkA"/>
             <connections>
+                <outlet property="ExerciseProgressViewOutlet" destination="JU1-ky-XEd" id="z4a-5O-CBA"/>
                 <outlet property="cardView" destination="qD2-4b-pTD" id="iPl-pe-pNC"/>
                 <outlet property="exerciseImageView" destination="mEz-IQ-QmM" id="0Cr-Eh-XVD"/>
                 <outlet property="exerciseNameLabel" destination="OYF-SN-IJ6" id="KxN-fP-NSu"/>
                 <outlet property="levelLabel" destination="Ev4-2N-x2s" id="Zlu-b0-7Eo"/>
                 <outlet property="muscleLabel" destination="YY6-QV-b8y" id="fE5-m8-BFl"/>
-                <outlet property="progressWidthConstraint" destination="JU1-ky-XEd" id="rcy-Xr-Ib3"/>
+                <outlet property="progressWidthConstraint" destination="ZV6-Fk-S9Q" id="FTy-Fm-fJd"/>
                 <outlet property="setCountLabel" destination="5y1-6D-Nv5" id="F7H-Zz-hoV"/>
             </connections>
             <point key="canvasLocation" x="72" y="204"/>
@@ -156,7 +163,10 @@
         <image name="circle.fill" catalog="system" width="128" height="123"/>
         <image name="info.circle" catalog="system" width="128" height="123"/>
         <systemColor name="systemGray3Color">
-            <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.78039215689999997" green="0.78039215689999997" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

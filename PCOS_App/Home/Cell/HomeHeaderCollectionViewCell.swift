@@ -43,7 +43,7 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
         }
 
         private func setup() {
-            headerImageView.image = UIImage(named: "home_img")
+            headerImageView.image = UIImage(named: "home_image_trial_2")
             headerImageView.contentMode = .scaleToFill
             headerImageView.clipsToBounds = true
             

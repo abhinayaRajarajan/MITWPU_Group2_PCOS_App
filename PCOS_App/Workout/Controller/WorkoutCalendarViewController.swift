@@ -2,22 +2,23 @@
 //  WorkoutCalendarViewController.swift
 //  PCOS_App
 //
-//  Created by SDC-USER on 13/01/26.
+//  Created by Dnyaneshwari Gogawale on 15/01/26.
 //
 
 import UIKit
 
-//class FullCalendarViewController: UIViewController {
-//    
+class WorkoutCalendarViewController: UIViewController {
+
 //    private var collectionView: UICollectionView!
 //    private var periodDates: Set<Date> = []
-//    private var symptomDates: Set<Date> = []
+//    private var workoutDates: Set<Date> = []
+//    private weak var workoutDetailVC: ExerciseDayListViewController?
+//
 //    private var displayedMonths: [Date] = []
 //    private let calendar = Calendar.current
 //    private var hasScrolledToCurrentMonth = false
 //    
-//    // Keep reference to the modal
-//    private weak var symptomDetailVC: DaySymptomDetailViewController?
+//    
 //    
 //    
 //    // MARK: - Lifecycle
@@ -30,13 +31,13 @@ import UIKit
 //        setupCollectionView()
 //        setupUI()
 //        loadPeriodDates()
-//        loadSymptomDates()
+//        loadWorkoutDates()
 //    }
 //    
 //    override func viewWillAppear(_ animated: Bool) {
 //        super.viewWillAppear(animated)
 //        loadPeriodDates()
-//        loadSymptomDates()
+//        loadWorkoutDates()
 //        collectionView.reloadData()
 //    }
 //
@@ -95,19 +96,19 @@ import UIKit
 //        }
 //    }
 //    
-//    private func loadSymptomDates() {
-//        symptomDates.removeAll()
-//        
+//    private func loadWorkoutDates() {
+//        workoutDates.removeAll()
+//
 //        let today = Date()
 //        for i in 0..<365 {
 //            if let date = calendar.date(byAdding: .day, value: -i, to: today) {
-//                let symptoms = SymptomDataStore.loadSymptoms(for: date)
-//                if !symptoms.isEmpty {
-//                    symptomDates.insert(calendar.startOfDay(for: date))
+//                if WorkoutDataStore.hasWorkout(on: date) {
+//                    workoutDates.insert(calendar.startOfDay(for: date))
 //                }
 //            }
 //        }
 //    }
+//
 //    
 //    //Helper Methods
 //    private func getDaysInMonth(for date: Date) -> [Date?] {
@@ -147,13 +148,14 @@ import UIKit
 //        periodDates.contains(calendar.startOfDay(for: date))
 //    }
 //    
-//    private func hasSymptoms(_ date: Date) -> Bool {
-//        symptomDates.contains(calendar.startOfDay(for: date))
+//    private func hasWorkout(_ date: Date) -> Bool {
+//        WorkoutSessionManager.shared.hasCompletedWorkout(on: date)
 //    }
+//
 //    
-//    private func showSymptomDetail(for date: Date) {
+//    private func showWorkoutDetail(for date: Date) {
 //        // If modal is already presented, just update the date
-//        if let existingVC = symptomDetailVC, existingVC.isBeingPresented || presentedViewController == existingVC {
+//        if let existingVC = ExerciseDayListViewController, existingVC.isBeingPresented || presentedViewController == existingVC {
 //                existingVC.updateDate(date)
 //        } else {
 //            // Present new modal
@@ -169,7 +171,7 @@ import UIKit
 //                }
 //                
 //                // Store weak reference
-//                symptomDetailVC = detailVC
+//                workoutDetailVC = detailVC
 //                
 //                present(detailVC, animated: true)
 //            }
@@ -178,7 +180,7 @@ import UIKit
 //}
 //
 //// MARK: - UICollectionViewDataSource
-//extension FullCalendarViewController: UICollectionViewDataSource {
+//extension WorkoutCalendarViewController: UICollectionViewDataSource {
 //    
 //    func numberOfSections(in collectionView: UICollectionView) -> Int {
 //        return displayedMonths.count
@@ -190,7 +192,7 @@ import UIKit
 //    }
 //    
 //    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DayCell", for: indexPath) as! FullCalendarDayCell
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "DayCell", for: indexPath) as! WorkoutCalendarDayCell
 //        
 //        let monthDate = displayedMonths[indexPath.section]
 //        let days = getDaysInMonth(for: monthDate)
@@ -200,7 +202,7 @@ import UIKit
 //                with: date,
 //                isToday: isToday(date),
 //                isPeriodDate: isPeriodDate(date),
-//                hasSymptoms: hasSymptoms(date)
+//                hasSymptoms: hasWorkout(date)
 //            )
 //        } else {
 //            cell.configure(with: nil, isToday: false, isPeriodDate: false, hasSymptoms: false)
@@ -221,7 +223,7 @@ import UIKit
 //}
 //
 //// MARK: - UICollectionViewDelegate
-//extension FullCalendarViewController: UICollectionViewDelegate {
+//extension WorkoutCalendarViewController: UICollectionViewDelegate {
 //    
 //    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
 //        let monthDate = displayedMonths[indexPath.section]
@@ -229,12 +231,12 @@ import UIKit
 //        
 //        guard let selectedDate = days[indexPath.item] else { return }
 //        
-//        showSymptomDetail(for: selectedDate)
+//        showWorkoutDetail(for: selectedDate)
 //    }
 //}
 //
 //// MARK: - UICollectionViewDelegateFlowLayout
-//extension FullCalendarViewController: UICollectionViewDelegateFlowLayout {
+//extension WorkoutCalendarViewController: UICollectionViewDelegateFlowLayout {
 //    
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        let width = (collectionView.bounds.width - 32) / 7
@@ -247,7 +249,7 @@ import UIKit
 //}
 //
 //// MARK: - FullCalendarDayCell
-//class FullCalendarDayCell: UICollectionViewCell {
+//class WorkoutCalendarDayCell: UICollectionViewCell {
 //    
 //    private let dayLabel: UILabel = {
 //        let label = UILabel()
@@ -324,13 +326,14 @@ import UIKit
 //        backgroundCircle.layer.borderWidth = 0
 //        backgroundCircle.layer.borderColor = nil
 //        
-//        if isPeriodDate {
-//            // Period date: Pink filled circle with white text
-//            backgroundCircle.isHidden = false
-//            backgroundCircle.backgroundColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
-//            dayLabel.textColor = .white
-//            dayLabel.font = .systemFont(ofSize: 16, weight: .semibold)
-//        } else if isToday {
+////        if isPeriodDate {
+////            // Period date: Pink filled circle with white text
+////            backgroundCircle.isHidden = false
+////            backgroundCircle.backgroundColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
+////            dayLabel.textColor = .white
+////            dayLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+////        } else
+//        if isToday {
 //            // Today (non-period): Pink outline circle
 //            backgroundCircle.isHidden = false
 //            backgroundCircle.backgroundColor = .clear
@@ -351,7 +354,7 @@ import UIKit
 //}
 //
 //// MARK: - FullCalendarMonthHeader
-//class FullCalendarMonthHeader: UICollectionReusableView {
+//class WorkoutCalendarMonthHeader: UICollectionReusableView {
 //    
 //    private let monthLabel: UILabel = {
 //        let label = UILabel()
@@ -410,4 +413,5 @@ import UIKit
 //        
 //        weekdayStackView.isHidden = !showWeekdays
 //    }
-//}
+
+}

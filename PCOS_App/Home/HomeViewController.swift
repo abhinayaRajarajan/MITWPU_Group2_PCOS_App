@@ -219,7 +219,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
     func createRecommendationSection() -> NSCollectionLayoutSection {
         let itemSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(80)
+            heightDimension: .absolute(100)
         )
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
         // Option A: per-item padding
@@ -227,7 +227,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
         
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(1.0),
-            heightDimension: .absolute(80)
+            heightDimension: .absolute(100)
         )
         // One item per group
         let group = NSCollectionLayoutGroup.vertical(layoutSize: groupSize, subitems: [item])

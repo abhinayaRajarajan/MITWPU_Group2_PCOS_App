@@ -55,9 +55,9 @@ class WorkoutPlayerViewController: UIViewController {
         
         // Only setup once after layout is complete
         if exerciseSegments.isEmpty {
-            print("Setting up progress bar")
-            print("Frame: \(progressViewBar2.frame)")
-            
+//            print("Setting up progress bar")
+//            print("Frame: \(progressViewBar2.frame)")
+//            
             progressViewBar2.backgroundColor = .systemGray6  // Change from red
             setupExerciseProgressBar()
             updateExerciseProgressBar()
@@ -196,7 +196,9 @@ class WorkoutPlayerViewController: UIViewController {
         }
 
         let totalSets = exercise.sets.count
-        let completedSets = exercise.sets.filter { $0.isCompleted }.count
+      //  let completedSets = exercise.sets.filter { $0.isCompleted }.count
+        let completedSets=exercise.sets.filter { $0.completionState == .completed }.count
+
         return CGFloat(completedSets) / CGFloat(max(totalSets, 1))
     }
 //    private func updateExerciseProgressBar() {
@@ -222,7 +224,7 @@ class WorkoutPlayerViewController: UIViewController {
                     continue
                 }
 
-                if exercise.sets.first?.isCompleted == true {
+                if exercise.sets.first?.completionState == .completed   {
                     progress = 1.0
                 } else if index == exerciseIndex {
                     let elapsed = duration - elapsedSeconds
@@ -234,7 +236,7 @@ class WorkoutPlayerViewController: UIViewController {
             // STRENGTH
             else {
                 let totalSets = exercise.sets.count
-                let completedSets = exercise.sets.filter { $0.isCompleted }.count
+                let completedSets = exercise.sets.filter { $0.completionState == .completed }.count
                 progress = CGFloat(completedSets) / CGFloat(max(totalSets, 1))
             }
 
@@ -416,6 +418,10 @@ class WorkoutPlayerViewController: UIViewController {
         elapsedSeconds = initialTimerSeconds()
         updateTimerDisplay()
         startTimer()
+        //  FORCE repaint AFTER resume state is ready
+           DispatchQueue.main.async {
+               self.updateExerciseProgressBar()
+           }
     }
 
        
@@ -510,6 +516,7 @@ class WorkoutPlayerViewController: UIViewController {
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             alert.addAction(UIAlertAction(title: "End Workout", style: .destructive) { [weak self] _ in
                 self?.timer?.invalidate()
+                self?.markRemainingSetsAsSkipped()
                 self?.finishWorkoutAndShowSummary()
             })
             
@@ -624,9 +631,42 @@ class WorkoutPlayerViewController: UIViewController {
         }
     }
     private func handleTimerFinished() {
-        completeCurrentSet(skipped: false)
+        completeCurrentSet(as: .completed)
     }
 
+//NEW
+//    private func onTimerFinished() {
+//        markCurrentSetCompleted()
+//        moveToNextSetOrExercise()
+//    }
+    private func completeCurrentSet(as state: SetCompletionState) {
+        timer?.invalidate()
+
+        var exercise = activeWorkout.exercises[exerciseIndex]
+
+        if exercise.exercise.isCardio {
+            exercise.sets[0].completionState = state
+            activeWorkout.exercises[exerciseIndex] = exercise
+            updateExerciseProgressBar()
+            goToRestBeforeNext()
+            return
+        }
+
+        exercise.sets[currentSetIndex].completionState = state
+        activeWorkout.exercises[exerciseIndex] = exercise
+        updateExerciseProgressBar()
+        performSegue(withIdentifier: "RestTimeStart", sender: nil)
+    }
+
+//    private func markCurrentSetCompleted() {
+//        guard var activeWorkout = WorkoutSessionManager.shared.activeWorkout else { return }
+//
+//        activeWorkout.exercises[exerciseIndex]
+//            .sets[setIndex]
+//            .completionState = .completed
+//
+//        WorkoutSessionManager.shared.activeWorkout = activeWorkout
+//    }
 
         
         private func updateTimerDisplay() {
@@ -649,7 +689,7 @@ class WorkoutPlayerViewController: UIViewController {
         guard let activeWorkout = activeWorkout else { return 0 }
 
         return activeWorkout.exercises.reduce(0) { total, exercise in
-            total + exercise.sets.filter { $0.isCompleted }.count
+            total + exercise.sets.filter { $0.completionState == .completed }.count
         }
     }
 
@@ -669,62 +709,79 @@ class WorkoutPlayerViewController: UIViewController {
 //    @IBAction func doneTapped(_ sender: UIButton) {
 //        completeCurrentSet(skipped: false)
 //    }
-    private func completeCurrentSet(skipped: Bool) {
-        timer?.invalidate()
-        
-        var exercise = activeWorkout.exercises[exerciseIndex]
-        
-        // MARK: Cardio logic
-        if exercise.exercise.isCardio {
-            guard elapsedSeconds <= 0 else { return }
-
-            exercise.sets[0].isCompleted = true
-            activeWorkout.exercises[exerciseIndex] = exercise
-            cardioCompleted = true
-
-            //updateProgressBar()
-           
-            
-            updateExerciseProgressBar()
-
-
-
-
-            goToRestBeforeNext()
-            return
-        }
+    
+    
+    //Uncomment if anything wrong
+//    private func completeCurrentSet(skipped: Bool) {
+//        timer?.invalidate()
+//        
+//        var exercise = activeWorkout.exercises[exerciseIndex]
+//        
+//        // MARK: Cardio logic
+//        if exercise.exercise.isCardio {
+//            guard elapsedSeconds <= 0 else { return }
+//
+//            exercise.sets[0].completionState = .completed
+//            activeWorkout.exercises[exerciseIndex] = exercise
+//            cardioCompleted = true
+//
+//            //updateProgressBar()
+//           
+//            
+//            updateExerciseProgressBar()
+//
+//
+//
+//
+//            goToRestBeforeNext()
+//            return
+//        }
 
         
         // mark set complete
-            exercise.sets[currentSetIndex].isCompleted = true
-            activeWorkout.exercises[exerciseIndex] = exercise
-            updateProgressBar()
-
-            // go to rest
-            performSegue(withIdentifier: "RestTimeStart", sender: nil)
-        }
+//        exercise.sets[currentSetIndex].completionState = .completed
+//            activeWorkout.exercises[exerciseIndex] = exercise
+//            updateProgressBar()
+//
+//            // go to rest
+//            performSegue(withIdentifier: "RestTimeStart", sender: nil)
+//        }
     @IBAction func nextTapped(_ sender: UIButton) {
         timer?.invalidate()
 
-            // 🫀 Cardio → skip entire exercise
-            if workoutExercise.exercise.isCardio {
-                cardioCompleted = false
+        var exercise = activeWorkout.exercises[exerciseIndex]
+
+            if exercise.exercise.isCardio {
+                exercise.sets[0].completionState = .skipped
+                activeWorkout.exercises[exerciseIndex] = exercise
                 advanceToNextExerciseImmediately()
                 return
             }
 
-            // 🏋️ Strength → skip current set only
-            let totalSets = workoutExercise.sets.count
+            exercise.sets[currentSetIndex].completionState = .skipped
+            activeWorkout.exercises[exerciseIndex] = exercise
 
-            if currentSetIndex + 1 < totalSets {
-                // Move to next set
+            if currentSetIndex + 1 < exercise.sets.count {
                 currentSetIndex += 1
                 loadCurrentSetWithoutCompletion()
             } else {
-                // No sets left → move to next exercise
                 advanceToNextExerciseImmediately()
             }
     }
+    private func markRemainingSetsAsSkipped() {
+        for exIndex in exerciseIndex..<activeWorkout.exercises.count {
+            var exercise = activeWorkout.exercises[exIndex]
+
+            let startSet = (exIndex == exerciseIndex) ? currentSetIndex : 0
+            for i in startSet..<exercise.sets.count {
+                if exercise.sets[i].completionState == .notStarted {
+                    exercise.sets[i].completionState = .skipped
+                }
+            }
+            activeWorkout.exercises[exIndex] = exercise
+        }
+    }
+
     //initially :loadcurrentset
     private func loadNextFirstSet() {
         // FIXED: Skip button should skip the current set, not go to rest
@@ -749,27 +806,29 @@ class WorkoutPlayerViewController: UIViewController {
             goToPreviousLogicalSet()
     }
     private func goToPreviousLogicalSet() {
-
+        
         // 1️⃣ Try within SAME exercise
         let sets = workoutExercise.sets
-
+        
         if currentSetIndex > 0 {
             // Go to previous set
             currentSetIndex -= 1
             loadCurrentSetWithoutCompletion()
             return
         }
-
+        
         // 2️⃣ Move to PREVIOUS exercise
         guard exerciseIndex > 0 else { return }
-
+        
         exerciseIndex -= 1
         workoutExercise = activeWorkout.exercises[exerciseIndex]
-
+        
         let previousSets = workoutExercise.sets
-
+        
         // Find last completed set
-        if let lastCompletedIndex = previousSets.lastIndex(where: { $0.isCompleted }) {
+        if let lastCompletedIndex = previousSets.lastIndex(where: {$0.completionState == .completed }) {
+    
+
             currentSetIndex = lastCompletedIndex
         } else {
             // All sets were skipped → load last set
@@ -955,6 +1014,7 @@ class WorkoutPlayerViewController: UIViewController {
                 // PLAY / RESUME
                 sender.setImage(UIImage(systemName: "pause.fill"), for: .normal)
                 startTimer()
+                
             }
         }
 //disabling next,prev on last,first set of last,first exercise
@@ -977,9 +1037,9 @@ class WorkoutPlayerViewController: UIViewController {
 
     private func isExerciseFullyCompleted(_ exercise: WorkoutExercise) -> Bool {
         if exercise.exercise.isCardio {
-            return exercise.sets.first?.isCompleted == true
+            return exercise.sets.first?.completionState == .completed
         }
-        return exercise.sets.allSatisfy { $0.isCompleted }
+        return exercise.sets.allSatisfy { $0.completionState == .completed }
     }
 
    

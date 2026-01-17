@@ -13,7 +13,7 @@ class HomeRecommendationCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var iconContainerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
     
-    //@IBOutlet weak var descriptionLabel: UILabel!
+    @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
    
     
@@ -35,7 +35,7 @@ class HomeRecommendationCollectionViewCell: UICollectionViewCell {
         // Configure the view for the selected state
     func configure(with recommendation: Recommendation) {
                 titleLabel.text = recommendation.title
-                //descriptionLabel.text = recommendation.summary
+                descriptionLabel.text = recommendation.summary
                 
         let iconConfig = UIImage.SymbolConfiguration(pointSize: 28, weight: .regular)
         

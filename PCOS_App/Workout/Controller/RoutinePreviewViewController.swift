@@ -21,7 +21,24 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
                 }
 
                 let routineExercise = routine.exercises[indexPath.row]
-                cell.configure(with: routineExercise)
+        // Try to get active workout progress
+       // let activeWorkout = WorkoutSessionManager.shared.activeWorkout
+        
+        let completedWorkout =
+            WorkoutSessionManager.shared.lastCompletedWorkout(for: routine)
+
+        
+       // let workoutExercise = activeWorkout?.exercises[indexPath.row]
+
+        let workoutExercise = completedWorkout?.exercises.first {
+            $0.id == routineExercise.id
+        }
+
+        cell.configure(
+            with: routineExercise,
+            workoutExercise: workoutExercise
+        )
+
 
                 cell.onInfoTapped = { [weak self] in
                     self?.showExerciseInfo(routineExercise.exercise)
@@ -56,6 +73,14 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
         setupPlayTap()
         
     }
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        print("🧪 Active workout exists:",
+                 WorkoutSessionManager.shared.activeWorkout != nil)
+
+        RoutinePreviewTableViewOutlet.reloadData()
+    }
+
     private func setupPlayTap() {
         playImageView.isUserInteractionEnabled = true
 
@@ -70,60 +95,78 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
         startWorkout()
     }
     private func startWorkout() {
-            // Create workout exercises from routine
-            let workoutExercises = routine.exercises.map {
-                $0.generateWorkoutExercise()
-            }
 
-            // Create active workout
+        let manager = WorkoutSessionManager.shared
+
+        // 1️⃣ Check if we can resume
+        if let completedWorkout = manager.completedWorkouts.last(
+            where: { $0.routineName == routine.name }
+        ),
+        let resumePoint = completedWorkout.resumePoint() {
+
             let activeWorkout = ActiveWorkout(
                 routine: routine,
-                exercises: workoutExercises
+                exercises: completedWorkout.exercises
             )
 
-            WorkoutSessionManager.shared.activeWorkout = activeWorkout
+            manager.activeWorkout = activeWorkout
 
-            let storyboard = UIStoryboard(name: "Workout", bundle: nil)
-
-            // Present countdown
-            guard let countdownVC = storyboard.instantiateViewController(
-                withIdentifier: "CountdownViewController"
-            ) as? CountdownViewController else {
-                print("❌ Failed to instantiate CountdownViewController")
-                return
-            }
-
-            countdownVC.modalPresentationStyle = .fullScreen
-
-            // Set up the callback for when countdown finishes
-            countdownVC.onCountdownFinished = { [weak self] in
-                guard let self = self else { return }
-
-                // Create the workout player
-                guard let workoutVC = storyboard.instantiateViewController(
-                    withIdentifier: "WorkoutPlayerViewController"
-                ) as? WorkoutPlayerViewController else {
-                    print("Failed to instantiate WorkoutPlayerViewController")
-                    return
-                }
-
-                
-                workoutVC.activeWorkout = activeWorkout
-                workoutVC.exerciseIndex = 0
-                workoutVC.workoutExercise = activeWorkout.exercises[0]
-
-                // ✅ FIX: Wrap in navigation controller 
-                let navController = UINavigationController(rootViewController: workoutVC)
-                navController.modalPresentationStyle = .fullScreen
-
-                // Present the navigation controller
-                self.present(navController, animated: true)
-            }
-
-            // Present countdown
-            present(countdownVC, animated: false)
+            launchWorkout(
+                activeWorkout: activeWorkout,
+                exerciseIndex: resumePoint.exerciseIndex,
+                setIndex: resumePoint.setIndex
+            )
+            return
         }
 
+        // 2️⃣ Else start fresh
+        let workoutExercises = routine.exercises.map {
+            $0.generateWorkoutExercise()
+        }
+
+        let activeWorkout = ActiveWorkout(
+            routine: routine,
+            exercises: workoutExercises
+        )
+
+        manager.activeWorkout = activeWorkout
+
+        launchWorkout(
+            activeWorkout: activeWorkout,
+            exerciseIndex: 0,
+            setIndex: 0
+        )
+    }
+    private func launchWorkout(
+        activeWorkout: ActiveWorkout,
+        exerciseIndex: Int,
+        setIndex: Int
+    ) {
+        let storyboard = UIStoryboard(name: "Workout", bundle: nil)
+
+        let countdownVC = storyboard.instantiateViewController(
+            withIdentifier: "CountdownViewController"
+        ) as! CountdownViewController
+
+        countdownVC.onCountdownFinished = { [weak self] in
+            guard let self else { return }
+
+            let workoutVC = storyboard.instantiateViewController(
+                withIdentifier: "WorkoutPlayerViewController"
+            ) as! WorkoutPlayerViewController
+
+            workoutVC.activeWorkout = activeWorkout
+            workoutVC.exerciseIndex = exerciseIndex
+            workoutVC.currentSetIndex = setIndex
+            workoutVC.workoutExercise = activeWorkout.exercises[exerciseIndex]
+
+            let nav = UINavigationController(rootViewController: workoutVC)
+            nav.modalPresentationStyle = .fullScreen
+            self.present(nav, animated: true)
+        }
+
+        present(countdownVC, animated: false)
+    }
 
 
     private func setupContainerStyle() {

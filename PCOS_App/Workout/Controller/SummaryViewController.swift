@@ -83,7 +83,7 @@ class SummaryViewController: UIViewController {
         
         // ---- EXERCISES DONE ----
         let completedExercises = completedWorkout.exercises.filter {
-            $0.sets.allSatisfy { $0.isCompleted }
+            $0.sets.allSatisfy { $0.completionState == .completed }
         }.count
         
         exercisesDoneLabel.text = "\(completedExercises)"
@@ -227,7 +227,9 @@ class SummaryViewController: UIViewController {
 //            navigationController?.pushViewController(homeVC, animated: true)
             
             //just uncomment to navigate to routine preview vc
-            dismiss(animated: true)
+            
+            view.window?.rootViewController?.dismiss(animated: true)
+            //dismiss(animated: true)
             
             
         }

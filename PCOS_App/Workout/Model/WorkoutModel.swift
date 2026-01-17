@@ -173,7 +173,7 @@ struct RoutineExercise: Codable, Identifiable {
                        weightKg: 0,
                        restTimerSeconds: nil,
                        durationSeconds: durationSeconds,
-                       isCompleted: false
+                       //isCompleted: false
                    )
                    
                    return WorkoutExercise(
@@ -191,7 +191,7 @@ struct RoutineExercise: Codable, Identifiable {
                            weightKg: weightKg,
                            restTimerSeconds: restTimerSeconds,
                            durationSeconds: nil,
-                           isCompleted: false
+                           //isCompleted: false
                        )
                    }
                    
@@ -222,8 +222,15 @@ struct ExerciseSet: Codable, Identifiable {
     var weightKg: Int
     var restTimerSeconds: Int?
     var durationSeconds: Int? // For cardio exercises
-    var isCompleted: Bool = false
+    //var isCompleted: Bool = false
+    var completionState: SetCompletionState = .notStarted
 }
+enum SetCompletionState: String, Codable{
+    case notStarted
+    case completed
+    case skipped
+}
+
 struct WorkoutExercise: Codable, Identifiable {
     var id: UUID
     var exercise: Exercise
@@ -287,7 +294,7 @@ struct ActiveWorkout {
         
     }
 }
-struct CompletedWorkout {
+struct CompletedWorkout : Codable {
     var id = UUID()
     var routineName: String
     var date: Date
@@ -333,6 +340,12 @@ class WorkoutSessionManager {
         guard index >= 0 && index < savedRoutines.count else { return }
         savedRoutines.remove(at: index)
     }
+    func lastCompletedWorkout(for routine: Routine) -> CompletedWorkout? {
+            completedWorkouts.last {
+                $0.routineName == routine.name
+            }
+        }
+    
 }
 struct RoutineImageProvider {
     static let images = [
@@ -342,6 +355,78 @@ struct RoutineImageProvider {
     
     static func random() -> String {
         images.randomElement()!
+    }
+    
+
+}
+struct ResumePoint {
+    let exerciseIndex: Int
+    let setIndex: Int
+}
+
+extension CompletedWorkout {
+    func resumePoint() -> ResumePoint? {
+        for (exIndex, exercise) in exercises.enumerated() {
+
+            // CARDIO
+            if exercise.exercise.isCardio {
+                if exercise.sets.first?.completionState != .completed {
+                    return ResumePoint(exerciseIndex: exIndex, setIndex: 0)
+                }
+                continue
+            }
+
+            // STRENGTH
+            for (setIndex, set) in exercise.sets.enumerated() {
+                if set.completionState != .completed {
+                    return ResumePoint(exerciseIndex: exIndex, setIndex: setIndex)
+                }
+            }
+        }
+        return nil // everything completed
+    }
+    
+}
+extension ActiveWorkout {
+    static func resume(
+        routine: Routine,
+        completedWorkout: CompletedWorkout
+    ) -> ActiveWorkout {
+
+        ActiveWorkout(
+            routine: routine,
+            exercises: completedWorkout.exercises,
+            startTime: Date()
+        )
+    }
+}
+extension CompletedWorkout {
+
+    /// True only if all planned sets are completed
+    var isFullyCompleted: Bool {
+        for exercise in exercises {
+            for set in exercise.sets {
+                if set.completionState != .completed {
+                    return false
+                }
+            }
+        }
+        return true
+    }
+}
+
+extension WorkoutSessionManager {
+
+    func completedWorkout(on date: Date) -> CompletedWorkout? {
+        let calendar = Calendar.current
+        return completedWorkouts.first {
+            calendar.isDate($0.date, inSameDayAs: date)
+        }
+    }
+
+    func hasCompletedWorkout(on date: Date) -> Bool {
+        guard let workout = completedWorkout(on: date) else { return false }
+        return workout.isFullyCompleted
     }
 }
 

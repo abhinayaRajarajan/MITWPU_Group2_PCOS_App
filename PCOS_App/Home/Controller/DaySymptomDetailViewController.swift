@@ -41,11 +41,11 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
     }
     
     private func setupTableView() {
-        daysSymptom.backgroundColor = UIColor(red: 252.0/255.0, green: 238.0/255.0, blue: 237.0/255.0, alpha: 1.0)
+//        daysSymptom.backgroundColor = UIColor(red: 252.0/255.0, green: 238.0/255.0, blue: 237.0/255.0, alpha: 1.0)
         daysSymptom.delegate = self
         daysSymptom.dataSource = self
         daysSymptom.separatorStyle = .none
-        daysSymptom.rowHeight = 72
+        daysSymptom.rowHeight = 60
         daysSymptom.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
         
         // Register custom cell
@@ -62,7 +62,9 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
         guard let selectedDate = selectedDate else { return }
         
         let formatter = DateFormatter()
-        formatter.dateFormat = "EEEE, MMMM d, yyyy"
+        formatter.dateFormat = "MMMM d, yyyy"
+       // formatter.dateFormat = "EEEE, MMMM d, yyyy"
+
         dateLabel.text = formatter.string(from: selectedDate)
         dateLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         dateLabel.textAlignment = .center
@@ -193,12 +195,12 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
         cardView.addSubview(nameLabel)
         
         // Checkmark icon (since isSelected is true)
-        let checkmarkImageView = UIImageView()
-        checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
-        checkmarkImageView.contentMode = .scaleAspectFit
-        checkmarkImageView.tintColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
-        checkmarkImageView.image = UIImage(systemName: "checkmark.circle.fill")
-        cardView.addSubview(checkmarkImageView)
+//        let checkmarkImageView = UIImageView()
+//        checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
+//        checkmarkImageView.contentMode = .scaleAspectFit
+//        checkmarkImageView.tintColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
+//        checkmarkImageView.image = UIImage(systemName: "checkmark.circle.fill")
+//        cardView.addSubview(checkmarkImageView)
         
         NSLayoutConstraint.activate([
             // Card view constraints
@@ -223,13 +225,14 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
             // Name label
             nameLabel.leadingAnchor.constraint(equalTo: iconBackgroundView.trailingAnchor, constant: 12),
             nameLabel.centerYAnchor.constraint(equalTo: cardView.centerYAnchor),
-            nameLabel.trailingAnchor.constraint(equalTo: checkmarkImageView.leadingAnchor, constant: -12),
+//            nameLabel.trailingAnchor.constraint(equalTo: checkmarkImageView.leadingAnchor, constant: -12)
+            //,
             
             // Checkmark
-            checkmarkImageView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -12),
-            checkmarkImageView.centerYAnchor.constraint(equalTo: cardView.centerYAnchor),
-            checkmarkImageView.widthAnchor.constraint(equalToConstant: 24),
-            checkmarkImageView.heightAnchor.constraint(equalToConstant: 24)
+//            checkmarkImageView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -12),
+//            checkmarkImageView.centerYAnchor.constraint(equalTo: cardView.centerYAnchor),
+//            checkmarkImageView.widthAnchor.constraint(equalToConstant: 24),
+//            checkmarkImageView.heightAnchor.constraint(equalToConstant: 24)
         ])
         
         return cell

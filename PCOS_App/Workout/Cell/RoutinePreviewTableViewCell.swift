@@ -44,7 +44,7 @@ class RoutinePreviewTableViewCell: UITableViewCell {
         
         // Configure the view for the selected state
     }
-    func configure(with routineExercise: RoutineExercise) {
+    func configure(with routineExercise: RoutineExercise,workoutExercise: WorkoutExercise?) {
         let exercise = routineExercise.exercise
         
         exerciseNameLabel.text = exercise.name
@@ -56,11 +56,29 @@ class RoutinePreviewTableViewCell: UITableViewCell {
         
         exerciseImageView.image = UIImage(named: exercise.image ?? "exercise_placeholder")
         
-        //configureProgress(routineExercise)
+        configureProgress(workoutExercise)
     }
-    private func configureProgress(_ routineExercise: RoutineExercise) {
-        ExerciseProgressViewOutlet.progress = 0.0
+//    private func configureProgress(_ routineExercise: RoutineExercise) {
+//        ExerciseProgressViewOutlet.progress = 0.0
+//    }
+    private func configureProgress(_ workoutExercise: WorkoutExercise?) {
+
+        guard let workoutExercise = workoutExercise else {
+            ExerciseProgressViewOutlet.progress = 0
+            return
+        }
+
+        let totalSets = workoutExercise.sets.count
+        let completedSets = workoutExercise.sets.filter {
+            $0.completionState == .completed
+        }.count
+
+        let progress = Float(completedSets) / Float(max(totalSets, 1))
+        ExerciseProgressViewOutlet.progress = progress
+        ExerciseProgressViewOutlet.setProgress(progress, animated: true)
+
     }
+
     
     
 }

@@ -59,14 +59,22 @@
                                     <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <nil key="highlightedColor"/>
                                 </label>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="kcal" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uiD-qu-MRX">
+                                    <rect key="frame" x="177.33333333333334" y="61.666666666666664" width="30.333333333333343" height="20.333333333333336"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstItem="AmA-KX-xq9" firstAttribute="leading" secondItem="FRX-cF-wvZ" secondAttribute="trailing" constant="2" id="1Wc-Q4-ZuJ"/>
                                 <constraint firstItem="T73-6Q-vzW" firstAttribute="leading" secondItem="2gC-wJ-zXA" secondAttribute="leading" constant="30" id="3fL-Gx-hfA"/>
                                 <constraint firstItem="FRX-cF-wvZ" firstAttribute="leading" secondItem="2gC-wJ-zXA" secondAttribute="leading" constant="30" id="4qv-tT-aek"/>
+                                <constraint firstItem="uiD-qu-MRX" firstAttribute="leading" secondItem="AmA-KX-xq9" secondAttribute="trailing" constant="2" id="DJB-lQ-Nrz"/>
                                 <constraint firstItem="FRX-cF-wvZ" firstAttribute="top" secondItem="T73-6Q-vzW" secondAttribute="top" constant="20" id="JWQ-7T-c4F"/>
                                 <constraint firstItem="XQy-69-hqx" firstAttribute="top" secondItem="2gC-wJ-zXA" secondAttribute="top" id="L4F-4f-VfG"/>
+                                <constraint firstAttribute="bottom" secondItem="uiD-qu-MRX" secondAttribute="bottom" constant="18" id="O3Q-h9-0f5"/>
                                 <constraint firstAttribute="height" constant="100" id="YLo-5n-DOb"/>
                                 <constraint firstItem="T73-6Q-vzW" firstAttribute="top" secondItem="2gC-wJ-zXA" secondAttribute="top" constant="30" id="aAk-vG-dYJ"/>
                                 <constraint firstAttribute="trailing" secondItem="XQy-69-hqx" secondAttribute="trailing" constant="30" id="awv-ly-rV8"/>
@@ -274,13 +282,13 @@
     <resources>
         <image name="fork.knife" catalog="system" width="94" height="128"/>
         <systemColor name="systemGreenColor">
-            <color red="0.20392156862745098" green="0.7803921568627451" blue="0.34901960784313724" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemIndigoColor">
-            <color red="0.38039215686274508" green="0.33333333333333331" blue="0.96078431372549022" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.34509803919999998" green="0.33725490200000002" blue="0.83921568629999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemOrangeColor">
-            <color red="1" green="0.55294117647058827" blue="0.15686274509803921" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -118,18 +118,18 @@ class InsulinViewController: UIViewController {
             let selectedFood = highSugarFoods[indexPath.row]
             
             // Show alert or navigate to detail screen
-            showFoodDetail(for: selectedFood)
+//            showFoodDetail(for: selectedFood)
         }
         
-        private func showFoodDetail(for food: InsulinFoodItem) {
-            let alert = UIAlertController(
-                title: food.name,
-                message: "\(food.description)\nDay: \(food.day)\nSugar Level: \(food.sugarContent)",
-                preferredStyle: .alert
-            )
-            alert.addAction(UIAlertAction(title: "OK", style: .default))
-            present(alert, animated: true)
-        }
+//        private func showFoodDetail(for food: InsulinFoodItem) {
+//            let alert = UIAlertController(
+//                title: food.name,
+//                message: "\(food.description)\nDay: \(food.day)\nSugar Level: \(food.sugarContent)",
+//                preferredStyle: .alert
+//            )
+//            alert.addAction(UIAlertAction(title: "OK", style: .default))
+//            present(alert, animated: true)
+//        }
     }
 
     // MARK: - FoodItem Model

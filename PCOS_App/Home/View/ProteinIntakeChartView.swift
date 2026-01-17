@@ -235,7 +235,7 @@ class ProteinIntakeChartView: UIView {
 // MARK: - Card View with Legend
 class ProteinIntakeChartCardView: UIView {
     
-    //private let titleLabel = UILabel()
+    private let titleLabel = UILabel()
     private let chartView = ProteinIntakeChartView()
     private let legendStackView = UIStackView()
     
@@ -256,10 +256,10 @@ class ProteinIntakeChartCardView: UIView {
         layer.cornerRadius = 16
         
         // Title
-//        titleLabel.text = "Protein Intake"
-//        titleLabel.font = .systemFont(ofSize: 16, weight: .medium)
-//        titleLabel.textColor = .label
-//        titleLabel.translatesAutoresizingMaskIntoConstraints = false
+        titleLabel.text = "Noticed a low protein pattern this week"
+        titleLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        titleLabel.textColor = .label
+        titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
         // Chart
         chartView.translatesAutoresizingMaskIntoConstraints = false
@@ -276,7 +276,7 @@ class ProteinIntakeChartCardView: UIView {
             legendStackView.addArrangedSubview(itemView)
         }
         
-        //addSubview(titleLabel)
+        addSubview(titleLabel)
         addSubview(legendStackView)
         addSubview(chartView)
         
@@ -286,19 +286,19 @@ class ProteinIntakeChartCardView: UIView {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
 //            // Title
-//            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-//            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
+            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             // Legend
             legendStackView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
             legendStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             // Chart
-            chartView.topAnchor.constraint(equalTo: legendStackView.bottomAnchor, constant: 0),
+            chartView.topAnchor.constraint(equalTo: legendStackView.bottomAnchor, constant: -12),
             chartView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
             chartView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -8),
             chartView.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16),
-            //chartView.heightAnchor.constraint(equalToConstant: 280)
+            chartView.heightAnchor.constraint(equalToConstant: 280)
         ])
     }
     

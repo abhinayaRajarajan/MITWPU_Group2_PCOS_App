@@ -17,15 +17,23 @@ class ProteinViewController: UIViewController {
     
     var recommendation: Recommendation?
     
+   
+    @IBAction func proteinImportanceLinkTapped(_ sender: UIButton) {
+        guard let url = URL(string: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10904368/") else {
+            return
+        }//National institues of health
+
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         
         if let rec = recommendation {print("Workout recommendation: \(rec.title)")}
         
-        View1.layer.cornerRadius = 30
+        View1.layer.cornerRadius = 20
         View1.clipsToBounds = true
         
-        View2.layer.cornerRadius = 30
+        View2.layer.cornerRadius = 20
         View2.clipsToBounds = true
         
         View2_1.layer.cornerRadius = 20

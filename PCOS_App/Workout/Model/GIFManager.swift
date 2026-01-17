@@ -16,12 +16,12 @@ final class GIFManager {
 
     func gif(named name: String) -> UIImage? {
 
-        // 1️⃣ Return cached GIF if available
+        //  Return cached GIF if available
         if let cached = cache.object(forKey: name as NSString) {
             return cached
         }
 
-        // 2️⃣ Load from Assets
+        // Load from Assets
         guard let asset = NSDataAsset(name: name.replacingOccurrences(of: ".gif", with: "")) else {
             return nil
         }
@@ -30,7 +30,7 @@ final class GIFManager {
             return nil
         }
 
-        // 3️⃣ Cache it
+        //  Cache it
         cache.setObject(gifImage, forKey: name as NSString)
 
         return gifImage

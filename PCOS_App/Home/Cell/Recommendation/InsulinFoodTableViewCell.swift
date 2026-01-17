@@ -18,7 +18,7 @@ class InsulinFoodTableViewCell: UITableViewCell {
     @IBOutlet weak var sugarLevelLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var foodNameLabel: UILabel!
-    @IBOutlet weak var acneview: UIView!
+  //  @IBOutlet weak var acneview: UIView!
     
     
     // Static identifier for easy reuse

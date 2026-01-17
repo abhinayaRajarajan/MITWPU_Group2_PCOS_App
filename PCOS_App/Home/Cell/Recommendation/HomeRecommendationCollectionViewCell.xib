@@ -38,8 +38,17 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Rec Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWe-Dr-yty">
-                                <rect key="frame" x="78" y="15.999999999999998" width="278" height="19.333333333333329"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCallout"/>
+                                <rect key="frame" x="78" y="15.999999999999998" width="278" height="20.333333333333329"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1v-IE-pS9">
+                                <rect key="frame" x="78" y="42.333333333333336" width="280" height="13.333333333333336"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="280" id="29b-Y5-8na"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
@@ -47,7 +56,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="k1T-uC-Hg0" firstAttribute="top" secondItem="QWe-Dr-yty" secondAttribute="top" id="70Q-IB-1IM"/>
+                            <constraint firstItem="X1v-IE-pS9" firstAttribute="top" secondItem="QWe-Dr-yty" secondAttribute="bottom" constant="6" id="8Ef-pT-9xS"/>
                             <constraint firstItem="k1T-uC-Hg0" firstAttribute="leading" secondItem="dVt-sr-CGK" secondAttribute="leading" constant="16" id="GE6-9j-f1t"/>
+                            <constraint firstItem="X1v-IE-pS9" firstAttribute="leading" secondItem="k1T-uC-Hg0" secondAttribute="trailing" constant="12" id="Ofg-5t-zTG"/>
                             <constraint firstItem="QWe-Dr-yty" firstAttribute="top" secondItem="dVt-sr-CGK" secondAttribute="top" constant="16" id="Ohb-MY-ujt"/>
                             <constraint firstAttribute="trailing" secondItem="QWe-Dr-yty" secondAttribute="trailing" constant="16" id="mt5-Jy-utD"/>
                             <constraint firstItem="QWe-Dr-yty" firstAttribute="leading" secondItem="k1T-uC-Hg0" secondAttribute="trailing" constant="12" id="twG-zY-AnK"/>
@@ -65,11 +76,12 @@
             <size key="customSize" width="372" height="83"/>
             <connections>
                 <outlet property="containerView" destination="dVt-sr-CGK" id="Kcp-IH-lqj"/>
+                <outlet property="descriptionLabel" destination="X1v-IE-pS9" id="0IK-yr-E9y"/>
                 <outlet property="iconContainerView" destination="k1T-uC-Hg0" id="KGw-im-iid"/>
                 <outlet property="iconImageView" destination="5CU-dh-OWQ" id="Xf6-1i-ndW"/>
                 <outlet property="titleLabel" destination="QWe-Dr-yty" id="XGJ-GN-moy"/>
             </connections>
-            <point key="canvasLocation" x="83.969465648854964" y="164.43661971830986"/>
+            <point key="canvasLocation" x="83.969465648854964" y="163.73239436619718"/>
         </collectionViewCell>
     </objects>
     <resources>
