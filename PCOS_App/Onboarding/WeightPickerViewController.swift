@@ -15,220 +15,291 @@ class WeightPickerViewController: UIViewController {
     @IBOutlet weak var valueLabel: UILabel!
     
     private var picker: CircularArcWeightPickerView!
+    //private var valueContainer: UIView!
     private var currentValue: Int = 70
     private var isMetric: Bool = true
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        // Initialize based on segmented control
+        isMetric = unitSegmentedControl.selectedSegmentIndex == 1
+        currentValue = isMetric ? 70 : 154 // 70kg ≈ 154lbs
+                
+        
+        setupUI()
         setupPicker()
         
     }
     
+    private func setupUI() {
+        //containerView.backgroundColor = .clear
+                
+                // Create value container (pill-shaped background)
+                //valueContainer = UIView()
+                //valueContainer.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.15)
+//                valueContainer.layer.cornerRadius = 30
+//                valueContainer.translatesAutoresizingMaskIntoConstraints = false
+//                containerView.addSubview(valueContainer)
+                
+        containerView.layer.cornerRadius = 30
+        
+        // Value Label
+        valueLabel.text = "\(currentValue)"
+        valueLabel.font = .systemFont(ofSize: 72, weight: .bold)
+        valueLabel.textAlignment = .center
+        
+        // Unit Label
+        unitLabel.text = isMetric ? "kg" : "lbs"
+        unitLabel.font = .systemFont(ofSize: 14, weight: .regular)
+        unitLabel.textColor = .secondaryLabel
+        unitLabel.textAlignment = .center
+                
+                
+               
+        }
 
     private func setupPicker() {
-            picker = CircularArcWeightPickerView(
-                frame: containerView.bounds,
-                minValue: 40,
-                maxValue: 200,
-                initialValue: 60
-            )
-
-            picker.delegate = self
-            picker.translatesAutoresizingMaskIntoConstraints = false
-            containerView.addSubview(picker)
-
-            NSLayoutConstraint.activate([
-                picker.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-                picker.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-                picker.widthAnchor.constraint(equalTo: containerView.widthAnchor),
-                picker.heightAnchor.constraint(equalTo: picker.widthAnchor)
-            ])
+        let minValue = isMetric ? 30 : 66
+        let maxValue = isMetric ? 150 : 330
+        
+        picker = CircularArcWeightPickerView(
+            frame: containerView.bounds,
+            minValue: minValue,
+            maxValue: maxValue
+        )
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.backgroundColor = .clear
+        picker.delegate = self
+        containerView.addSubview(picker)
+        
+        NSLayoutConstraint.activate([
+            picker.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            picker.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            picker.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            picker.heightAnchor.constraint(equalToConstant: 100)
+        ])
+        
+        picker.setValue(currentValue)
         }
     
     @IBAction func unitChanged(_ sender: UISegmentedControl) {
-        isMetric = sender.selectedSegmentIndex == 0
-                currentValue = isMetric
-                    ? Int(Double(currentValue) / 2.20462)
-                    : Int(Double(currentValue) * 2.20462)
-
-                picker.removeFromSuperview()
-                setupPicker()
-                updateLabel()
+        let wasMetric = isMetric
+        isMetric = sender.selectedSegmentIndex == 1
+        
+        // Convert value only if the unit actually changed
+        if wasMetric != isMetric {
+            if isMetric {
+                // Converting from lbs to kg
+                currentValue = Int(round(Double(currentValue) / 2.205))
+                unitLabel.text = "kg"
+            } else {
+                // Converting from kg to lbs
+                currentValue = Int(round(Double(currentValue) * 2.205))
+                unitLabel.text = "lbs"
+            }
+            
+            // Recreate picker with new range
+            picker.removeFromSuperview()
+            setupPicker()
+            updateValueDisplay()
         }
+    }
     
     
     @IBAction func nextTapped(_ sender: UIButton) {
-            // Save the weight value and move to next screen
+    // Save the weight value and move to next screen
             UserDefaults.standard.set(currentValue, forKey: "userWeight")
             UserDefaults.standard.set(isMetric, forKey: "weightIsMetric")
             
-            // Navigate to next onboarding screen
-            // performSegue(withIdentifier: "toNextScreen", sender: nil)
             print("Weight saved: \(currentValue) \(isMetric ? "kg" : "lbs")")
         }
         
-    private func updateLabel() {
+        private func updateValueDisplay() {
             valueLabel.text = "\(currentValue)"
         }
 
 }
 
- // MARK: - RulerPickerDelegate
- extension WeightPickerViewController: CircularArcWeightPickerDelegate {
-     func weightChanged(_ value: Int) {
-         valueLabel.text = "\(value)"
-     }
- }
-
-protocol CircularArcWeightPickerDelegate: AnyObject {
-    func weightChanged(_ value: Int)
+// MARK: - CircularArcWeightPickerDelegate
+extension WeightPickerViewController: CircularArcWeightPickerDelegate {
+    func weightValueChanged(_ value: Int) {
+        currentValue = value
+        updateValueDisplay()
+    }
 }
 
-class CircularArcWeightPickerView: UIView {
+// MARK: - Circular Arc Weight Picker Protocol
+protocol CircularArcWeightPickerDelegate: AnyObject {
+    func weightValueChanged(_ value: Int)
+}
 
+class CircularArcWeightPickerView: UIView, UIScrollViewDelegate {
+    
     weak var delegate: CircularArcWeightPickerDelegate?
-
-    private let minValue: Int
-    private let maxValue: Int
+    
+    private let scrollView = UIScrollView()
+    private let contentView = UIView()
+    private let centerIndicator = UIView()
+    
+    private var minValue: Int
+    private var maxValue: Int
     private var currentValue: Int
-
-    // Arc configuration
-    private let startAngle: CGFloat = .pi + .pi / 6      // ~210°
-    private let endAngle: CGFloat = -.pi / 6             // ~-30°
-    private let tickSpacing: CGFloat = 6                 // visual density
-
-    private var currentAngle: CGFloat = 0
-
-    private let ticksLayer = CALayer()
-    private let centerKnob = UIView()
-    private let indicator = UIView()
-
-    init(frame: CGRect, minValue: Int, maxValue: Int, initialValue: Int) {
+    private let spacing: CGFloat = 8
+    private let majorTickHeight: CGFloat = 30
+    private let minorTickHeight: CGFloat = 15
+    
+    init(frame: CGRect, minValue: Int, maxValue: Int) {
         self.minValue = minValue
         self.maxValue = maxValue
-        self.currentValue = initialValue
+        self.currentValue = minValue
         super.init(frame: frame)
-        setup()
+        setupView()
     }
-
+    
     required init?(coder: NSCoder) {
-        self.minValue = 40
-        self.maxValue = 200
-        self.currentValue = 60
+        self.minValue = 100
+        self.maxValue = 220
+        self.currentValue = 170
         super.init(coder: coder)
-        setup()
+        setupView()
+    }
+    
+    private func setupView() {
+        // ScrollView
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.delegate = self
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(scrollView)
+        
+        // Content View
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        scrollView.addSubview(contentView)
+        
+        // Center Indicator
+        centerIndicator.backgroundColor = .label
+        centerIndicator.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(centerIndicator)
+        
+        NSLayoutConstraint.activate([
+            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
+            scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
+            
+            contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
+            contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
+            contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
+            contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
+            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
+            
+            centerIndicator.centerXAnchor.constraint(equalTo: centerXAnchor),
+            centerIndicator.topAnchor.constraint(equalTo: topAnchor, constant: 20),
+            centerIndicator.widthAnchor.constraint(equalToConstant: 2),
+            centerIndicator.heightAnchor.constraint(equalToConstant: 40)
+        ])
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        
+        // Only draw ruler once when bounds are known
+        if contentView.subviews.isEmpty && bounds.width > 0 {
+            drawRuler()
+            setValue(currentValue)
+        }
+    }
+    
+    private func drawRuler() {
+        contentView.subviews.forEach { $0.removeFromSuperview() }
+        
+        // Remove any existing width constraints
+        contentView.constraints.forEach { constraint in
+            if constraint.firstAttribute == .width {
+                constraint.isActive = false
+            }
+        }
+        
+        let totalValues = maxValue - minValue + 1
+        let contentWidth = CGFloat(totalValues) * spacing
+        let padding = bounds.width / 2
+        
+        let widthConstraint = contentView.widthAnchor.constraint(equalToConstant: contentWidth + padding * 2)
+        widthConstraint.isActive = true
+        
+        for i in 0..<totalValues {
+            let value = minValue + i
+            let x = padding + CGFloat(i) * spacing
+            
+            let isMajorTick = value % 10 == 0
+            let tickHeight = isMajorTick ? majorTickHeight : minorTickHeight
+            
+            let tick = UIView()
+            tick.backgroundColor = .systemGray3
+            tick.translatesAutoresizingMaskIntoConstraints = false
+            contentView.addSubview(tick)
+            
+            NSLayoutConstraint.activate([
+                tick.widthAnchor.constraint(equalToConstant: 1),
+                tick.heightAnchor.constraint(equalToConstant: tickHeight),
+                tick.centerXAnchor.constraint(equalTo: contentView.leadingAnchor, constant: x),
+                tick.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -10)
+            ])
+            
+            // Add label for major ticks
+            if isMajorTick {
+                let label = UILabel()
+                label.text = "\(value)"
+                label.font = .systemFont(ofSize: 14, weight: .regular)
+                label.textColor = .secondaryLabel
+                label.textAlignment = .center
+                label.translatesAutoresizingMaskIntoConstraints = false
+                contentView.addSubview(label)
+                
+                NSLayoutConstraint.activate([
+                    label.centerXAnchor.constraint(equalTo: tick.centerXAnchor),
+                    label.bottomAnchor.constraint(equalTo: tick.topAnchor, constant: -4),
+                    label.widthAnchor.constraint(equalToConstant: 40)
+                ])
+            }
+        }
+        
+        // Force layout
+        contentView.layoutIfNeeded()
+    }
+    
+    func setValue(_ value: Int) {
+        guard value >= minValue && value <= maxValue else { return }
+        currentValue = value
+        
+        let padding = bounds.width / 2
+        let offset = CGFloat(value - minValue) * spacing
+        
+        scrollView.setContentOffset(CGPoint(x: offset, y: 0), animated: false)
     }
 }
 
-private extension CircularArcWeightPickerView {
-
-    func setup() {
-        backgroundColor = .clear
-
-        layer.addSublayer(ticksLayer)
-        drawTicks()
-
-        drawCenterKnob()
-        drawIndicator()
-
-        let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
-        addGestureRecognizer(pan)
-
-        setValue(currentValue)
-    }
-
-    func drawCenterKnob() {
-        let size: CGFloat = 56
-        centerKnob.frame = CGRect(
-            x: bounds.midX - size / 2,
-            y: bounds.midY - size / 2,
-            width: size,
-            height: size
-        )
-        centerKnob.backgroundColor = UIColor.systemGreen
-        centerKnob.layer.cornerRadius = size / 2
-        addSubview(centerKnob)
-    }
-
-    func drawIndicator() {
-        indicator.frame = CGRect(
-            x: bounds.midX - 1,
-            y: bounds.midY - bounds.width / 2 + 14,
-            width: 2,
-            height: 22
-        )
-        indicator.backgroundColor = .label
-        addSubview(indicator)
+// MARK: - ScrollView Delegate
+extension CircularArcWeightPickerView {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offset = scrollView.contentOffset.x
+        let value = minValue + Int(round(offset / spacing))
+        
+        let clampedValue = max(minValue, min(maxValue, value))
+        
+        if clampedValue != currentValue {
+            currentValue = clampedValue
+            delegate?.weightValueChanged(clampedValue)
+        }
     }
     
-    func drawTicks() {
-            ticksLayer.sublayers?.forEach { $0.removeFromSuperlayer() }
-
-            let radius = bounds.width / 2 - 24
-            let center = CGPoint(x: bounds.midX, y: bounds.midY)
-
-            let totalValues = maxValue - minValue
-            let angleRange = startAngle - endAngle
-
-            for i in 0...totalValues {
-                let progress = CGFloat(i) / CGFloat(totalValues)
-                let angle = startAngle - progress * angleRange
-
-                let isMajor = i % 10 == 0
-                let length: CGFloat = isMajor ? 14 : 7
-
-                let start = CGPoint(
-                    x: center.x + cos(angle) * radius,
-                    y: center.y + sin(angle) * radius
-                )
-
-                let end = CGPoint(
-                    x: center.x + cos(angle) * (radius - length),
-                    y: center.y + sin(angle) * (radius - length)
-                )
-
-                let path = UIBezierPath()
-                path.move(to: start)
-                path.addLine(to: end)
-
-                let tick = CAShapeLayer()
-                tick.path = path.cgPath
-                tick.strokeColor = UIColor.systemGray2.cgColor
-                tick.lineWidth = 2
-
-                ticksLayer.addSublayer(tick)
-            }
-        }
-    
-    @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
-            let location = gesture.location(in: self)
-            let center = CGPoint(x: bounds.midX, y: bounds.midY)
-
-            let angle = atan2(location.y - center.y, location.x - center.x)
-
-            let clamped = min(startAngle, max(endAngle, angle))
-            let percent = (startAngle - clamped) / (startAngle - endAngle)
-
-            let value = minValue + Int(round(percent * CGFloat(maxValue - minValue)))
-
-            if value != currentValue {
-                currentValue = value
-                delegate?.weightChanged(value)
-            }
-
-            ticksLayer.setAffineTransform(
-                CGAffineTransform(rotationAngle: clamped - startAngle)
-            )
-        }
-
-        func setValue(_ value: Int) {
-            let percent = CGFloat(value - minValue) / CGFloat(maxValue - minValue)
-            let angle = startAngle - percent * (startAngle - endAngle)
-
-            ticksLayer.setAffineTransform(
-                CGAffineTransform(rotationAngle: angle - startAngle)
-            )
-        }
+    func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
+        let targetOffset = targetContentOffset.pointee.x
+        let value = minValue + Int(round(targetOffset / spacing))
+        let clampedValue = max(minValue, min(maxValue, value))
+        
+        let snappedOffset = CGFloat(clampedValue - minValue) * spacing
+        targetContentOffset.pointee.x = snappedOffset
+    }
 }
