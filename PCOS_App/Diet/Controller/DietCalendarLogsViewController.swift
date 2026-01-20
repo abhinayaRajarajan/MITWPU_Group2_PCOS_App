@@ -7,6 +7,7 @@ class DietCalendarLogsViewController: UIViewController {
     private var displayedMonths: [Date] = []
     private let calendar = Calendar.current
     private var hasScrolledToCurrentMonth = false
+    private var selectedDate: Date? // Track selected date
     
     // Keep reference to the modal
     private weak var mealDetailVC: DayLoggedMealViewController?
@@ -179,13 +180,15 @@ extension DietCalendarLogsViewController: UICollectionViewDataSource {
         let days = getDaysInMonth(for: monthDate)
         
         if let date = days[indexPath.item] {
+            let isSelected = selectedDate != nil && calendar.isDate(date, inSameDayAs: selectedDate!)
             cell.configure(
                 with: date,
                 isToday: isToday(date),
+                isSelected: isSelected,
                 hasMeals: hasMeals(date)
             )
         } else {
-            cell.configure(with: nil, isToday: false, hasMeals: false)
+            cell.configure(with: nil, isToday: false, isSelected: false, hasMeals: false)
         }
         
         return cell
@@ -209,6 +212,10 @@ extension DietCalendarLogsViewController: UICollectionViewDelegate {
         let days = getDaysInMonth(for: monthDate)
         
         guard let selectedDate = days[indexPath.item] else { return }
+        
+        // Update selected date and reload to show selection
+        self.selectedDate = selectedDate
+        collectionView.reloadData()
         
         print("DEBUG: Selected date: \(selectedDate)")
         showMealDetail(for: selectedDate)
@@ -289,7 +296,7 @@ class MealCalendarDayCell: UICollectionViewCell {
         backgroundCircle.layer.cornerRadius = 22 // Half of 44
     }
     
-    func configure(with date: Date?, isToday: Bool, hasMeals: Bool) {
+    func configure(with date: Date?, isToday: Bool, isSelected: Bool, hasMeals: Bool) {
         guard let date = date else {
             dayLabel.text = ""
             backgroundCircle.isHidden = true
@@ -305,8 +312,14 @@ class MealCalendarDayCell: UICollectionViewCell {
         backgroundCircle.layer.borderWidth = 0
         backgroundCircle.layer.borderColor = nil
         
-        if isToday {
-            // Today: Pink outline circle
+        if isSelected {
+            // Selected date: Pink filled circle with white text
+            backgroundCircle.isHidden = false
+            backgroundCircle.backgroundColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
+            dayLabel.textColor = .white
+            dayLabel.font = .systemFont(ofSize: 16, weight: .semibold)
+        } else if isToday {
+            // Today (not selected): Pink outline circle
             backgroundCircle.isHidden = false
             backgroundCircle.backgroundColor = .clear
             backgroundCircle.layer.borderWidth = 2

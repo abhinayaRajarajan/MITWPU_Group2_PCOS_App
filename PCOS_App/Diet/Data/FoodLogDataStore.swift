@@ -12,7 +12,9 @@ struct FoodLogDataSource {
     static func addFoodBarCode(_ barCode: Food) {
         sampleFoods.append(barCode)
     }
+    
     static var shared = FoodLogDataSource()
+    
     static var todaysMeal: [Food] {
         return sampleFoods.filter { Calendar.current.isDate(Date(), inSameDayAs: $0.timeStamp) }
     }
@@ -27,6 +29,15 @@ struct FoodLogDataSource {
             food.timeStamp >= startOfToday && food.timeStamp < startOfTomorrow
         }
     }
+    
+    static func removeFood(_ food: Food) {
+        // Remove from sampleFoods array
+        sampleFoods.removeAll { $0.id == food.id }
+        
+        // Remove from todaysMeal if present
+        print("DEBUG: Removed \(food.name) from data source")
+    }
+
     
     static var sampleFoods: [Food] = [
         // TODAY - Morning
