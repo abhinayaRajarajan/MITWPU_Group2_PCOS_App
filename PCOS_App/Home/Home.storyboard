@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" contentInsetAdjustmentBehavior="never" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="UKk-TN-cVJ">
-                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="784"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="cS6-iJ-Aa6">
                                     <size key="itemSize" width="128" height="128"/>
@@ -44,8 +44,8 @@
                         <constraints>
                             <constraint firstItem="UKk-TN-cVJ" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="9TE-KT-HcI"/>
                             <constraint firstItem="UKk-TN-cVJ" firstAttribute="leading" secondItem="5EZ-qb-Rvc" secondAttribute="leading" id="C5y-cE-Eug"/>
-                            <constraint firstAttribute="bottom" secondItem="UKk-TN-cVJ" secondAttribute="bottom" id="GCA-lv-K7B"/>
                             <constraint firstAttribute="trailing" secondItem="UKk-TN-cVJ" secondAttribute="trailing" id="frQ-Mu-wao"/>
+                            <constraint firstItem="UKk-TN-cVJ" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="pVZ-Dh-LvF"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Title" id="aDN-lD-A4I"/>
@@ -391,13 +391,13 @@
                                 <rect key="frame" x="0.0" y="59" width="393" height="1082"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="eah-WW-GSZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1013"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="939.33333333333337"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pJb-WB-7cL">
-                                                <rect key="frame" x="16" y="8" width="361" height="171"/>
+                                                <rect key="frame" x="16" y="8" width="361" height="100"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Feb 14, Sat" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3s-Ld-Jrg">
-                                                        <rect key="frame" x="16" y="53" width="142.33333333333334" height="27"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Feb 14" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R3s-Ld-Jrg">
+                                                        <rect key="frame" x="16" y="53" width="87.333333333333329" height="27"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="27" id="56R-Wj-tx0"/>
                                                         </constraints>
@@ -414,52 +414,66 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="MOP-jf-4X5">
-                                                        <rect key="frame" x="12" y="100" width="337" height="51"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PCOS can make menstruation irregular — this is an estimate" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="58y-Vg-veV">
-                                                                <rect key="frame" x="44" y="8" width="277" height="35"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="UJn-q1-XOT"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.59999999999999998" contentMode="scaleAspectFit" verticalHuggingPriority="251" image="exclamationmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Nd1-aY-8ZD">
-                                                                <rect key="frame" x="16" y="16.999999999999986" width="20" height="17.666666666666671"/>
-                                                                <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="20" id="Cu6-Br-45L"/>
-                                                                    <constraint firstAttribute="width" constant="20" id="M9s-QL-Dvi"/>
-                                                                </constraints>
-                                                            </imageView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="58y-Vg-veV" secondAttribute="trailing" constant="16" id="3LR-Fi-tlm"/>
-                                                            <constraint firstItem="58y-Vg-veV" firstAttribute="top" secondItem="MOP-jf-4X5" secondAttribute="top" constant="8" id="3kX-x7-OwW"/>
-                                                            <constraint firstAttribute="bottom" secondItem="58y-Vg-veV" secondAttribute="bottom" constant="8" id="6KW-le-aNS"/>
-                                                            <constraint firstItem="Nd1-aY-8ZD" firstAttribute="leading" secondItem="MOP-jf-4X5" secondAttribute="leading" constant="16" id="fB4-UA-plf"/>
-                                                            <constraint firstItem="Nd1-aY-8ZD" firstAttribute="centerY" secondItem="MOP-jf-4X5" secondAttribute="centerY" id="nQy-yx-f9v"/>
-                                                            <constraint firstAttribute="height" constant="51" id="pKF-4T-QdO"/>
-                                                            <constraint firstItem="58y-Vg-veV" firstAttribute="leading" secondItem="Nd1-aY-8ZD" secondAttribute="trailing" constant="8" id="yeD-yj-jV3"/>
-                                                        </constraints>
-                                                    </view>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="bottom" secondItem="MOP-jf-4X5" secondAttribute="bottom" constant="20" id="0kq-sK-Egm"/>
                                                     <constraint firstItem="NRK-LO-ciD" firstAttribute="leading" secondItem="pJb-WB-7cL" secondAttribute="leading" constant="16" id="3yQ-Vl-IyL"/>
-                                                    <constraint firstAttribute="trailing" secondItem="MOP-jf-4X5" secondAttribute="trailing" constant="12" id="4X0-lB-nLA"/>
-                                                    <constraint firstItem="MOP-jf-4X5" firstAttribute="top" secondItem="R3s-Ld-Jrg" secondAttribute="bottom" constant="20" id="B9M-Dp-0Y2"/>
-                                                    <constraint firstItem="MOP-jf-4X5" firstAttribute="leading" secondItem="pJb-WB-7cL" secondAttribute="leading" constant="12" id="Hft-XB-gug"/>
+                                                    <constraint firstAttribute="bottom" secondItem="R3s-Ld-Jrg" secondAttribute="bottom" constant="20" id="AKg-ic-2SU"/>
                                                     <constraint firstItem="R3s-Ld-Jrg" firstAttribute="top" secondItem="NRK-LO-ciD" secondAttribute="bottom" constant="8" id="KbW-Qf-okc"/>
                                                     <constraint firstItem="R3s-Ld-Jrg" firstAttribute="leading" secondItem="pJb-WB-7cL" secondAttribute="leading" constant="16" id="dUY-li-9lp"/>
                                                     <constraint firstItem="NRK-LO-ciD" firstAttribute="top" secondItem="pJb-WB-7cL" secondAttribute="top" constant="20" id="szL-tm-VL5"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8F9-h3-Cny">
+                                                <rect key="frame" x="16" y="118" width="361" height="100"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Feb 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPF-06-dLc">
+                                                        <rect key="frame" x="16" y="53" width="55" height="27"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="27" id="l3E-MS-G5R"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="24"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You most likely ovulated on" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apj-A3-EkV">
+                                                        <rect key="frame" x="16" y="20" width="196.66666666666666" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="ux5-vd-loT"/>
+                                                        </constraints>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="bottom" secondItem="nPF-06-dLc" secondAttribute="bottom" constant="20" id="1j8-m6-UbC"/>
+                                                    <constraint firstItem="nPF-06-dLc" firstAttribute="top" secondItem="apj-A3-EkV" secondAttribute="bottom" constant="8" id="Bs7-Gz-shh"/>
+                                                    <constraint firstItem="apj-A3-EkV" firstAttribute="top" secondItem="8F9-h3-Cny" secondAttribute="top" constant="20" id="Rnh-G8-SQW"/>
+                                                    <constraint firstItem="apj-A3-EkV" firstAttribute="leading" secondItem="8F9-h3-Cny" secondAttribute="leading" constant="16" id="jv1-ND-E98"/>
+                                                    <constraint firstItem="nPF-06-dLc" firstAttribute="leading" secondItem="8F9-h3-Cny" secondAttribute="leading" constant="16" id="qBx-4r-5l7"/>
+                                                </constraints>
+                                            </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tfh-dR-uCK">
+                                                <rect key="frame" x="16" y="228.00000000000003" width="361" height="58.333333333333343"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PCOS can make menstruation and ovulation irregular — this is an estimate" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npz-cV-dNL">
+                                                        <rect key="frame" x="16" y="11.999999999999998" width="329" height="30.333333333333329"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="npz-cV-dNL" firstAttribute="top" secondItem="tfh-dR-uCK" secondAttribute="top" constant="12" id="2Ku-S8-zBO"/>
+                                                    <constraint firstAttribute="trailing" secondItem="npz-cV-dNL" secondAttribute="trailing" constant="16" id="UTZ-Qy-tbf"/>
+                                                    <constraint firstAttribute="bottom" secondItem="npz-cV-dNL" secondAttribute="bottom" constant="16" id="UfK-Y0-fxu"/>
+                                                    <constraint firstItem="npz-cV-dNL" firstAttribute="leading" secondItem="tfh-dR-uCK" secondAttribute="leading" constant="16" id="cn7-b9-e8s"/>
+                                                </constraints>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Cycle Overview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kKZ-Ew-vEb">
-                                                <rect key="frame" x="16" y="189" width="361" height="30"/>
+                                                <rect key="frame" x="16" y="296.33333333333331" width="361" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="IxG-py-Kzb"/>
                                                 </constraints>
@@ -468,7 +482,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mU8-Ij-H3i">
-                                                <rect key="frame" x="16" y="229" width="361" height="595"/>
+                                                <rect key="frame" x="16" y="336.33333333333326" width="361" height="595"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8nG-k0-qzI">
                                                         <rect key="frame" x="16" y="20" width="160" height="150"/>
@@ -498,7 +512,7 @@
                                                                 </constraints>
                                                             </imageView>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fDR-xj-2ub">
-                                                                <rect key="frame" x="59.333333333333329" y="106" width="41.333333333333329" height="24"/>
+                                                                <rect key="frame" x="59.333333333333329" y="106.00000000000006" width="41.333333333333329" height="24"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -540,7 +554,7 @@
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="days" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3av-or-kyq">
-                                                                <rect key="frame" x="39.333333333333343" y="106" width="41.333333333333343" height="24"/>
+                                                                <rect key="frame" x="39.333333333333343" y="106.00000000000006" width="41.333333333333343" height="24"/>
                                                                 <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
@@ -568,13 +582,14 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="0Vs-C9-PdY" customClass="PeriodCycleChartView" customModule="PCOS_App" customModuleProvider="target">
-                                                        <rect key="frame" x="16" y="175" width="329" height="280"/>
+                                                        <rect key="frame" x="16" y="175.00000000000006" width="329" height="280"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="280" id="GMP-wK-qqC"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your cycle appears fairly consistent over the last 5 months" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRi-hd-5P8">
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NRi-hd-5P8">
                                                         <rect key="frame" x="35" y="475" width="291" height="100"/>
+                                                        <string key="text">Your cycle appears fairly consistent over the last 5 months. For many people with PCOS, this level of consistency is considered relatively stable.</string>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -594,69 +609,6 @@
                                                     <constraint firstItem="8nG-k0-qzI" firstAttribute="leading" secondItem="mU8-Ij-H3i" secondAttribute="leading" constant="16" id="sTe-h1-D7U"/>
                                                     <constraint firstAttribute="trailing" secondItem="QXk-iU-C1e" secondAttribute="trailing" constant="16" id="vws-UA-hs6"/>
                                                     <constraint firstAttribute="trailing" secondItem="0Vs-C9-PdY" secondAttribute="trailing" constant="16" id="xUn-s8-zkc"/>
-                                                </constraints>
-                                            </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8F9-h3-Cny">
-                                                <rect key="frame" x="16" y="834" width="361" height="171"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Feb 1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nPF-06-dLc">
-                                                        <rect key="frame" x="16" y="53" width="68.666666666666671" height="27"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="27" id="l3E-MS-G5R"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="30"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You most likely ovulated on" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="apj-A3-EkV">
-                                                        <rect key="frame" x="16" y="20" width="196.66666666666666" height="25"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="25" id="ux5-vd-loT"/>
-                                                        </constraints>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                        <nil key="textColor"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="edD-K8-yzQ">
-                                                        <rect key="frame" x="12" y="100" width="337" height="51"/>
-                                                        <subviews>
-                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="PCOS can make ovulation irregular — this is an estimate" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="npz-cV-dNL">
-                                                                <rect key="frame" x="44" y="8" width="277" height="35"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="height" constant="35" id="FIT-Nz-Yso"/>
-                                                                </constraints>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                                <nil key="highlightedColor"/>
-                                                            </label>
-                                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" verticalHuggingPriority="251" image="exclamationmark" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="NhS-gY-VPY">
-                                                                <rect key="frame" x="16" y="16.666666666666703" width="20" height="18.000000000000011"/>
-                                                                <color key="tintColor" systemColor="systemYellowColor"/>
-                                                                <constraints>
-                                                                    <constraint firstAttribute="width" constant="20" id="cnT-PU-krK"/>
-                                                                </constraints>
-                                                            </imageView>
-                                                        </subviews>
-                                                        <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="0.20095180460000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <constraints>
-                                                            <constraint firstItem="NhS-gY-VPY" firstAttribute="leading" secondItem="edD-K8-yzQ" secondAttribute="leading" constant="16" id="5aL-br-fZE"/>
-                                                            <constraint firstAttribute="bottom" secondItem="npz-cV-dNL" secondAttribute="bottom" constant="8" id="J1V-bp-NJq"/>
-                                                            <constraint firstItem="NhS-gY-VPY" firstAttribute="centerY" secondItem="edD-K8-yzQ" secondAttribute="centerY" id="R8N-b2-Rqh"/>
-                                                            <constraint firstItem="npz-cV-dNL" firstAttribute="top" secondItem="edD-K8-yzQ" secondAttribute="top" constant="8" id="TOU-xB-miv"/>
-                                                            <constraint firstAttribute="height" constant="51" id="i9Y-zr-31F"/>
-                                                            <constraint firstItem="npz-cV-dNL" firstAttribute="leading" secondItem="NhS-gY-VPY" secondAttribute="trailing" constant="8" id="qDy-lf-MS9"/>
-                                                            <constraint firstAttribute="trailing" secondItem="npz-cV-dNL" secondAttribute="trailing" constant="16" id="usR-US-zVb"/>
-                                                        </constraints>
-                                                    </view>
-                                                </subviews>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstItem="edD-K8-yzQ" firstAttribute="leading" secondItem="8F9-h3-Cny" secondAttribute="leading" constant="12" id="0eL-Mz-y2F"/>
-                                                    <constraint firstAttribute="bottom" secondItem="edD-K8-yzQ" secondAttribute="bottom" constant="20" id="BnM-nh-1ci"/>
-                                                    <constraint firstItem="nPF-06-dLc" firstAttribute="top" secondItem="apj-A3-EkV" secondAttribute="bottom" constant="8" id="Bs7-Gz-shh"/>
-                                                    <constraint firstItem="edD-K8-yzQ" firstAttribute="top" secondItem="nPF-06-dLc" secondAttribute="bottom" constant="20" id="Msc-M3-msf"/>
-                                                    <constraint firstItem="apj-A3-EkV" firstAttribute="top" secondItem="8F9-h3-Cny" secondAttribute="top" constant="20" id="Rnh-G8-SQW"/>
-                                                    <constraint firstAttribute="trailing" secondItem="edD-K8-yzQ" secondAttribute="trailing" constant="12" id="UXZ-F8-YYy"/>
-                                                    <constraint firstItem="apj-A3-EkV" firstAttribute="leading" secondItem="8F9-h3-Cny" secondAttribute="leading" constant="16" id="jv1-ND-E98"/>
-                                                    <constraint firstItem="nPF-06-dLc" firstAttribute="leading" secondItem="8F9-h3-Cny" secondAttribute="leading" constant="16" id="qBx-4r-5l7"/>
                                                 </constraints>
                                             </view>
                                         </subviews>
@@ -690,10 +642,8 @@
                         <outlet property="NextCycleCard" destination="pJb-WB-7cL" id="Hxc-2m-3Cz"/>
                         <outlet property="OvulationCard" destination="8F9-h3-Cny" id="uGO-6a-BwU"/>
                         <outlet property="cycleLengthCard" destination="8nG-k0-qzI" id="QJv-Kf-DEw"/>
-                        <outlet property="ovulationWarningCard" destination="edD-K8-yzQ" id="tIi-w4-ctH"/>
                         <outlet property="periodCycleChartView" destination="0Vs-C9-PdY" id="XaD-MJ-Vot"/>
                         <outlet property="periodLengthCard" destination="QXk-iU-C1e" id="GIh-dx-U4B"/>
-                        <outlet property="warningNextCycleView" destination="MOP-jf-4X5" id="xDF-3f-5nP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="28s-ab-jLJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -712,7 +662,7 @@
                                 <rect key="frame" x="8" y="59" width="377" height="1219"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Bth-nL-S3Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="377" height="829"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="377" height="838"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Food and Symptom Overlap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ini-70-p8s">
                                                 <rect key="frame" x="8" y="7.9999999999999982" width="361" height="20.333333333333329"/>
@@ -787,11 +737,12 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sTN-Ck-HbO">
-                                                <rect key="frame" x="8" y="770" width="361" height="51"/>
+                                                <rect key="frame" x="8" y="770" width="361" height="60"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Based on your activity logs. This reflects patterns, not a medical diagnosis" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9g-hU-ndw">
-                                                        <rect key="frame" x="16" y="8" width="329" height="35"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Based on your activity logs. This reflects patterns, not a medical diagnosis." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9g-hU-ndw">
+                                                        <rect key="frame" x="16" y="8" width="329" height="44"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                 </subviews>
@@ -800,17 +751,17 @@
                                                     <constraint firstItem="w9g-hU-ndw" firstAttribute="top" secondItem="sTN-Ck-HbO" secondAttribute="top" constant="8" id="HfK-GW-pEx"/>
                                                     <constraint firstAttribute="trailing" secondItem="w9g-hU-ndw" secondAttribute="trailing" constant="16" id="crz-ZC-kSZ"/>
                                                     <constraint firstAttribute="bottom" secondItem="w9g-hU-ndw" secondAttribute="bottom" constant="8" id="h6A-9A-T0I"/>
-                                                    <constraint firstAttribute="height" constant="51" id="tCW-IY-4NI"/>
+                                                    <constraint firstAttribute="height" constant="60" id="tCW-IY-4NI"/>
                                                 </constraints>
                                             </view>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your weekly sugar exposure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mnX-8Y-8yX">
-                                                <rect key="frame" x="8" y="821" width="361" height="0.0"/>
+                                                <rect key="frame" x="8" y="830" width="361" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7G8-Ey-jpa" customClass="InsulinSummaryCardView" customModule="PCOS_App" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="821" width="361" height="240"/>
+                                                <rect key="frame" x="8" y="830" width="361" height="240"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="240" id="fAx-VC-jxZ"/>
@@ -873,13 +824,13 @@
                                 <rect key="frame" x="0.0" y="59" width="393" height="734"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IAF-eO-N6y">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="975.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="957.33333333333337"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kfv-6l-Bdg">
-                                                <rect key="frame" x="8" y="8" width="377" height="18"/>
+                                                <rect key="frame" x="8" y="8" width="377" height="0.0"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How protein supports insulin balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JT3-c6-n7G">
-                                                        <rect key="frame" x="8" y="0.0" width="361" height="18"/>
+                                                    <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="How protein supports insulin balance" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JT3-c6-n7G">
+                                                        <rect key="frame" x="0.0" y="0.0" width="253.33333333333334" height="0.0"/>
                                                         <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -888,14 +839,14 @@
                                                 <edgeInsets key="layoutMargins" top="0.0" left="8" bottom="0.0" right="8"/>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q0Q-GE-COB" customClass="ProteinIntakeChartView" customModule="PCOS_App" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="36" width="377" height="350"/>
+                                                <rect key="frame" x="8" y="18" width="377" height="350"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="350" id="b1i-wr-Q1h"/>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ihO-0m-zRV">
-                                                <rect key="frame" x="8" y="396.00000000000006" width="377" height="571.33333333333348"/>
+                                                <rect key="frame" x="8" y="378.00000000000006" width="377" height="571.33333333333348"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why Protein Matters in PCOS " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKW-7u-yVT">
                                                         <rect key="frame" x="16" y="7.9999999999999982" width="345" height="20.333333333333329"/>
@@ -907,14 +858,14 @@
                                                         <rect key="frame" x="16" y="44.333333333333314" width="345" height="193"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EcP-AF-3kk">
-                                                                <rect key="frame" x="18" y="25.000000000000057" width="309" height="143"/>
+                                                                <rect key="frame" x="18" y="25" width="309" height="98"/>
                                                                 <string key="text">Protein helps to stabilize blood sugar and improve insulin sensitivity. It also aids in weight management and appetite control by promoting feelings of fullness and boosting metabolism. </string>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMn-ku-U1g">
-                                                                <rect key="frame" x="11.999999999999996" y="150.66666666666669" width="52.666666666666657" height="34.333333333333343"/>
+                                                                <rect key="frame" x="7.9999999999999964" y="124.00000000000006" width="52.666666666666657" height="57"/>
                                                                 <state key="normal" title="Button"/>
                                                                 <buttonConfiguration key="configuration" style="plain" title="NIH"/>
                                                                 <connections>
@@ -925,10 +876,10 @@
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="trailing" secondItem="EcP-AF-3kk" secondAttribute="trailing" constant="18" id="DK1-La-D0c"/>
-                                                            <constraint firstItem="jMn-ku-U1g" firstAttribute="leading" secondItem="GC4-gx-Ib1" secondAttribute="leading" constant="12" id="Fhv-Ef-CKI"/>
-                                                            <constraint firstAttribute="bottom" secondItem="EcP-AF-3kk" secondAttribute="bottom" constant="25" id="GEA-3Q-XX4"/>
+                                                            <constraint firstItem="jMn-ku-U1g" firstAttribute="leading" secondItem="GC4-gx-Ib1" secondAttribute="leading" constant="8" id="Fhv-Ef-CKI"/>
                                                             <constraint firstItem="EcP-AF-3kk" firstAttribute="top" secondItem="GC4-gx-Ib1" secondAttribute="top" constant="25" id="RbL-Fx-bpE"/>
-                                                            <constraint firstAttribute="bottom" secondItem="jMn-ku-U1g" secondAttribute="bottom" constant="8" id="eSr-d5-5Yb"/>
+                                                            <constraint firstItem="jMn-ku-U1g" firstAttribute="top" secondItem="EcP-AF-3kk" secondAttribute="bottom" constant="1" id="bIB-nr-NEq"/>
+                                                            <constraint firstAttribute="bottom" secondItem="jMn-ku-U1g" secondAttribute="bottom" constant="12" id="eSr-d5-5Yb"/>
                                                             <constraint firstItem="EcP-AF-3kk" firstAttribute="leading" secondItem="GC4-gx-Ib1" secondAttribute="leading" constant="18" id="jSq-57-ZkI"/>
                                                         </constraints>
                                                         <edgeInsets key="layoutMargins" top="8" left="32" bottom="8" right="8"/>
@@ -1130,55 +1081,37 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="1491"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9iY-0R-tM0">
-                                <rect key="frame" x="8" y="59" width="377" height="1432"/>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9iY-0R-tM0">
+                                <rect key="frame" x="8" y="20" width="377" height="1432"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="fxV-3N-RMR">
-                                        <rect key="frame" x="0.0" y="0.0" width="377" height="588.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="377" height="572.66666666666663"/>
                                         <subviews>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This week's overview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZC-d2-H0g">
-                                                <rect key="frame" x="8" y="7.9999999999999982" width="361" height="19.333333333333329"/>
+                                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This week's overview" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="UZC-d2-H0g">
+                                                <rect key="frame" x="8" y="8" width="361" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x9a-yg-RVz">
-                                                <rect key="frame" x="8" y="37.333333333333321" width="361" height="75.666666666666686"/>
-                                                <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Based on your activity logs. This reflects patterns, not a medical diagnosis" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tQ-Bp-8Dy">
-                                                        <rect key="frame" x="16" y="11.999999999999996" width="329" height="51.666666666666657"/>
-                                                        <color key="tintColor" name="AccentColor"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                                        <nil key="highlightedColor"/>
-                                                    </label>
-                                                </subviews>
-                                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                <constraints>
-                                                    <constraint firstItem="6tQ-Bp-8Dy" firstAttribute="leading" secondItem="x9a-yg-RVz" secondAttribute="leading" constant="16" id="aUn-XT-nys"/>
-                                                    <constraint firstAttribute="trailing" secondItem="6tQ-Bp-8Dy" secondAttribute="trailing" constant="16" id="c9U-FD-saL"/>
-                                                    <constraint firstItem="6tQ-Bp-8Dy" firstAttribute="top" secondItem="x9a-yg-RVz" secondAttribute="top" constant="12" id="rcC-Ec-BCb"/>
-                                                    <constraint firstAttribute="bottom" secondItem="6tQ-Bp-8Dy" secondAttribute="bottom" constant="12" id="y3c-5F-Ryn"/>
-                                                </constraints>
-                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Pattern Noticed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ug1-hU-4F9">
-                                                <rect key="frame" x="8" y="122.99999999999999" width="361" height="20.333333333333329"/>
+                                                <rect key="frame" x="8" y="7.9999999999999982" width="361" height="20.333333333333329"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DkH-sd-GKY">
-                                                <rect key="frame" x="8" y="153.33333333333334" width="361" height="268.66666666666663"/>
+                                                <rect key="frame" x="8" y="38.333333333333343" width="361" height="282.33333333333326"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4X3-Nz-NDB" customClass="WorkoutPieChart" customModule="PCOS_App" customModuleProvider="target">
-                                                        <rect key="frame" x="16" y="52.666666666666657" width="329" height="200"/>
+                                                        <rect key="frame" x="16" y="66.333333333333314" width="329" height="200"/>
                                                         <color key="backgroundColor" systemColor="systemCyanColor"/>
                                                         <constraints>
                                                             <constraint firstAttribute="height" constant="200" id="GYb-jC-vEe"/>
                                                         </constraints>
                                                     </view>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent activity leaned more toward cardio-based movement" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5G3-th-4Do">
-                                                        <rect key="frame" x="16" y="16" width="329" height="28.666666666666671"/>
-                                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent activity leaned more toward cardio-based movement this week" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="5G3-th-4Do">
+                                                        <rect key="frame" x="16" y="16.000000000000004" width="329" height="42.333333333333343"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -1194,18 +1127,38 @@
                                                     <constraint firstItem="5G3-th-4Do" firstAttribute="top" secondItem="DkH-sd-GKY" secondAttribute="top" constant="16" id="zya-s4-JaO"/>
                                                 </constraints>
                                             </view>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x9a-yg-RVz">
+                                                <rect key="frame" x="8" y="330.66666666666669" width="361" height="75.666666666666686"/>
+                                                <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Based on your activity logs. This reflects patterns, not a medical diagnosis" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tQ-Bp-8Dy">
+                                                        <rect key="frame" x="16" y="11.999999999999996" width="329" height="47.666666666666657"/>
+                                                        <color key="tintColor" name="AccentColor"/>
+                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                        <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <constraints>
+                                                    <constraint firstItem="6tQ-Bp-8Dy" firstAttribute="leading" secondItem="x9a-yg-RVz" secondAttribute="leading" constant="16" id="aUn-XT-nys"/>
+                                                    <constraint firstAttribute="trailing" secondItem="6tQ-Bp-8Dy" secondAttribute="trailing" constant="16" id="c9U-FD-saL"/>
+                                                    <constraint firstItem="6tQ-Bp-8Dy" firstAttribute="top" secondItem="x9a-yg-RVz" secondAttribute="top" constant="12" id="rcC-Ec-BCb"/>
+                                                    <constraint firstAttribute="bottom" secondItem="6tQ-Bp-8Dy" secondAttribute="bottom" constant="16" id="y3c-5F-Ryn"/>
+                                                </constraints>
+                                            </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="About Strength Training For PCOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VPS-DD-HnZ">
-                                                <rect key="frame" x="8" y="432" width="361" height="20.333333333333314"/>
+                                                <rect key="frame" x="8" y="416.33333333333331" width="361" height="20.333333333333314"/>
                                                 <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ZC-5n-Glb">
-                                                <rect key="frame" x="8" y="462.33333333333337" width="361" height="118"/>
+                                                <rect key="frame" x="8" y="446.66666666666669" width="361" height="118.00000000000006"/>
                                                 <subviews>
-                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Strength training is often included in PCOS-friendly routines to support overall balance and energy" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vnp-xe-qhC">
-                                                        <rect key="frame" x="16" y="16" width="329" height="86"/>
-                                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vnp-xe-qhC">
+                                                        <rect key="frame" x="16" y="15.999999999999943" width="329" height="86"/>
+                                                        <string key="text">Strength training is often included in PCOS-friendly routines because it supports muscle health, insulin sensitivity, and steady energy.</string>
+                                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
@@ -1263,7 +1216,6 @@
     <resources>
         <image name="clock.arrow.trianglehead.clockwise.rotate.90.path.dotted" catalog="system" width="128" height="119"/>
         <image name="drop.fill" catalog="system" width="96" height="128"/>
-        <image name="exclamationmark" catalog="system" width="47" height="128"/>
         <image name="profile" width="992" height="1056"/>
         <namedColor name="AccentColor">
             <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1279,9 +1231,6 @@
         </systemColor>
         <systemColor name="systemGray6Color">
             <color red="0.94901960780000005" green="0.94901960780000005" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemYellowColor">
-            <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

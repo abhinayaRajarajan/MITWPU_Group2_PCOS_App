@@ -38,28 +38,26 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="751" text="Rec Title" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QWe-Dr-yty">
-                                <rect key="frame" x="78" y="15.999999999999998" width="278" height="20.333333333333329"/>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <rect key="frame" x="78" y="16" width="278" height="18"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1v-IE-pS9">
-                                <rect key="frame" x="78" y="42.333333333333336" width="280" height="13.333333333333336"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="280" id="29b-Y5-8na"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption2"/>
-                                <nil key="textColor"/>
+                                <rect key="frame" x="78" y="38" width="274" height="14.333333333333336"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="k1T-uC-Hg0" firstAttribute="top" secondItem="QWe-Dr-yty" secondAttribute="top" id="70Q-IB-1IM"/>
-                            <constraint firstItem="X1v-IE-pS9" firstAttribute="top" secondItem="QWe-Dr-yty" secondAttribute="bottom" constant="6" id="8Ef-pT-9xS"/>
+                            <constraint firstItem="X1v-IE-pS9" firstAttribute="top" secondItem="QWe-Dr-yty" secondAttribute="bottom" constant="4" id="8Ef-pT-9xS"/>
                             <constraint firstItem="k1T-uC-Hg0" firstAttribute="leading" secondItem="dVt-sr-CGK" secondAttribute="leading" constant="16" id="GE6-9j-f1t"/>
                             <constraint firstItem="X1v-IE-pS9" firstAttribute="leading" secondItem="k1T-uC-Hg0" secondAttribute="trailing" constant="12" id="Ofg-5t-zTG"/>
                             <constraint firstItem="QWe-Dr-yty" firstAttribute="top" secondItem="dVt-sr-CGK" secondAttribute="top" constant="16" id="Ohb-MY-ujt"/>
+                            <constraint firstAttribute="trailing" secondItem="X1v-IE-pS9" secondAttribute="trailing" constant="20" id="Zf9-5J-ZqA"/>
                             <constraint firstAttribute="trailing" secondItem="QWe-Dr-yty" secondAttribute="trailing" constant="16" id="mt5-Jy-utD"/>
                             <constraint firstItem="QWe-Dr-yty" firstAttribute="leading" secondItem="k1T-uC-Hg0" secondAttribute="trailing" constant="12" id="twG-zY-AnK"/>
                         </constraints>

@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="487" height="524"/>
                     </imageView>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiV-Pd-smO">
-                        <rect key="frame" x="0.0" y="0.0" width="487" height="474"/>
+                        <rect key="frame" x="0.0" y="0.0" width="487" height="524"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZbB-xp-tyV">
                                 <rect key="frame" x="20" y="190" width="447" height="61"/>
@@ -32,16 +32,16 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Getting Started" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyA-zA-4dJ">
-                                <rect key="frame" x="0.0" y="286" width="487" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                <rect key="frame" x="0.0" y="286" width="487" height="33.666666666666686"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleTitle1"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xjf-z9-c6r">
-                                <rect key="frame" x="188.66666666666666" y="359" width="109.99999999999997" height="35"/>
+                                <rect key="frame" x="181" y="362.66666666666669" width="125" height="50"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="35" id="XuK-qi-O3S"/>
-                                    <constraint firstAttribute="width" constant="110" id="lbC-aZ-el1"/>
+                                    <constraint firstAttribute="height" constant="50" id="XuK-qi-O3S"/>
+                                    <constraint firstAttribute="width" constant="125" id="lbC-aZ-el1"/>
                                 </constraints>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Log Period"/>
@@ -64,7 +64,7 @@
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
                 <constraint firstAttribute="trailing" secondItem="aiV-Pd-smO" secondAttribute="trailing" id="2hB-At-ptd"/>
-                <constraint firstAttribute="bottom" secondItem="aiV-Pd-smO" secondAttribute="bottom" constant="50" id="3mP-DF-Jyv"/>
+                <constraint firstAttribute="bottom" secondItem="aiV-Pd-smO" secondAttribute="bottom" id="3mP-DF-Jyv"/>
                 <constraint firstItem="7Uk-73-W3E" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="K1G-vA-fAs"/>
                 <constraint firstItem="aiV-Pd-smO" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="KJV-hg-9Eu"/>
                 <constraint firstItem="7Uk-73-W3E" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Xma-nC-VdM"/>

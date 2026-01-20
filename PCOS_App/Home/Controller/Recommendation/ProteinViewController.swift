@@ -10,19 +10,19 @@ import UIKit
 class ProteinViewController: UIViewController {
     
     @IBOutlet weak var proteinChartContainer: ProteinIntakeChartView!
-
+    
     @IBOutlet weak var View2_1: UIView!
     @IBOutlet weak var View2: UIView!
     @IBOutlet weak var View1: UIView!
     
     var recommendation: Recommendation?
     
-   
+    
     @IBAction func proteinImportanceLinkTapped(_ sender: UIButton) {
         guard let url = URL(string: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10904368/") else {
             return
         }//National institues of health
-
+        
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
     override func viewDidLoad() {
@@ -38,7 +38,6 @@ class ProteinViewController: UIViewController {
         
         View2_1.layer.cornerRadius = 20
         View2_1.clipsToBounds = true
-        // Do any additional setup after loading the view.
         
         setupProteinChart()
     }
@@ -77,5 +76,5 @@ class ProteinViewController: UIViewController {
         
         chartCard.configure(with: data)
     }
-
+    
 }
