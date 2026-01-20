@@ -191,7 +191,7 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
         nameLabel.translatesAutoresizingMaskIntoConstraints = false
         nameLabel.font = .systemFont(ofSize: 16, weight: .medium)
         nameLabel.textColor = .darkGray
-        nameLabel.text = symptom.name
+        nameLabel.text = symptom.category
         cardView.addSubview(nameLabel)
         
         // Checkmark icon (since isSelected is true)

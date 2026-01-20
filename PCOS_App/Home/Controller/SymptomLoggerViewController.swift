@@ -93,7 +93,15 @@ class SymptomLoggerViewController: UIViewController {
             var symptoms: [SymptomItem] = []
             for indexPath in selectedSymptoms {
                 let symptom = categories[indexPath.section].items[indexPath.item]
-                let logged = SymptomItem(name: symptom.name, icon: symptom.icon, isSelected: true, date: Date())
+                //let logged = SymptomItem(name: symptom.name, icon: symptom.icon, isSelected: true, date: Date())
+                let logged = SymptomItem(
+                    name: symptom.name,
+                    icon: symptom.icon,
+                    isSelected: true,
+                    date: Date(),
+                    category: symptom.category
+                )
+
                 symptoms.append(logged)
             }
             return symptoms

@@ -60,52 +60,52 @@ class SymptomDataStore {
         switch daysDifference {
         case 0: // Today
             return [
-                SymptomItem(name: "Abdominal Cramp", icon: "AbdominalCrampsIcon", isSelected: true, date: date),
-                SymptomItem(name: "Bloating", icon: "BloatingIcon", isSelected: true, date: date),
-                SymptomItem(name: "Fatigue", icon: "FatigueIcon", isSelected: true, date: date),
-                SymptomItem(name: "Tender Breasts", icon: "ChestPainIcon", isSelected: true, date: date)
+                SymptomItem(name: "Abdominal Cramp", icon: "AbdominalCrampsIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Bloating", icon: "BloatingIcon", isSelected: true, date: date,category: "Gut Health"),
+                SymptomItem(name: "Fatigue", icon: "FatigueIcon", isSelected: true, date: date,category: "Lifestyle"),
+                SymptomItem(name: "Tender Breasts", icon: "ChestPainIcon", isSelected: true, date: date,category: "Pain")
             ]
             
         case 1: // Yesterday
             return [
-                SymptomItem(name: "Abdominal Cramp", icon: "AbdominalCrampsIcon", isSelected: true, date: date),
-                SymptomItem(name: "Low Back Pain", icon: "BackPainIcon", isSelected: true, date: date),
-                SymptomItem(name: "Headache", icon: "HeadacheIcon", isSelected: true, date: date),
-                SymptomItem(name: "Acne", icon: "AcneIcon", isSelected: true, date: date),
-                SymptomItem(name: "Insomnia", icon: "InsomniaIcon", isSelected: true, date: date)
+                SymptomItem(name: "Abdominal Cramp", icon: "AbdominalCrampsIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Low Back Pain", icon: "BackPainIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Headache", icon: "HeadacheIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Acne", icon: "AcneIcon", isSelected: true, date: date,category: "Skin and Hair"),
+                SymptomItem(name: "Insomnia", icon: "InsomniaIcon", isSelected: true, date: date,category: "Lifestyle")
             ]
             
         case 2: // 2 days ago
             return [
-                SymptomItem(name: "Red", icon: "RedSpottingIcon", isSelected: true, date: date),
-                SymptomItem(name: "Abdominal Cramp", icon: "AbdominalCrampsIcon", isSelected: true, date: date),
-                SymptomItem(name: "Tender Breasts", icon: "ChestPainIcon", isSelected: true, date: date),
-                SymptomItem(name: "Fatigue", icon: "FatigueIcon", isSelected: true, date: date),
-                SymptomItem(name: "Bloating", icon: "BloatingIcon", isSelected: true, date: date),
-                SymptomItem(name: "Anxiety", icon: "AnxietyIcon", isSelected: true, date: date)
+                SymptomItem(name: "Red", icon: "RedSpottingIcon", isSelected: true, date: date,category: "Spotting"),
+                SymptomItem(name: "Abdominal Cramp", icon: "AbdominalCrampsIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Tender Breasts", icon: "ChestPainIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Fatigue", icon: "FatigueIcon", isSelected: true, date: date,category: "Lifestyle"),
+                SymptomItem(name: "Bloating", icon: "BloatingIcon", isSelected: true, date: date,category: "Gut Health"),
+                SymptomItem(name: "Anxiety", icon: "AnxietyIcon", isSelected: true, date: date,category: "Lifestyle")
             ]
             
         case 3: // 3 days ago
             return [
-                SymptomItem(name: "Red", icon: "RedSpottingIcon", isSelected: true, date: date),
-                SymptomItem(name: "Brown", icon: "BrownSpottingIcon", isSelected: true, date: date),
-                SymptomItem(name: "Abdominal Cramp", icon: "AbdominalCrampsIcon", isSelected: true, date: date),
-                SymptomItem(name: "Low Back Pain", icon: "BackPainIcon", isSelected: true, date: date),
-                SymptomItem(name: "Tender Breasts", icon: "ChestPainIcon", isSelected: true, date: date),
-                SymptomItem(name: "Depressed", icon: "DepressedIcon", isSelected: true, date: date),
-                SymptomItem(name: "Constipated", icon: "ConstipationIcon", isSelected: true, date: date)
+                SymptomItem(name: "Red", icon: "RedSpottingIcon", isSelected: true, date: date,category: "Spotting"),
+                SymptomItem(name: "Brown", icon: "BrownSpottingIcon", isSelected: true, date: date,category: "Spotting"),
+                SymptomItem(name: "Abdominal Cramp", icon: "AbdominalCrampsIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Low Back Pain", icon: "BackPainIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Tender Breasts", icon: "ChestPainIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Depressed", icon: "DepressedIcon", isSelected: true, date: date,category: "Lifestyle"),
+                SymptomItem(name: "Constipated", icon: "ConstipationIcon", isSelected: true, date: date,category: "Gut Health")
             ]
             
         case 4: // 4 days ago
             return [
-                SymptomItem(name: "Red", icon: "RedSpottingIcon", isSelected: true, date: date),
-                SymptomItem(name: "Abdominal Cramp", icon: "AbdominalCrampsIcon", isSelected: true, date: date),
-                SymptomItem(name: "Tender Breasts", icon: "ChestPainIcon", isSelected: true, date: date),
-                SymptomItem(name: "Headache", icon: "HeadacheIcon", isSelected: true, date: date),
-                SymptomItem(name: "Acne", icon: "AcneIcon", isSelected: true, date: date),
-                SymptomItem(name: "Fatigue", icon: "FatigueIcon", isSelected: true, date: date),
-                SymptomItem(name: "Bloating", icon: "BloatingIcon", isSelected: true, date: date),
-                SymptomItem(name: "Gas", icon: "GasIcon", isSelected: true, date: date)
+                SymptomItem(name: "Red", icon: "RedSpottingIcon", isSelected: true, date: date,category: "Spotting"),
+                SymptomItem(name: "Abdominal Cramp", icon: "AbdominalCrampsIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Tender Breasts", icon: "ChestPainIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Headache", icon: "HeadacheIcon", isSelected: true, date: date,category: "Pain"),
+                SymptomItem(name: "Acne", icon: "AcneIcon", isSelected: true, date: date,category: "Skin and Hair"),
+                SymptomItem(name: "Fatigue", icon: "FatigueIcon", isSelected: true, date: date,category: "Lifestyle"),
+                SymptomItem(name: "Bloating", icon: "BloatingIcon", isSelected: true, date: date,category: "Gut Health"),
+                SymptomItem(name: "Gas", icon: "GasIcon", isSelected: true, date: date,category: "Gut Health")
             ]
             
         default:
@@ -118,15 +118,25 @@ class SymptomDataStore {
 struct SymptomItemCodable: Codable {
     let name: String
     let icon: String
+    let category: String
     let isSelected: Bool
-    
+
     init(from symptom: SymptomItem) {
         self.name = symptom.name
         self.icon = symptom.icon
+        self.category = symptom.category
         self.isSelected = symptom.isSelected
     }
-    
+
     func toSymptomItem(date: Date) -> SymptomItem {
-        return SymptomItem(name: name, icon: icon, isSelected: isSelected, date: date)
+        SymptomItem(
+            name: name,
+            icon: icon,
+            isSelected: isSelected,
+            date: date,
+            category: category
+        )
     }
 }
+
+

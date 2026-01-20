@@ -45,7 +45,7 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
             print("ERROR in configure: IBOutlets are nil!")
             return
         }
-        label.text = symptom.name
+        label.text = symptom.category
         label.textColor = .black
         iconImage.image = UIImage(named: symptom.icon)
         updateSelectionState(isSelected)

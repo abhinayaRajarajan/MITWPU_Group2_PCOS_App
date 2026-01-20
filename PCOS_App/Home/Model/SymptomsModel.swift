@@ -13,17 +13,20 @@ struct SymptomItem: Encodable,Decodable {
     let icon: String
     var isSelected: Bool = false
     var date: Date?
-    
-    init(name: String, icon: String){
+    var category: String
+    init(name: String, icon: String,category: String){
         self.name = name
         self.icon = icon
+        self.category=category
     }
     
-    init(name: String, icon: String, isSelected: Bool, date: Date){
+    //init(name: String, icon: String, isSelected: Bool, date: Date){
+        init(name: String, icon: String, isSelected: Bool, date: Date,category:String){
         self.name = name
         self.icon = icon
         self.isSelected = isSelected
         self.date = date
+       self.category=category
     }
 }
 

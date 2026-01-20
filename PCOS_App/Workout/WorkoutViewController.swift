@@ -284,7 +284,11 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         switch indexPath.section {
-            
+        case 0:
+                // Handle goal card tap
+                let selectedCard = cards[indexPath.item]
+                navigateToMetrics(for: selectedCard)
+                
         case 1:
             let routines = WorkoutSessionManager.shared.savedRoutines
             //guard !routines.isEmpty else { return }
@@ -317,7 +321,27 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
             return
         }
     }
-    
+    private func navigateToMetrics(for card: Card) {
+        // Map Card to GoalType
+        let goalType: GoalType
+        
+        switch card.name {
+        case "Calories burnt":
+            goalType = .calories
+        case "Steps":
+            goalType = .steps
+        case "Duration":
+            goalType = .duration
+        default:
+            return
+        }
+        
+        // Instantiate MetricsViewController
+        if let metricsVC = storyboard?.instantiateViewController(withIdentifier: "MetricsViewController") as? MetricsViewController {
+            metricsVC.goalType = goalType
+            navigationController?.pushViewController(metricsVC, animated: true)
+        }
+    }
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
 
         // We only want one trigger
