@@ -29,11 +29,3 @@ struct SymptomItem: Encodable,Decodable {
        self.category=category
     }
 }
-
-//LOgged Symptoms: codable for userdefaults storage
-
-//Symptom Category
-//struct SymptomCategory {
-//    let title: String
-//    let items: [SymptomItem]
-//}

@@ -73,9 +73,7 @@ class InsulinViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-        
-        // Set up table view properties
-        //tableView.estimatedRowHeight = 120
+
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         //tableView.backgroundColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 0.1)
@@ -92,7 +90,6 @@ class InsulinViewController: UIViewController {
     }
 }
 
-// MARK: - UITableView DataSource & Delegate
 extension InsulinViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -116,16 +113,6 @@ extension InsulinViewController: UITableViewDataSource, UITableViewDelegate {
         
         let selectedFood = highSugarFoods[indexPath.row]
     }
-    
-    //        private func showFoodDetail(for food: InsulinFoodItem) {
-    //            let alert = UIAlertController(
-    //                title: food.name,
-    //                message: "\(food.description)\nDay: \(food.day)\nSugar Level: \(food.sugarContent)",
-    //                preferredStyle: .alert
-    //            )
-    //            alert.addAction(UIAlertAction(title: "OK", style: .default))
-    //            present(alert, animated: true)
-    //        }
 }
 
 struct InsulinFoodItem {

@@ -45,11 +45,25 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
             print("ERROR in configure: IBOutlets are nil!")
             return
         }
-        label.text = symptom.category
+        label.text = symptom.name
         label.textColor = .black
         iconImage.image = UIImage(named: symptom.icon)
         updateSelectionState(isSelected)
         
+    }
+    
+    func configureWithCategory(with symptom: SymptomItem) {
+        guard let iconImage = IconImage, let label = symptomLabel else { return }
+        
+        // DISPLAY CATEGORY INSTEAD OF NAME
+        label.text = symptom.category
+        
+        label.textColor = .black
+        iconImage.image = UIImage(named: symptom.icon)
+        
+        // On home screen, we usually don't want the selection border
+        contentView.backgroundColor = .clear
+        iconImage.layer.borderWidth = 0
     }
     
     private func updateSelectionState(_ isSelected: Bool) {
