@@ -10,6 +10,7 @@ import UIKit
 class ExploreRoutinesCollectionViewCell: UICollectionViewCell {
     
     
+    @IBOutlet weak var RoutineEstTime: UILabel!
     @IBOutlet weak var exploreRoutineImage: UIImageView!
     @IBOutlet weak var exploreRoutineTitle: UILabel!
     @IBOutlet weak var cellBackgroundView: UIView!
@@ -26,6 +27,8 @@ class ExploreRoutinesCollectionViewCell: UICollectionViewCell {
         
         exploreRoutineTitle.text = routine.name
         RoutineDescriptionOutlet.text=routine.routineTagline
+        EstTimeOutlet.text = routine.formattedDuration
+        
         if let imageName = routine.thumbnailImageName {
             exploreRoutineImage.image = UIImage(named: imageName)
             
