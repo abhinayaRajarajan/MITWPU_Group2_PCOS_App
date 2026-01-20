@@ -56,7 +56,6 @@ class HomeViewController: UIViewController, DataPassDelegate {
         navigationItem.rightBarButtonItems = [profile, calendar]
         
         registerCells()
-        //collectionView.setCollectionViewLayout(generateLayout(), animated: true)
         
         collectionView.dataSource = self
         collectionView.delegate = self
@@ -140,20 +139,20 @@ class HomeViewController: UIViewController, DataPassDelegate {
     @objc func leftBarButtonTapped() {
         
         // COMMENTED OUT: Will pass period dates to FullCalendarViewController later
-                /*
-                if let vc = storyboard?.instantiateViewController(withIdentifier: "FullCalendarViewController") as? FullCalendarViewController {
-                    // Load saved period dates
-                    var periodDates: [Date] = []
-                    if let timestamps = UserDefaults.standard.array(forKey: "SavedPeriodDates") as? [TimeInterval] {
-                        periodDates = timestamps.map { Date(timeIntervalSince1970: $0) }.sorted()
-                    }
-                    
-                    // Pass the dates to FullCalendarViewController
-                    vc.periodDates = periodDates
-                    
-                    navigationController?.pushViewController(vc, animated: true)
-                }
-                */
+        /*
+         if let vc = storyboard?.instantiateViewController(withIdentifier: "FullCalendarViewController") as? FullCalendarViewController {
+         // Load saved period dates
+         var periodDates: [Date] = []
+         if let timestamps = UserDefaults.standard.array(forKey: "SavedPeriodDates") as? [TimeInterval] {
+         periodDates = timestamps.map { Date(timeIntervalSince1970: $0) }.sorted()
+         }
+         
+         // Pass the dates to FullCalendarViewController
+         vc.periodDates = periodDates
+         
+         navigationController?.pushViewController(vc, animated: true)
+         }
+         */
         
         if let vc = storyboard?.instantiateViewController(withIdentifier: "FullCalendarViewController") as? FullCalendarViewController {
             navigationController?.pushViewController(vc, animated: true)
@@ -174,7 +173,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
     }
     
     func createHomeHeaderSection() -> NSCollectionLayoutSection {
-        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(500))
+        let itemSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(1), heightDimension: .absolute(450))
         let group = NSCollectionLayoutGroup.vertical(layoutSize: itemSize, subitems: [NSCollectionLayoutItem(layoutSize: itemSize)])
         let section = NSCollectionLayoutSection(group: group)
         section.contentInsets = .zero
@@ -307,7 +306,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
         let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: "header", withReuseIdentifier: "header_cell", for: indexPath) as! HeaderCollectionReusableView
         
         if indexPath.section == 1 {
-            headerView.configureHeader(with:"Log Symptoms")
+            headerView.configureHeader(with:"Symptoms")
         } else if indexPath.section == 3{
             headerView.configureHeader(with:"Health Insights")
         }else {
@@ -324,7 +323,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
                 performSegue(withIdentifier: "showSymptomLogger", sender: self)
             }
         }
-
+        
         if indexPath.section == 2 {
             performSegue(withIdentifier: "showCycleReport", sender: nil)
         }
@@ -338,7 +337,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
                 performSegue(withIdentifier: "showWorkoutPush", sender: self)
             }
         }
-
+        
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "showSymptomLogger",
@@ -377,11 +376,11 @@ extension HomeViewController: HomeHeaderCollectionViewCellDelegate {
     func homeHeaderCellDidTapLogPeriod(_ cell: HomeHeaderCollectionViewCell) {
         let calendarVC = LogPeriodCalendarViewController()
         calendarVC.delegate = self
-                
+        
         // Present in a navigation controller for the navigation bar to show
         let navController = UINavigationController(rootViewController: calendarVC)
         navController.modalPresentationStyle = .pageSheet // or .formSheet for smaller size
-                
+        
         // Optional: Configure sheet presentation (iOS 15+)
         if let sheet = navController.sheetPresentationController {
             sheet.detents = [.large()] // Full screen height
@@ -413,85 +412,5 @@ extension HomeViewController: LogPeriodCalendarDelegate {
 }
 
 
-// Just assign delegate and dataSource (or you already connected in Storyboard)
-//        symptomsCollectionView.delegate = self
-//        symptomsCollectionView.dataSource = self
 
-//loadTodaysSymptoms()
-
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//        // Reload symptoms when coming back from logger
-//        loadTodaysSymptoms()
-//    }
-//
-//    private func loadTodaysSymptoms() {
-//        // Load saved symptoms from UserDefaults
-//        if let data = UserDefaults.standard.data(forKey: "todaysSymptoms"),
-//       let symptoms = try? JSONDecoder().decode([LoggedSymptoms].self, from: data) {
-//        selectedSymptoms = symptoms
-//        symptomsCollectionView.reloadData()        }
-//    }
-//
-//
-//    }
-//
-////    @IBAction func logButtonTapped(_ sender: UIButton) {
-////        performSegue(withIdentifier: "showSymptomLogger", sender: self)
-////    }
-//
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "showSymptomLogger" {
-//            if let symptomLoggerVC = segue.destination as? SymptomLoggerViewController {
-//
-//                // Pre-select existing symptoms
-//                symptomLoggerVC.setSelectedSymptoms(selectedSymptoms)
-//
-//                // Handle callback when symptoms are selected
-//                symptomLoggerVC.onSymptomsSelected = { [weak self] (symptoms: [LoggedSymptoms]) in
-//                    self?.selectedSymptoms = symptoms
-//
-//                    // Save to UserDefaults
-//                    if let encoded = try? JSONEncoder().encode(symptoms) {
-//                        UserDefaults.standard.set(encoded, forKey: "todaysSymptoms")
-//                    }
-//
-//                    // Reload collection view
-//                    self?.symptomsCollectionView.reloadData()
-//                }
-//            }
-//        }
-//        }
-//
-//
-//}
-//
-//// MARK: - UICollectionViewDataSource
-//extension HomeViewController: UICollectionViewDataSource {
-//
-//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return selectedSymptoms.count
-//    }
-//
-//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: SymptomItemCollectionViewCell.identifier, for: indexPath) as! SymptomItemCollectionViewCell
-//
-//        let symptom = selectedSymptoms[indexPath.item]
-//
-//        // Convert LoggedSymptoms to SymptomItem for the cell
-//        let symptomItem = SymptomItem(name: symptom.name, icon: symptom.icon, isSelected: false)
-//        cell.configure(with: symptomItem, isSelected: false)
-//
-//        return cell
-//    }
-//}
-//
-//// MARK: - UICollectionViewDelegate
-//extension HomeViewController: UICollectionViewDelegate {
-//
-//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//
-//        performSegue(withIdentifier: "showSymptomLogger", sender: self)
-//    }
-//}
 

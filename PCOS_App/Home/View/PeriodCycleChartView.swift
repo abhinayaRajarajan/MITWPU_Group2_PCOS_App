@@ -17,6 +17,7 @@ class PeriodCycleChartView: UIView {
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()
+    private let legendStackView = UIStackView()
 //    private let averageLineView = UIView()
 //    private let averageLabel = UILabel()
     
@@ -24,6 +25,25 @@ class PeriodCycleChartView: UIView {
     private let barWidth: CGFloat = 40
     private let barSpacing: CGFloat = 20
     private let chartHeight: CGFloat = 200
+    
+    enum LineType {
+        case periodLength
+        case cycleLength
+        
+        var color: UIColor {
+            switch self {
+            case .periodLength: return UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
+            case .cycleLength: return UIColor(red: 0.7, green: 0.7, blue: 1.0, alpha: 1.0)
+            }
+        }
+        
+        var name: String {
+            switch self {
+            case .periodLength: return "Period Length"
+            case .cycleLength: return "Cycle Length"
+            }
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -34,53 +54,54 @@ class PeriodCycleChartView: UIView {
         super.init(coder: coder)
         setupView()
     }
-    
     private func setupView() {
-        //backgroundColor = UIColor(red: 1.0, green: 0.98, blue: 0.90, alpha: 1.0) // Light yellow background
-        
-        // Setup scroll view
-        scrollView.translatesAutoresizingMaskIntoConstraints = false
-        scrollView.showsHorizontalScrollIndicator = true
-        scrollView.showsVerticalScrollIndicator = false
+        // 1. Add subviews to the hierarchy
+        addSubview(legendStackView)
         addSubview(scrollView)
         
-        // Setup content view
-        contentView.translatesAutoresizingMaskIntoConstraints = false
+        // Setup ScrollView internals
         scrollView.addSubview(contentView)
         
-        // Setup average line
-//        averageLineView.backgroundColor = UIColor(red: 0.6, green: 0.6, blue: 0.8, alpha: 0.5)
-//        averageLineView.translatesAutoresizingMaskIntoConstraints = false
-//        contentView.addSubview(averageLineView)
+        // 2. Disable Autoresizing Masks
+        scrollView.translatesAutoresizingMaskIntoConstraints = false
+        contentView.translatesAutoresizingMaskIntoConstraints = false
+        legendStackView.translatesAutoresizingMaskIntoConstraints = false
         
-        // Setup average label
-//        averageLabel.text = "Avg"
-//        averageLabel.font = .systemFont(ofSize: 12, weight: .medium)
-//        averageLabel.textColor = .white
-//        averageLabel.backgroundColor = UIColor(red: 1.0, green: 0.4, blue: 0.6, alpha: 1.0)
-//        averageLabel.textAlignment = .center
-//        averageLabel.layer.cornerRadius = 10
-//        averageLabel.clipsToBounds = true
-//        averageLabel.translatesAutoresizingMaskIntoConstraints = false
-//        addSubview(averageLabel)
+        // 3. Configure Legend Stack View Spacing
+        legendStackView.axis = .horizontal
+        legendStackView.spacing = 20  // <--- This increases spacing between the two legend items
+        //legendStackView.alignment = .center
         
+        // 4. Clear and Re-populate Legend
+        legendStackView.arrangedSubviews.forEach { $0.removeFromSuperview() }
+        for type in [PeriodCycleChartView.LineType.periodLength, .cycleLength] {
+            let itemView = createLegendItem(color: type.color, name: type.name)
+            legendStackView.addArrangedSubview(itemView)
+        }
+
+        // 5. Set Layout Constraints
         NSLayoutConstraint.activate([
-            scrollView.topAnchor.constraint(equalTo: topAnchor),
+            // Center the legend horizontally and pin to top
+            legendStackView.topAnchor.constraint(equalTo: topAnchor, constant: 8),
+            //legendStackView.centerXAnchor.constraint(equalTo: centerXAnchor), // Changed to center for better spacing
+            legendStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
+            legendStackView.heightAnchor.constraint(equalToConstant: 20),
+            
+            // Constrain ScrollView to start BELOW the legend
+            scrollView.topAnchor.constraint(equalTo: legendStackView.bottomAnchor, constant: 12),
             scrollView.leadingAnchor.constraint(equalTo: leadingAnchor),
             scrollView.trailingAnchor.constraint(equalTo: trailingAnchor),
             scrollView.bottomAnchor.constraint(equalTo: bottomAnchor),
             
+            // Content View inside ScrollView
             contentView.topAnchor.constraint(equalTo: scrollView.topAnchor),
             contentView.leadingAnchor.constraint(equalTo: scrollView.leadingAnchor),
             contentView.trailingAnchor.constraint(equalTo: scrollView.trailingAnchor),
             contentView.bottomAnchor.constraint(equalTo: scrollView.bottomAnchor),
-            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor),
-            
-//            averageLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 8),
-//            averageLabel.widthAnchor.constraint(equalToConstant: 40),
-//            averageLabel.heightAnchor.constraint(equalToConstant: 20)
+            contentView.heightAnchor.constraint(equalTo: scrollView.heightAnchor)
         ])
     }
+    
     
     func configure(with data: [CycleData]) {
         // Reverse the data so newest is first (right side)
@@ -212,4 +233,37 @@ class PeriodCycleChartView: UIView {
             monthLabel.widthAnchor.constraint(equalToConstant: barWidth + 20)
         ])
     }
+    private func createLegendItem(color: UIColor, name: String) -> UIView {
+        let container = UIView()
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        let dot = UIView()
+        dot.backgroundColor = color
+        dot.layer.cornerRadius = 4
+        dot.translatesAutoresizingMaskIntoConstraints = false
+        
+        let label = UILabel()
+        label.text = name
+        label.font = .systemFont(ofSize: 11, weight: .medium)
+        label.textColor = color
+        label.translatesAutoresizingMaskIntoConstraints = false
+        
+        container.addSubview(dot)
+        container.addSubview(label)
+        
+        NSLayoutConstraint.activate([
+            dot.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            dot.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            dot.widthAnchor.constraint(equalToConstant: 8),
+            dot.heightAnchor.constraint(equalToConstant: 8),
+            
+            label.leadingAnchor.constraint(equalTo: dot.trailingAnchor, constant: 6),
+            label.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            label.trailingAnchor.constraint(equalTo: container.trailingAnchor)
+        ])
+        
+        return container
+    }
+    
 }
+

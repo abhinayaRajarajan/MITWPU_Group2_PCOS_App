@@ -62,8 +62,8 @@ class WorkoutPushViewController: UIViewController {
             
             // Configure
             let workoutData: [WorkoutPieChart.WorkoutData] = [
-                WorkoutPieChart.WorkoutData(name: "Cardio", value: 5, color: .systemPink),
-                WorkoutPieChart.WorkoutData(name: "Strength", value: 2, color: .systemBlue),
+                WorkoutPieChart.WorkoutData(name: "Cardio", value: 5, color: .systemCyan),
+                WorkoutPieChart.WorkoutData(name: "Strength", value: 2, color: .systemOrange),
                 WorkoutPieChart.WorkoutData(name: "Yoga", value: 1, color: .systemYellow)
             ]
             
