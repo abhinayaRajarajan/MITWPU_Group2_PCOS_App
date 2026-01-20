@@ -17,6 +17,5 @@ class HeaderCollectionReusableView: UICollectionReusableView {
     
     func configureHeader(with title: String) {
         headerLabel.text = title
-        headerLabel.font = UIFont.boldSystemFont(ofSize: 20)
     }
 }

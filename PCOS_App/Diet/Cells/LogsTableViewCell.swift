@@ -9,6 +9,7 @@ import UIKit
 
 class LogsTableViewCell: UITableViewCell {
 
+    @IBOutlet weak var outerCell: UIView!
     @IBOutlet weak var cell: UIView!
     @IBOutlet weak var fats: UILabel!
     @IBOutlet weak var carbs: UILabel!

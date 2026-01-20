@@ -16,8 +16,7 @@ let recommendations: [Recommendation] = [
         priority: 3,
         confidence: 0.74,
         title: "Protein intake appeared lower in recent days",
-        //summary: "Your recent logs show lower protein intake over the past few days",
-        summary:  "Your recent logs show lower protein intake over the past few days",
+        summary:  "Many people with PCOS notice more balance when protein is spread across meals",
         evidence: [
             "Protein averaged 15–16% of total calories",
             "Fatigue logged on multiple days"
@@ -39,7 +38,7 @@ let recommendations: [Recommendation] = [
         confidence: 0.78,
         title: "Sugar-heavy days align with acne logs",
         //summary: "Acne was logged after days with high-glycemic foods",
-        summary: "A lower-sugar choice today may help support clearer skin.",
+        summary: "A lower-sugar choice today may help support clearer skin",
         evidence: [
             "High-glycemic meals logged on 2 days",
             "Acne reported within 48 hours"
@@ -61,7 +60,7 @@ let recommendations: [Recommendation] = [
         confidence: 0.65,
         //title: "Recent activity showed more cardio than strength training",
         title: "Recent activity showed more cardio than strength training",
-        summary: "One short strength workout today can support PCOS balance.",
+        summary: "One short strength workout today can support PCOS balance",
         evidence: [
             "Only 2 workouts logged this week",
             "Total activity time: 55 minutes"
