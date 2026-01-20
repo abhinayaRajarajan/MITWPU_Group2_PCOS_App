@@ -55,8 +55,6 @@ class HomeViewController: UIViewController {
         super.viewWillAppear(animated)
         print("\nThis is HomeVC:",selectedSymptoms)
         navigationController?.navigationBar.prefersLargeTitles = true
-        // Reload the header cell to update cycle day
-        //collectionView.reloadSections(IndexSet(integer: 0))
     }
     private func loadTodaysSymptoms() {
         if let data = UserDefaults.standard.data(forKey: "todaysSymptoms"),
@@ -266,8 +264,7 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SymptomItemCollectionViewCell", for: indexPath) as! SymptomItemCollectionViewCell
             let symptom = selectedSymptoms[indexPath.item - 1]
-            //            let isSelected = true
-            //            cell.configure(with: symptom, isSelected: false)
+            
             cell.configureWithCategory(with: symptom)
             return cell
         }

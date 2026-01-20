@@ -18,8 +18,8 @@ class PeriodCycleChartView: UIView {
     private let scrollView = UIScrollView()
     private let contentView = UIView()
     private let legendStackView = UIStackView()
-//    private let averageLineView = UIView()
-//    private let averageLabel = UILabel()
+    //    private let averageLineView = UIView()
+    //    private let averageLabel = UILabel()
     
     private var cycleData: [CycleData] = []
     private let barWidth: CGFloat = 40
@@ -78,7 +78,7 @@ class PeriodCycleChartView: UIView {
             let itemView = createLegendItem(color: type.color, name: type.name)
             legendStackView.addArrangedSubview(itemView)
         }
-
+        
         // 5. Set Layout Constraints
         NSLayoutConstraint.activate([
             // Center the legend horizontally and pin to top
@@ -118,20 +118,10 @@ class PeriodCycleChartView: UIView {
         let maxCycleLength = cycleData.map { $0.cycleLength }.max() ?? 30
         
         // Add average line
-//        averageLineView.removeFromSuperview()
-//        contentView.addSubview(averageLineView)
+        //        averageLineView.removeFromSuperview()
+        //        contentView.addSubview(averageLineView)
         
         let avgY = chartHeight - (CGFloat(avgCycleLength) / CGFloat(maxCycleLength + 5)) * chartHeight + 20
-        
-//        NSLayoutConstraint.activate([
-//            averageLineView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor),
-//            averageLineView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor),
-//            averageLineView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: avgY),
-//            averageLineView.heightAnchor.constraint(equalToConstant: 1)
-//        ])
-//        
-//        // Update average label position
-//        averageLabel.centerYAnchor.constraint(equalTo: topAnchor, constant: avgY + 20).isActive = true
         
         // Draw bars
         for (index, cycle) in cycleData.enumerated() {

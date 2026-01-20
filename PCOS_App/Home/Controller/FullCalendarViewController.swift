@@ -20,7 +20,6 @@ class FullCalendarViewController: UIViewController {
     private weak var symptomDetailVC: DaySymptomDetailViewController?
     
     
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

@@ -10,7 +10,6 @@ struct SymptomCategory {
     let title: String
     let items: [SymptomItem]
     
-    // Store all categories here as static data
     static let allCategories: [SymptomCategory] = [
         SymptomCategory(title: "Spotting", items: [
             SymptomItem(name: "Red", icon: "RedSpottingIcon",category: "Spotting"),
@@ -51,7 +50,7 @@ struct SymptomCategory {
             SymptomItem(name: "Diarrhea", icon: "DiarrheaIcon",category: "Gut Health"),
             SymptomItem(name: "Gas", icon: "GasIcon",category: "Gut Health")
         ]),
-
+        
     ]
 }
 

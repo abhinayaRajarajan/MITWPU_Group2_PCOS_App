@@ -17,7 +17,6 @@ class InsulinViewController: UIViewController {
     private var highSugarFoods: [InsulinFoodItem] = []
     
     @IBOutlet weak var InfoCard: UIView!
-    @IBOutlet weak var summaryCardView: InsulinSummaryCardView!
     
     @IBOutlet weak var ReasoningCard: UIView!
     override func viewDidLoad() {
@@ -30,16 +29,10 @@ class InsulinViewController: UIViewController {
         
         warningcard.layer.cornerRadius=15
         
-        summaryCardView.layer.cornerRadius=20
         InfoCard.layer.cornerRadius=20
         ReasoningCard.layer.cornerRadius=20
         setupSampleData()
         setupTableView()
-        setupSummaryCard()
-    }
-    private func setupSummaryCard() {
-        // Configure with your data
-        summaryCardView.configure(high: 3, moderate: 2, low: 5)
     }
     private func setupSampleData() {
         highSugarFoods = [
@@ -73,7 +66,7 @@ class InsulinViewController: UIViewController {
         
         tableView.dataSource = self
         tableView.delegate = self
-
+        
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
         //tableView.backgroundColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 0.1)

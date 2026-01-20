@@ -24,7 +24,6 @@ class LogPeriodCalendarViewController: UIViewController {
     // Delegate for passing data back
     weak var delegate: LogPeriodCalendarDelegate?
     
-    // MARK: - Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white

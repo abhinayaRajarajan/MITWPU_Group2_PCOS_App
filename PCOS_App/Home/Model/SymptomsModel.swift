@@ -7,7 +7,6 @@
 
 import Foundation
 
-// Symptom Item
 struct SymptomItem: Encodable,Decodable {
     let name: String
     let icon: String
@@ -20,12 +19,11 @@ struct SymptomItem: Encodable,Decodable {
         self.category=category
     }
     
-    //init(name: String, icon: String, isSelected: Bool, date: Date){
-        init(name: String, icon: String, isSelected: Bool, date: Date,category:String){
+    init(name: String, icon: String, isSelected: Bool, date: Date,category:String){
         self.name = name
         self.icon = icon
         self.isSelected = isSelected
         self.date = date
-       self.category=category
+        self.category=category
     }
 }

@@ -32,8 +32,8 @@ class CycleReportViewController: UIViewController {
         NextCycleCard.layer.cornerRadius = 20
         //warningNextCycleView.layer.cornerRadius = 10
         
-//        warningNextCycleView.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 0/255, alpha: 0.1)
-//        ovulationWarningCard.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 0/255, alpha: 0.1)
+        //        warningNextCycleView.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 0/255, alpha: 0.1)
+        //        ovulationWarningCard.backgroundColor = UIColor(red: 255/255, green: 204/255, blue: 0/255, alpha: 0.1)
         
         CycleOverview.layer.cornerRadius = 20
         cycleLengthCard.layer.cornerRadius = 20

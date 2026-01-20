@@ -16,7 +16,7 @@ let recommendations: [Recommendation] = [
         priority: 3,
         confidence: 0.74,
         title: "Protein intake appeared lower in recent days",
-        summary:  "Many people with PCOS notice more balance when protein is spread across meals",
+        summary:  "Many people with PCOS notice balance when protein is spread across meals",
         evidence: [
             "Protein averaged 15–16% of total calories",
             "Fatigue logged on multiple days"

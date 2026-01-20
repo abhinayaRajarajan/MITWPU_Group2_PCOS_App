@@ -757,14 +757,6 @@ Length</string>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7G8-Ey-jpa" customClass="InsulinSummaryCardView" customModule="PCOS_App" customModuleProvider="target">
-                                                <rect key="frame" x="8" y="830" width="361" height="240"/>
-                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="240" id="fAx-VC-jxZ"/>
-                                                </constraints>
-                                                <edgeInsets key="layoutMargins" top="8" left="32" bottom="8" right="8"/>
-                                            </view>
                                         </subviews>
                                         <color key="backgroundColor" red="0.9882352941176471" green="0.93333333333333335" blue="0.92941176470588238" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
@@ -798,9 +790,7 @@ Length</string>
                     <size key="freeformSize" width="393" height="1337"/>
                     <connections>
                         <outlet property="InfoCard" destination="5xv-9b-8HL" id="lHi-eL-Bra"/>
-                        <outlet property="InsulinSummaryCardView" destination="7G8-Ey-jpa" id="V45-h0-Thf"/>
                         <outlet property="ReasoningCard" destination="Pyo-yL-NAT" id="7hf-RU-B3O"/>
-                        <outlet property="summaryCardView" destination="7G8-Ey-jpa" id="aP6-bf-kSC"/>
                         <outlet property="tableView" destination="u6I-HD-CA0" id="LGj-qt-fSx"/>
                         <outlet property="warningcard" destination="sTN-Ck-HbO" id="b1r-Uq-2SO"/>
                     </connections>
@@ -821,7 +811,7 @@ Length</string>
                                 <rect key="frame" x="0.0" y="59" width="393" height="734"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="IAF-eO-N6y">
-                                        <rect key="frame" x="0.0" y="0.0" width="393" height="957.33333333333337"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="393" height="1067.3333333333333"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="kfv-6l-Bdg">
                                                 <rect key="frame" x="8" y="8" width="377" height="0.0"/>
@@ -843,7 +833,7 @@ Length</string>
                                                 </constraints>
                                             </view>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="ihO-0m-zRV">
-                                                <rect key="frame" x="8" y="378.00000000000006" width="377" height="571.33333333333348"/>
+                                                <rect key="frame" x="8" y="378.00000000000006" width="377" height="681.33333333333348"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why Protein Matters in PCOS " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zKW-7u-yVT">
                                                         <rect key="frame" x="16" y="7.9999999999999982" width="345" height="20.333333333333329"/>
@@ -862,9 +852,9 @@ Length</string>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jMn-ku-U1g">
-                                                                <rect key="frame" x="7.9999999999999964" y="124.00000000000006" width="52.666666666666657" height="57"/>
+                                                                <rect key="frame" x="8" y="124.00000000000006" width="237" height="57"/>
                                                                 <state key="normal" title="Button"/>
-                                                                <buttonConfiguration key="configuration" style="plain" title="NIH"/>
+                                                                <buttonConfiguration key="configuration" style="plain" title="National Library of Medicine"/>
                                                                 <connections>
                                                                     <action selector="proteinImportanceLinkTapped:" destination="yPh-2v-31Z" eventType="touchUpInside" id="nAe-cj-rEf"/>
                                                                 </connections>
@@ -882,26 +872,26 @@ Length</string>
                                                         <edgeInsets key="layoutMargins" top="8" left="32" bottom="8" right="8"/>
                                                     </view>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IX9-1O-leM">
-                                                        <rect key="frame" x="16" y="253.33333333333337" width="345" height="310"/>
+                                                        <rect key="frame" x="16" y="253.33333333333337" width="345" height="150"/>
                                                         <subviews>
                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="H7O-Wx-riX">
-                                                                <rect key="frame" x="0.0" y="0.0" width="345" height="279"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="345" height="137.33333333333334"/>
                                                                 <subviews>
                                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Protein rich foods often used for PCOS" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="elP-ZS-aS3">
-                                                                        <rect key="frame" x="16" y="16" width="313" height="18"/>
-                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                        <rect key="frame" x="16" y="15.999999999999998" width="313" height="20.333333333333329"/>
+                                                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                                                         <nil key="textColor"/>
                                                                         <nil key="highlightedColor"/>
                                                                     </label>
                                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ep3-L5-0Wj">
-                                                                        <rect key="frame" x="16" y="48" width="313" height="1"/>
+                                                                        <rect key="frame" x="16" y="50.333333333333258" width="313" height="1"/>
                                                                         <color key="backgroundColor" systemColor="systemGray4Color"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="1" id="GXn-UR-51c"/>
                                                                         </constraints>
                                                                     </view>
                                                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="QWU-WH-AWw">
-                                                                        <rect key="frame" x="16" y="63" width="313" height="64"/>
+                                                                        <rect key="frame" x="16" y="65.333333333333258" width="313" height="64"/>
                                                                         <subviews>
                                                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="rQR-yz-ziR">
                                                                                 <rect key="frame" x="0.0" y="0.0" width="83" height="64"/>
@@ -999,36 +989,54 @@ Length</string>
                                                                             </stackView>
                                                                         </subviews>
                                                                     </stackView>
-                                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ph-i0-xWT">
-                                                                        <rect key="frame" x="16" y="141" width="313" height="130"/>
-                                                                        <subviews>
-                                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agM-Gc-TfB">
-                                                                                <rect key="frame" x="16" y="16" width="281" height="106"/>
-                                                                                <string key="text">Aim for approximately 25–35g of protein per meal and consider the "30-30-30 rule"—consuming 30g of protein within 30 minutes of waking—to optimize metabolism and satiety throughout the day.</string>
-                                                                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                                                <nil key="textColor"/>
-                                                                                <nil key="highlightedColor"/>
-                                                                            </label>
-                                                                        </subviews>
-                                                                        <color key="backgroundColor" systemColor="systemGray6Color"/>
-                                                                        <constraints>
-                                                                            <constraint firstItem="agM-Gc-TfB" firstAttribute="leading" secondItem="1ph-i0-xWT" secondAttribute="leading" constant="16" id="L94-n3-juI"/>
-                                                                            <constraint firstItem="agM-Gc-TfB" firstAttribute="top" secondItem="1ph-i0-xWT" secondAttribute="top" constant="16" id="a21-uL-74p"/>
-                                                                            <constraint firstAttribute="height" constant="130" id="av6-aG-SaN"/>
-                                                                            <constraint firstAttribute="trailing" secondItem="agM-Gc-TfB" secondAttribute="trailing" constant="16" id="fKe-mN-QVs"/>
-                                                                            <constraint firstAttribute="bottom" secondItem="agM-Gc-TfB" secondAttribute="bottom" constant="8" id="fiJ-mP-h6F"/>
-                                                                        </constraints>
-                                                                    </view>
                                                                 </subviews>
                                                                 <edgeInsets key="layoutMargins" top="16" left="16" bottom="8" right="16"/>
                                                             </stackView>
                                                         </subviews>
                                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="height" constant="310" id="8jC-dy-4NX"/>
+                                                            <constraint firstAttribute="height" constant="150" id="8jC-dy-4NX"/>
                                                             <constraint firstItem="H7O-Wx-riX" firstAttribute="leading" secondItem="IX9-1O-leM" secondAttribute="leading" id="B2e-rn-7qP"/>
                                                             <constraint firstItem="H7O-Wx-riX" firstAttribute="top" secondItem="IX9-1O-leM" secondAttribute="top" id="c8C-Ik-9Ei"/>
                                                             <constraint firstAttribute="trailing" secondItem="H7O-Wx-riX" secondAttribute="trailing" id="o3V-Rl-Snt"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1ph-i0-xWT">
+                                                        <rect key="frame" x="16" y="419.33333333333337" width="345" height="162.33333333333337"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="agM-Gc-TfB">
+                                                                <rect key="frame" x="18" y="24.999999999999993" width="309" height="112.33333333333331"/>
+                                                                <string key="text">Aim for 25–35g of protein per meal and consider the 30-30-30 rule. 30g of protein within 30 minutes of waking to boost metabolism.</string>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleSubhead"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="agM-Gc-TfB" firstAttribute="leading" secondItem="1ph-i0-xWT" secondAttribute="leading" constant="18" id="L94-n3-juI"/>
+                                                            <constraint firstItem="agM-Gc-TfB" firstAttribute="top" secondItem="1ph-i0-xWT" secondAttribute="top" constant="25" id="a21-uL-74p"/>
+                                                            <constraint firstAttribute="trailing" secondItem="agM-Gc-TfB" secondAttribute="trailing" constant="18" id="fKe-mN-QVs"/>
+                                                            <constraint firstAttribute="bottom" secondItem="agM-Gc-TfB" secondAttribute="bottom" constant="25" id="fiJ-mP-h6F"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uaN-zP-jyE">
+                                                        <rect key="frame" x="16" y="597.66666666666674" width="345" height="75.666666666666629"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Based on your activity logs. This reflects patterns, not a medical diagnosis" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RKx-iS-lQW">
+                                                                <rect key="frame" x="16" y="11.999999999999996" width="313" height="47.666666666666657"/>
+                                                                <color key="tintColor" name="AccentColor"/>
+                                                                <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
+                                                                <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                        </subviews>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <constraints>
+                                                            <constraint firstItem="RKx-iS-lQW" firstAttribute="top" secondItem="uaN-zP-jyE" secondAttribute="top" constant="12" id="3pV-aW-skT"/>
+                                                            <constraint firstItem="RKx-iS-lQW" firstAttribute="leading" secondItem="uaN-zP-jyE" secondAttribute="leading" constant="16" id="BiF-A4-e5Z"/>
+                                                            <constraint firstAttribute="bottom" secondItem="RKx-iS-lQW" secondAttribute="bottom" constant="16" id="OsJ-1q-SeX"/>
+                                                            <constraint firstAttribute="trailing" secondItem="RKx-iS-lQW" secondAttribute="trailing" constant="16" id="cM5-9U-sUx"/>
                                                         </constraints>
                                                     </view>
                                                 </subviews>
@@ -1225,9 +1233,6 @@ Length</string>
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="systemGray6Color">
-            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
