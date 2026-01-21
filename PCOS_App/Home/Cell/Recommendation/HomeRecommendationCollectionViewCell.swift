@@ -12,23 +12,18 @@ class HomeRecommendationCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var iconContainerView: UIView!
     @IBOutlet weak var titleLabel: UILabel!
-    
     @IBOutlet weak var descriptionLabel: UILabel!
     @IBOutlet weak var iconImageView: UIImageView!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
         backgroundColor = .clear
         
         containerView.layer.cornerRadius = 16
         iconContainerView.layer.cornerRadius = 12
-        
-        
     }
-    
     
     func configure(with recommendation: Recommendation) {
         titleLabel.text = recommendation.title

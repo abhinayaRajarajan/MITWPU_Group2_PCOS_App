@@ -17,7 +17,6 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
         
         if IconImage != nil && symptomLabel != nil {
             setupUI()
@@ -25,12 +24,10 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupUI(){
-        // Cell background and corners
         contentView.backgroundColor = .clear
         contentView.layer.cornerRadius = 20
         contentView.clipsToBounds = true
         
-        // Icon setup - circular white background
         IconImage?.layer.cornerRadius = 50/2 // Will be 50x50, so half is 25
         IconImage?.clipsToBounds = true
         IconImage?.contentMode = .scaleAspectFit
@@ -42,7 +39,7 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
     
     func configure(with symptom: SymptomItem, isSelected: Bool) {
         guard let iconImage = IconImage, let label = symptomLabel else {
-            print("ERROR in configure: IBOutlets are nil!")
+            print("Error in configure: IBOutlets are nil")
             return
         }
         label.text = symptom.name
@@ -55,13 +52,13 @@ class SymptomItemCollectionViewCell: UICollectionViewCell {
     func configureWithCategory(with symptom: SymptomItem) {
         guard let iconImage = IconImage, let label = symptomLabel else { return }
         
-        // DISPLAY CATEGORY INSTEAD OF NAME
+        // using symptom category here
         label.text = symptom.category
         
         label.textColor = .black
         iconImage.image = UIImage(named: symptom.icon)
         
-        // On home screen, we usually don't want the selection border
+        // To remove selection border on home screen
         contentView.backgroundColor = .clear
         iconImage.layer.borderWidth = 0
     }
