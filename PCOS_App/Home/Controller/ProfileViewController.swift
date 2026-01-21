@@ -11,7 +11,7 @@ class ProfileViewController: UIViewController {
     
     private let section0 = ["Progress report","Medical history"]
     
-    private let settings = ["Edit Profile", "Reminders", "Privacy", "Integrations", "Notifications","Help & Support"
+    private let settings = ["Edit Health Details", "Reminders", "Privacy", "Integrations", "Notifications","Help & Support"
     ]
     
     @IBOutlet weak var tableView: UITableView!
@@ -86,5 +86,17 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate {
         return section == 1 ? 32 : 8
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        tableView.deselectRow(at: indexPath, animated: true)
+        // Navigate to HealthDetailsTableViewController when selecting "Edit Health Details" in Settings section
+        if indexPath.section == 1 && settings[indexPath.row].lowercased() == "edit health details" {
+            let storyboard = UIStoryboard(name: "Home", bundle: nil)
+            guard let vc = storyboard.instantiateViewController(withIdentifier: "HealthDetailsTableViewController") as? HealthDetailsTableViewController else {
+                print("Unable to instantiate HealthDetailsTableViewController")
+                return
+            }
+            navigationController?.pushViewController(vc, animated: true)
+        }
+    }
     
 }
