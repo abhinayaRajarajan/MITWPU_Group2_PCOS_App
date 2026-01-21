@@ -155,7 +155,7 @@ class ExerciseDataStore {
             equipment: .dumbbell,
             image: "dumbbell_bench_press",
             instructions: "Press dumbbells upward while maintaining shoulder stability.",
-            gifUrl: "squats.gif",
+            gifUrl: "squatsgif.gif",
             level: "Beginner",
             tempo: "2s down, 1s up",
             form: [

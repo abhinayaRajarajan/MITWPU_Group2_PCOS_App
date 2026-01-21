@@ -14,7 +14,7 @@ class WorkoutPlayerViewController: UIViewController {
     
     @IBOutlet weak var RepsOutlet: UILabel!
     @IBOutlet weak var SetNumberOutlet: UILabel!
-    //@IBOutlet weak var ProgressWidthConstraint: NSLayoutConstraint!
+   
     @IBOutlet weak var GifOutlet: UIImageView!
     
     @IBOutlet weak var PrimaryControlViewOutlet: UIView!
@@ -28,7 +28,7 @@ class WorkoutPlayerViewController: UIViewController {
    // @IBOutlet weak var skipButton: UIButton!
    // @IBOutlet weak var doneButton: UIButton!
     private var isPaused = false
-   // private var isExpanded = false
+ 
     var timer: Timer?
     var elapsedSeconds = 0
     var workoutExercise: WorkoutExercise!
@@ -37,7 +37,7 @@ class WorkoutPlayerViewController: UIViewController {
 
     @IBOutlet weak var bottomContainerView: UIView!
     
-   // @IBOutlet weak var bottomSheetHeightConstraint: NSLayoutConstraint!
+   
     @IBOutlet weak var grabberView: UIView!
 
     @IBOutlet weak var nextExerciseButton: UIButton!
@@ -48,17 +48,15 @@ class WorkoutPlayerViewController: UIViewController {
     private struct ExerciseSegment {
         let container: UIView
         let fill: UIView
-        var widthConstraint: NSLayoutConstraint  // ADD THIS
+        var widthConstraint: NSLayoutConstraint
     }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
-        // Only setup once after layout is complete
+        
         if exerciseSegments.isEmpty {
-//            print("Setting up progress bar")
-//            print("Frame: \(progressViewBar2.frame)")
-//            
-            progressViewBar2.backgroundColor = .systemGray6  // Change from red
+            
+            progressViewBar2.backgroundColor = .clear
             setupExerciseProgressBar()
             updateExerciseProgressBar()
         }
@@ -90,7 +88,7 @@ class WorkoutPlayerViewController: UIViewController {
             container.clipsToBounds = true
 
             let fill = UIView()
-            fill.backgroundColor = .systemPink
+            fill.backgroundColor = UIColor(hex: "#FE7A96")
             fill.translatesAutoresizingMaskIntoConstraints = false
             container.addSubview(fill)
 
@@ -114,17 +112,6 @@ class WorkoutPlayerViewController: UIViewController {
             ))
         }
     }
-
-    
-   // @IBOutlet weak var bottomContainerBottomConstraint: NSLayoutConstraint!
-
-    // This controls the height (collapsed vs expanded)
-  //  @IBOutlet weak var bottomContainerHeightConstraint: NSLayoutConstraint!
-
-    
-//    private let collapsedHeight: CGFloat = 170   // grabber + primary
-//    private let expandedHeight: CGFloat = 220    // includes secondary
-//    private var panGestureRecognizer: UIPanGestureRecognizer!
 
     
     var activeWorkout: ActiveWorkout!
@@ -201,17 +188,7 @@ class WorkoutPlayerViewController: UIViewController {
 
         return CGFloat(completedSets) / CGFloat(max(totalSets, 1))
     }
-//    private func updateExerciseProgressBar() {
-//        for (index, segment) in exerciseSegments.enumerated() {
-//            let exercise = activeWorkout.exercises[index]
-//            let progress = progressForExercise(exercise)
-//
-//            let maxWidth = segment.container.bounds.width
-//            segment.fill.frame.size.width = maxWidth * progress
-//
-//            segment.fill.alpha = progress == 1 ? 1.0 : 0.6
-//        }
-//    }
+
     private func updateExerciseProgressBar() {
         for (index, segment) in exerciseSegments.enumerated() {
             let exercise = activeWorkout.exercises[index]
@@ -244,7 +221,7 @@ class WorkoutPlayerViewController: UIViewController {
             let maxWidth = segment.container.bounds.width
             segment.widthConstraint.constant = maxWidth * progress  //  USE STORED CONSTRAINT
 
-            segment.fill.alpha = progress == 1 ? 1.0 : 0.5
+            segment.fill.alpha = progress == 1 ? 1.0 : 1.0
         }
     }
 
@@ -298,7 +275,7 @@ class WorkoutPlayerViewController: UIViewController {
     }
 
     private func setupBottomContainer() {
-        // Style the container
+        
         bottomContainerView.backgroundColor = .systemBackground
         bottomContainerView.layer.cornerRadius = 20
         bottomContainerView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
@@ -314,8 +291,7 @@ class WorkoutPlayerViewController: UIViewController {
         elapsedSeconds = initialTimerSeconds()
 
         
-        // Set initial height
-       // bottomContainerHeightConstraint.constant = collapsedHeight
+       
     }
     private func initialTimerSeconds() -> Int {
         let exercise = workoutExercise.exercise
@@ -331,86 +307,7 @@ class WorkoutPlayerViewController: UIViewController {
     }
 
 
-//    private func setupGestureRecognizers() {
-//        panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
-//        bottomContainerView.addGestureRecognizer(panGestureRecognizer)
-//        
-//        // Also allow tap on grabber to toggle
-//        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleGrabberTap))
-//        grabberView.addGestureRecognizer(tapGesture)
-//        grabberView.isUserInteractionEnabled = true
-//    }
 
-//    @objc private func handleGrabberTap() {
-//        toggleBottomContainer()
-//    }
-
-//    @objc private func handlePan(_ gesture: UIPanGestureRecognizer) {
-//        let translation = gesture.translation(in: view)
-//        let velocity = gesture.velocity(in: view)
-//        
-//        switch gesture.state {
-//        case .changed:
-//            let newHeight = bottomContainerHeightConstraint.constant - translation.y
-//            
-//            // Add rubber band effect at boundaries
-//            if newHeight >= collapsedHeight && newHeight <= expandedHeight {
-//                bottomContainerHeightConstraint.constant = newHeight
-//                
-//                let progress = (newHeight - collapsedHeight) / (expandedHeight - collapsedHeight)
-//                SecondaryControlViewOutlet.alpha = progress
-//                
-//                gesture.setTranslation(.zero, in: view)
-//            } else if newHeight < collapsedHeight {
-                // Rubber band when dragging below collapsed
-//                let excess = collapsedHeight - newHeight
-//                bottomContainerHeightConstraint.constant = collapsedHeight - (excess * 0.1)
-//                gesture.setTranslation(.zero, in: view)
-//            } else if newHeight > expandedHeight {
-//                // Rubber band when dragging above expanded
-//                let excess = newHeight - expandedHeight
-//                bottomContainerHeightConstraint.constant = expandedHeight + (excess * 0.1)
-//                gesture.setTranslation(.zero, in: view)
-//            }
-//            
-//        case .ended:
-//            // Determine final state based on velocity and position
-//            let currentHeight = bottomContainerHeightConstraint.constant
-//            let midPoint = (collapsedHeight + expandedHeight) / 2
-//            
-//            if velocity.y < -500 { // Fast swipe up
-//                collapseBottomContainer()
-//            } else if velocity.y > 500 { // Fast swipe down
-//                expandBottomContainer()
-//            } else if currentHeight > midPoint {
-//                expandBottomContainer()
-//            } else {
-//                collapseBottomContainer()
-//            }
-//            
-//        default:
-//            break
-//        }
-//    }
-    
-
-//    override func viewWillAppear(_ animated: Bool) {
-//            super.viewWillAppear(animated)
-//        
-//        
-//        // Reset to collapsed state when returning
-//           //     setSheetState(.collapsed, animated: false)
-//                
-//                // Resume timer if not paused
-//                if !isPaused {
-//                    elapsedSeconds = initialTimerSeconds()
-//                    updateTimerDisplay()
-//                    startTimer()
-//
-//                }
-//        //SetNumberOutlet.text=workoutExercise.
-//        configureUI()
-//        }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
@@ -428,7 +325,7 @@ class WorkoutPlayerViewController: UIViewController {
        override func viewWillDisappear(_ animated: Bool) {
            super.viewWillDisappear(animated)
            
-           // CRITICAL: Stop timer when leaving this view
+           // Stop timer when leaving this view
            timer?.invalidate()
            timer = nil
        }
@@ -525,81 +422,7 @@ class WorkoutPlayerViewController: UIViewController {
 
                
     }
-//    @objc func pauseTapped() {
-//        isPaused.toggle()
-//        
-//        // Animate icon change with cross-dissolve
-//        UIView.transition(
-//            with: pauseOutlet,
-//            duration: 0.2,
-//            options: .transitionCrossDissolve
-//        ) {
-//            if self.isPaused {
-//                self.pauseOutlet.image = UIImage(systemName: "play.fill")
-//            } else {
-//                self.pauseOutlet.image = UIImage(systemName: "pause.fill")
-//            }
-//        }
-        
-        // Add bounce animation to pause container
-//        UIView.animate(withDuration: 0.1, animations: {
-//            self.pauseContainer.transform = CGAffineTransform(scaleX: 0.9, y: 0.9)
-//        }) { _ in
-//            UIView.animate(withDuration: 0.2, delay: 0, usingSpringWithDamping: 0.5, initialSpringVelocity: 0.5) {
-//                self.pauseContainer.transform = .identity
-//            }
-//        }
 
-//        if isPaused {
-//            timer?.invalidate()
-//           // expandBottomContainer()  // ADD: Auto-expand when paused
-//        } else {
-//            startTimer()
-            //collapseBottomContainer()  // ADD: Auto-collapse when resumed
-    //    }
-  //  }
-//    private func toggleBottomContainer() {
-//        if isExpanded {
-//            collapseBottomContainer()
-//        } else {
-//            expandBottomContainer()
-//        }
-//    }
-
-//    private func expandBottomContainer() {
-//        isExpanded = true
-//        SecondaryControlViewOutlet.isHidden = false
-//        
-//        UIView.animate(
-//            withDuration: 0.4,
-//            delay: 0,
-//            usingSpringWithDamping: 0.8,
-//            initialSpringVelocity: 0.5,
-//            options: [.curveEaseInOut, .allowUserInteraction]
-//        ) {
-//            self.bottomContainerHeightConstraint.constant = self.expandedHeight
-//            self.SecondaryControlViewOutlet.alpha = 1
-//            self.view.layoutIfNeeded()
-//        }
-//    }
-
-//    private func collapseBottomContainer() {
-//        isExpanded = false
-//        
-//        UIView.animate(
-//            withDuration: 0.4,
-//            delay: 0,
-//            usingSpringWithDamping: 0.8,
-//            initialSpringVelocity: 0.5,
-//            options: [.curveEaseInOut, .allowUserInteraction]
-//        ) {
-//            self.bottomContainerHeightConstraint.constant = self.collapsedHeight
-//            self.SecondaryControlViewOutlet.alpha = 0
-//            self.view.layoutIfNeeded()
-//        } completion: { _ in
-//            self.SecondaryControlViewOutlet.isHidden = true
-//        }
-//    }
 
     private func startTimer() {
         timer?.invalidate()
@@ -634,11 +457,7 @@ class WorkoutPlayerViewController: UIViewController {
         completeCurrentSet(as: .completed)
     }
 
-//NEW
-//    private func onTimerFinished() {
-//        markCurrentSetCompleted()
-//        moveToNextSetOrExercise()
-//    }
+
     private func completeCurrentSet(as state: SetCompletionState) {
         timer?.invalidate()
 
@@ -658,15 +477,6 @@ class WorkoutPlayerViewController: UIViewController {
         performSegue(withIdentifier: "RestTimeStart", sender: nil)
     }
 
-//    private func markCurrentSetCompleted() {
-//        guard var activeWorkout = WorkoutSessionManager.shared.activeWorkout else { return }
-//
-//        activeWorkout.exercises[exerciseIndex]
-//            .sets[setIndex]
-//            .completionState = .completed
-//
-//        WorkoutSessionManager.shared.activeWorkout = activeWorkout
-//    }
 
         
         private func updateTimerDisplay() {
@@ -677,7 +487,7 @@ class WorkoutPlayerViewController: UIViewController {
         }
     
     
-    // MARK: - Progress Helpers
+   
 
     private func totalSetsInRoutine() -> Int {
         guard let activeWorkout = activeWorkout else { return 0 }
@@ -698,54 +508,17 @@ class WorkoutPlayerViewController: UIViewController {
         let completed = completedSetsInRoutine()
         let total = totalSetsInRoutine()
         
-        let progress = CGFloat(completed) / CGFloat(max(total, 1))
+       // let progress = CGFloat(completed) / CGFloat(max(total, 1))
         
 //        ProgressWidthConstraint.constant = progress * view.bounds.width
-//        
+       
         UIView.animate(withDuration: 0.25) {
             self.view.layoutIfNeeded()
         }
     }
-//    @IBAction func doneTapped(_ sender: UIButton) {
-//        completeCurrentSet(skipped: false)
-//    }
-    
-    
-    //Uncomment if anything wrong
-//    private func completeCurrentSet(skipped: Bool) {
-//        timer?.invalidate()
-//        
-//        var exercise = activeWorkout.exercises[exerciseIndex]
-//        
-//        // MARK: Cardio logic
-//        if exercise.exercise.isCardio {
-//            guard elapsedSeconds <= 0 else { return }
-//
-//            exercise.sets[0].completionState = .completed
-//            activeWorkout.exercises[exerciseIndex] = exercise
-//            cardioCompleted = true
-//
-//            //updateProgressBar()
-//           
-//            
-//            updateExerciseProgressBar()
-//
-//
-//
-//
-//            goToRestBeforeNext()
-//            return
-//        }
 
-        
-        // mark set complete
-//        exercise.sets[currentSetIndex].completionState = .completed
-//            activeWorkout.exercises[exerciseIndex] = exercise
-//            updateProgressBar()
-//
-//            // go to rest
-//            performSegue(withIdentifier: "RestTimeStart", sender: nil)
-//        }
+    
+
     @IBAction func nextTapped(_ sender: UIButton) {
         timer?.invalidate()
 
@@ -785,7 +558,7 @@ class WorkoutPlayerViewController: UIViewController {
     //initially :loadcurrentset
     private func loadNextFirstSet() {
         // FIXED: Skip button should skip the current set, not go to rest
-                var exercise = activeWorkout.exercises[exerciseIndex]
+                let exercise = activeWorkout.exercises[exerciseIndex]
                 
         // Don't mark as completed when skipping
                 if currentSetIndex + 1 < exercise.sets.count {
@@ -807,8 +580,8 @@ class WorkoutPlayerViewController: UIViewController {
     }
     private func goToPreviousLogicalSet() {
         
-        // 1️⃣ Try within SAME exercise
-        let sets = workoutExercise.sets
+        //within SAME exercise
+        //let sets = workoutExercise.sets
         
         if currentSetIndex > 0 {
             // Go to previous set
@@ -817,7 +590,7 @@ class WorkoutPlayerViewController: UIViewController {
             return
         }
         
-        // 2️⃣ Move to PREVIOUS exercise
+        // Move to PREVIOUS exercise
         guard exerciseIndex > 0 else { return }
         
         exerciseIndex -= 1
@@ -845,8 +618,8 @@ class WorkoutPlayerViewController: UIViewController {
     }
 
     private func loadPreviousLastSet() {
-        // FIXED: Skip button should skip the current set, not go to rest
-                var exercise = activeWorkout.exercises[exerciseIndex]
+        //Skip button should skip the current set, not go to rest
+                let exercise = activeWorkout.exercises[exerciseIndex]
                 
         // Don't mark as completed when skipping
                 if currentSetIndex + 1 < exercise.sets.count {
@@ -934,18 +707,7 @@ class WorkoutPlayerViewController: UIViewController {
 
     }
 
-
-//    private func goToNextExercise() {
-//        exerciseIndex += 1
-//        currentSetIndex = 0
-//        
-//        if exerciseIndex >= activeWorkout.exercises.count {
-//            finishWorkout()
-//            return
-//        }
-//        
-//        loadCurrentSet()
-//    }
+    
     private func finishWorkout() {
             activeWorkout.finish()
             
@@ -1030,7 +792,7 @@ class WorkoutPlayerViewController: UIViewController {
         let isLastSet = currentSetIndex == workoutExercise.sets.count - 1
         nextExerciseButton.isEnabled = !(isLastExercise && isLastSet)
 
-        // Optional UX polish
+        
         prevExerciseButton.alpha = prevExerciseButton.isEnabled ? 1.0 : 0.4
         nextExerciseButton.alpha = nextExerciseButton.isEnabled ? 1.0 : 0.4
     }

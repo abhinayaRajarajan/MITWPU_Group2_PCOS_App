@@ -24,16 +24,16 @@
                                 <rect key="frame" x="31" y="69" width="40" height="40"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ZhX-MC-JAQ">
-                                        <rect key="frame" x="15" y="15" width="10" height="10"/>
+                                        <rect key="frame" x="12" y="12" width="16" height="16"/>
                                         <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="0.80157900530000004" colorSpace="custom" customColorSpace="displayP3"/>
                                     </imageView>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstItem="ZhX-MC-JAQ" firstAttribute="leading" secondItem="DyL-lg-1yX" secondAttribute="leading" constant="15" id="3kv-Ml-ocs"/>
-                                    <constraint firstAttribute="trailing" secondItem="ZhX-MC-JAQ" secondAttribute="trailing" constant="15" id="Yej-HG-ELy"/>
-                                    <constraint firstAttribute="bottom" secondItem="ZhX-MC-JAQ" secondAttribute="bottom" constant="15" id="blB-p7-0fa"/>
-                                    <constraint firstItem="ZhX-MC-JAQ" firstAttribute="top" secondItem="DyL-lg-1yX" secondAttribute="top" constant="15" id="g3n-8J-RPQ"/>
+                                    <constraint firstItem="ZhX-MC-JAQ" firstAttribute="leading" secondItem="DyL-lg-1yX" secondAttribute="leading" constant="12" id="3kv-Ml-ocs"/>
+                                    <constraint firstAttribute="trailing" secondItem="ZhX-MC-JAQ" secondAttribute="trailing" constant="12" id="Yej-HG-ELy"/>
+                                    <constraint firstAttribute="bottom" secondItem="ZhX-MC-JAQ" secondAttribute="bottom" constant="12" id="blB-p7-0fa"/>
+                                    <constraint firstItem="ZhX-MC-JAQ" firstAttribute="top" secondItem="DyL-lg-1yX" secondAttribute="top" constant="12" id="g3n-8J-RPQ"/>
                                     <constraint firstAttribute="height" constant="40" id="ibv-kB-XLg"/>
                                     <constraint firstAttribute="width" constant="40" id="zNY-mN-SSX"/>
                                 </constraints>
@@ -50,7 +50,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right.circle.fill" catalog="system" highlightedImage="chevron.right.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="EyH-9N-Dev">
+                            <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.right.circle.fill" catalog="system" highlightedImage="chevron.right.circle.fill" translatesAutoresizingMaskIntoConstraints="NO" id="EyH-9N-Dev">
                                 <rect key="frame" x="85" y="8.6666666666666661" width="15" height="13.66666666666667"/>
                                 <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>

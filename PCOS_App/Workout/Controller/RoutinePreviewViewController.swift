@@ -98,7 +98,7 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
 
         let manager = WorkoutSessionManager.shared
 
-        // 1️⃣ Check if we can resume
+        // Check if we can resume
         if let completedWorkout = manager.completedWorkouts.last(
             where: { $0.routineName == routine.name }
         ),
@@ -119,7 +119,7 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
             return
         }
 
-        // 2️⃣ Else start fresh
+        //  Else start fresh
         let workoutExercises = routine.exercises.map {
             $0.generateWorkoutExercise()
         }

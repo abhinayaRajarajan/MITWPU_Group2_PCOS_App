@@ -122,9 +122,9 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
 
         guard let header = view as? UITableViewHeaderFooterView else { return }
     
-        header.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         header.textLabel?.textColor = .label
-        header.contentView.backgroundColor = UIColor(hex:"FCEEED")
+       // header.contentView.backgroundColor = UIColor(hex:"FCEEED")
         
     }
     func tableView(_ tableView: UITableView,
