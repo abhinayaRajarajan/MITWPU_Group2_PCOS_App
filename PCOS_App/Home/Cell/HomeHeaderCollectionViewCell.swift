@@ -30,6 +30,7 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         setup()
+        
         setupMultiStopGradient()
         //load data initially
         loadSavedPeriodData()
@@ -48,7 +49,6 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
         headerImageView.clipsToBounds = true
         
         logPeriodButton.layer.cornerRadius = 30
-        //logPeriodButton.layer.cornerRadius = logPeriodButton.frame.height / 2
         logPeriodButton.tintColor = UIColor(hex: "#FE7A96")
         logPeriodButton.addTarget(self, action: #selector(logPeriodButtonTapped), for: .touchUpInside)
     }
@@ -58,27 +58,29 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupMultiStopGradient() {
-        // The color I want to blend into
-        //let blendColor = UIColor(hex: "#FCEEED")
+        // configuring the gradient layer
         gradientOverlayView.backgroundColor = .clear
+        gradientLayer.colors = [
+            UIColor.black.cgColor,       // Top: Fully visible
+            UIColor.black.cgColor,       // Mid: Still fully visible
+            UIColor.clear.cgColor        // Bottom: Fade to transparent
+        ]
         
-        //            gradientLayer.colors = [
-        //                UIColor.clear.cgColor,                // 0% Top: Pure image
-        //                UIColor.clear.cgColor,                // 70% Middle: Still pure image
-        //                blendColor.withAlphaComponent(0.4).cgColor, // 85% Start: Soft transition
-        //                blendColor.withAlphaComponent(0.7).cgColor,// 95%: Solid color
-        //                blendColor.cgColor                    // 100% Bottom: Solid color
-        //            ]
-        //
-        //            // top 75% of your image crystal clear
-        //            gradientLayer.locations = [0.0, 0.70, 0.85, 0.95, 1.0]
-        //
-        //            gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
-        //            gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
-        //
-        //            if gradientLayer.superlayer == nil {
-        //                headerImageView.layer.addSublayer(gradientLayer)
-        //            }
+        // Adjust locations to control where the fade starts (0.8 = 80% down)
+        gradientLayer.locations = [0.0, 0.8, 0.95]
+        gradientLayer.startPoint = CGPoint(x: 0.5, y: 0.0)
+        gradientLayer.endPoint = CGPoint(x: 0.5, y: 1.0)
+        
+        // apply it as a mask to the IMAGE VIEW directly
+        headerImageView.layer.mask = gradientLayer
+        
+        self.contentView.backgroundColor = UIColor(hex: "#FCEEED")
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        gradientLayer.frame = headerImageView.bounds
+        
     }
     
     private func loadSavedPeriodData() {
@@ -90,8 +92,6 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
             //HomeHeaderCell: No saved period dates found
             periodDates = []
         }
-        
-        
         updateCycleDayLabel()
     }
     
@@ -99,10 +99,8 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
         let cycleDay = calculateCurrentCycleDay()
         if cycleDay > 0 {
             cycleDayLabel.text = "Day \(cycleDay) of Cycle"
-            print("HomeHeaderCell: Displaying cycle day \(cycleDay)")
         } else {
-            cycleDayLabel.text = "Log Period"
-            print("HomeHeaderCell: No cycle data, showing 'Log Period'")
+            cycleDayLabel.text = "Getting Started"
         }
     }
     
@@ -147,16 +145,8 @@ class HomeHeaderCollectionViewCell: UICollectionViewCell {
         return cycleDay
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        gradientLayer.frame = headerImageView.bounds
-        
-    }
-    
-    // PUBLIC METHOD: Call this to refresh the cycle day label from outside
+    // PUBLIC METHOD: calling this to refresh the cycle day label from outside
     func refreshCycleDay() {
         loadSavedPeriodData()
     }
-    
-    
 }

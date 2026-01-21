@@ -69,10 +69,8 @@ class InsulinViewController: UIViewController {
         
         tableView.rowHeight = UITableView.automaticDimension
         tableView.separatorStyle = .none
-        //tableView.backgroundColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 0.1)
+        tableView.backgroundColor = .clear
         
-        // Add padding
-        tableView.contentInset = UIEdgeInsets(top: 16, left: 0, bottom: 16, right: 0)
     }
     @IBAction func openLinkTapped(_ sender: UIButton) {
         guard let url = URL(string: "https://www.mayoclinic.org/diseases-conditions/pcos/symptoms-causes/syc-20353439") else {

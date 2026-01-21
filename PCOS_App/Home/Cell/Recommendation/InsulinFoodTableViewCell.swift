@@ -18,8 +18,6 @@ class InsulinFoodTableViewCell: UITableViewCell {
     @IBOutlet weak var sugarLevelLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var foodNameLabel: UILabel!
-    //  @IBOutlet weak var acneview: UIView!
-    
     
     // Static identifier for easy reuse
     static let identifier = "InsulinFoodTableViewCell"
@@ -31,28 +29,21 @@ class InsulinFoodTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        // Cell styling
         selectionStyle = .none
         backgroundColor = .clear
         
-        // Content view styling
         tableContentView.layer.cornerRadius = 20
         tableContentView.backgroundColor = .white
-        //            tableContentView.layer.shadowColor = UIColor.black.cgColor
-        //            tableContentView.layer.shadowOpacity = 0.05
-        //            tableContentView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        //            tableContentView.layer.shadowRadius = 4
         
         symptomTag.layer.cornerRadius = 10
         
-        // Image styling
         foodImage.layer.cornerRadius = 20
         foodImage.clipsToBounds = true
         foodImage.contentMode = .scaleAspectFill
         foodImage.backgroundColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 0.1)
     }
     
-    // Configure cell with food data
+    // configure cell with food data
     func configure(with food: CellFoodItem) {
         foodNameLabel.text = food.name
         sugarLevelLabel.text = "\(food.sugarContent) Sugar"
