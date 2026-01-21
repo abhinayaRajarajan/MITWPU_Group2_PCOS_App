@@ -32,6 +32,7 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
         noSymptomsLabel.text = "No symptoms logged for this day"
         noSymptomsLabel.textColor = .systemGray
         noSymptomsLabel.font = .systemFont(ofSize: 16)
+        //noSymptomsLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         noSymptomsLabel.textAlignment = .center
         
         // Setup cycle day label

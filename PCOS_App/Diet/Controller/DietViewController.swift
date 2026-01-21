@@ -251,7 +251,7 @@ extension DietViewController: AddDescribedMealDelegate {
         let startOfToday = Calendar.current.startOfDay(for: Date())
         let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday)!
         if food.timeStamp >= startOfToday && food.timeStamp < startOfTomorrow {
-            print("📊 Updating header")
+            //print("📊 Updating header")
             headerView?.updateValues(food)
         }
         

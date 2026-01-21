@@ -32,6 +32,7 @@ class MyRoutinesCollectionViewCell: UICollectionViewCell {
         if let imageName = routine.thumbnailImageName {
             MyRoutinesImageOutlet.image = UIImage(named: imageName)
             MyRoutinesImageOutlet.contentMode = .scaleAspectFill
+            EstimatedTimeLabelOutlet.text = routine.formattedDuration
         }
 
 
