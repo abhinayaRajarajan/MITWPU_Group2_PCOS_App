@@ -28,28 +28,23 @@ class SymptomLoggerViewController: UIViewController {
         title = "Today's Symptoms"
         navigationController?.navigationBar.prefersLargeTitles = false
         
-        
         let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped(_:)))
         navigationItem.rightBarButtonItem = doneButton
-        
         
         doneButton.tintColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 0.8)
         
         setupCollectionView()
         preselectSymptoms()
-        
     }
     
     private func setupCollectionView() {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        
         collectionView.register(
             UINib(nibName: "SymptomItemCollectionViewCell", bundle: nil),
             forCellWithReuseIdentifier: SymptomItemCollectionViewCell.identifier
         )
-        
         
         collectionView.register(
             UINib(nibName: "SymptomLogSectionHeaderView", bundle: nil),
@@ -59,12 +54,14 @@ class SymptomLoggerViewController: UIViewController {
         collectionView.collectionViewLayout = createCompositionalLayout()
     }
     
-    
     func setSelectedSymptoms(_ symptoms: [SymptomItem]) {
         self.preSelectedSymptoms = symptoms
     }
     
     private func preselectSymptoms() {
+        // Clear existing selections first
+        selectedSymptoms.removeAll()
+        
         for symptom in preSelectedSymptoms {
             // Find matching symptom in categories
             for (sectionIndex, category) in categories.enumerated() {
@@ -79,17 +76,26 @@ class SymptomLoggerViewController: UIViewController {
     
     @objc private func doneButtonTapped(_ sender: Any) {
         let symptoms = getSelectedSymptoms()
-        print(symptoms)
-        let returned = self.delegate?.passData(symptoms: symptoms)
-        print("Delegate returned symptoms: \(String(describing: returned))")
-        navigationController?.popViewController(animated: true)
+        
+        // Pass data through delegate
+        if let delegate = self.delegate {
+            let returned = delegate.passData(symptoms: symptoms)
+        } else {
+            print("No delegate found")
+        }
+        
+        // Check if we're in a navigation stack or presented modally
+        if let navigationController = navigationController, navigationController.viewControllers.count > 1 {
+            navigationController.popViewController(animated: true)
+        } else {
+            dismiss(animated: true)
+                }
     }
     
     private func getSelectedSymptoms() -> [SymptomItem] {
         var symptoms: [SymptomItem] = []
         for indexPath in selectedSymptoms {
             let symptom = categories[indexPath.section].items[indexPath.item]
-            //let logged = SymptomItem(name: symptom.name, icon: symptom.icon, isSelected: true, date: Date())
             let logged = SymptomItem(
                 name: symptom.name,
                 icon: symptom.icon,
@@ -97,7 +103,6 @@ class SymptomLoggerViewController: UIViewController {
                 date: Date(),
                 category: symptom.category
             )
-            
             symptoms.append(logged)
         }
         return symptoms
@@ -115,28 +120,25 @@ extension SymptomLoggerViewController: UICollectionViewDataSource {
         return categories[section].items.count
     }
     
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        
         // Try to dequeue
         let dequeuedCell = collectionView.dequeueReusableCell(withReuseIdentifier: SymptomItemCollectionViewCell.identifier, for: indexPath)
         
-        //In case the cell after unwrapping is nil then else
-        guard let cell = dequeuedCell as? SymptomItemCollectionViewCell else{
-            return dequeuedCell //returns dequed cell if cast fails
+        // In case the cell after unwrapping is nil then else
+        guard let cell = dequeuedCell as? SymptomItemCollectionViewCell else {
+            return dequeuedCell // returns dequeued cell if cast fails
         }
+        
         let symptom = categories[indexPath.section].items[indexPath.item]
         let isSelected = selectedSymptoms.contains(indexPath)
         
         cell.configure(with: symptom, isSelected: isSelected)
         
-        
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        //deque(reuse) a supplementary view header from collection view
+        // Dequeue (reuse) a supplementary view header from collection view
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "SymptomLogSectionHeaderView", for: indexPath) as! SymptomLogSectionHeaderView
         header.SymptomSectionLabel.text = categories[indexPath.section].title
         return header
@@ -146,7 +148,6 @@ extension SymptomLoggerViewController: UICollectionViewDataSource {
 // MARK: - UICollectionViewDelegate
 extension SymptomLoggerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(selectedSymptoms)
         
         if selectedSymptoms.contains(indexPath) {
             selectedSymptoms.remove(indexPath)
@@ -207,5 +208,4 @@ extension SymptomLoggerViewController: UICollectionViewDelegate {
         
         return section
     }
-    
 }
