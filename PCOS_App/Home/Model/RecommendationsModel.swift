@@ -10,15 +10,15 @@ import Foundation
 struct DailyFoodFeatures: Codable, Identifiable {
     let id: UUID
     let date: Date
-
+    
     let totalCalories: Double
     let proteinRatio: Double
     let carbRatio: Double
     let fatRatio: Double
     let fibreGrams: Double
-
+    
     let impactTagCounts: [ImpactTags: Int]
-
+    
     let highGlycemicMeals: Int
     let insulinSpikingMeals: Int
     let ultraProcessedMeals: Int
@@ -26,18 +26,18 @@ struct DailyFoodFeatures: Codable, Identifiable {
 struct DailySymptomFeatures: Codable, Identifiable {
     let id: UUID
     let date: Date
-
+    
     let acne: Bool
     let bloating: Bool
     let fatigue: Bool
     let anxiety: Bool
-
+    
     let symptomLoadScore: Int
 }
 struct WeeklyWorkoutFeatures: Codable, Identifiable {
     let id: UUID
     let weekStart: Date
-
+    
     let workoutCount: Int
     let totalMinutes: Int
     let strengthSessions: Int
@@ -55,17 +55,17 @@ enum RecommendationCategory: String, Codable {
 struct Recommendation: Codable, Identifiable {
     let id: UUID
     let userId: UUID
-
+    
     let category: RecommendationCategory
     let priority: Int          // 1 = low, 3 = high
     let confidence: Double     // 0.0 – 1.0
-
+    
     let title: String
     let summary: String
-
+    
     let evidence: [String]
     let actions: [String]
-
+    
     let navigationTarget: String
     let createdAt: Date
     let validUntil: Date

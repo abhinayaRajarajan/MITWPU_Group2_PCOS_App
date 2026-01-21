@@ -16,7 +16,6 @@ class WorkoutPushViewController: UIViewController {
     @IBOutlet weak var workoutOverviewCard: UIView!
     @IBOutlet weak var WorkoutDonutChart: WorkoutPieChart!
     
-    //@IBOutlet weak var MicroChallengeView: UIView!
     @IBOutlet weak var StrengthTrainingInfo: UIView!
     
     
@@ -39,7 +38,6 @@ class WorkoutPushViewController: UIViewController {
             
             StrengthTrainingInfo.layer.cornerRadius = 20
             
-            //MicroChallengeView.layer.cornerRadius = 20
             //barProgressView.layer.cornerRadius = 20
 
             addWorkoutPieChart()
@@ -127,14 +125,6 @@ class WorkoutPushViewController: UIViewController {
             // Create and add legend
             let legend = createLegendView(segments: segments)
             legendView.addSubview(legend)
-            
-            // Pin to all edges
-//            NSLayoutConstraint.activate([
-//                legend.topAnchor.constraint(equalTo: legendView.topAnchor),
-//                legend.leadingAnchor.constraint(equalTo: legendView.leadingAnchor),
-//                legend.trailingAnchor.constraint(equalTo: legendView.trailingAnchor),
-//                legend.bottomAnchor.constraint(equalTo: legendView.bottomAnchor)
-//            ])
         }
         
         private func createLegendView(segments: [WorkoutOverviewBarChart.SegmentData]) -> UIView {
@@ -152,13 +142,13 @@ class WorkoutPushViewController: UIViewController {
                 let itemView = UIView()
                 itemView.translatesAutoresizingMaskIntoConstraints = false
                 
-                // Color dot
+                // for color dot
                 let dotView = UIView()
                 dotView.backgroundColor = segment.color
                 dotView.layer.cornerRadius = 5
                 dotView.translatesAutoresizingMaskIntoConstraints = false
                 
-                // Label
+                // for Label
                 let label = UILabel()
                 label.text = segment.name
                 label.font = .systemFont(ofSize: 10, weight: .regular)

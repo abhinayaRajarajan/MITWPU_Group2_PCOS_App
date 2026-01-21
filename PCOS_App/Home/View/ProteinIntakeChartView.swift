@@ -8,8 +8,8 @@
 import UIKit
 
 class ProteinIntakeChartView: UIView {
-
-// MARK: - Data Model
+    
+    // MARK: - Data Model
     struct DataPoint {
         let day: String
         let value: CGFloat
@@ -256,8 +256,8 @@ class ProteinIntakeChartCardView: UIView {
         layer.cornerRadius = 16
         
         // Title
-        titleLabel.text = "Noticed a low protein pattern this week"
-        titleLabel.font = .systemFont(ofSize: 15, weight: .regular)
+        titleLabel.text = "Noticed a low protein intake this week"
+        titleLabel.font = .preferredFont(forTextStyle: .body)
         titleLabel.textColor = .label
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         
@@ -285,12 +285,12 @@ class ProteinIntakeChartCardView: UIView {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-//            // Title
+            //            // Title
             titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
             titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             // Legend
-            legendStackView.topAnchor.constraint(equalTo: topAnchor, constant: 30),
+            legendStackView.topAnchor.constraint(equalTo: topAnchor, constant: 50),
             legendStackView.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
             
             // Chart

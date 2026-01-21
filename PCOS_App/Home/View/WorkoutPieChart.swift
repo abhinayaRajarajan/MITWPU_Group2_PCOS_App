@@ -58,10 +58,10 @@ class WorkoutPieChart: UIView {
             let path = UIBezierPath()
             path.move(to: center)
             path.addArc(withCenter: center,
-                       radius: radius,
-                       startAngle: startAngle,
-                       endAngle: endAngle,
-                       clockwise: true)
+                        radius: radius,
+                        startAngle: startAngle,
+                        endAngle: endAngle,
+                        clockwise: true)
             path.close()
             
             // Fill with color
@@ -114,12 +114,6 @@ class WorkoutPieChartView: UIView {
         backgroundColor = .systemBackground
         layer.cornerRadius = 16
         
-        // Setup title
-//        titleLabel.text = "Workout Distribution"
-//        titleLabel.font = .systemFont(ofSize: 18, weight: .semibold)
-//        titleLabel.textColor = .label
-//        titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        
         // Setup total label (center of donut)
         totalLabel.font = .systemFont(ofSize: 24, weight: .bold)
         totalLabel.textColor = .label
@@ -146,10 +140,6 @@ class WorkoutPieChartView: UIView {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            // Title
-//            titleLabel.topAnchor.constraint(equalTo: topAnchor, constant: 16),
-//            titleLabel.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 16),
-//            titleLabel.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -16),
             
             // Pie chart
             pieChart.topAnchor.constraint(equalTo: topAnchor, constant: 20),
@@ -242,20 +232,3 @@ class WorkoutPieChartView: UIView {
     }
 }
 
-// MARK: - Usage Example
-//extension WorkoutPieChartView {
-//    
-//    static func createSampleChart() -> WorkoutPieChartView {
-//        let chartView = WorkoutPieChartView()
-//        
-//        let workoutData: [WorkoutPieChart.WorkoutData] = [
-//            WorkoutPieChart.WorkoutData(name: "Cardio", value: 5, color: .systemPink),
-//            WorkoutPieChart.WorkoutData(name: "Strength", value: 2, color: .systemBlue),
-//            WorkoutPieChart.WorkoutData(name: "Yoga", value: 1, color: .systemPurple)
-//        ]
-//        
-//        chartView.configure(with: workoutData)
-//        
-//        return chartView
-//    }
-//}

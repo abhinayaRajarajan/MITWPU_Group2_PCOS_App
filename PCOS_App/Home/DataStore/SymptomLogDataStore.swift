@@ -120,14 +120,14 @@ struct SymptomItemCodable: Codable {
     let icon: String
     let category: String
     let isSelected: Bool
-
+    
     init(from symptom: SymptomItem) {
         self.name = symptom.name
         self.icon = symptom.icon
         self.category = symptom.category
         self.isSelected = symptom.isSelected
     }
-
+    
     func toSymptomItem(date: Date) -> SymptomItem {
         SymptomItem(
             name: name,

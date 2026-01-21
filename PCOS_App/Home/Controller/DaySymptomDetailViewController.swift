@@ -8,7 +8,7 @@
 import UIKit
 
 class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
-
+    
     @IBOutlet weak var noSymptomsLabel: UILabel!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var daysSymptom: UITableView!
@@ -32,6 +32,7 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
         noSymptomsLabel.text = "No symptoms logged for this day"
         noSymptomsLabel.textColor = .systemGray
         noSymptomsLabel.font = .systemFont(ofSize: 16)
+        //noSymptomsLabel.font = UIFont.preferredFont(forTextStyle: .subheadline)
         noSymptomsLabel.textAlignment = .center
         
         // Setup cycle day label
@@ -41,7 +42,7 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
     }
     
     private func setupTableView() {
-//        daysSymptom.backgroundColor = UIColor(red: 252.0/255.0, green: 238.0/255.0, blue: 237.0/255.0, alpha: 1.0)
+        //        daysSymptom.backgroundColor = UIColor(red: 252.0/255.0, green: 238.0/255.0, blue: 237.0/255.0, alpha: 1.0)
         daysSymptom.delegate = self
         daysSymptom.dataSource = self
         daysSymptom.separatorStyle = .none
@@ -63,8 +64,8 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
         
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM d, yyyy"
-       // formatter.dateFormat = "EEEE, MMMM d, yyyy"
-
+        // formatter.dateFormat = "EEEE, MMMM d, yyyy"
+        
         dateLabel.text = formatter.string(from: selectedDate)
         dateLabel.font = .systemFont(ofSize: 18, weight: .semibold)
         dateLabel.textAlignment = .center
@@ -137,14 +138,14 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
         return nil
     }
     
-    // MARK: - Public Method to Update Date
+    // Public Method to Update Date
     func updateDate(_ newDate: Date) {
         
         selectedDate = newDate
         loadAndDisplay()
     }
-
-    // MARK: - UITableViewDataSource
+    
+    //UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return symptoms.count
     }
@@ -195,12 +196,12 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
         cardView.addSubview(nameLabel)
         
         // Checkmark icon (since isSelected is true)
-//        let checkmarkImageView = UIImageView()
-//        checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
-//        checkmarkImageView.contentMode = .scaleAspectFit
-//        checkmarkImageView.tintColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
-//        checkmarkImageView.image = UIImage(systemName: "checkmark.circle.fill")
-//        cardView.addSubview(checkmarkImageView)
+        //        let checkmarkImageView = UIImageView()
+        //        checkmarkImageView.translatesAutoresizingMaskIntoConstraints = false
+        //        checkmarkImageView.contentMode = .scaleAspectFit
+        //        checkmarkImageView.tintColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
+        //        checkmarkImageView.image = UIImage(systemName: "checkmark.circle.fill")
+        //        cardView.addSubview(checkmarkImageView)
         
         NSLayoutConstraint.activate([
             // Card view constraints
@@ -225,20 +226,20 @@ class DaySymptomDetailViewController: UIViewController, UITableViewDataSource, U
             // Name label
             nameLabel.leadingAnchor.constraint(equalTo: iconBackgroundView.trailingAnchor, constant: 12),
             nameLabel.centerYAnchor.constraint(equalTo: cardView.centerYAnchor),
-//            nameLabel.trailingAnchor.constraint(equalTo: checkmarkImageView.leadingAnchor, constant: -12)
+            //            nameLabel.trailingAnchor.constraint(equalTo: checkmarkImageView.leadingAnchor, constant: -12)
             //,
             
             // Checkmark
-//            checkmarkImageView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -12),
-//            checkmarkImageView.centerYAnchor.constraint(equalTo: cardView.centerYAnchor),
-//            checkmarkImageView.widthAnchor.constraint(equalToConstant: 24),
-//            checkmarkImageView.heightAnchor.constraint(equalToConstant: 24)
+            //            checkmarkImageView.trailingAnchor.constraint(equalTo: cardView.trailingAnchor, constant: -12),
+            //            checkmarkImageView.centerYAnchor.constraint(equalTo: cardView.centerYAnchor),
+            //            checkmarkImageView.widthAnchor.constraint(equalToConstant: 24),
+            //            checkmarkImageView.heightAnchor.constraint(equalToConstant: 24)
         ])
         
         return cell
     }
     
-    // MARK: - UITableViewDelegate
+    //UITableViewDelegate
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
     }

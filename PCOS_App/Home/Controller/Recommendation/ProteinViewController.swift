@@ -21,7 +21,7 @@ class ProteinViewController: UIViewController {
     @IBAction func proteinImportanceLinkTapped(_ sender: UIButton) {
         guard let url = URL(string: "https://pmc.ncbi.nlm.nih.gov/articles/PMC10904368/") else {
             return
-        }//National institues of health
+        }
         
         UIApplication.shared.open(url, options: [:], completionHandler: nil)
     }
@@ -50,7 +50,7 @@ class ProteinViewController: UIViewController {
         chartCard.translatesAutoresizingMaskIntoConstraints = false
         proteinChartContainer.addSubview(chartCard)
         
-        // Pin to edges
+        // for pinning to edges
         NSLayoutConstraint.activate([
             chartCard.topAnchor.constraint(equalTo: proteinChartContainer.topAnchor),
             chartCard.leadingAnchor.constraint(equalTo: proteinChartContainer.leadingAnchor),
@@ -58,7 +58,7 @@ class ProteinViewController: UIViewController {
             chartCard.bottomAnchor.constraint(equalTo: proteinChartContainer.bottomAnchor)
         ])
         
-        // Configure with your data
+        // configure with my data
         let weekdays = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
         var data: [ProteinIntakeChartView.DataPoint] = []
         

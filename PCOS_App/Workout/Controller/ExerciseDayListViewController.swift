@@ -15,7 +15,9 @@ class ExerciseDayListViewController: UIViewController,UITableViewDelegate,UITabl
         @IBOutlet weak var dateLabel: UILabel!
         @IBOutlet weak var daysSymptom: UITableView!
      //   @IBOutlet weak var CycleDayLabel: UILabel!
-        
+    @IBOutlet weak var durationLabel: UILabel!
+
+    
         
         var selectedDate: Date!
     var completedWorkout: CompletedWorkout?
@@ -37,11 +39,29 @@ class ExerciseDayListViewController: UIViewController,UITableViewDelegate,UITabl
             noSymptomsLabel.font = .systemFont(ofSize: 16)
             noSymptomsLabel.textAlignment = .center
             
-            // Setup cycle day label
-//            CycleDayLabel.font = .systemFont(ofSize: 16, weight: .medium)
-//            CycleDayLabel.textAlignment = .center
-//            CycleDayLabel.textColor = UIColor(red: 254.0/255.0, green: 122.0/255.0, blue: 150.0/255.0, alpha: 1.0)
+            durationLabel.font = .systemFont(ofSize: 14, weight: .regular)
+            durationLabel.textColor = .secondaryLabel
+            durationLabel.textAlignment = .center
+            durationLabel.text = "0 min"
         }
+    private func formattedWorkoutDuration(_ seconds: Int) -> String {
+        let totalMinutes = seconds / 60
+        let hours = totalMinutes / 60
+        let minutes = totalMinutes % 60
+
+        if hours > 0 {
+            if minutes > 0 {
+                return "\(hours) hr \(minutes) min"
+            } else {
+                return "\(hours) hr"
+            }
+        } else if minutes > 0 {
+            return "\(minutes) min"
+        } else {
+            return "\(seconds) sec"
+        }
+    }
+
         
         private func setupTableView() {
     //        daysSymptom.backgroundColor = UIColor(red: 252.0/255.0, green: 238.0/255.0, blue: 237.0/255.0, alpha: 1.0)
@@ -80,67 +100,24 @@ class ExerciseDayListViewController: UIViewController,UITableViewDelegate,UITabl
             daysSymptom.isHidden = true
             noSymptomsLabel.isHidden = false
             noSymptomsLabel.text = "No exercises completed"
+            
+            
+
             return
         }
 
         daysSymptom.isHidden = false
         noSymptomsLabel.isHidden = true
+        durationLabel.isHidden = false
+        
+        durationLabel.text = "\(formattedWorkoutDuration(workout.durationSeconds)) workout"
         daysSymptom.reloadData()
     }
 
         
-//        private func updateCycleDay() {
-//            guard let selectedDate = selectedDate else { return }
-//            
-//            let cycleDay = calculateCycleDay(for: selectedDate)
-//            
-//            if let day = cycleDay {
-//                CycleDayLabel.text = "Cycle Day \(day)"
-//            } else {
-//                CycleDayLabel.text = "Cycle day unknown"
-//            }
-//        }
+
         
-//        private func calculateCycleDay(for date: Date) -> Int? {
-//            // Load period dates from UserDefaults
-//            guard let timestamps = UserDefaults.standard.array(forKey: "SavedPeriodDates") as? [TimeInterval] else {
-//                return nil
-//            }
-//            
-//            let periodDates = timestamps.map { calendar.startOfDay(for: Date(timeIntervalSince1970: $0)) }
-//                .sorted()
-//            
-//            guard !periodDates.isEmpty else {
-//                return nil
-//            }
-//            
-//            let selectedDayStart = calendar.startOfDay(for: date)
-//            
-//            // Find the most recent period start date on or before the selected date
-//            var lastPeriodStart: Date?
-//            
-//            for periodDate in periodDates.reversed() {
-//                if periodDate <= selectedDayStart {
-//                    lastPeriodStart = periodDate
-//                    break
-//                }
-//            }
-//            
-//            guard let periodStart = lastPeriodStart else {
-//                return nil
-//            }
-//            
-//            // Calculate days since period start
-//            let components = calendar.dateComponents([.day], from: periodStart, to: selectedDayStart)
-//            
-//            if let days = components.day {
-//                return days + 1 // Cycle day 1 is the first day of period
-//            }
-//            
-//            return nil
-//        }
-        
-        // MARK: - Public Method to Update Date
+        //  Public Method to Update Date
         func updateDate(_ newDate: Date) {
             
             selectedDate = newDate

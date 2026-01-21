@@ -7,21 +7,7 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, DataPassDelegate {
-    func passData(symptoms: [SymptomItem]) -> [SymptomItem] {
-        self.selectedSymptoms += symptoms
-        // Save with today's date key
-        let todaysKey = self.getTodaysKey()
-        if let encoded = try? JSONEncoder().encode(symptoms) {
-            UserDefaults.standard.set(encoded, forKey: todaysKey)
-        }
-        DispatchQueue.main.async { [weak self] in
-            self?.collectionView.reloadData()
-        }
-        return symptoms
-    }
-    
-    
+class HomeViewController: UIViewController {
     
     @IBOutlet weak var collectionView: UICollectionView!
     // Storing selected symptoms
@@ -31,7 +17,6 @@ class HomeViewController: UIViewController, DataPassDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Set title
         title = "Today"
         navigationController?.navigationBar.prefersLargeTitles = true
         
@@ -70,8 +55,6 @@ class HomeViewController: UIViewController, DataPassDelegate {
         super.viewWillAppear(animated)
         print("\nThis is HomeVC:",selectedSymptoms)
         navigationController?.navigationBar.prefersLargeTitles = true
-        // Reload the header cell to update cycle day
-        //collectionView.reloadSections(IndexSet(integer: 0))
     }
     private func loadTodaysSymptoms() {
         if let data = UserDefaults.standard.data(forKey: "todaysSymptoms"),
@@ -250,6 +233,7 @@ class HomeViewController: UIViewController, DataPassDelegate {
 }
 
 
+
 extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         switch section {
@@ -280,8 +264,8 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
             }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SymptomItemCollectionViewCell", for: indexPath) as! SymptomItemCollectionViewCell
             let symptom = selectedSymptoms[indexPath.item - 1]
-            let isSelected = true
-            cell.configure(with: symptom, isSelected: false)
+            
+            cell.configureWithCategory(with: symptom)
             return cell
         }
         else if indexPath.section == 2 {
@@ -372,6 +356,20 @@ extension HomeViewController: UICollectionViewDataSource, UICollectionViewDelega
     }
     
 }
+
+extension HomeViewController: DataPassDelegate {
+    func passData(symptoms: [SymptomItem]) -> [SymptomItem] {
+        self.selectedSymptoms = symptoms
+        let todaysKey = self.getTodaysKey()
+        if let encoded = try? JSONEncoder().encode(symptoms) {
+            UserDefaults.standard.set(encoded, forKey: todaysKey)
+        }
+        DispatchQueue.main.async { [weak self] in
+            self?.collectionView.reloadData()
+        }
+        return symptoms
+    }
+}
 extension HomeViewController: HomeHeaderCollectionViewCellDelegate {
     func homeHeaderCellDidTapLogPeriod(_ cell: HomeHeaderCollectionViewCell) {
         let calendarVC = LogPeriodCalendarViewController()
@@ -402,7 +400,7 @@ extension HomeViewController: LogPeriodCalendarDelegate {
             self?.collectionView.reloadSections(IndexSet(integer: 0))
         }
         
-        // Debug: Print all dates
+        // for debug
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         dates.forEach { date in
