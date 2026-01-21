@@ -657,7 +657,7 @@
                                                                         </constraints>
                                                                         <color key="tintColor" systemColor="labelColor"/>
                                                                         <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="plain" image="backward.fill" catalog="system"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" image="backward.end.fill" catalog="system"/>
                                                                         <connections>
                                                                             <action selector="previousTapped:" destination="GdX-L9-6Xr" eventType="touchUpInside" id="exo-TK-T64"/>
                                                                         </connections>
@@ -715,7 +715,7 @@
                                                                         </constraints>
                                                                         <color key="tintColor" systemColor="labelColor"/>
                                                                         <state key="normal" title="Button"/>
-                                                                        <buttonConfiguration key="configuration" style="plain" image="forward.fill" catalog="system"/>
+                                                                        <buttonConfiguration key="configuration" style="plain" image="forward.end.fill" catalog="system"/>
                                                                         <userDefinedRuntimeAttributes>
                                                                             <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
                                                                         </userDefinedRuntimeAttributes>
@@ -2013,12 +2013,12 @@
         <segue reference="Juh-00-hdX"/>
     </inferredMetricsTieBreakers>
     <resources>
-        <image name="backward.fill" catalog="system" width="128" height="76"/>
+        <image name="backward.end.fill" catalog="system" width="128" height="97"/>
         <image name="checkmark" catalog="system" width="128" height="114"/>
         <image name="clock" catalog="system" width="128" height="123"/>
         <image name="dumbbell" catalog="system" width="128" height="72"/>
         <image name="figure.cooldown" catalog="system" width="106" height="128"/>
-        <image name="forward.fill" catalog="system" width="128" height="76"/>
+        <image name="forward.end.fill" catalog="system" width="128" height="97"/>
         <image name="list.bullet.rectangle.portrait" catalog="system" width="115" height="128"/>
         <image name="medal" catalog="system" width="121" height="128"/>
         <image name="pause.fill" catalog="system" width="114" height="128"/>
