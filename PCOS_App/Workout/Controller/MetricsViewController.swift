@@ -2,272 +2,280 @@
 //  MetricsViewController.swift
 //  PCOS_App
 //
-//  Created by SDC-USER on 14/01/26.
+//  Created by SDC-USER on 21/01/26.
 //
 
 import UIKit
+import SwiftUI
 
 class MetricsViewController: UIViewController {
-
     
-
-        // MARK: - IBOutlets
-        @IBOutlet weak var segmentedControl: UISegmentedControl!
-        @IBOutlet weak var collectionView: UICollectionView!
-        @IBOutlet weak var averageLabel: UILabel!
+    @IBOutlet weak var segmentedControl: UISegmentedControl!
+    @IBOutlet weak var contentLabel: UILabel!
+    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var chartView: UIView!
+    @IBOutlet weak var contentView: UIView!
     
-        @IBOutlet weak var gridView: ChartGridView!
-
-        // MARK: - Dependencies (Injected)
-        var goalType: GoalType!   // non-optional by design
-
-        // MARK: - Types
-        enum TimeRange {
-            case day, week, month, year
-        }
-
-        // MARK: - State
-        private var currentRange: TimeRange = .week
-        private var values: [Int] = []
-
-        // MARK: - Lifecycle
-        override func viewDidLoad() {
-            super.viewDidLoad()
-
-            assert(goalType != nil, "MetricsViewController requires goalType before loading")
-
-            setupNavigation()
-            setupSegmentedControl()
-            setupCollectionView()
-
-            segmentedControl.selectedSegmentIndex = 1 // W
-            currentRange = .week
-
-            loadData()
-        }
-
-        // MARK: - Setup
-        private func setupNavigation() {
-            title = goalType.title
-        }
-
-        private func setupSegmentedControl() {
-            // Ensure 4 segments exist
-            segmentedControl.removeAllSegments()
-            ["D", "W", "M", "Y"].enumerated().forEach {
-                segmentedControl.insertSegment(withTitle: $0.element, at: $0.offset, animated: false)
-            }
-
-            segmentedControl.backgroundColor = .systemGray6
-            segmentedControl.selectedSegmentTintColor = .white
-
-            segmentedControl.layer.cornerRadius = 18
-            segmentedControl.layer.masksToBounds = true
-
-            let normalText: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.systemGray,
-                .font: UIFont.systemFont(ofSize: 13, weight: .medium)
-            ]
-
-            let selectedText: [NSAttributedString.Key: Any] = [
-                .foregroundColor: UIColor.black,
-                .font: UIFont.systemFont(ofSize: 14, weight: .bold)
-            ]
-
-            segmentedControl.setTitleTextAttributes(normalText, for: .normal)
-            segmentedControl.setTitleTextAttributes(selectedText, for: .selected)
-        }
-
-    private func setupCollectionView() {
-        collectionView.dataSource = self
-        collectionView.delegate = self
-
-        collectionView.register(
-            UINib(nibName: "StepBarCollectionViewCell", bundle: nil),
-            forCellWithReuseIdentifier: "StepBarCell"
-        )
-
-        collectionView.contentInset = UIEdgeInsets(top: 0, left: 24, bottom: 0, right: 24)
-        collectionView.backgroundColor = .clear
+    var goalType: GoalType = .calories
+    private var dataPoints: [WorkoutChartDataPoint] = []
+    private var hostingController: UIHostingController<WorkoutChartView>?
+    private var currentTimeRange: WorkoutChartTimeRange = .week
+    
+    // MARK: - Lifecycle
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        // Use flow layout for proper spacing
-        if let layout = collectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            layout.scrollDirection = .horizontal
-            layout.minimumInteritemSpacing = 8
-        }
+        print("📊 MetricsViewController loaded with goalType: \(goalType.title)")
+        print("📊 Total completed workouts: \(WorkoutSessionManager.shared.completedWorkouts.count)")
+        
+        title = goalType.title
+        navigationController?.navigationBar.prefersLargeTitles = false
+        
+        segmentedControl?.selectedSegmentIndex = 1  // Week
+        segmentedControl?.addTarget(self, action: #selector(timeSegmentChanged(_:)), for: .valueChanged)
+        
+        setupStyling()
+        loadData(for: .week)
+        setupChart()
+        updateInsights()
     }
-
-        // MARK: - Actions
-    @IBAction func segmentChanged(_ sender: UISegmentedControl) {
-
-      
-            // Animate bubble transition
-            animateSegmentTransition(to: sender.selectedSegmentIndex)
+    
+    // MARK: - Actions
+    @objc func timeSegmentChanged(_ sender: UISegmentedControl) {
+        let range = WorkoutChartTimeRange(rawValue: sender.selectedSegmentIndex) ?? .week
+        print("📊 Time range changed to: \(range)")
+        currentTimeRange = range
+        loadData(for: range)
+        updateInsights()
+    }
+    
+    // MARK: - Data Loading
+    private func loadData(for range: WorkoutChartTimeRange) {
+        currentTimeRange = range
+        let calendar = Calendar.current
+        let now = Date()
+        var newData: [WorkoutChartDataPoint] = []
+        
+        print("📊 Loading data for range: \(range)")
+        print("📊 Available workouts: \(WorkoutSessionManager.shared.completedWorkouts.count)")
+        
+        switch range {
+        case .day:
+            // Last 7 completed workouts (most recent)
+            let allWorkouts = WorkoutSessionManager.shared.completedWorkouts
+                .sorted { $0.date > $1.date }  // Most recent first
             
-            switch sender.selectedSegmentIndex {
-            case 0:
-                currentRange = .day
-                gridView.range = .day
-            case 1:
-                currentRange = .week
-                gridView.range = .week
-            case 2:
-                currentRange = .month
-                gridView.range = .month
-            case 3:
-                currentRange = .year
-                gridView.range = .year
-            default:
-                break
-            }
+            let workouts = Array(allWorkouts.prefix(7).reversed())  // Take 7, then reverse for chronological order
             
-            loadData()
-        }
-
-        private func animateSegmentTransition(to index: Int) {
-            // Create bubble view
-            let bubbleView = UIView()
-            bubbleView.backgroundColor = .white
-            bubbleView.layer.cornerRadius = 18
-            bubbleView.layer.masksToBounds = true
+            print("📊 Day view: Showing \(workouts.count) workouts")
             
-            // Calculate start and end positions
-            let segmentWidth = segmentedControl.bounds.width / 4
-            let startX = segmentWidth * CGFloat(segmentedControl.selectedSegmentIndex)
-            let endX = segmentWidth * CGFloat(index)
-            
-            bubbleView.frame = CGRect(
-                x: startX,
-                y: 0,
-                width: segmentWidth,
-                height: segmentedControl.bounds.height
-            )
-            
-            segmentedControl.insertSubview(bubbleView, at: 0)
-            
-            // Animate
-            UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseInOut) {
-                bubbleView.frame.origin.x = endX
-            } completion: { _ in
-                bubbleView.removeFromSuperview()
-            }
-        }
-
-
-        // MARK: - Data
-        private func loadData() {
-            
-                values = fetchMockData()
-                updateAverage()
+            for (index, workout) in workouts.enumerated() {
+                let value = getValue(from: workout)
+                print("   Workout \(index + 1): \(workout.routineName) - Value: \(value)")
                 
-                // Animate collection view reload
-                UIView.transition(with: collectionView, duration: 0.3, options: .transitionCrossDissolve) {
-                    self.collectionView.reloadData()
-                }
-                
-                // Animate grid view
-                UIView.transition(with: gridView, duration: 0.3, options: .transitionCrossDissolve) {
-                    self.gridView.setNeedsDisplay()
-                }
+                newData.append(WorkoutChartDataPoint(
+                    date: workout.date,
+                    value: value,
+                    label: "W\(index + 1)"
+                ))
+            }
             
-        }
-
-        private func updateAverage() {
-            let avg = values.reduce(0, +) / max(values.count, 1)
-
-            averageLabel.text = """
-            DAILY AVERAGE
-            \(avg) \(goalType.unit)
-            """
-            averageLabel.numberOfLines = 2
-            averageLabel.textColor = .secondaryLabel
-            averageLabel.font = UIFont.systemFont(ofSize: 14, weight: .medium)
-        }
-
-        private func fetchMockData() -> [Int] {
-            switch currentRange {
-
-            case .day:
-                //as 180->max height of graph (collection view cell height->200
-                //therefore using max height->180 for padding from above 
-                // 24 hours
-                return (0..<24).map { _ in Int.random(in: 0...goalType.maxValue/180*100) }
-
-            case .week:
-                // 7 days
-                return (0..<7).map { _ in Int.random(in: 0...goalType.maxValue/180*100) }
-
-            case .month:
-                // 30 days
-                return (0..<30).map { _ in Int.random(in: 0...goalType.maxValue/180*100) }
-
-            case .year:
-                // 12 months
-                return (0..<12).map { _ in Int.random(in: 0...goalType.maxValue/180*100) }
+        case .week:
+            // Last 7 days
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "EEE"
+            
+            for dayOffset in (0..<7).reversed() {
+                if let date = calendar.date(byAdding: .day, value: -dayOffset, to: now) {
+                    let value = getDailyTotal(on: date)
+                    
+                    print("   Day: \(dateFormatter.string(from: date)) - Value: \(value)")
+                    
+                    newData.append(WorkoutChartDataPoint(
+                        date: date,
+                        value: value,
+                        label: dateFormatter.string(from: date)
+                    ))
+                }
+            }
+            
+        case .month:
+            // Last 4 weeks
+            for weekOffset in (0..<4).reversed() {
+                if let weekStart = calendar.date(byAdding: .weekOfYear, value: -weekOffset, to: now) {
+                    let value = getWeeklyAverage(startingFrom: weekStart)
+                    
+                    print("   Week \(4 - weekOffset): Value: \(value)")
+                    
+                    newData.append(WorkoutChartDataPoint(
+                        date: weekStart,
+                        value: value,
+                        label: "W\(4 - weekOffset)"
+                    ))
+                }
+            }
+            
+        case .year:
+            // Last 12 months
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "MMM"
+            
+            for monthOffset in (0..<12).reversed() {
+                if let date = calendar.date(byAdding: .month, value: -monthOffset, to: now) {
+                    let value = getMonthlyAverage(in: date)
+                    
+                    print("   Month: \(dateFormatter.string(from: date)) - Value: \(value)")
+                    
+                    newData.append(WorkoutChartDataPoint(
+                        date: date,
+                        value: value,
+                        label: dateFormatter.string(from: date)
+                    ))
+                }
             }
         }
-    
+        
+        self.dataPoints = newData.sorted { $0.date < $1.date }
+        
+        print("📊 Total data points created: \(self.dataPoints.count)")
+        if !self.dataPoints.isEmpty {
+            print("📊 Sample data point: \(self.dataPoints[0].label) = \(self.dataPoints[0].value)")
+        }
+        
+        updateChart()
     }
-
-    // MARK: - UICollectionViewDataSource
-    extension MetricsViewController: UICollectionViewDataSource {
-
-        func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-            values.count
-        }
-
-        func collectionView(
-            _ collectionView: UICollectionView,
-            cellForItemAt indexPath: IndexPath
-        ) -> UICollectionViewCell {
-
-            let cell = collectionView.dequeueReusableCell(
-                withReuseIdentifier: "StepBarCell",
-                for: indexPath
-            ) as! StepBarCollectionViewCell
-
-            cell.configure(
-                value: values[indexPath.item],
-                maxValue: goalType.maxValue,
-                color: goalType.barColor
-            )
-
-            return cell
+    
+    // MARK: - Data Helpers
+    private func getValue(from workout: CompletedWorkout) -> Double {
+        let durationMinutes = Double(workout.durationSeconds) / 60.0
+        
+        switch goalType {
+        case .calories:
+            // Estimate: 5-7 calories per minute of exercise
+            // More accurate: could vary by intensity
+            return durationMinutes * 6.0
+            
+        case .steps:
+            // Estimate: 100-120 steps per minute
+            // This is a rough estimate - ideally you'd track actual steps
+            return durationMinutes * 110.0
+            
+        case .duration:
+            // Direct value in minutes
+            return durationMinutes
         }
     }
-
-    // MARK: - UICollectionViewDelegateFlowLayout
-    extension MetricsViewController: UICollectionViewDelegateFlowLayout {
-
-        func collectionView(
-            _ collectionView: UICollectionView,
-            layout collectionViewLayout: UICollectionViewLayout,
-            sizeForItemAt indexPath: IndexPath
-        ) -> CGSize {
-
-            switch currentRange {
-            case .day:
-                return CGSize(width: 4, height: 180)
-            case .week:
-                return CGSize(width: 18, height: 180)
-            case .month:
-                return CGSize(width: 10, height: 180)
-            case .year:
-                return CGSize(width: 14, height: 180)
-            }
+    
+    private func getDailyTotal(on date: Date) -> Double {
+        let calendar = Calendar.current
+        let startOfDay = calendar.startOfDay(for: date)
+        let endOfDay = calendar.date(byAdding: .day, value: 1, to: startOfDay)!
+        
+        let dayWorkouts = WorkoutSessionManager.shared.completedWorkouts.filter {
+            $0.date >= startOfDay && $0.date < endOfDay
         }
-
-        func collectionView(
-            _ collectionView: UICollectionView,
-            layout collectionViewLayout: UICollectionViewLayout,
-            minimumInteritemSpacingForSectionAt section: Int
-        ) -> CGFloat {
-            return 8
+        
+        print("      Found \(dayWorkouts.count) workouts on \(startOfDay)")
+        
+        return dayWorkouts.reduce(0.0) { total, workout in
+            total + getValue(from: workout)
         }
+    }
     
-
+    private func getWeeklyAverage(startingFrom date: Date) -> Double {
+        let calendar = Calendar.current
+        let endOfWeek = calendar.date(byAdding: .day, value: 7, to: date)!
+        
+        let weekWorkouts = WorkoutSessionManager.shared.completedWorkouts.filter {
+            $0.date >= date && $0.date < endOfWeek
+        }
+        
+        let total = weekWorkouts.reduce(0.0) { total, workout in
+            total + getValue(from: workout)
+        }
+        
+        return weekWorkouts.isEmpty ? 0 : total / 7.0
+    }
     
-
+    private func getMonthlyAverage(in date: Date) -> Double {
+        let calendar = Calendar.current
+        let components = calendar.dateComponents([.year, .month], from: date)
+        guard let startOfMonth = calendar.date(from: components),
+              let endOfMonth = calendar.date(byAdding: DateComponents(month: 1), to: startOfMonth) else {
+            return 0
+        }
+        
+        let monthWorkouts = WorkoutSessionManager.shared.completedWorkouts.filter {
+            $0.date >= startOfMonth && $0.date < endOfMonth
+        }
+        
+        let total = monthWorkouts.reduce(0.0) { total, workout in
+            total + getValue(from: workout)
+        }
+        
+        let daysInMonth = calendar.dateComponents([.day], from: startOfMonth, to: endOfMonth).day ?? 30
+        return daysInMonth > 0 ? total / Double(daysInMonth) : 0
+    }
     
-
+    // MARK: - View Setup
+    private func setupChart() {
+        guard let chartView = chartView else {
+            print("❌ chartView outlet is nil!")
+            return
+        }
+        
+        print("📊 Setting up chart with \(dataPoints.count) data points")
+        
+        let swiftUIView = WorkoutChartView(
+            dataPoints: dataPoints,
+            goalType: goalType,
+            timeRange: currentTimeRange
+        )
+        let hosting = UIHostingController(rootView: swiftUIView)
+        
+        addChild(hosting)
+        hosting.view.frame = chartView.bounds
+        hosting.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        hosting.view.backgroundColor = .clear
+        
+        chartView.addSubview(hosting.view)
+        hosting.didMove(toParent: self)
+        
+        self.hostingController = hosting
+        
+        print("✅ Chart setup complete")
+    }
+    
+    private func updateChart() {
+        print("📊 Updating chart with \(dataPoints.count) data points")
+        
+        let swiftUIView = WorkoutChartView(
+            dataPoints: dataPoints,
+            goalType: goalType,
+            timeRange: currentTimeRange
+        )
+        hostingController?.rootView = swiftUIView
+    }
+    
+    private func setupStyling() {
+        chartView?.layer.cornerRadius = 16
+        chartView?.clipsToBounds = true
+        chartView?.backgroundColor = .white
+        contentView?.layer.cornerRadius = 16
+    }
+    
+    private func updateInsights() {
+        contentLabel?.text = getImportanceText()
+    }
+    
+    private func getImportanceText() -> String {
+        switch goalType {
+        case .calories:
+            return "Regular calorie burning through exercise helps improve insulin sensitivity and supports healthy weight management in PCOS."
+        case .steps:
+            return "Daily step goals help maintain consistent physical activity, which is crucial for managing PCOS symptoms and metabolic health."
+        case .duration:
+            return "Consistent workout duration builds endurance and helps regulate hormones, both essential for managing PCOS effectively."
+        }
+    }
 }

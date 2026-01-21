@@ -179,9 +179,6 @@ class WorkoutViewController: UIViewController {
         cards[2].done = Double(WorkoutSessionManager.shared.getTime())
         cards[0].done = (cards[2].done ?? 0)*1.5
         print("View appeared")
-        for i in cards{
-            print(i.name, i.done, i.toBeDone)
-        }
         collectionView.reloadData()
     }
     
@@ -284,49 +281,45 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         switch indexPath.section {
-        case 0:
-                // Handle goal card tap
-                let selectedCard = cards[indexPath.item]
-                navigateToMetrics(for: selectedCard)
-                
-        case 1:
-            let routines = WorkoutSessionManager.shared.savedRoutines
-            //guard !routines.isEmpty else { return }
-            if routines.isEmpty {
-                if indexPath.item == 0 {
-                    performSegue(withIdentifier: "showCreateRoutine", sender: nil)
-                }
-            } else {
-                if indexPath.item < routines.count {
-                    let routine = routines[indexPath.item]
-                    selectedRoutine = routine
-                    performSegue(withIdentifier: "showRoutinePreview", sender: nil)
-
-                } else {
-                    performSegue(withIdentifier: "showCreateRoutine", sender: nil)
-                }
-            }
-            
-            //            case 2:
-            //                let routine = exploreRoutine[indexPath.item]
-            //                selectedPredefinedRoutine = routine
-            //                performSegue(withIdentifier: "PredefinedRoutines", sender: nil)
-        case 2:
-            let routine = exploreRoutine[indexPath.item]
-            selectedRoutine = routine
-            performSegue(withIdentifier: "showRoutinePreview", sender: nil)
-            
-            
-        default:
-            return
-        }
+           case 0:
+               // Handle goal card tap
+               let selectedCard = cards[indexPath.item]
+               navigateToMetrics(for: selectedCard)
+               
+           case 1:
+               // Existing My Routines logic
+               let routines = WorkoutSessionManager.shared.savedRoutines
+               if routines.isEmpty {
+                   if indexPath.item == 0 {
+                       performSegue(withIdentifier: "showCreateRoutine", sender: nil)
+                   }
+               } else {
+                   if indexPath.item < routines.count {
+                       let routine = routines[indexPath.item]
+                       selectedRoutine = routine
+                       performSegue(withIdentifier: "showRoutinePreview", sender: nil)
+                   } else {
+                       performSegue(withIdentifier: "showCreateRoutine", sender: nil)
+                   }
+               }
+               
+           case 2:
+               // Existing Explore Routines logic
+               let routine = exploreRoutine[indexPath.item]
+               selectedRoutine = routine
+               performSegue(withIdentifier: "showRoutinePreview", sender: nil)
+               
+           default:
+               return
+           }
     }
+    
     private func navigateToMetrics(for card: Card) {
         // Map Card to GoalType
         let goalType: GoalType
         
         switch card.name {
-        case "Calories burnt":
+        case "Cals burnt":
             goalType = .calories
         case "Steps":
             goalType = .steps
@@ -342,6 +335,7 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
             navigationController?.pushViewController(metricsVC, animated: true)
         }
     }
+
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
 
         // We only want one trigger
