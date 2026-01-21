@@ -59,7 +59,7 @@ class RestTimeViewController: UIViewController {
             countLabel.text = "💕"
             countLabel.alpha = 0
             
-            // Ensure label is on top
+            // Ensure label is on top of circle animation 
             view.bringSubviewToFront(countLabel)
         }
 

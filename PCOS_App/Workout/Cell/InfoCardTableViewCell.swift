@@ -14,27 +14,14 @@ class InfoCardTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        backgroundColor = .clear
         selectionStyle = .none
         containerView.layer.cornerRadius = 10
         containerView.layer.masksToBounds = false
-
-        // shadow
-        
     }
-//    func configure(text: String) {
-//        infoLabel.text = "• " + text
-//    }
-//    func configure(list: [String]) {
-//        infoLabel.text = list.map { "• \($0)" }.joined(separator: "\n")
-//    }
+
     func configure(items: [String]) {
         infoLabel.text = items.map { " \($0)" }.joined(separator: "\n")
+       // infoLabel.text = items.map { " \($0)" }.joined(separator: " , ")
     }
-
-//    override func setSelected(_ selected: Bool, animated: Bool) {
-//        super.setSelected(selected, animated: animated)
-//
-//
-//    }
-    
 }

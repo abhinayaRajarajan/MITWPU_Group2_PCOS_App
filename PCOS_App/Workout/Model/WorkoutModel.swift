@@ -25,7 +25,7 @@ enum Equipment: String, Codable, CaseIterable {
             switch self {
             case .allEquipment: return "All Equipment"
             case .none: return "No Equipment"
-            case .barbell: return "Barbell"
+            case .barbell: return "barbell 1"
             case .dumbbell: return "Dumbbell"
             case .kettlebell: return "Kettlebell"
             case .machine: return "Machine"
@@ -429,3 +429,12 @@ extension WorkoutSessionManager {
         return workout.isFullyCompleted
     }
 }
+
+
+
+
+
+
+
+
+
