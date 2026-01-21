@@ -7,14 +7,20 @@
 
 import UIKit
 
+protocol NutritionHeaderDelegate: AnyObject {
+    func didTapProteinView()
+    func didTapCarbsView()
+    func didTapFatsView()
+}
+
 class NutritionHeader: UITableViewHeaderFooterView {
 
     @IBOutlet weak var nutritionCard: UIView!
     
     @IBOutlet weak var proteinView: UIView!
     @IBOutlet weak var carbsView: UIView!
-    
     @IBOutlet weak var fatsView: UIView!
+    
     @IBOutlet weak var stackMacros: UIStackView!
     
     @IBOutlet weak var progressCircle: CompletionCircleView!
@@ -30,6 +36,7 @@ class NutritionHeader: UITableViewHeaderFooterView {
     @IBOutlet weak var carbsGm: UILabel!
     @IBOutlet weak var proteinGm: UILabel!
     
+    weak var delegate: NutritionHeaderDelegate?
     var calories : Double = 0
     var fats : Double = 0
     var protein : Double = 0
@@ -45,9 +52,68 @@ class NutritionHeader: UITableViewHeaderFooterView {
     func configure(){
         nutritionCard.layer.cornerRadius = 16
         nutritionCard.layer.masksToBounds = true
+        nutritionCard.layer.borderColor = UIColor.systemGray5.cgColor
+        nutritionCard.layer.borderWidth = 0.5
         stackMacros.layer.cornerRadius = 16
+        setupTapGestures()
         setValues()
     }
+    
+    private func setupTapGestures() {
+        // Enable user interaction
+        proteinView.isUserInteractionEnabled = true
+        carbsView.isUserInteractionEnabled = true
+        fatsView.isUserInteractionEnabled = true
+        
+        // Style the views
+        proteinView.layer.cornerRadius = 8
+        carbsView.layer.cornerRadius = 8
+        fatsView.layer.cornerRadius = 8
+        
+        // Add tap gestures
+        let proteinTap = UITapGestureRecognizer(target: self, action: #selector(proteinViewTapped))
+        proteinView.addGestureRecognizer(proteinTap)
+        
+        let carbsTap = UITapGestureRecognizer(target: self, action: #selector(carbsViewTapped))
+        carbsView.addGestureRecognizer(carbsTap)
+        
+        let fatsTap = UITapGestureRecognizer(target: self, action: #selector(fatsViewTapped))
+        fatsView.addGestureRecognizer(fatsTap)
+        
+        print("✅ Tap gestures configured")
+    }
+    
+    @objc private func proteinViewTapped() {
+        print("🎯 Protein card tapped")
+        animateTap(proteinView)
+        delegate?.didTapProteinView()
+    }
+    
+    @objc private func carbsViewTapped() {
+        print("🎯 Carbs card tapped")
+        animateTap(carbsView)
+        delegate?.didTapCarbsView()
+    }
+    
+    @objc private func fatsViewTapped() {
+        print("🎯 Fats card tapped")
+        animateTap(fatsView)
+        delegate?.didTapFatsView()
+    }
+    
+    private func animateTap(_ view: UIView) {
+        // Quick spring animation
+        UIView.animate(withDuration: 0.1, delay: 0, options: .curveEaseOut, animations: {
+            view.transform = CGAffineTransform(scaleX: 0.95, y: 0.95)
+            view.alpha = 0.7
+        }) { _ in
+            UIView.animate(withDuration: 0.15, delay: 0, options: .curveEaseInOut, animations: {
+                view.transform = .identity
+                view.alpha = 1.0
+            })
+        }
+    }
+    
     
     func setValues(){
         for index in FoodLogDataSource.todaysMeal.indices {

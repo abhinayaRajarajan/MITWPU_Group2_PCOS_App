@@ -395,13 +395,16 @@
         <!--Chart-->
         <scene sceneID="xEh-v5-zNg">
             <objects>
-                <viewController id="pCt-KM-U54" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ChartViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="pCt-KM-U54" customClass="ChartViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="AJG-Kd-UCy">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="BK9-rz-3DN">
-                                <rect key="frame" x="16" y="172" width="361" height="32"/>
+                                <rect key="frame" x="16" y="172" width="361" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="oAm-dC-xRa"/>
+                                </constraints>
                                 <segments>
                                     <segment title="Day"/>
                                     <segment title="Week"/>
@@ -409,16 +412,63 @@
                                     <segment title="Year"/>
                                 </segments>
                             </segmentedControl>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W6N-74-4Ni">
+                                <rect key="frame" x="16" y="238" width="361" height="350"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="350" id="DJa-qi-G8c"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Why it's important" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IHR-Bs-3b5">
+                                <rect key="frame" x="16" y="604" width="361" height="21"/>
+                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OBD-BE-bRF">
+                                <rect key="frame" x="16" y="641" width="361" height="52.333333333333371"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kuw-vf-v2N">
+                                        <rect key="frame" x="16" y="15.999999999999998" width="329" height="20.333333333333329"/>
+                                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="Kuw-vf-v2N" secondAttribute="bottom" constant="16" id="L5k-Q8-fc3"/>
+                                    <constraint firstItem="Kuw-vf-v2N" firstAttribute="top" secondItem="OBD-BE-bRF" secondAttribute="top" constant="16" id="XJA-6x-sRM"/>
+                                    <constraint firstAttribute="trailing" secondItem="Kuw-vf-v2N" secondAttribute="trailing" constant="16" id="hM6-Jq-0LI"/>
+                                    <constraint firstItem="Kuw-vf-v2N" firstAttribute="leading" secondItem="OBD-BE-bRF" secondAttribute="leading" constant="16" id="qUL-iU-Z8I"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="LTq-ri-k55"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.98823529409999999" green="0.93333333330000001" blue="0.92941176469999998" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="BK9-rz-3DN" firstAttribute="leading" secondItem="LTq-ri-k55" secondAttribute="leading" constant="16" id="269-Q5-MJx"/>
+                            <constraint firstItem="W6N-74-4Ni" firstAttribute="leading" secondItem="LTq-ri-k55" secondAttribute="leading" constant="16" id="7ci-eD-ufv"/>
+                            <constraint firstItem="OBD-BE-bRF" firstAttribute="leading" secondItem="LTq-ri-k55" secondAttribute="leading" constant="16" id="DqG-y6-bES"/>
+                            <constraint firstItem="W6N-74-4Ni" firstAttribute="top" secondItem="BK9-rz-3DN" secondAttribute="bottom" constant="16" id="Kau-or-s71"/>
                             <constraint firstItem="BK9-rz-3DN" firstAttribute="top" secondItem="LTq-ri-k55" secondAttribute="top" id="L0u-IF-RCn"/>
+                            <constraint firstItem="LTq-ri-k55" firstAttribute="trailing" secondItem="OBD-BE-bRF" secondAttribute="trailing" constant="16" id="OCL-LI-5Qi"/>
+                            <constraint firstItem="LTq-ri-k55" firstAttribute="trailing" secondItem="IHR-Bs-3b5" secondAttribute="trailing" constant="16" id="OsC-ip-smO"/>
+                            <constraint firstItem="IHR-Bs-3b5" firstAttribute="leading" secondItem="LTq-ri-k55" secondAttribute="leading" constant="16" id="TWk-ZZ-lgG"/>
+                            <constraint firstItem="OBD-BE-bRF" firstAttribute="top" secondItem="IHR-Bs-3b5" secondAttribute="bottom" constant="16" id="Ye1-ds-95D"/>
+                            <constraint firstItem="LTq-ri-k55" firstAttribute="trailing" secondItem="W6N-74-4Ni" secondAttribute="trailing" constant="16" id="dli-cQ-Tde"/>
+                            <constraint firstItem="IHR-Bs-3b5" firstAttribute="top" secondItem="W6N-74-4Ni" secondAttribute="bottom" constant="16" id="ofQ-8r-gHJ"/>
                             <constraint firstItem="LTq-ri-k55" firstAttribute="trailing" secondItem="BK9-rz-3DN" secondAttribute="trailing" constant="16" id="q2Q-f9-Q2Q"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Chart" id="G0L-2q-cRs"/>
+                    <connections>
+                        <outlet property="chartView" destination="W6N-74-4Ni" id="cpw-vB-RAZ"/>
+                        <outlet property="contentLabel" destination="Kuw-vf-v2N" id="JWl-FC-Ddz"/>
+                        <outlet property="contentView" destination="OBD-BE-bRF" id="xUA-i0-GXT"/>
+                        <outlet property="headerLabel" destination="IHR-Bs-3b5" id="RuW-5V-AUO"/>
+                        <outlet property="segmentedControl" destination="BK9-rz-3DN" id="xRU-kE-0OX"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uyg-2F-2gd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

@@ -176,6 +176,7 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: NutritionHeader.identifier) as! NutritionHeader
         header.configure()
+        header.delegate = self 
         self.headerView = header
         return header
     }
@@ -256,5 +257,34 @@ extension DietViewController: AddDescribedMealDelegate {
         }
         
         print("✅ Meal added successfully")
+    }
+}
+
+extension DietViewController: NutritionHeaderDelegate {
+    func didTapProteinView() {
+        print("🥩 Protein view tapped")
+        let storyboard = UIStoryboard(name: "Diet", bundle: nil)
+        if let chartVC = storyboard.instantiateViewController(withIdentifier: "ChartViewController") as? ChartViewController {
+            chartVC.macroType = .protein
+            navigationController?.pushViewController(chartVC, animated: true)
+        }
+    }
+    
+    func didTapCarbsView() {
+        print("🍞 Carbs view tapped")
+        let storyboard = UIStoryboard(name: "Diet", bundle: nil)
+        if let chartVC = storyboard.instantiateViewController(withIdentifier: "ChartViewController") as? ChartViewController {
+            chartVC.macroType = .carbs
+            navigationController?.pushViewController(chartVC, animated: true)
+        }
+    }
+    
+    func didTapFatsView() {
+        print("🥑 Fats view tapped")
+        let storyboard = UIStoryboard(name: "Diet", bundle: nil)
+        if let chartVC = storyboard.instantiateViewController(withIdentifier: "ChartViewController") as? ChartViewController {
+            chartVC.macroType = .fats
+            navigationController?.pushViewController(chartVC, animated: true)
+        }
     }
 }
