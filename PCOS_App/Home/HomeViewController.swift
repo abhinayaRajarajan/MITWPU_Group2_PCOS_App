@@ -114,7 +114,7 @@ class HomeViewController: UIViewController {
     
     @objc func addTapped() {
         
-        if let vc = storyboard?.instantiateViewController(withIdentifier: "profileVC") as? ProfileViewController {
+        if let vc = storyboard?.instantiateViewController(withIdentifier: "ProfileTableViewController") as? ProfileTableViewController {
             navigationController?.pushViewController(vc, animated: true)
         }
     }
