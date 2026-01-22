@@ -109,22 +109,22 @@ extension CompletedWorkoutsDataStore {
 
         // MARK: - Sets
         let squatSets = [
-            ExerciseSet(setNumber: 1, reps: 12, weightKg: 0, restTimerSeconds: 60, durationSeconds: nil, completionState: .completed),
-            ExerciseSet(setNumber: 2, reps: 12, weightKg: 0, restTimerSeconds: 60, durationSeconds: nil, completionState: .completed)
+            ExerciseSet(setNumber: 1, reps: 12,  restTimerSeconds: 60, durationSeconds: nil, completionState: .completed),
+            ExerciseSet(setNumber: 2, reps: 12,  restTimerSeconds: 60, durationSeconds: nil, completionState: .completed)
         ]
 
         let pushUpSets = [
-            ExerciseSet(setNumber: 1, reps: 10, weightKg: 0, restTimerSeconds: 60, durationSeconds: nil, completionState: .completed),
-            ExerciseSet(setNumber: 2, reps: 8, weightKg: 0, restTimerSeconds: 60, durationSeconds: nil, completionState: .completed)
+            ExerciseSet(setNumber: 1, reps: 10, restTimerSeconds: 60, durationSeconds: nil, completionState: .completed),
+            ExerciseSet(setNumber: 2, reps: 8,  restTimerSeconds: 60, durationSeconds: nil, completionState: .completed)
         ]
 
         let plankSets = [
-            ExerciseSet(setNumber: 1, reps: 0, weightKg: 0, restTimerSeconds: 30, durationSeconds: 45, completionState: .completed),
-            ExerciseSet(setNumber: 2, reps: 0, weightKg: 0, restTimerSeconds: 30, durationSeconds: 40, completionState: .completed)
+            ExerciseSet(setNumber: 1, reps: 0,  restTimerSeconds: 30, durationSeconds: 45, completionState: .completed),
+            ExerciseSet(setNumber: 2, reps: 0,  restTimerSeconds: 30, durationSeconds: 40, completionState: .completed)
         ]
 
         let jumpingJackSets = [
-            ExerciseSet(setNumber: 1, reps: 0, weightKg: 0, restTimerSeconds: 30, durationSeconds: 60, completionState: .completed)
+            ExerciseSet(setNumber: 1, reps: 0, restTimerSeconds: 30, durationSeconds: 60, completionState: .completed)
         ]
 
         // MARK: - Workout Exercises

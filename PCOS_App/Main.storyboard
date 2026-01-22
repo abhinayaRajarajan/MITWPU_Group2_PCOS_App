@@ -282,7 +282,7 @@
         <scene sceneID="diet-scene">
             <objects>
                 <navigationController id="DietNav" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Home" image="house" catalog="system" id="5d6-M8-aro"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="sun.max.fill" catalog="system" id="5d6-M8-aro"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="7kj-RN-rWQ">
                         <rect key="frame" x="0.0" y="118" width="393" height="54"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -1053,10 +1053,10 @@
         <image name="figure.strengthtraining.traditional" catalog="system" width="128" height="119"/>
         <image name="figure.walk" catalog="system" width="94" height="128"/>
         <image name="fork.knife" catalog="system" width="94" height="128"/>
-        <image name="house" catalog="system" width="128" height="104"/>
         <image name="leaf" catalog="system" width="128" height="111"/>
         <image name="questionmark.circle" catalog="system" width="128" height="123"/>
         <image name="scalemass" catalog="system" width="128" height="121"/>
+        <image name="sun.max.fill" catalog="system" width="128" height="125"/>
         <image name="waveform.path.ecg" catalog="system" width="128" height="125"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

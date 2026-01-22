@@ -505,13 +505,7 @@ class WorkoutPlayerViewController: UIViewController {
 
 
     private func updateProgressBar() {
-        let completed = completedSetsInRoutine()
-        let total = totalSetsInRoutine()
-        
-       // let progress = CGFloat(completed) / CGFloat(max(total, 1))
-        
-//        ProgressWidthConstraint.constant = progress * view.bounds.width
-       
+
         UIView.animate(withDuration: 0.25) {
             self.view.layoutIfNeeded()
         }

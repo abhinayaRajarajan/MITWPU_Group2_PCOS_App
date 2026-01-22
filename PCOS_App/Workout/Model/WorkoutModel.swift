@@ -133,10 +133,11 @@ struct RoutineExercise: Codable, Identifiable {
     var reps: Int
     var weightKg :  Int
     var restTimerSeconds: Int?
+    
     // For cardio exercises
     var durationSeconds: Int?
     var notes: String?
-    init(id: UUID = UUID(),
+    init (id: UUID = UUID(),
              exercise: Exercise,
              numberOfSets: Int? = nil,
              reps: Int? = nil,
@@ -150,7 +151,7 @@ struct RoutineExercise: Codable, Identifiable {
             self.weightKg = weightKg
             self.notes = notes
             
-            // Set smart defaults based on exercise type
+            // Setting defaults based on exercise type
             if exercise.isCardio {
                 self.numberOfSets = 1
                 self.reps = 0
@@ -170,7 +171,7 @@ struct RoutineExercise: Codable, Identifiable {
                    let cardioSet = ExerciseSet(
                        setNumber: 1,
                        reps: 0,
-                       weightKg: 0,
+                      // weightKg: 0,
                        restTimerSeconds: nil,
                        durationSeconds: durationSeconds,
                        //isCompleted: false
@@ -188,7 +189,7 @@ struct RoutineExercise: Codable, Identifiable {
                        ExerciseSet(
                            setNumber: $0,
                            reps: reps,
-                           weightKg: weightKg,
+                       //    weightKg: weightKg,
                            restTimerSeconds: restTimerSeconds,
                            durationSeconds: nil,
                            //isCompleted: false
@@ -205,7 +206,7 @@ struct RoutineExercise: Codable, Identifiable {
            }
     
 }
-
+//UI MODEL
 struct Card {
     let name: String
     let image: String
@@ -219,7 +220,7 @@ struct ExerciseSet: Codable, Identifiable {
     var id = UUID()
     var setNumber: Int
     var reps: Int
-    var weightKg: Int
+//    var weightKg: Int
     var restTimerSeconds: Int?
     var durationSeconds: Int? // For cardio exercises
     //var isCompleted: Bool = false
@@ -278,7 +279,7 @@ struct Routine: Identifiable, Codable {
 }
 
 
-//new
+
 struct ActiveWorkout {
     var id = UUID()
     var routine: Routine                    // template used
@@ -306,11 +307,11 @@ struct CompletedWorkout : Codable {
 class WorkoutSessionManager {
     static let shared = WorkoutSessionManager()
     private init() {}
-    //var duration: Double
-    /// Array of saved routine templates
+    
+    // Array of saved routine templates
     var savedRoutines: [Routine] = []
     
-    /// Active workout session
+    // Active workout session
     var activeWorkout: ActiveWorkout?
     
     /// Past completed workouts
@@ -402,7 +403,7 @@ extension ActiveWorkout {
 }
 extension CompletedWorkout {
 
-    /// True only if all planned sets are completed
+    // will return true for exercise  only if all planned sets are completed
     var isFullyCompleted: Bool {
         for exercise in exercises {
             for set in exercise.sets {

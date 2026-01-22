@@ -16,7 +16,7 @@ class RoutineDataStore {
 
        
 
-            // 1️⃣ LOW ENERGY MOVEMENT
+            //  LOW ENERGY MOVEMENT
             Routine(
                 id: UUID(),
                 name: "Low Energy Movement",
@@ -49,7 +49,7 @@ class RoutineDataStore {
                 routineDescription: "Designed for days of low energy and physical fatigue, this routine prioritizes gentle activation and mobility to avoid excessive cortisol spikes. Slow, controlled movement supports hormonal balance, improves circulation, and encourages recovery without overloading the nervous system—making it ideal for PCOS users on depleted days."
             ),
 
-            // 2️⃣ CALM & STEADY
+            //  CALM & STEADY
             Routine(
                 id: UUID(),
                 name: "Calm and Steady",
@@ -83,7 +83,7 @@ class RoutineDataStore {
                 routineDescription: "This routine supports stress regulation by emphasizing steady, grounding movements that help calm the nervous system. By reducing sympathetic overactivation and cortisol output, it aids hormonal stability while improving posture and muscular control—especially useful during mentally overwhelming or emotionally taxing days."
             ),
 
-            // 3️⃣ BUILD & BURN
+            //  BUILD & BURN
             Routine(
                 id: UUID(),
                 name: "Build and Burn",
@@ -119,7 +119,7 @@ class RoutineDataStore {
                 routineDescription: "Built for high-motivation days, this routine focuses on compound strength movements that improve insulin sensitivity, lean muscle mass, and metabolic efficiency—key factors in PCOS management. Intensity is purposeful and structured to stimulate adaptation without unnecessary cortisol overload."
             ),
 
-            // 4️⃣ LIGHT & FLOW
+            //  LIGHT & FLOW
             Routine(
                 id: UUID(),
                 name: "Light and Flow",

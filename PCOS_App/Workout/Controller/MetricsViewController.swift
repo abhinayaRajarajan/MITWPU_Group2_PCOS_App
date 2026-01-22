@@ -25,8 +25,8 @@ class MetricsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print("📊 MetricsViewController loaded with goalType: \(goalType.title)")
-        print("📊 Total completed workouts: \(WorkoutSessionManager.shared.completedWorkouts.count)")
+        print("MetricsViewController loaded with goalType: \(goalType.title)")
+        print("Total completed workouts: \(WorkoutSessionManager.shared.completedWorkouts.count)")
         
         title = goalType.title
         navigationController?.navigationBar.prefersLargeTitles = false
@@ -40,24 +40,24 @@ class MetricsViewController: UIViewController {
         updateInsights()
     }
     
-    // MARK: - Actions
+   
     @objc func timeSegmentChanged(_ sender: UISegmentedControl) {
         let range = WorkoutChartTimeRange(rawValue: sender.selectedSegmentIndex) ?? .week
-        print("📊 Time range changed to: \(range)")
+        print("Time range changed to: \(range)")
         currentTimeRange = range
         loadData(for: range)
         updateInsights()
     }
     
-    // MARK: - Data Loading
+    //  Data Loading
     private func loadData(for range: WorkoutChartTimeRange) {
         currentTimeRange = range
         let calendar = Calendar.current
         let now = Date()
         var newData: [WorkoutChartDataPoint] = []
         
-        print("📊 Loading data for range: \(range)")
-        print("📊 Available workouts: \(WorkoutSessionManager.shared.completedWorkouts.count)")
+        print("Loading data for range: \(range)")
+        print("Available workouts: \(WorkoutSessionManager.shared.completedWorkouts.count)")
         
         switch range {
         case .day:

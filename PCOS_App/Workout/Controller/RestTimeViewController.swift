@@ -207,26 +207,6 @@ class RestTimeViewController: UIViewController {
 
         var onRestFinished: (() -> Void)?
 
-//        override func viewDidLoad() {
-//            super.viewDidLoad()
-            //RestTimeImageOutlet.image=UIImage(named: "home_image")
-            //RestTimeImageOutlet.contentMode = .scaleAspectFit
-            //startTimer()
-        //}
-
-//        private func startTimer() {
-//            updateLabel()
-//
-//            timer = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { [weak self] _ in
-//                guard let self else { return }
-//                self.secondsRemaining -= 1
-//                self.updateLabel()
-//
-//                if self.secondsRemaining <= 0 {
-//                    self.finishRest()
-//                }
-//            }
-//        }
 
         private func updateLabel() {
             RestCountdownOutlet.text = "\(secondsRemaining)s"
