@@ -213,6 +213,18 @@ struct Card {
     var toBeDone: Double
     var done: Double?
     var unit: String?
+    var tintColor: UIColor {
+            switch name.lowercased() {
+            case "cals burnt":
+                return UIColor(hex: "#C79CFF")
+            case "steps":
+                return UIColor(hex: "#FFEBA2")
+            case "duration":
+                return UIColor(hex: "#B2E8FF")
+            default:
+                return .systemBlue
+            }
+        }
 }
 
 

@@ -14,6 +14,7 @@ class WeightPickerViewController: UIViewController {
     @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
+    @IBOutlet weak var nextButton: UIButton!
     private var picker: CircularArcWeightPickerView!
     //private var valueContainer: UIView!
     private var currentValue: Int = 70
@@ -26,7 +27,7 @@ class WeightPickerViewController: UIViewController {
         // Initialize based on segmented control
         isMetric = unitSegmentedControl.selectedSegmentIndex == 1
         currentValue = isMetric ? 70 : 154 // 70kg ≈ 154lbs
-                
+        nextButton.tintColor = UIColor(hex:"FE7A96")
         
         setupUI()
         setupPicker()

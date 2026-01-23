@@ -14,13 +14,14 @@ class HeightPickerViewController: UIViewController {
     @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
+    @IBOutlet weak var nextButton: UIButton!
     private var rulerView: HeightRulerPickerView!
     private var currentValue: Int = 170
     private var isMetric: Bool = true
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        nextButton.tintColor = UIColor(hex:"FE7A96")
         setupUI()
         setupRulerView()
 

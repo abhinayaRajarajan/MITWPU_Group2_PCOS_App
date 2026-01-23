@@ -14,12 +14,14 @@ class MovementTypeViewController: UIViewController {
     @IBOutlet weak var regularMovementsView: UIView!
     @IBOutlet weak var veryActiveView: UIView!
     
+    @IBOutlet weak var nextButton: UIButton!
     private var selectedView: UIView?
     private var selectedMovementType: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        nextButton.tintColor = UIColor(hex:"FE7A96")
         sedentaryView.layer.cornerRadius = 20
         lightMovementsView.layer.cornerRadius = 20
         regularMovementsView.layer.cornerRadius = 20
@@ -73,8 +75,8 @@ class MovementTypeViewController: UIViewController {
             
             // Highlight selected view
             tappedView.layer.borderWidth = 3
-            tappedView.layer.borderColor = UIColor.systemBlue.cgColor
-            tappedView.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.1)
+        tappedView.layer.borderColor = UIColor(hex:"#fe7a96").cgColor
+        tappedView.backgroundColor = UIColor(hex:"#fe7a96").withAlphaComponent(0.1)
         }
 
     @IBAction func nextButtonTapped(_ sender: UIButton) {

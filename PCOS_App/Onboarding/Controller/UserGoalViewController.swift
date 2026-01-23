@@ -14,12 +14,14 @@ class UserGoalViewController: UIViewController {
     @IBOutlet weak var acneHairCard: UIView!
     @IBOutlet weak var energyLevelCard: UIView!
     
+    @IBOutlet weak var nextButton: UIButton!
     private var selectedView: UIView?
     private var selectedGoalType: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        nextButton.tintColor = UIColor(hex:"FE7A96")
         cycleRegularityCard.layer.cornerRadius = 20
         weightManagementCard.layer.cornerRadius = 20
         acneHairCard.layer.cornerRadius = 20
@@ -73,8 +75,8 @@ class UserGoalViewController: UIViewController {
         
         // Highlight selected view
         tappedView.layer.borderWidth = 3
-        tappedView.layer.borderColor = UIColor.systemBlue.cgColor
-        tappedView.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.1)
+        tappedView.layer.borderColor = UIColor(hex:"#fe7a96").cgColor
+        tappedView.backgroundColor = UIColor(hex:"fe7a96").withAlphaComponent(0.1)
     }
     
     @IBAction func nextButtonTapped(_ sender: UIButton) {

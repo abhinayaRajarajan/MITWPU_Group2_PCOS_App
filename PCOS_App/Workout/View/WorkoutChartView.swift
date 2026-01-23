@@ -100,7 +100,7 @@ struct WorkoutChartView: View {
                             x: .value("Period", dataPoint.label),
                             y: .value("Amount", dataPoint.value)
                         )
-                        .foregroundStyle(goalType.color.gradient)
+                        .foregroundStyle(goalType.gradient)
                         .cornerRadius(6)
                     }
                     

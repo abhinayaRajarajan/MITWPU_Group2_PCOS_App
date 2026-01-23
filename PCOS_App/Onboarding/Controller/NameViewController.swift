@@ -11,11 +11,13 @@ class NameViewController: UIViewController {
 
     @IBOutlet weak var nameField: UITextField!
     
+    @IBOutlet weak var nextButton: UIButton!
     @IBOutlet weak var datePicker: UIDatePicker!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        nextButton.tintColor = UIColor(hex:"FE7A96")
         setupDatePicker()
     }
     

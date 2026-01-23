@@ -9,7 +9,7 @@ import UIKit
 
 class WorkoutViewController: UIViewController {
     
-    private var cards: [Card] = [Card(name:"Cals burnt", image: "flame.fill", toBeDone: 300, done: 0, unit: "cal"),Card(name: "Steps", image: "figure.walk", toBeDone: 8000, done: 500), Card(name: "Duration", image: "stopwatch.fill",toBeDone: 120, done: 0, unit: "s")]
+    private var cards: [Card] = [Card(name:"Cals burnt", image: "flame.fill", toBeDone: 300, done: 0, unit: "cal"),Card(name: "Steps", image: "figure.walk", toBeDone: 800, done: 500), Card(name: "Duration", image: "stopwatch.fill",toBeDone: 120, done: 0, unit: "s")]
     private var exploreRoutine: [Routine] = RoutineDataStore.shared.predefinedRoutines
     
     private var selectedPredefinedRoutine: Routine?
@@ -23,7 +23,7 @@ class WorkoutViewController: UIViewController {
         
         title = "Workout"
         navigationController?.navigationBar.prefersLargeTitles = true
-        //view.backgroundColor=UIColor(hex: "FCEEED")
+       
         setupNavigation()
         registerCells()
         collectionView.setCollectionViewLayout(generateLayout(), animated: true)
@@ -72,7 +72,8 @@ class WorkoutViewController: UIViewController {
                 // Daily Goals - horizontal, non-scrollable, dynamic sizing
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0 / 3.0),
-                    heightDimension: .fractionalWidth(1.0 / 3.0)
+                    //heightDimension: .fractionalWidth(1.0 / 3.0)
+                    heightDimension: .absolute(100)
                 )
                 
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -261,9 +262,10 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
         
         if indexPath.section == 0 {
             headerView.configureHeader(with:"Daily Goals")
-        } else if indexPath.section == 1{
+        }
+        else if indexPath.section == 1{
             headerView.configureHeader(with:"My Routines")
-        } else {
+        } else if  indexPath.section == 2{
             headerView.configureHeader(with:"Explore Routines")
         }
         return headerView

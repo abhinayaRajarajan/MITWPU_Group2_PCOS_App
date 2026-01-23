@@ -13,14 +13,17 @@ struct UserProfile {
     let heightInCm: Double
     let weightInKg: Double
 
-    let pcosType: PCOSType
-    let metabolicProfile: MetabolicProfile
-
+    let dietPattern: DietPattern
     let activityLevel: ActivityLevel
-   
+    let primaryFocus: PrimaryFocus?
 }
 
-
+enum DietPattern {
+    case balanced
+    case highSugar
+    case irregular
+    case unsure
+}
 
 enum ActivityLevel {
     case sedentary
@@ -29,32 +32,19 @@ enum ActivityLevel {
     case veryActive
 }
 
-
-enum PCOSType: String, Codable {
-    case insulinResistant
-    case lean
-    case inflammatory
-    case mixed
+enum PrimaryFocus {
+    case cycleRegularity
+    case weightManagement
+    case acneOrHair
+    case energy
+    case unsure
 }
-struct MetabolicProfile: Codable {
-    let insulinResistance: Bool
-    
-    let diabetes: Bool
-    let highCholesterol: Bool
-}
-
 
 enum BMICategory {
     case underweight
     case normal
     case overweight
     case obese
-}
-//computed and not input
-enum InsulinRiskLevel {
-    case low
-    case moderate
-    case high
 }
 
 extension UserProfile {
@@ -97,127 +87,75 @@ struct UserGoals {
     let workout: WorkoutGoals
 }
 struct GoalEngine {
-    static func computeInsulinRisk(for user: UserProfile) -> InsulinRiskLevel {
-        
-        // Explicit diagnoses override everything
-        if user.metabolicProfile.diabetes  {
-            return .high
-        }
-        
-        if user.metabolicProfile.insulinResistance {
-            return .high
-        }
-        
-        // PCOS type influence
-        if user.pcosType == .insulinResistant {
-            return .high
-        }
-        
-        // BMI-based scaling
-        switch user.bmiCategory {
-        case .obese:
-            return .high
-        case .overweight:
-            return .moderate
-        default:
-            return .low
-        }
-    }
-    private static func estimateCalories(for user: UserProfile) -> Int {
-        // Mifflin–St Jeor (female)
-        let bmr =
-        (10 * user.weightInKg) +
-        (6.25 * user.heightInCm) -
-        (5 * Double(user.age)) -
-        161
-        
-        let activityMultiplier: Double
-        switch user.activityLevel {
-        case .sedentary: activityMultiplier = 1.2
-        case .lightlyActive: activityMultiplier = 1.375
-        case .active: activityMultiplier = 1.55
-        case .veryActive: activityMultiplier = 1.725
-        }
-        
-        return Int(bmr * activityMultiplier)
-    }
-    private static func computeDietGoals(for user: UserProfile) -> DietGoals {
-        
-        let insulinRisk = computeInsulinRisk(for: user)
-        let calories = estimateCalories(for: user)
-        
-        // Protein
-        let proteinFactor: Double
-        switch insulinRisk {
-        case .low: proteinFactor = 1.5
-        case .moderate: proteinFactor = 1.7
-        case .high: proteinFactor = 1.9
-        }
-        
-        let proteinGrams = Int(user.weightInKg * proteinFactor)
-        
-        //Fat (25% calories)
-        let fatCalories = Double(calories) * 0.25
-        let fatsGrams = Int(fatCalories / 9)
-        
-        // Carbs(remaining calories) 
-        let proteinCalories = Double(proteinGrams) * 4
-        let remainingCalories = Double(calories) - proteinCalories - fatCalories
-        let carbsGrams = Int(remainingCalories / 4)
-        
-        return DietGoals(
-            proteinGrams: proteinGrams,
-            carbsGrams: carbsGrams,
-            fatsGrams: fatsGrams
-        )
-    }
-    private static func computeWorkoutGoals(for user: UserProfile) -> WorkoutGoals {
-        
-        let calories = estimateCalories(for: user)
-        
-        let steps: Int
-        let minutes: Int
-        
-        switch user.activityLevel {
-        case .sedentary:
-            steps = 6000
-            minutes = 20
-        case .lightlyActive:
-            steps = 7500
-            minutes = 30
-        case .active:
-            steps = 9000
-            minutes = 40
-        case .veryActive:
-            steps = 10000
-            minutes = 50
-        }
-        
-        let caloriesBurned = Int(Double(calories) * 0.12)
-        
-        return WorkoutGoals(
-            workoutMinutesPerDay: minutes,
-            caloriesBurnedPerDay: caloriesBurned,
-            stepsPerDay: steps
-        )
-    }
-    
+
     static func generateGoals(for user: UserProfile) -> UserGoals {
 
-        let dietGoals = computeDietGoals(for: user)
-        let workoutGoals = computeWorkoutGoals(for: user)
+        let dietGoals: DietGoals
+        let workoutGoals: WorkoutGoals
 
-        return UserGoals(
-            diet: dietGoals,
-            workout: workoutGoals
-        )
+        // MARK: Diet Goals
+        switch user.dietPattern {
+        case .balanced:
+            dietGoals = DietGoals(
+                proteinGrams: 90,
+                carbsGrams: 180,
+                fatsGrams: 60
+            )
+
+        case .highSugar:
+            dietGoals = DietGoals(
+                proteinGrams: 100,
+                carbsGrams: 150,
+                fatsGrams: 65
+            )
+
+        case .irregular:
+            dietGoals = DietGoals(
+                proteinGrams: 95,
+                carbsGrams: 160,
+                fatsGrams: 60
+            )
+
+        case .unsure:
+            dietGoals = DietGoals(
+                proteinGrams: 85,
+                carbsGrams: 170,
+                fatsGrams: 60
+            )
+        }
+
+        // MARK: Workout Goals
+        switch user.activityLevel {
+        case .sedentary:
+            workoutGoals = WorkoutGoals(
+                workoutMinutesPerDay: 15,
+                caloriesBurnedPerDay: 150,
+                stepsPerDay: 4000
+            )
+
+        case .lightlyActive:
+            workoutGoals = WorkoutGoals(
+                workoutMinutesPerDay: 25,
+                caloriesBurnedPerDay: 250,
+                stepsPerDay: 6000
+            )
+
+        case .active:
+            workoutGoals = WorkoutGoals(
+                workoutMinutesPerDay: 40,
+                caloriesBurnedPerDay: 350,
+                stepsPerDay: 8000
+            )
+
+        case .veryActive:
+            workoutGoals = WorkoutGoals(
+                workoutMinutesPerDay: 50,
+                caloriesBurnedPerDay: 450,
+                stepsPerDay: 10000
+            )
+        }
+
+        return UserGoals(diet: dietGoals, workout: workoutGoals)
     }
-//WHO baseline -> Added sugar ≤ 10% of total calories
-    //sensitivity threshold
-//    Low insulin risk      → 10–12% of calories
-//    Moderate insulin risk → 8 to 10% of calories
-//    High insulin risk     → 5–8% of calories
-    
-
 }
 
