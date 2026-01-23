@@ -9,7 +9,7 @@ import UIKit
 
 class ProfileTableViewController: UITableViewController {
 
-    private let section0 = ["Edit health details"]
+    private let section0 = ["Health details"]
     private let features = ["Reminders", "Notifications"]
     private let privacy = ["Apps", "Devices"]
     
@@ -132,7 +132,7 @@ class ProfileTableViewController: UITableViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileActionCell", for: indexPath)
             
             cell.textLabel?.text = section0[indexPath.row]
-            cell.textLabel?.textColor = .systemBlue
+            cell.textLabel?.textColor = .label
             cell.textLabel?.font = UIFont.systemFont(ofSize: 17, weight: .regular)
             cell.accessoryType = .disclosureIndicator
             cell.selectionStyle = .default
@@ -162,7 +162,7 @@ class ProfileTableViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         
         // Navigate to HealthDetailsTableViewController when selecting "Edit Health Details"
-        if indexPath.section == 0 && section0[indexPath.row].lowercased() == "edit health details" {
+        if indexPath.section == 0 && section0[indexPath.row].lowercased() == "health details" {
             let storyboard = UIStoryboard(name: "Home", bundle: nil)
             guard let vc = storyboard.instantiateViewController(withIdentifier: "HealthDetailsTableViewController") as? HealthDetailsTableViewController else {
                 print("Unable to instantiate HealthDetailsTableViewController")

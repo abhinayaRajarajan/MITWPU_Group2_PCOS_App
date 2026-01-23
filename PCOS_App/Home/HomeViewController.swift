@@ -121,22 +121,6 @@ class HomeViewController: UIViewController {
     
     @objc func leftBarButtonTapped() {
         
-        // COMMENTED OUT: Will pass period dates to FullCalendarViewController later
-        /*
-         if let vc = storyboard?.instantiateViewController(withIdentifier: "FullCalendarViewController") as? FullCalendarViewController {
-         // Load saved period dates
-         var periodDates: [Date] = []
-         if let timestamps = UserDefaults.standard.array(forKey: "SavedPeriodDates") as? [TimeInterval] {
-         periodDates = timestamps.map { Date(timeIntervalSince1970: $0) }.sorted()
-         }
-         
-         // Pass the dates to FullCalendarViewController
-         vc.periodDates = periodDates
-         
-         navigationController?.pushViewController(vc, animated: true)
-         }
-         */
-        
         if let vc = storyboard?.instantiateViewController(withIdentifier: "FullCalendarViewController") as? FullCalendarViewController {
             navigationController?.pushViewController(vc, animated: true)
         }

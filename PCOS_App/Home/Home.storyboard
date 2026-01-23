@@ -556,7 +556,7 @@ Length</string>
                                 <rect key="frame" x="8" y="59" width="377" height="1219"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Bth-nL-S3Q">
-                                        <rect key="frame" x="0.0" y="0.0" width="377" height="998"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="377" height="988"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Recent Food and Symptom Overlap" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ini-70-p8s">
                                                 <rect key="frame" x="8" y="7.9999999999999982" width="361" height="20.333333333333329"/>
@@ -631,7 +631,7 @@ Length</string>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oJK-mg-8Pw">
-                                                <rect key="frame" x="8" y="770" width="361" height="150"/>
+                                                <rect key="frame" x="8" y="770" width="361" height="140"/>
                                                 <subviews>
                                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="14" translatesAutoresizingMaskIntoConstraints="NO" id="Tx2-l1-QOa">
                                                         <rect key="frame" x="0.0" y="0.0" width="361" height="115.33333333333333"/>
@@ -726,14 +726,14 @@ Length</string>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="150" id="4Cc-jG-RSV"/>
+                                                    <constraint firstAttribute="height" constant="140" id="4Cc-jG-RSV"/>
                                                     <constraint firstAttribute="trailing" secondItem="Tx2-l1-QOa" secondAttribute="trailing" id="Lad-zc-cn2"/>
                                                     <constraint firstItem="Tx2-l1-QOa" firstAttribute="leading" secondItem="oJK-mg-8Pw" secondAttribute="leading" id="XPY-Z9-HAK"/>
                                                     <constraint firstItem="Tx2-l1-QOa" firstAttribute="top" secondItem="oJK-mg-8Pw" secondAttribute="top" id="xla-Gi-YoL"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sTN-Ck-HbO">
-                                                <rect key="frame" x="8" y="930" width="361" height="60"/>
+                                                <rect key="frame" x="8" y="920" width="361" height="60"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="749" text="Based on your activity logs. This reflects patterns, not a medical diagnosis." lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="w9g-hU-ndw">
                                                         <rect key="frame" x="16" y="8" width="329" height="44"/>
@@ -751,7 +751,7 @@ Length</string>
                                                 </constraints>
                                             </view>
                                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your weekly sugar exposure" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mnX-8Y-8yX">
-                                                <rect key="frame" x="8" y="990" width="361" height="0.0"/>
+                                                <rect key="frame" x="8" y="980" width="361" height="0.0"/>
                                                 <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="16"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>

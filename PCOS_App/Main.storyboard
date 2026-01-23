@@ -52,8 +52,10 @@
                                     <constraint firstAttribute="height" constant="414" id="QO0-Pe-bFI"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A safe space for PCOS - learn, track and heal at your own pace" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXH-ow-yMR">
-                                <rect key="frame" x="40" y="606" width="313" height="42.333333333333371"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kXH-ow-yMR">
+                                <rect key="frame" x="20" y="606" width="353" height="42.333333333333371"/>
+                                <string key="text">A Safe Space for PCOS
+Learn, track and heal at your own pace</string>
                                 <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -62,13 +64,13 @@
                         <viewLayoutGuide key="safeArea" id="YA0-ZR-PYv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="YA0-ZR-PYv" firstAttribute="trailing" secondItem="kXH-ow-yMR" secondAttribute="trailing" constant="40" id="1mT-Vu-UFr"/>
+                            <constraint firstItem="YA0-ZR-PYv" firstAttribute="trailing" secondItem="kXH-ow-yMR" secondAttribute="trailing" constant="20" id="1mT-Vu-UFr"/>
                             <constraint firstItem="CuX-tt-PK2" firstAttribute="leading" secondItem="YA0-ZR-PYv" secondAttribute="leading" id="8TN-fu-6Ly"/>
                             <constraint firstItem="QSg-JB-Tdy" firstAttribute="leading" secondItem="YA0-ZR-PYv" secondAttribute="leading" constant="20" id="R47-8C-B72"/>
                             <constraint firstItem="YA0-ZR-PYv" firstAttribute="trailing" secondItem="CuX-tt-PK2" secondAttribute="trailing" id="S6x-rx-EiX"/>
                             <constraint firstItem="YA0-ZR-PYv" firstAttribute="trailing" secondItem="QSg-JB-Tdy" secondAttribute="trailing" constant="20" id="aCA-EI-pKj"/>
                             <constraint firstItem="CuX-tt-PK2" firstAttribute="top" secondItem="YA0-ZR-PYv" secondAttribute="top" constant="20" id="kR7-uW-GMJ"/>
-                            <constraint firstItem="kXH-ow-yMR" firstAttribute="leading" secondItem="YA0-ZR-PYv" secondAttribute="leading" constant="40" id="nUa-cQ-lcc"/>
+                            <constraint firstItem="kXH-ow-yMR" firstAttribute="leading" secondItem="YA0-ZR-PYv" secondAttribute="leading" constant="20" id="nUa-cQ-lcc"/>
                             <constraint firstItem="YA0-ZR-PYv" firstAttribute="bottom" secondItem="QSg-JB-Tdy" secondAttribute="bottom" constant="30" id="sgG-y8-e5O"/>
                             <constraint firstItem="kXH-ow-yMR" firstAttribute="top" secondItem="CuX-tt-PK2" secondAttribute="bottom" id="zDM-6V-gKs"/>
                         </constraints>
