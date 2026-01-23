@@ -206,7 +206,7 @@ class SummaryViewController: UIViewController {
             //just uncomment to navigate to routine preview vc
             
             view.window?.rootViewController?.dismiss(animated: true)
-            //dismiss(animated: true)
+           
             
             
         }

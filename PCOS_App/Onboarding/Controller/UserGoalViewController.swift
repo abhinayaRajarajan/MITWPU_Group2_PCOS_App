@@ -115,7 +115,7 @@ class UserGoalViewController: UIViewController {
         
         // Save to ProfileService
         ProfileService.shared.setProfile(to: profile)
-        print("✅ Complete profile saved!")
+        print("Complete profile saved!")
         
         // Clear temporary onboarding data
         //clearOnboardingData()

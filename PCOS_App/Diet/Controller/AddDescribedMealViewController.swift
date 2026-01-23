@@ -520,7 +520,7 @@ class AddDescribedMealViewController: UIViewController {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
             
-            // ✅ Use this instead of recalculateMacros()
+            // Use this instead of recalculateMacros()
             updateHeaderWithCurrentIngredients()
             
             print("DEBUG: \(ingredients.count) ingredients remaining")
