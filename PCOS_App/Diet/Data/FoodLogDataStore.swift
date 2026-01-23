@@ -51,7 +51,7 @@ struct FoodLogDataSource {
             proteinContent: 17,
             carbsContent: 15,
             fatsContent: 4,
-            fibreContent: 3,
+            
             customCalories: 282.1,
             tags: [.highProtein, .lowGlycemic, .gutFriendly, .pcosFriendly],
             ingredients: [
@@ -98,7 +98,6 @@ struct FoodLogDataSource {
             proteinContent: 6,
             carbsContent: 25,
             fatsContent: 14,
-            fibreContent: 7,
             customCalories: 220.39,
 
             tags: [.healthyFats, .lowGlycemic, .antiInflammatory, .wholeFood],
@@ -125,7 +124,6 @@ struct FoodLogDataSource {
             proteinContent: 6,
             carbsContent: 6,
             fatsContent: 14,
-            fibreContent: 3,
             tags: [.healthyFats, .highProtein, .wholeFood]
         ),
         
@@ -140,7 +138,6 @@ struct FoodLogDataSource {
             proteinContent: 12,
             carbsContent: 45,
             fatsContent: 8,
-            fibreContent: 10,
             tags: [.lowGlycemic, .wholeFood, .pcosFriendly]
         ),
         // YESTERDAY - Lunch
@@ -154,7 +151,6 @@ struct FoodLogDataSource {
             proteinContent: 32,
             carbsContent: 12,
             fatsContent: 10,
-            fibreContent: 5,
             tags: [.highProtein, .lowCarb, .antiInflammatory, .wholeFood],
             ingredients: [
                            Ingredient(id: UUID(), name: "Chicken Breast", quantity: 120,
@@ -180,7 +176,6 @@ struct FoodLogDataSource {
             proteinContent: 35,
             carbsContent: 40,
             fatsContent: 18,
-            fibreContent: 5,
             tags: [.highProtein, .healthyFats, .antiInflammatory, .wholeFood]
         ),
         Food(
@@ -193,7 +188,6 @@ struct FoodLogDataSource {
             proteinContent: 8,
             carbsContent: 55,
             fatsContent: 12,
-            fibreContent: 1,
             tags: [.sugary, .insulinSpiking, .processed, .chocolate, .dairySensitive]
         ),
         
@@ -208,7 +202,6 @@ struct FoodLogDataSource {
             proteinContent: 10,
             carbsContent: 28,
             fatsContent: 5,
-            fibreContent: 6,
             tags: [.antiInflammatory, .lowGlycemic, .wholeFood]
         ),
         
@@ -223,7 +216,6 @@ struct FoodLogDataSource {
             proteinContent: 18,
             carbsContent: 40,
             fatsContent: 3,
-            fibreContent: 16,
             tags: [.highProtein, .lowGlycemic, .wholeFood, .pcosFriendly]
         ),
         
@@ -238,7 +230,6 @@ struct FoodLogDataSource {
             proteinContent: 25,
             carbsContent: 5,
             fatsContent: 2,
-            fibreContent: 2,
             tags: [.highProtein, .lowCarb, .wholeFood]
         )
     ]

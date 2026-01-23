@@ -190,7 +190,7 @@
         <!--Add Described Meal View Controller-->
         <scene sceneID="kox-Ht-jLJ">
             <objects>
-                <viewController storyboardIdentifier="AddDescribedMealViewController" id="5gH-2F-7g6" customClass="AddDescribedMealViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddDescribedMealViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5gH-2F-7g6" customClass="AddDescribedMealViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Kdp-f0-2xu">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="793"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
