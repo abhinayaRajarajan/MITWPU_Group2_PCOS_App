@@ -48,10 +48,10 @@ enum GoalType {
 
 // MARK: - Time Range
 enum WorkoutChartTimeRange: Int {
-    case day = 0
-    case week = 1
-    case month = 2
-    case year = 3
+    //case day = 0
+    case week = 0
+    case month = 1
+    case year = 2
 }
 
 // MARK: - Chart Data Point

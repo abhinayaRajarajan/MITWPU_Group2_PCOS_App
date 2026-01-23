@@ -173,17 +173,7 @@ class WorkoutViewController: UIViewController {
     
     
     
-    //to reload the screen for latest routines to appear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        cards[2].done = Double(WorkoutSessionManager.shared.getTime())
-        cards[0].done = (cards[2].done ?? 0)*1.5
-        print("View appeared")
-        for i in cards{
-            print(i.name, i.done, i.toBeDone)
-        }
-        collectionView.reloadData()
-    }
+   
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PredefinedRoutines" {
@@ -388,6 +378,39 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
 
         present(alert, animated: true)
     }
+}
 
+// Add this method to WorkoutViewController.swift
+
+extension WorkoutViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Sync today's workout time
+        cards[2].done = Double(WorkoutSessionManager.shared.getTime())
+        cards[0].done = (cards[2].done ?? 0) * 1.5
+        
+        // IMPORTANT: Sync completed workouts to DailyActivityDataStore
+        syncWorkoutsToActivityStore()
+        
+        print("View appeared")
+        for i in cards {
+            print(i.name, i.done, i.toBeDone)
+        }
+        collectionView.reloadData()
+    }
+    
+    // NEW METHOD: Sync all completed workouts to activity store
+    private func syncWorkoutsToActivityStore() {
+        let completedWorkouts = WorkoutSessionManager.shared.completedWorkouts
+        
+        print("Syncing \(completedWorkouts.count) workouts to activity store...")
+        
+        for workout in completedWorkouts {
+            DailyActivityDataStore.shared.syncWorkout(workout)
+        }
+        
+        print("Sync complete!")
+    }
 }
