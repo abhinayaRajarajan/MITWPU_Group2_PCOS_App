@@ -48,7 +48,7 @@ class AddMealViewController: UIViewController{
             return button
         }()
         
-        // MARK: - Lifecycle
+
         override func viewDidLoad() {
             super.viewDidLoad()
             view.backgroundColor = .white
@@ -296,7 +296,7 @@ class AddMealViewController: UIViewController{
         }
     }
 
-    // MARK: - Presentation Extension
+
     extension AddMealViewController {
         static func present(from viewController: UIViewController) {
             let storyboard = UIStoryboard(name: "Diet", bundle: nil)
@@ -304,7 +304,6 @@ class AddMealViewController: UIViewController{
             if let vc = storyboard.instantiateViewController(withIdentifier: "AddMealViewController") as? AddMealViewController {
                 addMealVC = vc
             } else {
-                print("⚠️ Warning: Could not instantiate AddMealViewController from storyboard.")
                 addMealVC = AddMealViewController()
             }
 
@@ -323,7 +322,7 @@ class AddMealViewController: UIViewController{
         }
     }
 
-    // MARK: - UITableViewDelegate
+
     extension AddMealViewController: UITableViewDelegate {
         func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
             tableView.deselectRow(at: indexPath, animated: true)
@@ -339,7 +338,7 @@ class AddMealViewController: UIViewController{
             }
         }
         
-        // Add visual feedback on row tap
+    
         func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
             if let cell = tableView.cellForRow(at: indexPath) {
                 cell.contentView.backgroundColor = UIColor.systemGray6
@@ -353,8 +352,9 @@ class AddMealViewController: UIViewController{
         }
     }
 
-    // MARK: - UITableViewDataSource
+
     extension AddMealViewController: UITableViewDataSource {
+
         func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return isShowingRecent ? filteredRecentMeals.count : filteredFoodItems.count
         }

@@ -48,8 +48,6 @@ class DietViewController: UIViewController {
             tableView.separatorStyle = .singleLine
             tableView.register(NutritionHeader.nib(), forHeaderFooterViewReuseIdentifier: NutritionHeader.identifier)
             tableView.separatorStyle = .none
-            
-            // Register empty state cell (assuming you have a nib file)
             tableView.register(NoFoodTableViewCell.nib(), forCellReuseIdentifier: NoFoodTableViewCell.identifier)
         }
 
@@ -119,19 +117,13 @@ class DietViewController: UIViewController {
             
             print("🗑️ Deleting meal: \(mealToDelete.name)")
             
-            // Update header BEFORE removing from data source
             self.headerView?.subtractValues(mealToDelete)
-            
-            // Remove from data source
             FoodLogDataSource.removeFood(mealToDelete)
-            
-            // Remove from local array
             self.todaysFoods.remove(at: indexPath.row)
             
-            // Animate table view deletion
             self.tableView.deleteRows(at: [indexPath], with: .fade)
             
-            print("✅ Meal deleted successfully")
+            print("Meal deleted successfully")
         }
         
         alert.addAction(cancelAction)
@@ -141,21 +133,19 @@ class DietViewController: UIViewController {
     }
 }
 
-// MARK: - UITableView DataSource & Delegate
+
 extension DietViewController: UITableViewDataSource, UITableViewDelegate {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // Always show at least 1 row (either meals or empty state)
         return todaysFoods.isEmpty ? 1 : todaysFoods.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        // Show empty state if no meals logged
         if todaysFoods.isEmpty {
             let cell = tableView.dequeueReusableCell(withIdentifier: NoFoodTableViewCell.identifier, for: indexPath)
             return cell
         }
         
-        // Show meal cells
         let cell = tableView.dequeueReusableCell(withIdentifier: LogsTableViewCell.identifier, for: indexPath) as! LogsTableViewCell
         let item = todaysFoods[indexPath.row]
         cell.configure(with: item)
@@ -164,8 +154,6 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        
-        // Don't respond to tap if showing empty state
         guard !todaysFoods.isEmpty else { return }
         
         let selectedFood = todaysFoods[indexPath.row]
@@ -186,19 +174,17 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        // Use custom height for empty state if needed, otherwise 100
         return todaysFoods.isEmpty ? UITableView.automaticDimension : 100
     }
     
-    // MARK: - Enable Swipe to Delete
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Only allow editing if there are actual meals
         return !todaysFoods.isEmpty
     }
     
-    // MARK: - Swipe Actions
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        // Don't show swipe actions for empty state
+    
         guard !todaysFoods.isEmpty else { return nil }
         
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, completionHandler) in
@@ -216,7 +202,7 @@ extension DietViewController: UITableViewDataSource, UITableViewDelegate {
     }
 }
 
-// MARK: - AddMeal Delegate
+
 extension DietViewController: AddMealDelegate {
     func didAddMeal(_ food: Food) {
         FoodLogDataSource.addFoodBarCode(food)
@@ -232,7 +218,7 @@ extension DietViewController: AddMealDelegate {
     }
 }
 
-// MARK: - AddDescribedMeal Delegate
+
 extension DietViewController: AddDescribedMealDelegate {
     func didConfirmMeal(_ food: Food) {
         print("🎉 didConfirmMeal called with: \(food.name)")
@@ -252,17 +238,15 @@ extension DietViewController: AddDescribedMealDelegate {
         let startOfToday = Calendar.current.startOfDay(for: Date())
         let startOfTomorrow = Calendar.current.date(byAdding: .day, value: 1, to: startOfToday)!
         if food.timeStamp >= startOfToday && food.timeStamp < startOfTomorrow {
-            //print("📊 Updating header")
             headerView?.updateValues(food)
         }
         
-        print("✅ Meal added successfully")
+        print("Meal added successfully")
     }
 }
 
 extension DietViewController: NutritionHeaderDelegate {
     func didTapProteinView() {
-        print("🥩 Protein view tapped")
         let storyboard = UIStoryboard(name: "Diet", bundle: nil)
         if let chartVC = storyboard.instantiateViewController(withIdentifier: "ChartViewController") as? ChartViewController {
             chartVC.macroType = .protein
@@ -271,7 +255,6 @@ extension DietViewController: NutritionHeaderDelegate {
     }
     
     func didTapCarbsView() {
-        print("🍞 Carbs view tapped")
         let storyboard = UIStoryboard(name: "Diet", bundle: nil)
         if let chartVC = storyboard.instantiateViewController(withIdentifier: "ChartViewController") as? ChartViewController {
             chartVC.macroType = .carbs
@@ -280,7 +263,6 @@ extension DietViewController: NutritionHeaderDelegate {
     }
     
     func didTapFatsView() {
-        print("🥑 Fats view tapped")
         let storyboard = UIStoryboard(name: "Diet", bundle: nil)
         if let chartVC = storyboard.instantiateViewController(withIdentifier: "ChartViewController") as? ChartViewController {
             chartVC.macroType = .fats

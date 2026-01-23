@@ -17,7 +17,7 @@ class BarcodeScannerViewController: UIViewController, AVCaptureMetadataOutputObj
     // UI Elements
     private let captureButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Scan Barcode", for: .normal)
+        button.setTitle("Scan", for: .normal)
         button.backgroundColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 1.0) // #fe7a96
         button.setTitleColor(.white, for: .normal)
         button.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)

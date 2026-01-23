@@ -302,7 +302,7 @@ class HealthDetailsTableViewController: UITableViewController, UITextFieldDelega
             )
 
             ProfileService.shared.setProfile(to: profile)
-            print("✅ Profile saved successfully!")
+
         }
 
         // MARK: - Disable Delete Functionality

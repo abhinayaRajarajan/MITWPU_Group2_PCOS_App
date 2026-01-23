@@ -28,7 +28,7 @@ class SymptomLoggerViewController: UIViewController {
         title = "Today's Symptoms"
         navigationController?.navigationBar.prefersLargeTitles = false
         
-        let doneButton = UIBarButtonItem(title: "Done", style: .done, target: self, action: #selector(doneButtonTapped(_:)))
+        let doneButton = UIBarButtonItem(title: "Done", style: .prominent, target: self, action: #selector(doneButtonTapped(_:)))
         navigationItem.rightBarButtonItem = doneButton
         
         doneButton.tintColor = UIColor(red: 0.996, green: 0.478, blue: 0.588, alpha: 0.8)
@@ -209,3 +209,4 @@ extension SymptomLoggerViewController: UICollectionViewDelegate {
         return section
     }
 }
+
