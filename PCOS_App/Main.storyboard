@@ -47,13 +47,20 @@
                                     <segue destination="xya-cH-ph5" kind="show" id="W5k-jV-nmT"/>
                                 </connections>
                             </button>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="routine9" translatesAutoresizingMaskIntoConstraints="NO" id="CuX-tt-PK2">
+                                <rect key="frame" x="0.0" y="192" width="393" height="456"/>
+                            </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YA0-ZR-PYv"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="CuX-tt-PK2" firstAttribute="leading" secondItem="YA0-ZR-PYv" secondAttribute="leading" id="8TN-fu-6Ly"/>
                             <constraint firstItem="QSg-JB-Tdy" firstAttribute="leading" secondItem="YA0-ZR-PYv" secondAttribute="leading" constant="16" id="R47-8C-B72"/>
+                            <constraint firstItem="YA0-ZR-PYv" firstAttribute="trailing" secondItem="CuX-tt-PK2" secondAttribute="trailing" id="S6x-rx-EiX"/>
                             <constraint firstItem="YA0-ZR-PYv" firstAttribute="trailing" secondItem="QSg-JB-Tdy" secondAttribute="trailing" constant="16" id="aCA-EI-pKj"/>
+                            <constraint firstItem="CuX-tt-PK2" firstAttribute="top" secondItem="YA0-ZR-PYv" secondAttribute="top" constant="20" id="kR7-uW-GMJ"/>
                             <constraint firstItem="YA0-ZR-PYv" firstAttribute="bottom" secondItem="QSg-JB-Tdy" secondAttribute="bottom" constant="16" id="sgG-y8-e5O"/>
+                            <constraint firstItem="QSg-JB-Tdy" firstAttribute="top" secondItem="CuX-tt-PK2" secondAttribute="bottom" constant="70" id="zQJ-B9-bYE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="RZt-uS-8vC"/>
@@ -896,8 +903,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="S5o-ST-eeT">
                                 <rect key="frame" x="16" y="529" width="175" height="175"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="face.smiling" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aIa-o7-smw">
-                                        <rect key="frame" x="62.666666666666671" y="16.666666666666668" width="50" height="48.666666666666657"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt.heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="aIa-o7-smw">
+                                        <rect key="frame" x="62.666666666666671" y="18" width="50" height="47"/>
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="1wW-6F-0Jz"/>
@@ -926,8 +933,8 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Hit-TO-5gD">
                                 <rect key="frame" x="207" y="338" width="175" height="175"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="scalemass" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0o9-Zx-pf3">
-                                        <rect key="frame" x="62.666666666666686" y="16.333333333333332" width="50" height="49.333333333333343"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cube" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="0o9-Zx-pf3">
+                                        <rect key="frame" x="62.666666666666686" y="15.666666666666668" width="50" height="50.666666666666657"/>
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="50" id="C8R-Gd-Yt1"/>
@@ -958,15 +965,15 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BLQ-Pp-bT8">
                                 <rect key="frame" x="207" y="529" width="175" height="175"/>
                                 <subviews>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bolt.heart" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mNo-ZS-5ww">
-                                        <rect key="frame" x="62.666666666666686" y="18" width="50" height="47"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="questionmark.app" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="mNo-ZS-5ww">
+                                        <rect key="frame" x="62.666666666666686" y="17.666666666666664" width="50" height="46.999999999999993"/>
                                         <color key="tintColor" systemColor="labelColor"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="A3S-fl-wiT"/>
                                             <constraint firstAttribute="height" constant="50" id="l3M-9J-0tw"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="None of the Above" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ftr-7A-VRj">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Other" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ftr-7A-VRj">
                                         <rect key="frame" x="16" y="74" width="143" height="85"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="19"/>
                                         <nil key="textColor"/>
@@ -1024,15 +1031,16 @@
         <image name="bolt.heart" catalog="system" width="128" height="107"/>
         <image name="calendar.badge.clock" catalog="system" width="128" height="109"/>
         <image name="clock.arrow.trianglehead.clockwise.rotate.90.path.dotted" catalog="system" width="128" height="119"/>
-        <image name="face.smiling" catalog="system" width="128" height="123"/>
+        <image name="cube" catalog="system" width="125" height="128"/>
         <image name="figure.run" catalog="system" width="115" height="128"/>
         <image name="figure.seated.side.left" catalog="system" width="128" height="119"/>
         <image name="figure.strengthtraining.traditional" catalog="system" width="128" height="119"/>
         <image name="figure.walk" catalog="system" width="94" height="128"/>
         <image name="fork.knife" catalog="system" width="94" height="128"/>
         <image name="leaf" catalog="system" width="128" height="111"/>
+        <image name="questionmark.app" catalog="system" width="128" height="114"/>
         <image name="questionmark.circle" catalog="system" width="128" height="123"/>
-        <image name="scalemass" catalog="system" width="128" height="121"/>
+        <image name="routine9" width="1536" height="1024"/>
         <image name="sun.max.fill" catalog="system" width="128" height="125"/>
         <image name="waveform.path.ecg" catalog="system" width="128" height="125"/>
         <systemColor name="labelColor">
