@@ -254,7 +254,6 @@ class FoodLogIngredientViewController: UIViewController {
             multipliedFood.proteinContent = food.proteinContent * servingMultiplier
             multipliedFood.carbsContent = food.carbsContent * servingMultiplier
             multipliedFood.fatsContent = food.fatsContent * servingMultiplier
-            multipliedFood.fibreContent = food.fibreContent * servingMultiplier
             
             // Update quantity
             multipliedFood.servingSize = food.servingSize * servingMultiplier

@@ -21,7 +21,6 @@ struct Food: Codable, Identifiable {
     var proteinContent: Double
     var carbsContent: Double
     var fatsContent: Double
-    var fibreContent: Double = 0
     
     // Optional override
     var customCalories: Double?
@@ -51,8 +50,6 @@ struct Food: Codable, Identifiable {
             
             return total.rounded(toPlaces: 2)
         }
-    
-    var Insights: [String]?
     
 }
 
@@ -122,7 +119,6 @@ extension OFFProduct{
                 proteinContent: nutr?.proteins100g ?? 0,
                 carbsContent: nutr?.carbohydrates100g ?? 0,
                 fatsContent: nutr?.fat100g ?? 0,
-                fibreContent: nutr?.fiber100g ?? 0,
                 customCalories: nutr?.energyKcal100g,
                 tags: [],
                 ingredients: mappedIngredients,
