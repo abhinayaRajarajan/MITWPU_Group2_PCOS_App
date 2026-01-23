@@ -1,5 +1,5 @@
 //
-//  HeightPickerViewController.swift
+//  WeightPickerViewController.swift
 //  PCOS_App
 //
 //  Created by SDC-USER on 14/01/26.
@@ -7,110 +7,138 @@
 
 import UIKit
 
-class HeightPickerViewController: UIViewController {
-
+class WeightPickerViewController: UIViewController {
+    
     @IBOutlet weak var unitSegmentedControl: UISegmentedControl!
-    @IBOutlet weak var rulerContainerView: UIView!
+    @IBOutlet weak var containerView: UIView!
     @IBOutlet weak var unitLabel: UILabel!
     @IBOutlet weak var valueLabel: UILabel!
     
-    private var rulerView: HeightRulerPickerView!
-    private var currentValue: Int = 170
+    @IBOutlet weak var nextButton: UIButton!
+    private var picker: CircularArcWeightPickerView!
+    //private var valueContainer: UIView!
+    private var currentValue: Int = 70
     private var isMetric: Bool = true
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        setupUI()
-        setupRulerView()
-
-    }
-    
-
-    private func setupUI() {
+        // Initialize based on segmented control
+        isMetric = unitSegmentedControl.selectedSegmentIndex == 1
+        currentValue = isMetric ? 70 : 154 // 70kg ≈ 154lbs
+        nextButton.tintColor = UIColor(hex:"FE7A96")
         
-    rulerContainerView.layer.cornerRadius = 30
-    
-    // Value Label
-    valueLabel.text = "\(currentValue)"
-    valueLabel.font = .systemFont(ofSize: 72, weight: .bold)
-    valueLabel.textAlignment = .center
-    
-    // Unit Label
-    unitLabel.text = "cm"
-    unitLabel.font = .systemFont(ofSize: 14, weight: .regular)
-    unitLabel.textColor = .secondaryLabel
-    unitLabel.textAlignment = .center
+        setupUI()
+        setupPicker()
+        
     }
     
-    private func setupRulerView() {
-    let minValue = isMetric ? 100 : 40
-    let maxValue = isMetric ? 220 : 85
-    
-    rulerView = HeightRulerPickerView(frame: rulerContainerView.bounds, minValue: minValue, maxValue: maxValue)
-    rulerView.translatesAutoresizingMaskIntoConstraints = false
-    rulerView.backgroundColor = .clear
-    rulerView.delegate = self
-    rulerContainerView.addSubview(rulerView)
-    
+    private func setupUI() {
+        //containerView.backgroundColor = .clear
+                
+                // Create value container (pill-shaped background)
+                //valueContainer = UIView()
+                //valueContainer.backgroundColor = UIColor.systemGreen.withAlphaComponent(0.15)
+//                valueContainer.layer.cornerRadius = 30
+//                valueContainer.translatesAutoresizingMaskIntoConstraints = false
+//                containerView.addSubview(valueContainer)
+                
+        containerView.layer.cornerRadius = 30
+        
+        // Value Label
+        valueLabel.text = "\(currentValue)"
+        valueLabel.font = .systemFont(ofSize: 72, weight: .bold)
+        valueLabel.textAlignment = .center
+        
+        // Unit Label
+        unitLabel.text = isMetric ? "kg" : "lbs"
+        unitLabel.font = .systemFont(ofSize: 14, weight: .regular)
+        unitLabel.textColor = .secondaryLabel
+        unitLabel.textAlignment = .center
+                
+                
+               
+        }
+
+    private func setupPicker() {
+        let minValue = isMetric ? 30 : 66
+        let maxValue = isMetric ? 150 : 330
+        
+        picker = CircularArcWeightPickerView(
+            frame: containerView.bounds,
+            minValue: minValue,
+            maxValue: maxValue
+        )
+        picker.translatesAutoresizingMaskIntoConstraints = false
+        picker.backgroundColor = .clear
+        picker.delegate = self
+        containerView.addSubview(picker)
+        
         NSLayoutConstraint.activate([
-                    rulerView.leadingAnchor.constraint(equalTo: rulerContainerView.leadingAnchor),
-                    rulerView.trailingAnchor.constraint(equalTo: rulerContainerView.trailingAnchor),
-                    rulerView.centerYAnchor.constraint(equalTo: rulerContainerView.centerYAnchor),
-                    rulerView.heightAnchor.constraint(equalToConstant: 100)
-                ])
-    
-    rulerView.setValue(currentValue)
+            picker.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            picker.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
+            picker.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            picker.heightAnchor.constraint(equalToConstant: 100)
+        ])
+        
+        picker.setValue(currentValue)
         }
     
     @IBAction func unitChanged(_ sender: UISegmentedControl) {
-            isMetric = sender.selectedSegmentIndex == 1
-            
-            // Convert value
+        let wasMetric = isMetric
+        isMetric = sender.selectedSegmentIndex == 1
+        
+        // Convert value only if the unit actually changed
+        if wasMetric != isMetric {
             if isMetric {
-                currentValue = Int(Double(currentValue) * 2.54)
-                unitLabel.text = "cm"
+                // Converting from lbs to kg
+                currentValue = Int(round(Double(currentValue) / 2.205))
+                unitLabel.text = "kg"
             } else {
-                currentValue = Int(Double(currentValue) / 2.54)
-                unitLabel.text = "inches"
+                // Converting from kg to lbs
+                currentValue = Int(round(Double(currentValue) * 2.205))
+                unitLabel.text = "lbs"
             }
             
-            // Recreate ruler with new range
-            rulerView.removeFromSuperview()
-            setupRulerView()
+            // Recreate picker with new range
+            picker.removeFromSuperview()
+            setupPicker()
             updateValueDisplay()
         }
+    }
+    
+    
     @IBAction func nextTapped(_ sender: UIButton) {
-            // Save the height value and move to next screen
-            UserDefaults.standard.set(currentValue, forKey: "userHeight")
-            UserDefaults.standard.set(isMetric, forKey: "heightIsMetric")
+    // Save the weight value and move to next screen
+            UserDefaults.standard.set(currentValue, forKey: "userWeight")
+            UserDefaults.standard.set(isMetric, forKey: "weightIsMetric")
             
-            // Navigate to next onboarding screen
-            // performSegue(withIdentifier: "toNextScreen", sender: nil)
-            print("Height saved: \(currentValue) \(isMetric ? "cm" : "inches")")
+            print("Weight saved: \(currentValue) \(isMetric ? "kg" : "lbs")")
         }
         
         private func updateValueDisplay() {
             valueLabel.text = "\(currentValue)"
         }
+
 }
 
-// MARK: - RulerPickerDelegate
-extension HeightPickerViewController: HeightRulerPickerDelegate {
-    func rulerValueChanged(_ value: Int) {
+// MARK: - CircularArcWeightPickerDelegate
+extension WeightPickerViewController: CircularArcWeightPickerDelegate {
+    func weightValueChanged(_ value: Int) {
         currentValue = value
         updateValueDisplay()
     }
 }
 
-// MARK: - Ruler Picker View
-protocol HeightRulerPickerDelegate: AnyObject {
-    func rulerValueChanged(_ value: Int)
+// MARK: - Circular Arc Weight Picker Protocol
+protocol CircularArcWeightPickerDelegate: AnyObject {
+    func weightValueChanged(_ value: Int)
 }
 
-class HeightRulerPickerView: UIView, UIScrollViewDelegate {
+class CircularArcWeightPickerView: UIView, UIScrollViewDelegate {
     
-    weak var delegate: HeightRulerPickerDelegate?
+    weak var delegate: CircularArcWeightPickerDelegate?
     
     private let scrollView = UIScrollView()
     private let contentView = UIView()
@@ -254,7 +282,7 @@ class HeightRulerPickerView: UIView, UIScrollViewDelegate {
 }
 
 // MARK: - ScrollView Delegate
-extension HeightRulerPickerView {
+extension CircularArcWeightPickerView {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         let offset = scrollView.contentOffset.x
         let value = minValue + Int(round(offset / spacing))
@@ -263,7 +291,7 @@ extension HeightRulerPickerView {
         
         if clampedValue != currentValue {
             currentValue = clampedValue
-            delegate?.rulerValueChanged(clampedValue)
+            delegate?.weightValueChanged(clampedValue)
         }
     }
     

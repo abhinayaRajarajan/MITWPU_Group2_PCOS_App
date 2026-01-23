@@ -16,6 +16,7 @@ class InsulinViewController: UIViewController {
     @IBOutlet weak var InsulinSummaryCardView: UIView!
     private var highSugarFoods: [InsulinFoodItem] = []
     
+    @IBOutlet weak var SolutionView: UIView!
     @IBOutlet weak var InfoCard: UIView!
     
     @IBOutlet weak var ReasoningCard: UIView!
@@ -28,7 +29,7 @@ class InsulinViewController: UIViewController {
         }
         
         warningcard.layer.cornerRadius=15
-        
+        SolutionView.layer.cornerRadius=15
         InfoCard.layer.cornerRadius=20
         ReasoningCard.layer.cornerRadius=20
         setupSampleData()

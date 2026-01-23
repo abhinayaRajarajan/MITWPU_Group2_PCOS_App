@@ -21,13 +21,37 @@ enum GoalType {
         }
     }
     
-    var color: Color {
+    var color: UIColor {
         switch self {
-        case .calories: return .orange
-        case .steps: return .blue
-        case .duration: return .purple
+        case .calories: return UIColor(hex: "C796FF")
+        case .steps: return UIColor(hex: "FFEBA2")
+        case .duration: return UIColor(hex: "B2E8FF")
         }
+        
+            }
+    var gradient: LinearGradient {
+            switch self {
+            case .calories:
+                return LinearGradient(
+                    colors: [Color(hex: "C796FF"), Color(hex: "9F6BFF")],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            case .steps:
+                return LinearGradient(
+                    colors: [Color(hex: "FFEBA2"), Color(hex: "FFD166")],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            case .duration:
+                return LinearGradient(
+                    colors: [Color(hex: "B2E8FF"), Color(hex: "6ECFFF")],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            }
     }
+    
     
     var recommendedValue: Double {
         switch self {
@@ -48,10 +72,10 @@ enum GoalType {
 
 // MARK: - Time Range
 enum WorkoutChartTimeRange: Int {
-    case day = 0
-    case week = 1
-    case month = 2
-    case year = 3
+    //case day = 0
+    case week = 0
+    case month = 1
+    case year = 2
 }
 
 // MARK: - Chart Data Point

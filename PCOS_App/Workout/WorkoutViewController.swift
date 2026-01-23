@@ -9,7 +9,7 @@ import UIKit
 
 class WorkoutViewController: UIViewController {
     
-    private var cards: [Card] = [Card(name:"Cals burnt", image: "flame.fill", toBeDone: 300, done: 0, unit: "cal"),Card(name: "Steps", image: "figure.walk", toBeDone: 8000, done: 500), Card(name: "Duration", image: "stopwatch.fill",toBeDone: 120, done: 0, unit: "s")]
+    private var cards: [Card] = [Card(name:"Cals burnt", image: "flame.fill", toBeDone: 300, done: 0, unit: "cal"),Card(name: "Steps", image: "figure.walk", toBeDone: 800, done: 500), Card(name: "Duration", image: "stopwatch.fill",toBeDone: 120, done: 0, unit: "s")]
     private var exploreRoutine: [Routine] = RoutineDataStore.shared.predefinedRoutines
     
     private var selectedPredefinedRoutine: Routine?
@@ -23,7 +23,7 @@ class WorkoutViewController: UIViewController {
         
         title = "Workout"
         navigationController?.navigationBar.prefersLargeTitles = true
-        //view.backgroundColor=UIColor(hex: "FCEEED")
+       
         setupNavigation()
         registerCells()
         collectionView.setCollectionViewLayout(generateLayout(), animated: true)
@@ -36,7 +36,7 @@ class WorkoutViewController: UIViewController {
             )
             longPressGesture.minimumPressDuration = 0.5
             collectionView.addGestureRecognizer(longPressGesture)
-        //setupExploreData()
+        
     }
     //calendar 
     private func setupNavigation() {
@@ -72,7 +72,8 @@ class WorkoutViewController: UIViewController {
                 // Daily Goals - horizontal, non-scrollable, dynamic sizing
                 let itemSize = NSCollectionLayoutSize(
                     widthDimension: .fractionalWidth(1.0 / 3.0),
-                    heightDimension: .fractionalWidth(1.0 / 3.0)
+                    //heightDimension: .fractionalWidth(1.0 / 3.0)
+                    heightDimension: .absolute(100)
                 )
                 
                 let item = NSCollectionLayoutItem(layoutSize: itemSize)
@@ -173,14 +174,7 @@ class WorkoutViewController: UIViewController {
     
     
     
-    //to reload the screen for latest routines to appear
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        cards[2].done = Double(WorkoutSessionManager.shared.getTime())
-        cards[0].done = (cards[2].done ?? 0)*1.5
-        print("View appeared")
-        collectionView.reloadData()
-    }
+   
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "PredefinedRoutines" {
@@ -268,9 +262,10 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
         
         if indexPath.section == 0 {
             headerView.configureHeader(with:"Daily Goals")
-        } else if indexPath.section == 1{
+        }
+        else if indexPath.section == 1{
             headerView.configureHeader(with:"My Routines")
-        } else {
+        } else if  indexPath.section == 2{
             headerView.configureHeader(with:"Explore Routines")
         }
         return headerView
@@ -281,44 +276,47 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         switch indexPath.section {
-           case 0:
-               // Handle goal card tap
-               let selectedCard = cards[indexPath.item]
-               navigateToMetrics(for: selectedCard)
-               
-           case 1:
-               // Existing My Routines logic
-               let routines = WorkoutSessionManager.shared.savedRoutines
-               if routines.isEmpty {
-                   if indexPath.item == 0 {
-                       performSegue(withIdentifier: "showCreateRoutine", sender: nil)
-                   }
-               } else {
-                   if indexPath.item < routines.count {
-                       let routine = routines[indexPath.item]
-                       selectedRoutine = routine
-                       performSegue(withIdentifier: "showRoutinePreview", sender: nil)
-                   } else {
-                       performSegue(withIdentifier: "showCreateRoutine", sender: nil)
-                   }
-               }
-               
-           case 2:
-               // Existing Explore Routines logic
-               let routine = exploreRoutine[indexPath.item]
-               selectedRoutine = routine
-               performSegue(withIdentifier: "showRoutinePreview", sender: nil)
-               
-           default:
-               return
-           }
+        case 0:
+                // Handle goal card tap
+                let selectedCard = cards[indexPath.item]
+                navigateToMetrics(for: selectedCard)
+                
+        case 1:
+            let routines = WorkoutSessionManager.shared.savedRoutines
+            //guard !routines.isEmpty else { return }
+            if routines.isEmpty {
+                if indexPath.item == 0 {
+                    performSegue(withIdentifier: "showCreateRoutine", sender: nil)
+                }
+            } else {
+                if indexPath.item < routines.count {
+                    let routine = routines[indexPath.item]
+                    selectedRoutine = routine
+                    performSegue(withIdentifier: "showRoutinePreview", sender: nil)
+
+                } else {
+                    performSegue(withIdentifier: "showCreateRoutine", sender: nil)
+                }
+            }
+            
+            
+        case 2:
+            let routine = exploreRoutine[indexPath.item]
+            selectedRoutine = routine
+            performSegue(withIdentifier: "showRoutinePreview", sender: nil)
+            
+            
+        default:
+            return
+        }
     }
-    
     private func navigateToMetrics(for card: Card) {
         // Map Card to GoalType
         let goalType: GoalType
         
         switch card.name {
+//        case "Calories burnt":
+//            goalType = .calories
         case "Cals burnt":
             goalType = .calories
         case "Steps":
@@ -335,7 +333,6 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
             navigationController?.pushViewController(metricsVC, animated: true)
         }
     }
-
     @objc private func handleLongPress(_ gesture: UILongPressGestureRecognizer) {
 
         // We only want one trigger
@@ -383,6 +380,39 @@ extension WorkoutViewController: UICollectionViewDataSource, UICollectionViewDel
 
         present(alert, animated: true)
     }
+}
 
+// Add this method to WorkoutViewController.swift
+
+extension WorkoutViewController {
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        // Sync today's workout time
+        cards[2].done = Double(WorkoutSessionManager.shared.getTime())
+        cards[0].done = (cards[2].done ?? 0) * 1.5
+        
+        // IMPORTANT: Sync completed workouts to DailyActivityDataStore
+        syncWorkoutsToActivityStore()
+        
+        print("View appeared")
+        for i in cards {
+            print(i.name, i.done, i.toBeDone)
+        }
+        collectionView.reloadData()
+    }
+    
+    // NEW METHOD: Sync all completed workouts to activity store
+    private func syncWorkoutsToActivityStore() {
+        let completedWorkouts = WorkoutSessionManager.shared.completedWorkouts
+        
+        print("Syncing \(completedWorkouts.count) workouts to activity store...")
+        
+        for workout in completedWorkouts {
+            DailyActivityDataStore.shared.syncWorkout(workout)
+        }
+        
+        print("Sync complete!")
+    }
 }

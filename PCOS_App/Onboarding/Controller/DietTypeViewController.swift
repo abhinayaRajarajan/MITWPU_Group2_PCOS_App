@@ -14,6 +14,7 @@ class DietTypeViewController: UIViewController {
     @IBOutlet weak var irregularMealView: UIView!
     @IBOutlet weak var noDataView: UIView!
     
+    @IBOutlet weak var nextButton: UIButton!
     // Track selected view
     private var selectedView: UIView?
     private var selectedDietType: String?
@@ -22,6 +23,7 @@ class DietTypeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        nextButton.tintColor = UIColor(hex:"FE7A96")
         balancedDietView.layer.cornerRadius = 20
         frequentsugarView.layer.cornerRadius = 20
         irregularMealView.layer.cornerRadius = 20
@@ -77,8 +79,8 @@ class DietTypeViewController: UIViewController {
             
             // Highlight selected view
             tappedView.layer.borderWidth = 3
-            tappedView.layer.borderColor = UIColor.systemBlue.cgColor
-            tappedView.backgroundColor = UIColor.systemBlue.withAlphaComponent(0.1)
+        tappedView.layer.borderColor = UIColor(hex: "fe7a96").cgColor
+        tappedView.backgroundColor = UIColor(hex:"#fe7a96").withAlphaComponent(0.1)
         }
     
     @IBAction func nextButtonTapped(_ sender: UIButton) {

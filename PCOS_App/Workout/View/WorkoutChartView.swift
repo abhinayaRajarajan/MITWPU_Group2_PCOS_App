@@ -13,24 +13,29 @@ struct WorkoutChartView: View {
     let goalType: GoalType
     let timeRange: WorkoutChartTimeRange
     
-    private var currentAverage: Double {
+    private var periodDailyAverage: Double {
         guard !dataPoints.isEmpty else { return 0 }
         return dataPoints.map { $0.value }.reduce(0, +) / Double(dataPoints.count)
     }
     
     private var shouldShowGoalLine: Bool {
-        return timeRange != .day
+        true
     }
+
     
+//    private var displayGoalValue: Double {
+//        if timeRange == .week {
+//            return goalType.recommendedValue
+//        } else if timeRange == .month || timeRange == .year {
+//            return goalType.recommendedValue * 0.6
+//        } else {
+//            return goalType.recommendedValue
+//        }
+//    }
     private var displayGoalValue: Double {
-        if timeRange == .week {
-            return goalType.recommendedValue
-        } else if timeRange == .month || timeRange == .year {
-            return goalType.recommendedValue * 0.6
-        } else {
-            return goalType.recommendedValue
-        }
+        goalType.recommendedValue
     }
+
     
     private var maxChartValue: Double {
         let maxDataValue = dataPoints.map { $0.value }.max() ?? 0
@@ -49,7 +54,7 @@ struct WorkoutChartView: View {
                         .foregroundColor(.secondary)
                     
                     HStack(alignment: .firstTextBaseline, spacing: 2) {
-                        Text("\(formatValue(currentAverage))")
+                        Text("\(formatValue(periodDailyAverage))")
                             .font(.system(size: 24, weight: .bold))
                         Text(goalType.unit)
                             .font(.system(size: 14, weight: .medium))
@@ -95,7 +100,7 @@ struct WorkoutChartView: View {
                             x: .value("Period", dataPoint.label),
                             y: .value("Amount", dataPoint.value)
                         )
-                        .foregroundStyle(goalType.color.gradient)
+                        .foregroundStyle(goalType.gradient)
                         .cornerRadius(6)
                     }
                     

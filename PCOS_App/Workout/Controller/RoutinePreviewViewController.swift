@@ -21,15 +21,9 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
                 }
 
                 let routineExercise = routine.exercises[indexPath.row]
-        // Try to get active workout progress
-       // let activeWorkout = WorkoutSessionManager.shared.activeWorkout
-        
+       
         let completedWorkout =
             WorkoutSessionManager.shared.lastCompletedWorkout(for: routine)
-
-        
-       // let workoutExercise = activeWorkout?.exercises[indexPath.row]
-
         let workoutExercise = completedWorkout?.exercises.first {
             $0.id == routineExercise.id
         }
@@ -40,21 +34,18 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
         )
 
 
-                cell.onInfoTapped = { [weak self] in
-                    self?.showExerciseInfo(routineExercise.exercise)
-                }
+        cell.onInfoTapped = { [weak self] in
+            self?.showExerciseInfo(routineExercise.exercise)
+        }
 
-                return cell
+            return cell
     }
     
 
     @IBOutlet weak var EstRoutineTimeOutlet: UILabel!
     @IBOutlet weak var NoOfExerciseOutlet: UILabel!
-   // @IBOutlet weak var RoutineNameOutlet: UILabel!
     @IBOutlet weak var RoutineImageOutlet: UIImageView!
-    
     @IBOutlet weak var timeTagContainer: UIView!
-    
     @IBOutlet weak var exerciseTagContainer: UIView!
     @IBOutlet weak var RoutinePreviewTableViewOutlet: UITableView!
     @IBOutlet weak var playImageView: UIImageView!
@@ -75,7 +66,7 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
     }
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print("🧪 Active workout exists:",
+        print("Active workout exists:",
                  WorkoutSessionManager.shared.activeWorkout != nil)
 
         RoutinePreviewTableViewOutlet.reloadData()
@@ -98,7 +89,7 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
 
         let manager = WorkoutSessionManager.shared
 
-        // 1️⃣ Check if we can resume
+        // Check if we can resume
         if let completedWorkout = manager.completedWorkouts.last(
             where: { $0.routineName == routine.name }
         ),
@@ -119,7 +110,7 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
             return
         }
 
-        // 2️⃣ Else start fresh
+        //  Else start fresh
         let workoutExercises = routine.exercises.map {
             $0.generateWorkoutExercise()
         }
@@ -192,8 +183,6 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
     private func setupTable() {
         RoutinePreviewTableViewOutlet.delegate = self
         RoutinePreviewTableViewOutlet.dataSource = self
-        //RoutinePreviewTableViewOutlet.rowHeight = UITableView.automaticDimension
-        //RoutinePreviewTableViewOutlet.estimatedRowHeight = 200
         RoutinePreviewTableViewOutlet.rowHeight = 120
         RoutinePreviewTableViewOutlet.register(
             UINib(nibName: "RoutinePreviewTableViewCell", bundle: nil),
@@ -207,7 +196,6 @@ class RoutinePreviewViewController: UIViewController, UITableViewDelegate, UITab
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "InfoModal" {
             
-            // Case 1: modal embedded in navigation controller
             if let nav = segue.destination as? UINavigationController,
                let infoVC = nav.topViewController as? InfoModalViewController,
                let exercise = sender as? Exercise {

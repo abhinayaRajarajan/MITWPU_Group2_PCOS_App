@@ -12,16 +12,12 @@ class CreateRoutineViewController: UIViewController {
 
     
     @IBOutlet weak var saveRoutineButton: UIBarButtonItem!
-    
     @IBOutlet weak var addExerciseButton: UIButton!
     @IBOutlet weak var routineNameTextField: UITextField!
-    
     @IBOutlet weak var estimatedDurationLabel: UILabel!
     @IBOutlet weak var setCountLabel: UILabel!
     @IBOutlet weak var exerciseCountLabel: UILabel!
-    
     @IBOutlet weak var containerView: UIView!
-    
     @IBOutlet weak var emptyStateView: UIView!
     @IBOutlet weak var emptyStateLabel: UILabel!
     @IBOutlet weak var emptyStateImageView: UIImageView!
@@ -50,9 +46,9 @@ class CreateRoutineViewController: UIViewController {
         updateUI()
 
         // Add text field delegate
-            routineNameTextField.delegate = self
+        routineNameTextField.delegate = self
             
-            print("🎬 CreateRoutineViewController loaded")
+        
     }
     override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
@@ -311,7 +307,6 @@ extension CreateRoutineViewController: UITableViewDataSource {
     }
 }
 extension CreateRoutineViewController: UITextFieldDelegate {
-    // ✅ ADD THIS METHOD:
     @objc private func textFieldDidChange() {
         let hasName = !(routineNameTextField.text?.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty ?? true)
         let hasExercises = !routineExercises.isEmpty
@@ -327,7 +322,6 @@ extension CreateRoutineViewController: UITextFieldDelegate {
     }
 }
 
-// MARK: - UITableViewDelegate
 extension CreateRoutineViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

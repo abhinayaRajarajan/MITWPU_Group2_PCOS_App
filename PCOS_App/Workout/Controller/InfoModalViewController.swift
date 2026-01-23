@@ -18,7 +18,7 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
     @IBOutlet weak var gifImageView: UIImageView!
     @IBOutlet weak var exerciseLevelLabel: UILabel!
     @IBOutlet weak var exerciseMuscleNameLabel: UILabel!
-    @IBOutlet weak var exerciseTempoLabel: UILabel!
+   // @IBOutlet weak var exerciseTempoLabel: UILabel!
     enum ExerciseInfoSection{
         case form([String])
         case tempo(String)
@@ -42,9 +42,7 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
                 fatalError("InfoModalViewController: exercise must be set before presenting")
             }
         gifImageContainer.layer.cornerRadius = 20
-//        if let dataAsset = NSDataAsset(name: "plank") {
-//            gifImageView.image = UIImage.gifImageWithData(dataAsset.data)
-//        }
+
         gifImageView.image = exercise.gifImage
         levelTag.layer.cornerRadius = levelTag.frame.height/2
         muscleTag.layer.cornerRadius = muscleTag.frame.height/2
@@ -122,9 +120,9 @@ class InfoModalViewController: UIViewController,UITableViewDelegate, UITableView
 
         guard let header = view as? UITableViewHeaderFooterView else { return }
     
-        header.textLabel?.font = UIFont.systemFont(ofSize: 20, weight: .medium)
+        header.textLabel?.font = UIFont.preferredFont(forTextStyle: .headline)
         header.textLabel?.textColor = .label
-        header.contentView.backgroundColor = UIColor(hex:"FCEEED")
+       // header.contentView.backgroundColor = UIColor(hex:"FCEEED")
         
     }
     func tableView(_ tableView: UITableView,

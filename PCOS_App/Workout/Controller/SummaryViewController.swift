@@ -26,7 +26,7 @@ class SummaryViewController: UIViewController {
     @IBOutlet weak var durationValueLabel: UILabel!
     @IBOutlet weak var durationGoalLabel: UILabel!
     
-    // @IBOutlet weak var trophyImageView: UIImageView!
+  
     
     @IBOutlet weak var caloriesCard: UIView!
     @IBOutlet weak var exercisesCard: UIView!
@@ -35,14 +35,12 @@ class SummaryViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //modalPresentationStyle = .overCurrentContext
+        
         view.backgroundColor = UIColor(hex: "#FCEEED")
         
         navigationItem.hidesBackButton = true
         
-        //addDimmedBackground()
         
-        // addOverlayBackground()
         
         setupUI()
         applyCardStyling()
@@ -50,36 +48,18 @@ class SummaryViewController: UIViewController {
     }
     
     
-    //    private func addOverlayBackground() {
-    //
-    //        // Dim
-    //        let dimView = UIView(frame: view.bounds)
-    //        dimView.backgroundColor = UIColor.black.withAlphaComponent(0.35)
-    //        dimView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    //        view.addSubview(dimView)
-    //
-    //        // Blur (THIS blurs StartRoutine, not Summary)
-    //        let blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemMaterial))
-    //        blur.frame = view.bounds
-    //        blur.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-    //        view.insertSubview(blur, aboveSubview: dimView)
-    //
-    //        // Card above blur
-    //        view.bringSubviewToFront(containerView)
-    //    }
-    
     func setupUI() {
         containerView.layer.cornerRadius=24
         
         // ---- DURATION ----
         let totalSeconds = completedWorkout.durationSeconds
         durationValueLabel.text = formatDuration(totalSeconds)
-        //durationGoalLabel.text = "/ " + formatDuration(durationGoalSeconds)
+    
         
         // ---- CALORIES ----
         let calories = Double(totalSeconds) * 0.18
         caloriesValueLabel.text = String(format: "%.0f", calories)
-        //      caloriesGoalLabel.text = "/\(Int(caloriesGoal))"
+        
         
         // ---- EXERCISES DONE ----
         let completedExercises = completedWorkout.exercises.filter {
@@ -93,10 +73,7 @@ class SummaryViewController: UIViewController {
         let cards = [caloriesCard, exercisesCard, durationCard]
         cards.forEach { card in
             card?.layer.cornerRadius = 20
-            //card?.layer.shadowColor = UIColor.black.cgColor
-            //card?.layer.shadowOpacity = 0.08
-            //card?.layer.shadowOffset = CGSize(width: 0, height: 3)
-            //card?.layer.shadowRadius = 6
+            
             card?.backgroundColor = .systemBackground
             card?.layer.masksToBounds = false
         }
@@ -229,7 +206,7 @@ class SummaryViewController: UIViewController {
             //just uncomment to navigate to routine preview vc
             
             view.window?.rootViewController?.dismiss(animated: true)
-            //dismiss(animated: true)
+           
             
             
         }

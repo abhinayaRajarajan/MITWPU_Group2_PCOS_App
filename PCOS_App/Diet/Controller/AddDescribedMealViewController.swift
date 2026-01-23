@@ -423,6 +423,7 @@ class AddDescribedMealViewController: UIViewController {
                 tableView.deleteRows(at: [indexPath], with: .fade)
             }
             
+
             updateHeaderWithCurrentIngredients()
             updateWeightLabel()
             
