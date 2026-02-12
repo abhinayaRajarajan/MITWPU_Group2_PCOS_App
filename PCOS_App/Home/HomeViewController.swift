@@ -504,7 +504,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             }
             
             if indexPath.section == 4 {
-                // Handle sleep card tap if needed
+                performSegue(withIdentifier: "showSleepReport", sender: nil)
             }
             
             if indexPath.section == 5 {
