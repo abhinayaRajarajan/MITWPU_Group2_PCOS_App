@@ -15,7 +15,8 @@ class CyclePatternCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var avgPeriodLength: UIView!
     @IBOutlet weak var viewTooTiredToRemove: UIView!
-    @IBOutlet weak var periodCycleChartView: PeriodCycleChartView!
+    
+    @IBOutlet weak var periodLineChartView: PeriodLineChartView!
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -28,16 +29,11 @@ class CyclePatternCollectionViewCell: UICollectionViewCell {
     }
     
     private func setupPeriodCycleChart() {
-    let sampleData: [CycleData] = [
-        CycleData(month: "Jan\n18", cycleLength: 28, periodLength: 5),
-        CycleData(month: "Dec\n16", cycleLength: 29, periodLength: 5),
-        CycleData(month: "Nov\n14", cycleLength: 24, periodLength: 5),
-        CycleData(month: "Oct\n7", cycleLength: 26, periodLength: 5),
-        CycleData(month: "Sept\n3", cycleLength: 30, periodLength: 5),
-        CycleData(month: "Aug\n2", cycleLength: 30, periodLength: 5)
-    ]
-    
-    periodCycleChartView.configure(with: sampleData)
+    // Use shared data store — single source of truth
+    let store = CycleDataStore.shared
+        
+        // Bar chart — last 6 cycles
+    periodLineChartView.configure(with: store.lineChartData(count: 5))
     }
 
 }

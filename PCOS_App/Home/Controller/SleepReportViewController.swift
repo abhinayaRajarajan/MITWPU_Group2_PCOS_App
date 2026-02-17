@@ -13,10 +13,16 @@ class SleepReportViewController: UIViewController {
     @IBOutlet weak var suggestionCard: UIView!
     @IBOutlet weak var chartContainerView: UIView!
     
-    @IBOutlet weak var segmentedControl: UISegmentedControl!
+  
+    @IBOutlet weak var sleepInfoCard: UIView!
+    @IBOutlet weak var dietRec: UIView!
+    @IBOutlet weak var workoutRec: UIView!
+    @IBOutlet weak var miscRec: UIView!
+    
     private var dataPoints: [SleepChartDataModel] = []
     private var hostingController: UIHostingController<AnyView>?
     private var currentTimeRange: SleepChartTimeRange = .week
+    private var chartID = UUID()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -29,13 +35,14 @@ class SleepReportViewController: UIViewController {
         setupChart()
     }
     
-    // MARK: - Setup
+
     private func setupStyling() {
-        // Background color
         view.backgroundColor = UIColor(hex: "#FCEEED")
         
+        sleepInfoCard.layer.cornerRadius = 20
         observationCard.layer.cornerRadius = 20
         observationCard.backgroundColor = .white
+        
         suggestionCard.layer.cornerRadius = 20
         suggestionCard.backgroundColor = .white
         
@@ -46,32 +53,181 @@ class SleepReportViewController: UIViewController {
         chartContainerView.layer.shadowOffset = CGSize(width: 0, height: 2)
         chartContainerView.layer.shadowRadius = 8
         
-        // Style segmented control
-        segmentedControl.selectedSegmentTintColor = UIColor(hex: "#FE7A96")
-        segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor.white], for: .selected)
-        segmentedControl.setTitleTextAttributes([.foregroundColor: UIColor(hex: "#FE7A96")], for: .normal)
+        setupSuggestionCard()
+    }
+    
+    private func setupSuggestionCard() {
+        // Clear existing subviews
+        suggestionCard.subviews.forEach { $0.removeFromSuperview() }
+    
+        
+        // Stack view for recommendations
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.spacing = 10
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        suggestionCard.addSubview(stackView)
+        
+       
+        let dietRow = makeSuggestionRow(
+            imageName: "🥗",
+            boldText: "Try a protein-rich dinner",
+            regularText: " to reduce night cravings",
+            
+        )
+        
+        
+        let workoutRow = makeSuggestionRow(
+            imageName: "🚶‍♀️",
+            boldText: "Try a 10-min evening walk",
+            regularText: " can improve sleep quality",
+            
+        )
+        
+        let miscRow = makeSuggestionRow(
+            imageName: "🪔",
+            boldText: "Keep lights dim",
+            regularText: " 1 hour before bed",
+            
+        )
+        
+        stackView.addArrangedSubview(dietRow)
+        stackView.addArrangedSubview(workoutRow)
+        stackView.addArrangedSubview(miscRow)
+        
+        
+        // Constraints
+        NSLayoutConstraint.activate([
+            
+            stackView.topAnchor.constraint(equalTo: suggestionCard.topAnchor, constant: 16),
+            stackView.leadingAnchor.constraint(equalTo: suggestionCard.leadingAnchor, constant: 12),
+            stackView.trailingAnchor.constraint(equalTo: suggestionCard.trailingAnchor, constant: -12),
+            
+        ])
+    }
+
+    private func makeSuggestionRow(imageName: String, boldText: String, regularText: String) -> UIView {
+        let container = UIView()
+        container.backgroundColor = UIColor(hex: "#FCEEED").withAlphaComponent(0.5)
+        container.layer.cornerRadius = 12
+        container.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Emoji label as image
+        let emojiLabel = UILabel()
+        emojiLabel.text = imageName
+        emojiLabel.font = UIFont.systemFont(ofSize: 32)
+        emojiLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        // Emoji background circle
+        let emojiContainer = UIView()
+        emojiContainer.translatesAutoresizingMaskIntoConstraints = false
+        emojiContainer.layer.cornerRadius = 24
+        emojiContainer.backgroundColor = .white
+        emojiContainer.addSubview(emojiLabel)
+        
+        // Attributed text label
+        let textLabel = UILabel()
+        textLabel.numberOfLines = 0
+        let attributed = NSMutableAttributedString(
+            string: boldText,
+            attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .semibold),
+                         .foregroundColor: UIColor.black]
+        )
+        attributed.append(NSAttributedString(
+            string: regularText,
+            attributes: [.font: UIFont.systemFont(ofSize: 14, weight: .regular),
+                         .foregroundColor: UIColor.darkGray]
+        ))
+        textLabel.attributedText = attributed
+        textLabel.translatesAutoresizingMaskIntoConstraints = false
+        
+        
+        let rightStack = UIStackView()
+        rightStack.axis = .vertical
+        rightStack.spacing = 6
+        rightStack.translatesAutoresizingMaskIntoConstraints = false
+        rightStack.addArrangedSubview(textLabel)
+        
+      
+        
+        
+        container.addSubview(emojiContainer)
+        container.addSubview(rightStack)
+        
+        NSLayoutConstraint.activate([
+            emojiContainer.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: 10),
+            emojiContainer.centerYAnchor.constraint(equalTo: container.centerYAnchor),
+            emojiContainer.widthAnchor.constraint(equalToConstant: 48),
+            emojiContainer.heightAnchor.constraint(equalToConstant: 48),
+            emojiContainer.topAnchor.constraint(greaterThanOrEqualTo: container.topAnchor, constant: 10),
+            emojiContainer.bottomAnchor.constraint(lessThanOrEqualTo: container.bottomAnchor, constant: -10),
+            
+            emojiLabel.centerXAnchor.constraint(equalTo: emojiContainer.centerXAnchor),
+            emojiLabel.centerYAnchor.constraint(equalTo: emojiContainer.centerYAnchor),
+            
+            rightStack.leadingAnchor.constraint(equalTo: emojiContainer.trailingAnchor, constant: 10),
+            rightStack.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -10),
+            rightStack.topAnchor.constraint(equalTo: container.topAnchor, constant: 10),
+            rightStack.bottomAnchor.constraint(equalTo: container.bottomAnchor, constant: -10),
+        ])
+        
+        return container
+    }
+
+    private func makeTag(text: String) -> UIView {
+        let tag = UIView()
+        tag.backgroundColor = UIColor(hex: "#FCEEED")
+        tag.layer.cornerRadius = 10
+        tag.layer.borderWidth = 1
+        tag.layer.borderColor = UIColor(hex: "#FE7A96").withAlphaComponent(0.3).cgColor
+        
+        let label = UILabel()
+        label.text = text
+        label.font = UIFont.systemFont(ofSize: 11, weight: .regular)
+        label.textColor = UIColor.darkGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        tag.addSubview(label)
+        tag.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            label.topAnchor.constraint(equalTo: tag.topAnchor, constant: 4),
+            label.bottomAnchor.constraint(equalTo: tag.bottomAnchor, constant: -4),
+            label.leadingAnchor.constraint(equalTo: tag.leadingAnchor, constant: 8),
+            label.trailingAnchor.constraint(equalTo: tag.trailingAnchor, constant: -8),
+        ])
+        
+        return tag
+    }
+
+    
+    
+    
+    @IBAction func timeSegmentChanged(_ sender: UISegmentedControl) {
+        print("Segment changed to index: \(sender.selectedSegmentIndex)")
+        
+        switch sender.selectedSegmentIndex {
+        case 0:
+            currentTimeRange = .week
+        case 1:
+            currentTimeRange = .month
+        case 2:
+            currentTimeRange = .year
+        default:
+            currentTimeRange = .week
+        }
+        
+        print("Loading data for: \(currentTimeRange.title)")
+        loadData(for: currentTimeRange)
     }
     
     
-    
-    @objc func timeSegmentChanged(_ sender: UISegmentedControl) {
-        print("📊 Segment changed to index: \(sender.selectedSegmentIndex)")
-        
-        let range = SleepChartTimeRange(rawValue: sender.selectedSegmentIndex) ?? .week
-        currentTimeRange = range
-        
-        print("📊 Loading data for: \(range.title)")
-        loadData(for: range)
-    }
-    
-    // MARK: - Data Loading
     private func loadData(for range: SleepChartTimeRange) {
         currentTimeRange = range
         let calendar = Calendar.current
         let now = Date()
         var newData: [SleepChartDataModel] = []
         
-        print("📊 Loading data for range: \(range.title)")
+        print("Loading data for range: \(range.title)")
         
         switch range {
         case .week:
@@ -122,7 +278,7 @@ class SleepReportViewController: UIViewController {
         
         self.dataPoints = newData.sorted { $0.date < $1.date }
         
-        print("📊 Loaded \(dataPoints.count) data points")
+        print("Loaded \(dataPoints.count) data points")
         updateChart()
     }
     
@@ -170,10 +326,9 @@ class SleepReportViewController: UIViewController {
         return daysInMonth > 0 ? total / Double(daysInMonth) : 0
     }
     
-    // MARK: - Chart Setup
     private func setupChart() {
         guard let chartContainerView = chartContainerView else {
-            print("❌ chartContainerView outlet is nil!")
+            print("chartContainerView outlet is nil!")
             return
         }
         
@@ -181,59 +336,41 @@ class SleepReportViewController: UIViewController {
             dataPoints: dataPoints,
             timeRange: currentTimeRange
         )
-        .padding(.top, 56)  // Add extra space from top (16 for segmented control top + 40 for spacing)
+        .padding(.top, 56)
         
         let hosting = UIHostingController(rootView: AnyView(swiftUIView))
         
         addChild(hosting)
-        hosting.view.frame = chartContainerView.bounds
-        hosting.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        hosting.view.translatesAutoresizingMaskIntoConstraints = false
         hosting.view.backgroundColor = .clear
         
         chartContainerView.addSubview(hosting.view)
+        
+        chartContainerView.sendSubviewToBack(hosting.view)
+    
+        NSLayoutConstraint.activate([
+            hosting.view.topAnchor.constraint(equalTo: chartContainerView.topAnchor),
+            hosting.view.leadingAnchor.constraint(equalTo: chartContainerView.leadingAnchor),
+            hosting.view.trailingAnchor.constraint(equalTo: chartContainerView.trailingAnchor),
+            hosting.view.bottomAnchor.constraint(equalTo: chartContainerView.bottomAnchor)
+        ])
+        
         hosting.didMove(toParent: self)
-        
         self.hostingController = hosting
-        
-        print("✅ Chart setup complete")
     }
 
     private func updateChart() {
-        print("📊 Updating chart with \(dataPoints.count) points")
+        print("Updating chart with \(dataPoints.count) points for range: \(currentTimeRange.title)")
         
         let swiftUIView = SleepChartView(
             dataPoints: dataPoints,
             timeRange: currentTimeRange
         )
-        .padding(.top, 56)  // Add the same padding here too
+        .padding(.top, 56)
         
         hostingController?.rootView = AnyView(swiftUIView)
-        
-        print("✅ Chart updated")
     }
 }
 
-// MARK: - UIColor Extension for Hex
-//   extension UIColor {
-//       convenience init(hex: String) {
-//           let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
-//           var int: UInt64 = 0
-//           Scanner(string: hex).scanHexInt64(&int)
-//           let a, r, g, b: UInt64
-//           switch hex.count {
-//           case 3: // RGB (12-bit)
-//               (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
-//           case 6: // RGB (24-bit)
-//               (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
-//           case 8: // ARGB (32-bit)
-//               (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
-//           default:
-//               (a, r, g, b) = (255, 0, 0, 0)
-//           }
-//           self.init(
-//               red: CGFloat(r) / 255,
-//               green: CGFloat(g) / 255,
-//               blue: CGFloat(b) / 255,
-//               alpha: CGFloat(a) / 255
-//           )
-//       }
+
+

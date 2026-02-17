@@ -124,7 +124,7 @@ Length</string>
                                             <constraint firstItem="2iw-ZA-Wdn" firstAttribute="leading" secondItem="Xq1-RV-BNh" secondAttribute="leading" id="osW-kg-din"/>
                                         </constraints>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGd-lZ-sOR" customClass="PeriodCycleChartView" customModule="PCOS_App" customModuleProvider="target">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zGd-lZ-sOR" customClass="PeriodLineChartView" customModule="PCOS_App" customModuleProvider="target">
                                         <rect key="frame" x="16" y="183.33333333333337" width="330" height="280"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="280" id="B7G-DW-Dhh"/>
@@ -158,7 +158,7 @@ Length</string>
                 <outlet property="avgCycleLength" destination="CQW-3E-lN6" id="7dY-N7-dOg"/>
                 <outlet property="avgPeriodLength" destination="djp-pr-CP1" id="4JM-hZ-wZZ"/>
                 <outlet property="cyclePatternView" destination="0V3-jX-dA5" id="22l-EZ-vqn"/>
-                <outlet property="periodCycleChartView" destination="zGd-lZ-sOR" id="HEy-Qn-SGC"/>
+                <outlet property="periodLineChartView" destination="zGd-lZ-sOR" id="tlg-99-C3X"/>
                 <outlet property="viewTooTiredToRemove" destination="X5s-1U-az3" id="vMI-Uy-vCU"/>
             </connections>
             <point key="canvasLocation" x="-340.45801526717554" y="99.295774647887328"/>
