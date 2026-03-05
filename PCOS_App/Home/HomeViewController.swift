@@ -7,12 +7,16 @@
 
 import UIKit
 
-class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollectionViewCellDelegate, LogPeriodCalendarDelegate {
+class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollectionViewCellDelegate, LogPeriodCalendarDelegate, SleepCardCollectionViewCellDelegate {
     
     @IBOutlet weak var collectionView: UICollectionView!
     private var selectedSymptoms: [SymptomItem] = []
         private var recommendationCards: [Recommendation] = recommendations
         private var currentSignalInfo: SignalInfo?
+
+        // MARK: - Sleep state
+        private var todaySleepLog: SleepLog? = nil
+        private var sleepSkipped: Bool = false
         
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -45,12 +49,19 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             collectionView.collectionViewLayout = createCompositionalLayout()
             
             loadTodaysSymptoms()
+            loadTodaySleepLog()
+        }
+
+        override func viewDidAppear(_ animated: Bool) {
+            super.viewDidAppear(animated)
+            showSleepLoggerIfNeeded()
         }
         
         override func viewWillAppear(_ animated: Bool) {
             super.viewWillAppear(animated)
             print("\nThis is HomeVC:", selectedSymptoms)
             loadTodaysSymptoms()
+            loadTodaySleepLog()
             collectionView.reloadData()
         }
         
@@ -84,6 +95,76 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             }
         }
         
+        private func loadTodaySleepLog() {
+            todaySleepLog = SleepDatabase.shared.loadTodaySleepLog()
+        }
+
+        // MARK: - Sleep Logger Presentation
+        private func showSleepLoggerIfNeeded() {
+            // Only show once per calendar day
+            let todayString = todayDateString()
+            let lastShown = UserDefaults.standard.string(forKey: "sleepLoggerLastShownDate")
+            guard lastShown != todayString else { return }
+            // Don't show if already logged today
+            guard todaySleepLog == nil else { return }
+
+            // Mark as shown for today immediately so it won't pop twice
+            UserDefaults.standard.set(todayString, forKey: "sleepLoggerLastShownDate")
+
+            presentSleepLogger(isNotNowMode: false)
+        }
+
+        private func presentSleepLogger(isNotNowMode: Bool) {
+            guard let loggerVC = storyboard?.instantiateViewController(withIdentifier: "SleepLoggerViewController") as? SleepLoggerViewController else {
+                // Fallback: create programmatically if not in storyboard
+                let loggerVC = SleepLoggerViewController()
+                configureSleepLogger(loggerVC, isNotNowMode: isNotNowMode)
+                present(loggerVC, animated: true)
+                return
+            }
+            configureSleepLogger(loggerVC, isNotNowMode: isNotNowMode)
+            present(loggerVC, animated: true)
+        }
+
+        private func configureSleepLogger(_ loggerVC: SleepLoggerViewController, isNotNowMode: Bool) {
+            loggerVC.isNotNowMode = isNotNowMode
+
+            // Sheet presentation – partial height with grabber, swipe-to-dismiss enabled
+            loggerVC.modalPresentationStyle = .pageSheet
+            if let sheet = loggerVC.sheetPresentationController {
+                sheet.detents = [.medium(), .large()]
+                sheet.prefersGrabberVisible = true
+                sheet.prefersScrollingExpandsWhenScrolledToEdge = false
+            }
+
+            loggerVC.onSleepSaved = { [weak self] in
+                guard let self = self else { return }
+                self.loadTodaySleepLog()
+                self.sleepSkipped = false
+                DispatchQueue.main.async {
+                    self.collectionView.reloadSections(IndexSet(integer: 4))
+                }
+            }
+            loggerVC.onDismissedWithoutSaving = { [weak self] in
+                guard let self = self else { return }
+                self.sleepSkipped = true
+                DispatchQueue.main.async {
+                    self.collectionView.reloadSections(IndexSet(integer: 4))
+                }
+            }
+        }
+
+        private func todayDateString() -> String {
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd"
+            return formatter.string(from: Date())
+        }
+
+        // MARK: - SleepCardCollectionViewCellDelegate
+        func sleepCardDidTapLogSleep(_ cell: SleepCardCollectionViewCell) {
+            presentSleepLogger(isNotNowMode: true)
+        }
+
         func registerCells() {
             collectionView.register(UINib(nibName: "HomeHeaderCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "home_header")
             collectionView.register(UINib(nibName: "AddSymptomCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "AddSymptomCollectionViewCell")
@@ -338,6 +419,13 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             }
             else if indexPath.section == 4 {
                 let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "sleep_card_cell", for: indexPath) as! SleepCardCollectionViewCell
+                cell.delegate = self
+                if let log = todaySleepLog {
+                    cell.configure(with: log)
+                } else if sleepSkipped {
+                    cell.configureNotLogged()
+                }
+                // else: no configure call — default XIB appearance until first-open modal appears
                 return cell
             }
             else if indexPath.section == 5 {
@@ -389,8 +477,10 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
             }
             
             if indexPath.section == 4 {
+                // Always open the sleep report — tapping outside the button in the card goes here
                 performSegue(withIdentifier: "showSleepReport", sender: nil)
             }
+
             
             if indexPath.section == 5 {
                 performSegue(withIdentifier: "showCycleReport", sender: nil)

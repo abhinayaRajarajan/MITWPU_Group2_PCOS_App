@@ -1850,6 +1850,7 @@ Length</string>
                     <size key="freeformSize" width="393" height="1200"/>
                     <connections>
                         <outlet property="chartContainerView" destination="5vd-6D-CPc" id="KK4-m8-1Qf"/>
+                        <outlet property="logSleepButton" destination="ffs-AB-8de" id="Qyf-1W-9VY"/>
                         <outlet property="observationCard" destination="HoG-3I-0KS" id="agd-BG-E7K"/>
                         <outlet property="sleepInfoCard" destination="FPx-Ce-yck" id="20E-Hh-7r1"/>
                         <outlet property="suggestionCard" destination="u3G-d4-0pN" id="MhN-vh-OVf"/>
@@ -1859,8 +1860,200 @@ Length</string>
             </objects>
             <point key="canvasLocation" x="5223.6641221374048" y="-323.23943661971833"/>
         </scene>
+        <!--Sleep Logger View Controller-->
+        <scene sceneID="e8J-B4-PW9">
+            <objects>
+                <viewController storyboardIdentifier="SleepLoggerViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="LgK-c6-WVw" customClass="SleepLoggerViewController" customModule="PCOS_App" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4z3-0b-TUa">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jdT-qo-V69">
+                                <rect key="frame" x="0.0" y="0.0" width="403" height="852"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="EuC-gk-MEu">
+                                        <rect key="frame" x="16" y="100" width="371" height="674"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good Morning !" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dHB-8x-yJ7">
+                                                <rect key="frame" x="0.0" y="0.0" width="371" height="20"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="20" id="YXi-xS-RlE"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Let's log your sleep for last night" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4If-5h-aY0">
+                                                <rect key="frame" x="0.0" y="36" width="371" height="30"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="25"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="whF-ZK-ZXF">
+                                                <rect key="frame" x="0.0" y="82" width="371" height="480"/>
+                                                <subviews>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="25" translatesAutoresizingMaskIntoConstraints="NO" id="Uvn-Bm-Vqh">
+                                                        <rect key="frame" x="8" y="25" width="355" height="430"/>
+                                                        <subviews>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" text="What time did you fall asleep?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9OD-1h-4wH">
+                                                                <rect key="frame" x="0.0" y="0.0" width="355" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Mtj-tE-K2c">
+                                                                <rect key="frame" x="0.0" y="43" width="355" height="50"/>
+                                                                <subviews>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="10 : 00" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yYB-KX-cKo">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="50" id="BM3-wF-XLe"/>
+                                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="MhP-cb-qEm"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                    </textField>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="ELa-WL-efB">
+                                                                        <rect key="frame" x="305" y="1.6666666666666643" width="50" height="47"/>
+                                                                        <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="50" id="5sO-Rf-nJg"/>
+                                                                            <constraint firstAttribute="width" constant="50" id="y99-oa-Vq7"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What time did you get up?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n0T-c4-4XX">
+                                                                <rect key="frame" x="0.0" y="117.99999999999999" width="355" height="20.333333333333329"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="pzg-7p-fbh">
+                                                                <rect key="frame" x="0.0" y="163.33333333333331" width="355" height="50"/>
+                                                                <subviews>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="80 : 00" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zim-V6-8Co">
+                                                                        <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="300" id="g4O-Md-djc"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="jJY-l8-UdZ"/>
+                                                                        </constraints>
+                                                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                    </textField>
+                                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="chevron.down.square.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7Hn-Lm-Jg3">
+                                                                        <rect key="frame" x="305" y="1.6666666666666643" width="50" height="47"/>
+                                                                        <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="width" constant="50" id="4E7-cP-E9s"/>
+                                                                            <constraint firstAttribute="height" constant="50" id="bPU-24-EQH"/>
+                                                                        </constraints>
+                                                                    </imageView>
+                                                                </subviews>
+                                                            </stackView>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="You slept:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a3m-Qx-nIz">
+                                                                <rect key="frame" x="0.0" y="238.33333333333331" width="355" height="20.333333333333314"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7 h 54 mins" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0lG-Ue-2TW">
+                                                                <rect key="frame" x="0.0" y="283.66666666666669" width="355" height="36"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="30"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Rate your sleep" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFD-Sm-23P">
+                                                                <rect key="frame" x="0.0" y="344.66666666666663" width="355" height="20.333333333333314"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                                <nil key="textColor"/>
+                                                                <nil key="highlightedColor"/>
+                                                            </label>
+                                                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="1" minValue="1" maxValue="5" translatesAutoresizingMaskIntoConstraints="NO" id="xMZ-3T-Z5s">
+                                                                <rect key="frame" x="0.0" y="390" width="355" height="40"/>
+                                                                <constraints>
+                                                                    <constraint firstAttribute="height" constant="40" id="bMW-lX-pn3"/>
+                                                                </constraints>
+                                                            </slider>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="Mtj-tE-K2c" secondAttribute="trailing" id="7aQ-g8-YyJ"/>
+                                                            <constraint firstItem="Mtj-tE-K2c" firstAttribute="leading" secondItem="Uvn-Bm-Vqh" secondAttribute="leading" id="Ape-rH-RSD"/>
+                                                        </constraints>
+                                                    </stackView>
+                                                </subviews>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                                <constraints>
+                                                    <constraint firstItem="Uvn-Bm-Vqh" firstAttribute="leading" secondItem="whF-ZK-ZXF" secondAttribute="leading" constant="8" id="Ic9-oX-rBP"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Uvn-Bm-Vqh" secondAttribute="trailing" constant="8" id="JBO-hN-PdB"/>
+                                                    <constraint firstAttribute="height" constant="480" id="Kmn-6S-GFW"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Uvn-Bm-Vqh" secondAttribute="bottom" constant="25" id="guA-JL-ZNH"/>
+                                                    <constraint firstItem="Uvn-Bm-Vqh" firstAttribute="top" secondItem="whF-ZK-ZXF" secondAttribute="top" constant="25" id="ugA-xe-EMM"/>
+                                                </constraints>
+                                            </view>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="voE-dV-fky">
+                                                <rect key="frame" x="0.0" y="578" width="371" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="U8W-1x-Cak"/>
+                                                </constraints>
+                                                <color key="tintColor" red="0.99607843139999996" green="0.47843137250000001" blue="0.58823529409999997" alpha="1" colorSpace="calibratedRGB"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="filled" title="Save Sleep"/>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vhj-k3-VFj">
+                                                <rect key="frame" x="0.0" y="634" width="371" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="FdB-Ay-JhJ"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="gray" title="Not today"/>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.9882352941176471" green="0.93333333333333335" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="EuC-gk-MEu" firstAttribute="leading" secondItem="jdT-qo-V69" secondAttribute="leading" constant="16" id="Feg-mF-xIi"/>
+                                    <constraint firstAttribute="bottom" secondItem="EuC-gk-MEu" secondAttribute="bottom" constant="78" id="TYf-D6-hlC"/>
+                                    <constraint firstItem="EuC-gk-MEu" firstAttribute="top" secondItem="jdT-qo-V69" secondAttribute="top" constant="100" id="Ttm-EA-4hT"/>
+                                    <constraint firstAttribute="trailing" secondItem="EuC-gk-MEu" secondAttribute="trailing" constant="16" id="vnt-rf-xfW"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hrS-4c-ytH"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jdT-qo-V69" firstAttribute="top" secondItem="4z3-0b-TUa" secondAttribute="top" id="MUw-YW-2cs"/>
+                            <constraint firstItem="jdT-qo-V69" firstAttribute="leading" secondItem="hrS-4c-ytH" secondAttribute="leading" id="Rlh-FH-1Ax"/>
+                            <constraint firstItem="hrS-4c-ytH" firstAttribute="trailing" secondItem="jdT-qo-V69" secondAttribute="trailing" id="ffy-wC-UGV"/>
+                            <constraint firstAttribute="bottom" secondItem="jdT-qo-V69" secondAttribute="bottom" id="kgx-rJ-0AK"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="containerView" destination="jdT-qo-V69" id="CQh-bg-K2C"/>
+                        <outlet property="notTodayButton" destination="Vhj-k3-VFj" id="7C7-3w-yi9"/>
+                        <outlet property="ratingLabel" destination="SFD-Sm-23P" id="DFU-qc-oOH"/>
+                        <outlet property="ratingSlider" destination="xMZ-3T-Z5s" id="PCl-jO-JoU"/>
+                        <outlet property="saveButton" destination="voE-dV-fky" id="FdL-R3-piP"/>
+                        <outlet property="sleepTimeChevron" destination="ELa-WL-efB" id="Q0i-dc-8Sv"/>
+                        <outlet property="sleepTimeLabel" destination="9OD-1h-4wH" id="su7-sU-4gV"/>
+                        <outlet property="sleepTimeTextField" destination="yYB-KX-cKo" id="str-h1-k8H"/>
+                        <outlet property="subtitleLabel" destination="4If-5h-aY0" id="JnI-22-xir"/>
+                        <outlet property="titleLabel" destination="dHB-8x-yJ7" id="BYt-aO-3a4"/>
+                        <outlet property="totalSleepLabel" destination="a3m-Qx-nIz" id="z6g-RB-C4G"/>
+                        <outlet property="totalSleepValueLabel" destination="0lG-Ue-2TW" id="7BG-ux-z5U"/>
+                        <outlet property="wakeTimeChevron" destination="7Hn-Lm-Jg3" id="v8r-H0-e21"/>
+                        <outlet property="wakeTimeLabel" destination="n0T-c4-4XX" id="Fxy-WK-m6i"/>
+                        <outlet property="wakeTimeTextField" destination="zim-V6-8Co" id="R21-wf-QyA"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mzV-n4-abA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="6272.5190839694651" y="-362.67605633802816"/>
+        </scene>
     </scenes>
     <resources>
+        <image name="chevron.down.square.fill" catalog="system" width="128" height="114"/>
         <image name="clock.arrow.trianglehead.2.counterclockwise.rotate.90" catalog="system" width="128" height="117"/>
         <image name="drop.fill" catalog="system" width="96" height="128"/>
         <image name="figure.walk.circle.fill" catalog="system" width="128" height="123"/>

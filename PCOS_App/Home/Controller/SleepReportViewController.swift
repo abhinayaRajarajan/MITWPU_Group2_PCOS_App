@@ -19,6 +19,7 @@ class SleepReportViewController: UIViewController {
     @IBOutlet weak var workoutRec: UIView!
     @IBOutlet weak var miscRec: UIView!
     
+    @IBOutlet weak var logSleepButton: UIButton!
     private var dataPoints: [SleepChartDataModel] = []
     private var hostingController: UIHostingController<AnyView>?
     private var currentTimeRange: SleepChartTimeRange = .week
@@ -33,8 +34,41 @@ class SleepReportViewController: UIViewController {
         setupStyling()
         loadData(for: .week)
         setupChart()
+        setupExistingLogButton()
     }
     
+
+    private func setupExistingLogButton() {
+        // Style the existing button found in the storyboard
+        logSleepButton.setTitle("Log Your Sleep", for: .normal)
+        logSleepButton.setTitleColor(.white, for: .normal)
+        logSleepButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .semibold)
+        logSleepButton.backgroundColor = UIColor(hex: "#FE7A96")
+        logSleepButton.layer.cornerRadius = 20
+        logSleepButton.addTarget(self, action: #selector(logSleepTapped), for: .touchUpInside)
+    }
+
+    @objc private func logSleepTapped() {
+        guard let loggerVC = storyboard?.instantiateViewController(withIdentifier: "SleepLoggerViewController") as? SleepLoggerViewController else { return }
+
+        loggerVC.isNotNowMode = true          // reuse the flag so we can override labels
+        loggerVC.customTitle    = "Welcome"
+        loggerVC.customSubtitle = "lets log your sleep"
+
+        loggerVC.modalPresentationStyle = .pageSheet
+        if let sheet = loggerVC.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
+        }
+
+        loggerVC.onSleepSaved = { [weak self] in
+            guard let self = self else { return }
+            // Reload chart now that a log exists
+            self.loadData(for: self.currentTimeRange)
+        }
+
+        present(loggerVC, animated: true)
+    }
 
     private func setupStyling() {
         view.backgroundColor = UIColor(hex: "#FCEEED")
