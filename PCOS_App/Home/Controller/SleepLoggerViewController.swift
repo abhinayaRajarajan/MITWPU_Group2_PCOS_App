@@ -80,10 +80,14 @@ class SleepLoggerViewController: UIViewController {
         saveButton.setTitleColor(.white, for: .normal)
         saveButton.layer.cornerRadius = 25
         saveButton.titleLabel?.font = UIFont.systemFont(ofSize: 18, weight: .semibold)
+        // Wire programmatically (storyboard IBAction connections are absent)
+        saveButton.addTarget(self, action: #selector(saveTapped(_:)), for: .touchUpInside)
         
         // Not today button
         notTodayButton.setTitleColor(.gray, for: .normal)
         notTodayButton.titleLabel?.font = UIFont.systemFont(ofSize: 16, weight: .regular)
+        // Wire programmatically
+        notTodayButton.addTarget(self, action: #selector(notTodayTapped(_:)), for: .touchUpInside)
         
         // Rating slider
         ratingSlider.minimumValue = 1.0
@@ -91,6 +95,8 @@ class SleepLoggerViewController: UIViewController {
         ratingSlider.value = 3.5
         ratingSlider.minimumTrackTintColor = UIColor(hex: "#FE7A96")
         ratingSlider.maximumTrackTintColor = UIColor(hex: "#FE7A96").withAlphaComponent(0.2)
+        // Wire programmatically
+        ratingSlider.addTarget(self, action: #selector(ratingSliderChanged(_:)), for: .valueChanged)
     }
 
     private func setupCloseButton() {
@@ -186,34 +192,29 @@ class SleepLoggerViewController: UIViewController {
         view.endEditing(true)
     }
     
-    @IBAction func ratingSliderChanged(_ sender: UISlider) {
+    @objc func ratingSliderChanged(_ sender: UISlider) {
         // Slider value stored on save; no live label needed right now
     }
     
-    @IBAction func saveTapped(_ sender: UIButton) {
-        // Create sleep log using existing SleepLog model
+    @objc func saveTapped(_ sender: UIButton) {
         let sleepLog = SleepLog(
             sleepTime: sleepTimePicker.date,
             wakeTime: wakeTimePicker.date,
             rating: Double(ratingSlider.value)
         )
-        
-        // Persist to UserDefaults via SleepDatabase
         SleepDatabase.shared.saveSleepLog(sleepLog)
         
-        // Notify caller so the home screen can refresh
-        onSleepSaved?()
-        
-        // Dismiss
-        dismiss(animated: true)
+        dismiss(animated: true) { [weak self] in
+            self?.onSleepSaved?()
+        }
     }
-    
-    @IBAction func notTodayTapped(_ sender: UIButton) {
+
+    @objc func notTodayTapped(_ sender: UIButton) {
         dismiss(animated: true) { [weak self] in
             self?.onDismissedWithoutSaving?()
         }
     }
-    
+
     // MARK: - Helpers
     private func formatTime(_ date: Date) -> String {
         let formatter = DateFormatter()
