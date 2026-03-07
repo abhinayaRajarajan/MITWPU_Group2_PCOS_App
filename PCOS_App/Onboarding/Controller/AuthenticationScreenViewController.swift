@@ -1,18 +1,20 @@
 //
-//  TempFirstScreenViewController.swift
+//  AuthenticationScreenViewController.swift
 //  PCOS_App
 //
-//  Created by SDC-USER on 14/01/26.
+//  Created by SDC-USER on 07/03/26.
 //
 
 import UIKit
 
-class TempFirstScreenViewController: UIViewController {
+class AuthenticationScreenViewController: UIViewController {
 
-    @IBOutlet weak var nextButton: UIButton!
+    @IBOutlet weak var SignInWithAppleButton: UIButton!
+    
+    @IBOutlet weak var storeDataLocallyBButton: UIButton!
     override func viewDidLoad() {
         super.viewDidLoad()
-        nextButton.tintColor = UIColor(hex: "#fe7a96")
+
         // Do any additional setup after loading the view.
     }
     
