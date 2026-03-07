@@ -130,7 +130,7 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
         loggerVC.modalPresentationStyle = .pageSheet
 
         if let sheet = loggerVC.sheetPresentationController {
-            sheet.detents = [.medium(), .large()]
+            sheet.detents = [.large()]
             sheet.prefersGrabberVisible = true
             sheet.prefersScrollingExpandsWhenScrolledToEdge = false
         }
