@@ -6,85 +6,27 @@
 //
 
 import Foundation
-import FoundationModels
 
 //MARK: meal reccomendation system
-@Generable
-struct MealRecommendationOutput {
-    @Guide(description: """
-    One sentence, max 12 words, referencing actual logged numbers from context.
-    E.g. 'You have logged only 20g protein against your 60g target.'
-    Use ONLY numbers present in the context — never invent values.
-    Do not use colon for last meal.
-    """)
+struct MealRecommendationOutput: Codable {
     var observationLine: String
-
-    @Guide(description: """
-    Exactly 3 Indian food suggestions. 
-    None of these should repeat any food already logged today in the context.
-    Each must directly address the focus tag gap.
-    """)
     var foods: [FoodCard]
 }
 
-@Generable
-struct FoodCard {
-    @Guide(description: """
-    Specific Indian dish name with Hindi name in brackets.
-    E.g. 'Moong Dal Chilla', 'Dahi with Alsi (flaxseed)', 'Ragi Roti'.
-    Never suggest a food already logged today.
-    """)
+struct FoodCard: Codable {
     var name: String
-
-    @Guide(description: "Metric based on the nutritional gap (e.g. '22g protein', '8g fibre').")
     var primaryMacro: String
-
-    @Guide(description: "Exactly 1 short, relevant PCOS tag (e.g. 'Low GI').")
     var impactTag: String
-
-    @Guide(description: "One word only: pink | green | amber. Rotate across the 3 cards.")
     var colorHint: String
 }
 
 //MARK: daily goals output
-@Generable
-struct DailyGoalsOutput {
-    @Guide(description: """
-    Exactly 2 goals. Priority order — pick the top 2 that apply:
-    1. Diet + symptom connection (e.g. anti-inflammatory food for active cramps/bloating)
-    2. Diet + workout connection (e.g. protein gap after a workout session)
-    3. Nutrition gap (e.g. protein or fibre deficit from today's logs)
-    4. Workout gap (e.g. no strength training this week)
-    Never include sleep. Never include more than 2 goals.
-
-    Generate exactly 2 personalized daily health goals for a woman with PCOS.
-
-    FIRST: Read the context carefully and extract:
-    - Symptoms today: [list from context — if none, note that]
-    - Protein logged vs target: [exact numbers from context]
-    - Workout logged today: [yes/no from context]
-    - Strength sessions this week: [number from context]
-
-    THEN generate goals only from what you extracted above. Do not use any other data.
-    """)
+struct DailyGoalsOutput: Codable {
     var goals: [GoalCard]
 }
 
-@Generable
-struct GoalCard {
-    @Guide(description: "1-3 word title. Sharp and direct. If larger words then only 2 or 1 word title will be shown. E.g. 'Boost protein now', 'Ease cramps', 'Strength training'.")
+struct GoalCard: Codable {
     var title: String
-
-    @Guide(description: """
-    One action sentence, max 12 words. Include one real number from their logs.
-    Be warm and encouraging — frame it as an opportunity, not a deficit.
-    E.g. 'Only 20g protein logged — add moong dal or dahi.'
-    E.g. 'Bloating today — swap rice with fruit salad to reduce bloating'
-    E.g. 'Cramps today — swap rice for ragi to reduce inflammation.'
-    E.g. 'No strength training in 7 days — add a 20-min session.'
-    """)
     var sentence: String
-    
-    @Guide(description: "One word only: nutrition | exercise | symptoms")
     var category: String
 }

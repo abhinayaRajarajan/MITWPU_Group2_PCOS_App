@@ -7,7 +7,6 @@
 
 import Foundation
 import NaturalLanguage
-import FoundationModels
 
 struct ResearchChunk: Codable {
     let id: String
@@ -21,31 +20,7 @@ struct ResearchChunk: Codable {
     let priority: Int
 }
 
-struct PCOSResearchTool: Tool {
-
-    var name: String { "search_pcos_research" }
-    var description: String {
-        """
-        Search the PCOS research database for evidence-based information. \
-        Call this when the user asks about specific symptoms, foods, hormones, \
-        supplements, exercise recommendations, or any PCOS health topic. \
-        Returns the most relevant research findings with specific action recommendations.
-        """
-    }
-
-    typealias Output = String
-
-    @Generable
-    struct Arguments {
-        @Guide(description: "The health topic or symptom to search for. Be specific: e.g., 'cramps anti-inflammatory foods', 'insulin resistance low GI', 'spearmint testosterone'")
-        var query: String
-
-        @Guide(description: "Optional: active symptoms to prioritise relevant chunks. E.g., 'cramps bloating fatigue'")
-        var activeSymptoms: String?
-
-        @Guide(description: "Optional: PCOS phenotype to filter results. Values: typeA, typeB, typeC, typeD")
-        var phenotype: String?
-    }
+struct PCOSResearchTool {
 
     // ── Singleton data store ───────────────────────────────────────────────
     private static var chunks: [ResearchChunk] = []
@@ -64,13 +39,14 @@ struct PCOSResearchTool: Tool {
         print("✅ Loaded \(chunks.count) research chunks")
     }
 
-    func call(arguments: Arguments) async throws -> String {
+    /// Search the PCOS research database for evidence-based information.
+    /// Returns the most relevant research findings with specific action recommendations.
+    func search(query: String, activeSymptoms: String? = nil, phenotype: String? = nil) -> String {
         PCOSResearchTool.preload()
 
-        let query       = arguments.query
-        let symptomsRaw = arguments.activeSymptoms ?? ""
+        let symptomsRaw = activeSymptoms ?? ""
         let symptoms    = symptomsRaw.lowercased().components(separatedBy: " ").filter { !$0.isEmpty }
-        let phenotype   = arguments.phenotype ?? ""
+        let phenotypeStr = phenotype ?? ""
 
         let triggerMatches = PCOSResearchTool.chunks.filter { chunk in
             symptoms.contains(where: { symptom in
@@ -79,7 +55,7 @@ struct PCOSResearchTool: Tool {
         }
 
         let phenotypeFiltered = PCOSResearchTool.chunks.filter { chunk in
-            phenotype.isEmpty || chunk.phenotypes.contains("any") || chunk.phenotypes.contains(phenotype)
+            phenotypeStr.isEmpty || chunk.phenotypes.contains("any") || chunk.phenotypes.contains(phenotypeStr)
         }
 
         let queryWords = query.lowercased().components(separatedBy: .whitespaces).filter { !$0.isEmpty }

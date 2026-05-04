@@ -6,7 +6,7 @@
 //
 
 import UIKit
-import FoundationModels
+
 
 protocol AddDescribedMealDelegate: AnyObject {
     func didConfirmMeal(_ food: Food)
@@ -82,10 +82,8 @@ class AddDescribedMealViewController: UIViewController {
     }
     
     private func fetchMealInsight() async {
-        // Check availability — SystemLanguageModel.default.availability can return .available
-        // on simulators or devices where the model isn't downloaded, so we also do a quick
-        // trial probe to catch ModelManagerError Code=1026 before doing the real ca"
-        guard case .available = SystemLanguageModel.default.availability else {
+        // Check if AI model is available
+        guard AIBrain.shared.isAvailable else {
             await MainActor.run { showFallbackInsight() }
             return
         }
@@ -165,7 +163,6 @@ class AddDescribedMealViewController: UIViewController {
             .joined(separator: ", ")
         let tagLine = tagLabels.isEmpty ? "No specific health tags available." : "Verified tags: \(tagLabels)."
         
-        // Use a fresh dedicated session — never reuse the shared chat session
         let instructions = """
         You are a nutrition assistant. Reply in exactly 1-2 short sentences — no lists, no headings. \
         Base your assessment ONLY on the verified tags provided. \
@@ -183,9 +180,7 @@ class AddDescribedMealViewController: UIViewController {
 
         
         do {
-            let session = LanguageModelSession(instructions: instructions)
-            let response = try await session.respond(to: prompt)
-            let insight = response.content
+            let insight = try await AIBrain.shared.generateRawText(prompt: prompt, instructions: instructions)
             
             await MainActor.run {
                 guard let label = recommendationLabel, let card = recommendationView else { return }
