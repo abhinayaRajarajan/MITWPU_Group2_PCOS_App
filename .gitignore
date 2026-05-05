@@ -67,3 +67,6 @@ Library/Developer/CoreSimulator
 .env
 
 build_log.txt
+
+### MLX Model (local conversion artifact — model lives on HuggingFace) ###
+mlx_model/
