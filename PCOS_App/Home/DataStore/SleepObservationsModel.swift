@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import FoundationModels
 
 class SleepObservationsModel {
     
@@ -58,7 +57,7 @@ class SleepObservationsModel {
         return prompt
     }
     
-    /// Invokes the native iOS LanguageModelSession to evaluate the sleep records and yield an insight string
+    /// Invokes the on-device AI model to evaluate the sleep records and yield an insight string
     func fetchSleepInsight(chartData: [SleepChartDataModel], timeRange: SleepChartTimeRange = .week) async throws -> String {
         guard !chartData.isEmpty else {
             return "Log more sleep data to unlock personalized insights!"
@@ -71,16 +70,15 @@ class SleepObservationsModel {
         }
         
         let prompt = generateSleepPrompt(from: chartData, timeRange: timeRange)
-        let session = LanguageModelSession(instructions: systemInstructions)
         
         do {
-            let result = try await session.respond(to: prompt)
-            let insight = result.content
+            let insight = try await AIBrain.shared.generateRawText(prompt: prompt, instructions: systemInstructions)
+            let trimmed = insight
                 .trimmingCharacters(in: .whitespacesAndNewlines)
-                .trimmingCharacters(in: CharacterSet(charactersIn: "\""  ))
+                .trimmingCharacters(in: CharacterSet(charactersIn: "\"" ))
             
             // Guard against safety refusal responses
-            let lowerInsight = insight.lowercased()
+            let lowerInsight = trimmed.lowercased()
             if lowerInsight.contains("i'm sorry") ||
                lowerInsight.contains("i cannot") ||
                lowerInsight.contains("i can't") ||
@@ -88,9 +86,9 @@ class SleepObservationsModel {
                 return fallbackInsight(from: chartData)
             }
             
-            return insight
+            return trimmed
         } catch {
-            print("ERROR: Foundation Model failed to analyze sleep: \(error)")
+            print("ERROR: AI Model failed to analyze sleep: \(error)")
             return fallbackInsight(from: chartData)
         }
     }

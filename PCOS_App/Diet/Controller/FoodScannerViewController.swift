@@ -9,7 +9,7 @@ import UIKit
 import AVFoundation
 import Vision
 import CoreML
-import FoundationModels
+
 
 protocol FoodScannerDelegate: AnyObject {
     func didScanFood(_ foodItem: FoodItem)
@@ -265,7 +265,7 @@ class FoodScannerViewController: UIViewController {
         }
     }
     
-    // MARK: - Foundation Model Analysis
+    // MARK: - AI Model Analysis
     private func analyzeFoodWithFoundationModel(foodName: String) async {
         let instructions = """
             You are a professional nutritionist specializing in Indian and international foods.
@@ -306,14 +306,12 @@ class FoodScannerViewController: UIViewController {
             - Return ONLY the JSON, nothing else
             """
 
-        let session = LanguageModelSession(instructions: instructions)
         let prompt = "Provide complete nutritional breakdown for: \(foodName)"
 
         do {
-            let result = try await session.respond(to: prompt)
-            let responseText = result.content
+            let responseText = try await AIBrain.shared.generateRawText(prompt: prompt, instructions: instructions)
 
-            print("DEBUG: Foundation Model response:\n\(responseText)")
+            print("DEBUG: AI Model response:\n\(responseText)")
 
             await MainActor.run {
                 self.hideLoadingIndicator()
@@ -321,7 +319,7 @@ class FoodScannerViewController: UIViewController {
             }
 
         } catch {
-            print("ERROR: Foundation Model failed: \(error)")
+            print("ERROR: AI Model failed: \(error)")
             await MainActor.run {
                 self.hideLoadingIndicator()
                 self.showError("AI analysis failed. Please try again.\n\nError: \(error.localizedDescription)")

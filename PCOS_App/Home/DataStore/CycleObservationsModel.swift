@@ -1,5 +1,4 @@
 import Foundation
-import FoundationModels
 
 class CycleObservationsModel {
     
@@ -40,15 +39,14 @@ class CycleObservationsModel {
         }
         
         let prompt = generateCyclePrompt(from: cycles)
-        let session = LanguageModelSession(instructions: systemInstructions)
         
         do {
-            let result = try await session.respond(to: prompt)
-            return result.content
+            let result = try await AIBrain.shared.generateRawText(prompt: prompt, instructions: systemInstructions)
+            return result
                 .trimmingCharacters(in: .whitespacesAndNewlines)
                 .trimmingCharacters(in: CharacterSet(charactersIn: "\"" ))
         } catch {
-            print("ERROR: Foundation Model failed to analyze cycle: \(error)")
+            print("ERROR: AI Model failed to analyze cycle: \(error)")
             throw error
         }
     }

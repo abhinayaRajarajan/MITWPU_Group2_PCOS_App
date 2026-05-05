@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import FoundationModels
 
 class SymptomInsightModel {
     
@@ -75,10 +74,10 @@ class SymptomInsightModel {
         set { UserDefaults.standard.set(newValue, forKey: cacheKey) }
     }
 
-    /// Invokes the native iOS LanguageModelSession to evaluate the symptom pattern and yield an insight string
+    /// Invokes the on-device AI model to evaluate the symptom pattern and yield an insight string
     func fetchSymptomInsight(symptomName: String, cycles: [CycleData]) async throws -> String {
         
-        // Intercept highly sensitive topics that trigger Apple Foundation Model safety guards
+        // Intercept highly sensitive topics
         if symptomName.lowercased() == "vulvar pain" {
             return "If you experience excess vulvar pain, please consult your doctor."
         }
@@ -94,13 +93,11 @@ class SymptomInsightModel {
             return cachedInsight
         }
         
-        let session = LanguageModelSession(instructions: systemInstructions)
-        
         do {
-            let result = try await session.respond(to: prompt)
-            let insight = result.content
+            let result = try await AIBrain.shared.generateRawText(prompt: prompt, instructions: systemInstructions)
+            let insight = result
                 .trimmingCharacters(in: .whitespacesAndNewlines)
-                .trimmingCharacters(in: CharacterSet(charactersIn: "\""  ))
+                .trimmingCharacters(in: CharacterSet(charactersIn: "\"" ))
             
             // Save to persistent cache
             var currentCache = insightCache
@@ -109,7 +106,7 @@ class SymptomInsightModel {
             
             return insight
         } catch {
-            print("ERROR: Foundation Model failed to analyze symptom pattern: \(error)")
+            print("ERROR: AI Model failed to analyze symptom pattern: \(error)")
             throw error
         }
     }
