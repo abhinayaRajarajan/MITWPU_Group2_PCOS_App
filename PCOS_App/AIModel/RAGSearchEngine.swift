@@ -82,10 +82,10 @@ final class RAGSearchEngine {
 
         let alreadyEatenLower = Set(alreadyEaten.map { $0.lowercased() })
 
-        // Find high-protein foods not already eaten
+        // Find high-protein foods not already eaten, and shuffle them for variety
         let candidates = foods
-            .filter { !alreadyEatenLower.contains($0.name.lowercased()) }
-            .sorted { $0.protein > $1.protein }
+            .filter { !alreadyEatenLower.contains($0.name.lowercased()) && $0.protein > 8.0 }
+            .shuffled()
             .prefix(10)
 
         guard !candidates.isEmpty else { return "" }

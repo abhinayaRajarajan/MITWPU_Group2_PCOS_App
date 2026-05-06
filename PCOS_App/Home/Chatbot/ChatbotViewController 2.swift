@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Combine
 
 final class ChatbotViewController: UIViewController {
 
@@ -23,6 +24,40 @@ final class ChatbotViewController: UIViewController {
         "Help me understand my cycle ",
         "I'm craving sugar badly "
     ]
+    
+    // MARK: - Progress UI
+    private var cancellables = Set<AnyCancellable>()
+    
+    private let progressContainer: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 12
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.1
+        view.layer.shadowOffset = CGSize(width: 0, height: 2)
+        view.layer.shadowRadius = 4
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.isHidden = true
+        return view
+    }()
+    
+    private let progressLabel: UILabel = {
+        let label = UILabel()
+        label.text = "Downloading AI Model... 0%"
+        label.font = .systemFont(ofSize: 13, weight: .medium)
+        label.textColor = .darkGray
+        label.textAlignment = .center
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private let progressView: UIProgressView = {
+        let pv = UIProgressView(progressViewStyle: .default)
+        pv.progressTintColor = UIColor(hex: "#fe7a96")
+        pv.trackTintColor = UIColor(hex: "#fe7a96").withAlphaComponent(0.2)
+        pv.translatesAutoresizingMaskIntoConstraints = false
+        return pv
+    }()
 
     // MARK: - TableView (programmatic, no IBOutlet needed)
     private lazy var tableView: UITableView = {
@@ -50,6 +85,8 @@ final class ChatbotViewController: UIViewController {
         setupNavigationBar()
         setupTableView()
         setupInputBar()
+        setupProgressUI()
+        setupProgressObserver()
         setupKeyboardObservers()   // ← add this
         loadPersistedMessages()
     }
@@ -161,6 +198,61 @@ final class ChatbotViewController: UIViewController {
         inputBar.delegate = self
     }
 
+    private func setupProgressUI() {
+        view.addSubview(progressContainer)
+        progressContainer.addSubview(progressLabel)
+        progressContainer.addSubview(progressView)
+        
+        NSLayoutConstraint.activate([
+            progressContainer.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 12),
+            progressContainer.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 16),
+            progressContainer.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -16),
+            progressContainer.heightAnchor.constraint(equalToConstant: 50),
+            
+            progressLabel.topAnchor.constraint(equalTo: progressContainer.topAnchor, constant: 8),
+            progressLabel.centerXAnchor.constraint(equalTo: progressContainer.centerXAnchor),
+            
+            progressView.bottomAnchor.constraint(equalTo: progressContainer.bottomAnchor, constant: -8),
+            progressView.leadingAnchor.constraint(equalTo: progressContainer.leadingAnchor, constant: 12),
+            progressView.trailingAnchor.constraint(equalTo: progressContainer.trailingAnchor, constant: -12),
+            progressView.heightAnchor.constraint(equalToConstant: 4)
+        ])
+    }
+    
+    private func setupProgressObserver() {
+        LocalModelEngine.shared.$state
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] state in
+                guard let self = self else { return }
+                
+                switch state {
+                case .downloading(let progress):
+                    let percent = Int(progress * 100)
+                    self.progressLabel.text = "Downloading AI Model... \(percent)%"
+                    self.progressView.progress = Float(progress)
+                    
+                    if self.progressContainer.isHidden {
+                        self.progressContainer.isHidden = false
+                        UIView.animate(withDuration: 0.3) {
+                            self.progressContainer.alpha = 1
+                        }
+                    }
+                case .loading:
+                    self.progressLabel.text = "Loading Model into Memory..."
+                    self.progressView.setProgress(1.0, animated: true)
+                default:
+                    if !self.progressContainer.isHidden {
+                        UIView.animate(withDuration: 0.3) {
+                            self.progressContainer.alpha = 0
+                        } completion: { _ in
+                            self.progressContainer.isHidden = true
+                        }
+                    }
+                }
+            }
+            .store(in: &cancellables)
+    }
+
     // MARK: - Welcome
     private func sendWelcomeMessage() {
         let welcome = ChatMessage(
@@ -229,11 +321,10 @@ final class ChatbotViewController: UIViewController {
         Task {
             do {
                 let context = await SharedContextEngine.shared.buildContext()
-                // Re-inject earlier conversation summary if AI session was reset
-                let chatSummary = ChatPersistenceManager.shared.buildChatSummary()
-                let fullContext = chatSummary.isEmpty ? context : "\(context)\n\n\(chatSummary)"
                 
-                let response = try await brain.sendChatMessage(text, context: fullContext)
+                // We no longer inject chatSummary! MLX Swift's ChatSession natively
+                // handles the multi-turn memory. Passing it manually causes recursion.
+                let response = try await brain.sendChatMessage(text, context: context)
 
                 await MainActor.run {
                     self.addAIMessage(response)

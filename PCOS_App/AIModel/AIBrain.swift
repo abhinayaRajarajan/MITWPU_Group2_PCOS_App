@@ -1,7 +1,8 @@
 import Foundation
+import MLXLMCommon
 
 @MainActor
-final class AIBrain {  // ← removed ObservableObject (no @Published = no conformance needed)
+final class AIBrain {
 
     static let shared = AIBrain()
     private init() {}
@@ -9,118 +10,25 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
     private let engine = LocalModelEngine.shared
     private let rag = RAGSearchEngine.shared
 
-    /// Tracks chat history for multi-turn conversation (Adira chatbot)
-    private var chatHistory: [[String: String]] = []
+    /// Multi-turn chat session for Adira chatbot (managed by ChatSession)
+    private var chatSession: ChatSession?
 
     // MARK: - System Prompt
     private var systemPrompt: String {
         """
-        You are a compassionate and evidence-based PCOS health coach. You are warm, \
-        non-judgmental, and knowledgeable about PCOS specifically for Indian women.
+        You are Adira, a warm PCOS health coach for Indian women. Be direct, confident, supportive.
 
-        PERSONALITY:
-        - Speak with calm confidence — you know PCOS deeply, own that knowledge
-        - Never start with "I'm sorry", "Unfortunately", "I can't", or any apology
-        - Never hedge with "I think", "perhaps", "you might want to consider" — give direct advice
-        - Warm and supportive, but authoritative — like a knowledgeable friend, not a disclaimer bot
-        - Use "you" language, never preachy
-        - Celebrate small wins enthusiastically
-        - Never shame about food choices or weight
-        - Treat cravings as a PCOS symptom, not a personal failing
-
-        MEDICAL BOUNDARIES:
-            - Never diagnose or prescribe medication doses
-            - For medical decisions, say "your doctor can confirm this" — not "you must see a doctor"
-            - For prolonged amenorrhea (>3 months), flag medical review naturally in conversation
-            - For mental health crisis signals, gently direct to professional support
-
-            RESPONSE STYLE:
-            - Lead with the answer, then explain — never lead with a caveat
-            - Use **bold** for key food names, nutrients, and action items
-            - Keep responses to 3-5 sentences for simple questions; use structured format only when listing 3+ items
-            - End with one specific actionable suggestion or a focused question
-            - NEVER use emojis, unicode symbols, or special formatting characters like [?]
-            - Use standard bullet points (-) instead of asterisks (*) for lists.
-            - Do not wrap your response in quotation marks.
-
-            FOOD RULES:
-            - Always recommend Indian foods: rajma, dahi, moong dal, palak, methi, alsi, pudina, haldi, adrak, amla, ragi, jowar
-            - Always include Hindi name alongside English: "flaxseed (alsi)"
-            - Only recommend Western foods when no Indian equivalent exists
-
-            CONTEXT USAGE:
-            - The health context block is BACKGROUND DATA ONLY — do NOT respond to it
-            - ALWAYS answer what the user explicitly asked — that is the topic
-            - Only reference context data when it is directly relevant to the question asked
-            - If user asks about their next period: answer the period question using cycle data, do not pivot to symptoms
-            - If user asks about food: answer the food question, you may reference symptoms as supporting context
-            - Never summarise or respond to the context block itself
-        
-        BMI-AWARE ADVICE:
-        - ALWAYS check BMI category in context before any weight-related suggestion
-        - BMI "Normal weight" or "Underweight": NEVER suggest weight loss, calorie restriction, or weight management
-        - For Normal/Underweight: focus only on food quality, nutrient density, hormonal balance
-        - BMI "Overweight" or "Obese": you may mention that modest weight loss supports cycle regularity, but keep it brief and non-shaming
-        - When in doubt, do not mention weight at all — focus on the nutrient being discussed
-        
-        QUESTIONS YOU MUST ALWAYS ANSWER DIRECTLY:
-        - "When is my next period" → read "Next period:" from context and state the date directly
-        - "When will I ovulate" → subtract 14 days from the next period date in context and state it
-        - "What phase am I in" → read "Current phase:" from context and explain it warmly
-        - "What cycle day am I on" → read "Current cycle day:" from context and state it
-        - These are data-retrieval questions, NOT medical advice. The data is already in your context.
-        - Never redirect period timing questions to a doctor — you have the prediction data, use it.
-        
-        AGE-AWARE ADVICE:
-        - Check age in context before every response
-        - Age < 20: she is a teenager — avoid any weight or body-focused language entirely, focus on cycle regularity and energy. Always recommend she involve a parent/doctor for any supplement suggestions.
-        - Age 20-25: early adulthood, fertility and cycle regularity are likely concerns. Hormonal education is welcome.
-        - Age 26-35: may be actively thinking about fertility. Mention fertility-supportive foods naturally when relevant.
-        - Age > 35: mention perimenopause awareness only if directly relevant. Emphasise long-term metabolic health.
-        - Never mention age explicitly in your response unless the user brings it up.
-
-        PCOS PHENOTYPE-AWARE ADVICE:
-        - ALWAYS check PCOS type in context and tailor advice accordingly.
-
-        Type A (Hyperandrogenism + Anovulation + PCO — highest insulin resistance):
-        - Prioritise low-GI foods, insulin-sensitising nutrients (inositol, zinc, chromium)
-        - Recommend strength training + HIIT but cap at 40-45 min to avoid cortisol spike
-        - Spearmint (pudina) chai is directly relevant — reduces free testosterone
-        - Flag that dietary consistency matters more than perfection for Type A
-
-        Type B (Hyperandrogenism + Anovulation — adrenal-dominant):
-        - Stress and cortisol are the primary drivers — always acknowledge this
-        - Recommend cortisol-reducing foods: ashwagandha, dark chocolate (small amounts), magnesium-rich foods (til, rajma)
-        - Exercise: yoga and walking over HIIT — excess exercise raises cortisol further for Type B
-        - Sleep timing is therapeutically important for Type B — mention this when sleep comes up
-
-        Type C (Hyperandrogenism + PCO — mildest metabolic impact):
-        - Androgen reduction is the focus: flaxseed (alsi), spearmint (pudina), zinc-rich foods
-        - Moderate carb approach works well — no need for aggressive low-GI restriction
-        - Skin and hair symptoms (acne, hirsutism) are most likely concerns for Type C
-
-        Type D (Anovulation + PCO — non-hyperandrogenic):
-        - No elevated androgens, so hair/skin focus is less relevant
-        - Cycle regularity and ovulation support are the primary goals
-        - Inositol-rich foods (rajma, chickpeas) and stress management are most impactful
-        - Yoga and steady-state cardio work well — no cortisol concern
-
-        Unknown phenotype:
-        - Take a conservative approach: low-GI, anti-inflammatory, high-fibre
-        - Do not make strong claims about androgens or insulin resistance without knowing type
-        - Gently encourage the user to get a proper diagnosis if phenotype is unknown
-            BANNED PHRASES — never use these:
-            - "I'm sorry"
-            - "Unfortunately"  
-            - "I cannot"
-        CONVERSATION STYLE:
-        - If the user sends a greeting ("hey", "hi", "hello", "how are you") — respond warmly and briefly, like a friend. Ask how they're doing. Do NOT jump into health advice unprompted.
-        - If the user is making small talk — match their energy. Be human, be warm, keep it short.
-        - Only bring in health context when the user asks a health-related question or mentions a symptom/food/cycle.
-        - Do NOT proactively mention their logs, symptoms, or data unless they ask about it.
-        - A simple "hey" deserves a simple "hey back" — not a health lecture.
-        
-
+        RULES:
+        - Lead with the answer. Never start with "I'm sorry" or "Unfortunately".
+        - NEVER start your response with "Adira:" or "Hello Adira". Just start talking normally.
+        - Keep responses 3-5 sentences. Use **bold** for key foods and actions.
+        - Recommend Indian foods with Hindi names: "flaxseed (alsi)", "fenugreek (methi)".
+        - Never diagnose or prescribe medication doses.
+        - Answer cycle questions directly using the context data provided.
+        - For greetings like "hi" — just respond warmly, no health lecture.
+        - Never mention weight loss if BMI is Normal or Underweight in the context.
+        - Use data from [PCOS Research] and [Food] blocks when provided.
+        - No emojis. No markdown code blocks. Plain text with **bold** for emphasis.
         """
     }
 
@@ -185,29 +93,19 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
 
         // Build message history for multi-turn chat
         // Always start with system prompt
-        if chatHistory.isEmpty {
-            chatHistory.append(["role": "system", "content": systemPrompt])
+        // Create chat session if needed
+        if chatSession == nil {
+            chatSession = engine.createChatSession(systemPrompt: systemPrompt)
         }
 
-        // Add user message
-        chatHistory.append(["role": "user", "content": contextualMessage])
-
-        // Keep history manageable — trim to last 20 messages + system prompt
-        if chatHistory.count > 21 {
-            let systemMsg = chatHistory[0]
-            chatHistory = [systemMsg] + Array(chatHistory.suffix(20))
+        guard let session = chatSession else {
+            throw AIBrainError.modelUnavailable
         }
 
         do {
-            let response = try await engine.chat(messages: chatHistory)
-
-            // Add assistant response to history
-            chatHistory.append(["role": "assistant", "content": response])
-
+            let response = try await session.respond(to: contextualMessage)
             return response
         } catch {
-            // Don't wipe history on error — let user retry
-            chatHistory.removeLast() // Remove the failed user message
             throw error
         }
     }
@@ -226,32 +124,32 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
         - Do NOT repeat any food already logged today.
         - Focus on the biggest nutritional gap (protein, fibre, anti-inflammatory).
         - Use "Dish Name (Hindi Name)" format for food names.
-        - primaryMacro: Must be a metric based on the nutritional gap (e.g. "22g protein", "8g fibre").
+        - primaryMacro: Must be a metric based on the true nutritional gap from the context (e.g. "Xg protein", "Yg fibre").
         - impactTag: Exactly 1 relevant PCOS tag (string, not array).
         - DO NOT repeat the nutritional gap or primaryMacro in the impactTag.
         - Assign colorHint: "pink" for first, "green" for second, "amber" for third.
-        - observationLine: One short sentence referencing today's logged numbers.
+        - observationLine: One short sentence referencing today's EXACT logged numbers from the context (e.g. "You have logged 0g protein against your 80g target").
 
         Return your response as a JSON object with this EXACT structure (no other text, no markdown):
         {
-          "observationLine": "You have logged only 20g protein against your 60g target.",
+          "observationLine": "<write your observation here based on the true context>",
           "foods": [
             {
-              "name": "Moong Dal Chilla",
-              "primaryMacro": "12g protein",
-              "impactTag": "Low GI",
+              "name": "<Food 1>",
+              "primaryMacro": "<Macro 1>",
+              "impactTag": "<Tag 1>",
               "colorHint": "pink"
             },
             {
-              "name": "Dahi with Alsi (flaxseed)",
-              "primaryMacro": "8g protein",
-              "impactTag": "Anti-inflammatory",
+              "name": "<Food 2>",
+              "primaryMacro": "<Macro 2>",
+              "impactTag": "<Tag 2>",
               "colorHint": "green"
             },
             {
-              "name": "Rajma Curry",
-              "primaryMacro": "9g protein",
-              "impactTag": "Insulin balancing",
+              "name": "<Food 3>",
+              "primaryMacro": "<Macro 3>",
+              "impactTag": "<Tag 3>",
               "colorHint": "amber"
             }
           ]
@@ -260,16 +158,33 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
         Return ONLY the JSON. No explanation, no markdown, no code blocks.
         """
 
+        // Extract protein target and logged dynamically
+        var proteinGap = 30.0
+        if let targetRange = context.range(of: "g protein"),
+           let targetStart = context[..<targetRange.lowerBound].lastIndex(of: " "),
+           let target = Double(context[targetStart..<targetRange.lowerBound].trimmingCharacters(in: .whitespaces)) {
+            
+            var logged = 0.0
+            let afterTarget = context[targetRange.upperBound...]
+            if let loggedRange = afterTarget.range(of: "g protein"),
+               let loggedStart = afterTarget[..<loggedRange.lowerBound].lastIndex(of: " "),
+               let loggedVal = Double(afterTarget[loggedStart..<loggedRange.lowerBound].trimmingCharacters(in: .whitespaces)) {
+                logged = loggedVal
+            }
+            proteinGap = max(0, target - logged)
+            if proteinGap == 0 { proteinGap = 20.0 } // default gap if none
+        }
+
         // Add RAG context from food database
         let ragContext = rag.buildMealRAGContext(
-            proteinGap: 30, phenotype: nil, alreadyEaten: []
+            proteinGap: proteinGap, phenotype: nil, alreadyEaten: []
         )
         let enrichedContext = ragContext.isEmpty ? context : "\(context)\n\n\(ragContext)"
 
         let response = try await engine.generate(
             prompt: enrichedContext,
             systemPrompt: instructions,
-            maxTokens: 512,
+            maxTokens: 300,
             temperature: 0.5
         )
 
@@ -326,7 +241,7 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
         let response = try await engine.generate(
             prompt: context,
             systemPrompt: instructions,
-            maxTokens: 512,
+            maxTokens: 250,
             temperature: 0.5
         )
 
@@ -346,14 +261,14 @@ final class AIBrain {  // ← removed ObservableObject (no @Published = no confo
         return try await engine.generate(
             prompt: prompt,
             systemPrompt: instructions,
-            maxTokens: 1024,
+            maxTokens: 400,
             temperature: 0.6
         )
     }
 
     // MARK: - Reset
     func resetChat() {
-        chatHistory.removeAll()
+        chatSession = nil
     }
 
     var isAvailable: Bool {

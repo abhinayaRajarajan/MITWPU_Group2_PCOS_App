@@ -9,6 +9,11 @@
 /* Begin PBXBuildFile section */
 		19AAC9322ED5C04F00B83D7B /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 19AAC9312ED5C04700B83D7B /* README.md */; };
 		19AAC9342ED5C1BC00B83D7B /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = 19AAC9332ED5C1B000B83D7B /* .gitignore */; };
+		1C4AFEF22FA9928F00900E9E /* MLXHuggingFace in Frameworks */ = {isa = PBXBuildFile; productRef = 1C4AFEF12FA9928F00900E9E /* MLXHuggingFace */; };
+		1C4AFEF42FA9928F00900E9E /* MLXLLM in Frameworks */ = {isa = PBXBuildFile; productRef = 1C4AFEF32FA9928F00900E9E /* MLXLLM */; };
+		1C4AFEF62FA9928F00900E9E /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 1C4AFEF52FA9928F00900E9E /* MLXLMCommon */; };
+		1C4AFEF92FA9A17B00900E9E /* Hub in Frameworks */ = {isa = PBXBuildFile; productRef = 1C4AFEF82FA9A17B00900E9E /* Hub */; };
+		1C4AFEFB2FA9A17B00900E9E /* Tokenizers in Frameworks */ = {isa = PBXBuildFile; productRef = 1C4AFEFA2FA9A17B00900E9E /* Tokenizers */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +48,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1C4AFEF42FA9928F00900E9E /* MLXLLM in Frameworks */,
+				1C4AFEF62FA9928F00900E9E /* MLXLMCommon in Frameworks */,
+				1C4AFEF92FA9A17B00900E9E /* Hub in Frameworks */,
+				1C4AFEF22FA9928F00900E9E /* MLXHuggingFace in Frameworks */,
+				1C4AFEFB2FA9A17B00900E9E /* Tokenizers in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -95,6 +105,11 @@
 			);
 			name = PCOS_App;
 			packageProductDependencies = (
+				1C4AFEF12FA9928F00900E9E /* MLXHuggingFace */,
+				1C4AFEF32FA9928F00900E9E /* MLXLLM */,
+				1C4AFEF52FA9928F00900E9E /* MLXLMCommon */,
+				1C4AFEF82FA9A17B00900E9E /* Hub */,
+				1C4AFEFA2FA9A17B00900E9E /* Tokenizers */,
 			);
 			productName = PCOS_App;
 			productReference = 190B1DF02ED1B5FF0014994E /* PCOS_App.app */;
@@ -124,6 +139,10 @@
 			);
 			mainGroup = 190B1DE72ED1B5FF0014994E;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				1C4AFEF02FA9928F00900E9E /* XCRemoteSwiftPackageReference "mlx-swift-lm" */,
+				1C4AFEF72FA9A17B00900E9E /* XCRemoteSwiftPackageReference "swift-transformers" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 190B1DF12ED1B5FF0014994E /* Products */;
 			projectDirPath = "";
@@ -165,12 +184,12 @@
 				CODE_SIGN_ENTITLEMENTS = PCOS_App/PCOS_App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 474MDX8R3T;
+				DEVELOPMENT_TEAM = J4B79XL3D5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCOS_App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please give camera access to scan barcode.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "PCOS App reads your steps, calories, heart rate, and sleep data to help you track your health journey.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PCOS App may write workout summaries to Apple Health for a complete picture of your activity.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Adira - PCOS Wellness App reads your steps, calories, heart rate, and sleep data to help you track your health journey.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Adira - PCOS Wellness App may write workout summaries to Apple Health for a complete picture of your activity.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -181,7 +200,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = sakshi.beloshe1111;
+				PRODUCT_BUNDLE_IDENTIFIER = "TestApp-PCOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -201,12 +220,12 @@
 				CODE_SIGN_ENTITLEMENTS = PCOS_App/PCOS_App.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 474MDX8R3T;
+				DEVELOPMENT_TEAM = J4B79XL3D5;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = PCOS_App/Info.plist;
 				INFOPLIST_KEY_NSCameraUsageDescription = "Please give camera access to scan barcode.";
-				INFOPLIST_KEY_NSHealthShareUsageDescription = "PCOS App reads your steps, calories, heart rate, and sleep data to help you track your health journey.";
-				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "PCOS App may write workout summaries to Apple Health for a complete picture of your activity.";
+				INFOPLIST_KEY_NSHealthShareUsageDescription = "Adira - PCOS Wellness App reads your steps, calories, heart rate, and sleep data to help you track your health journey.";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "Adira - PCOS Wellness App may write workout summaries to Apple Health for a complete picture of your activity.";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -217,7 +236,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = sakshi.beloshe1111;
+				PRODUCT_BUNDLE_IDENTIFIER = "TestApp-PCOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
 				SWIFT_APPROACHABLE_CONCURRENCY = YES;
@@ -370,6 +389,53 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		1C4AFEF02FA9928F00900E9E /* XCRemoteSwiftPackageReference "mlx-swift-lm" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ml-explore/mlx-swift-lm/";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.31.3;
+			};
+		};
+		1C4AFEF72FA9A17B00900E9E /* XCRemoteSwiftPackageReference "swift-transformers" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/huggingface/swift-transformers";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.3.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		1C4AFEF12FA9928F00900E9E /* MLXHuggingFace */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C4AFEF02FA9928F00900E9E /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXHuggingFace;
+		};
+		1C4AFEF32FA9928F00900E9E /* MLXLLM */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C4AFEF02FA9928F00900E9E /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXLLM;
+		};
+		1C4AFEF52FA9928F00900E9E /* MLXLMCommon */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C4AFEF02FA9928F00900E9E /* XCRemoteSwiftPackageReference "mlx-swift-lm" */;
+			productName = MLXLMCommon;
+		};
+		1C4AFEF82FA9A17B00900E9E /* Hub */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C4AFEF72FA9A17B00900E9E /* XCRemoteSwiftPackageReference "swift-transformers" */;
+			productName = Hub;
+		};
+		1C4AFEFA2FA9A17B00900E9E /* Tokenizers */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 1C4AFEF72FA9A17B00900E9E /* XCRemoteSwiftPackageReference "swift-transformers" */;
+			productName = Tokenizers;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 190B1DE82ED1B5FF0014994E /* Project object */;
 }

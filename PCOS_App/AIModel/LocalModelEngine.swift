@@ -2,14 +2,22 @@
 //  LocalModelEngine.swift
 //  PCOS_App
 //
-//  On-device LLM engine powered by MLX Swift + MedMobile 3.8B.
+//  On-device LLM engine powered by MLX Swift LM v3 + MedMobile 3.8B.
 //  Handles model download, loading, and text generation.
 //
+//  Adapted from Apple's official LLMEval example:
+//  https://github.com/ml-explore/mlx-swift-examples/blob/main/Applications/LLMEval
+//
 
+import Combine
 import Foundation
+import Hub
+import HuggingFace
 import MLX
+import MLXHuggingFace
 import MLXLLM
 import MLXLMCommon
+import Tokenizers
 
 // MARK: - Model State
 
@@ -28,6 +36,19 @@ enum ModelState: Equatable {
         default: return false
         }
     }
+}
+
+// MARK: - Model Configuration
+
+extension ModelConfiguration {
+    /// Llama 3.2 1B Instruct — Guaranteed Compatibility.
+    /// This is Meta's official mobile model. It is natively supported by 
+    /// Apple's MLX Swift framework, guaranteeing no 'keyNotFound' crashes.
+    /// It is extremely fast and uses the RAG pipeline for medical accuracy.
+    static let pcosCoach = ModelConfiguration(
+        id: "mlx-community/Llama-3.2-1B-Instruct-4bit",
+        defaultPrompt: "What foods help with PCOS?"
+    )
 }
 
 // MARK: - Local Model Engine
@@ -58,13 +79,6 @@ final class LocalModelEngine: ObservableObject {
 
     private var modelContainer: ModelContainer?
 
-    /// The HuggingFace model ID for MedMobile 3.8B (4-bit quantized, MLX format).
-    /// ⚠️ IMPORTANT: Replace this with YOUR uploaded model repo after running the conversion.
-    /// For testing, you can use a smaller model like "mlx-community/Qwen3-1.7B-4bit"
-    private let modelConfiguration = ModelConfiguration(
-        id: "mlx-community/Phi-3.5-mini-instruct-4bit"  // ← REPLACE with your MedMobile repo
-    )
-
     // ── Model Lifecycle ───────────────────────────────────────────────────
 
     /// Downloads (if needed) and loads the model into GPU memory.
@@ -72,25 +86,77 @@ final class LocalModelEngine: ObservableObject {
     func loadModel() async throws {
         guard state != .ready && state != .loading else { return }
 
-        state = .loading
+        // MLX Swift requires a real Metal GPU — skip on Simulator
+        #if targetEnvironment(simulator)
+        print("⚠️ MLX Swift does not work on the iOS Simulator. Skipping model load.")
+        state = .failed("AI requires a physical device (not Simulator)")
+        return
+        #else
 
-        do {
-            let container = try await LLMModelFactory.shared.loadContainer(
-                configuration: modelConfiguration
-            ) { progress in
-                Task { @MainActor in
-                    self.state = .downloading(progress: progress.fractionCompleted)
+        state = .downloading(progress: 0)
+
+        // Limit Metal buffer cache to conserve memory on mobile
+        Memory.cacheLimit = 20 * 1024 * 1024
+
+        // Retry up to 3 times — large downloads can timeout on slow WiFi.
+        // The HF downloader caches partial downloads, so retries resume (not restart).
+        let maxRetries = 3
+        var lastError: Error?
+
+        for attempt in 1...maxRetries {
+            do {
+                print("🤖 [AI] Download attempt \(attempt)/\(maxRetries)...")
+
+                // Step 1: Download model files from HuggingFace (cached after first download)
+                let downloader = #hubDownloader()
+
+                let resolved = try await resolve(
+                    configuration: .pcosCoach,
+                    from: downloader,
+                    useLatest: false
+                ) { [weak self] progress in
+                    Task { @MainActor in
+                        let fraction = progress.fractionCompleted
+                        self?.state = .downloading(progress: fraction)
+                    }
+                }
+
+                // Step 2: Load model weights + tokenizer into GPU memory
+                state = .loading
+                print("🤖 [AI] Download complete. Loading model into GPU...")
+
+                let container = try await LLMModelFactory.shared.loadContainer(
+                    from: resolved.modelDirectory,
+                    using: #huggingFaceTokenizerLoader()
+                )
+
+                self.modelContainer = container
+                state = .ready
+                print("✅ AI model loaded successfully (Phi-3.5 Mini)")
+                return  // Success — exit the retry loop
+
+            } catch {
+                lastError = error
+                let isTimeout = (error as NSError).code == -1001
+                print("⚠️ [AI] Attempt \(attempt) failed: \(isTimeout ? "timeout" : error.localizedDescription)")
+
+                if attempt < maxRetries && isTimeout {
+                    // Wait before retrying (2s, 5s)
+                    let delay = attempt == 1 ? 2 : 5
+                    print("🤖 [AI] Retrying in \(delay) seconds...")
+                    state = .downloading(progress: 0)
+                    try? await Task.sleep(for: .seconds(delay))
                 }
             }
+        }
 
-            self.modelContainer = container
-            state = .ready
-            print("✅ MedMobile model loaded successfully")
-        } catch {
+        // All retries exhausted
+        if let error = lastError {
             state = .failed(error.localizedDescription)
-            print("❌ Model loading failed: \(error)")
+            print("❌ Model loading failed after \(maxRetries) attempts: \(error)")
             throw error
         }
+        #endif  // targetEnvironment(simulator)
     }
 
     /// Unloads the model from memory — call when app is backgrounded to free RAM.
@@ -100,9 +166,10 @@ final class LocalModelEngine: ObservableObject {
         print("🔄 Model unloaded from memory")
     }
 
-    // ── Text Generation ───────────────────────────────────────────────────
+    // ── Text Generation (One-Shot) ────────────────────────────────────────
 
     /// One-shot text generation with a system prompt and user prompt.
+    /// Creates a fresh ChatSession for each call — no history retained.
     /// Used for insights, meal analysis, food descriptions, and structured JSON output.
     func generate(
         prompt: String,
@@ -115,67 +182,41 @@ final class LocalModelEngine: ObservableObject {
             throw LocalModelError.modelNotLoaded
         }
 
-        let messages: [[String: String]] = [
-            ["role": "system", "content": systemPrompt],
-            ["role": "user", "content": prompt]
-        ]
+        // Create a one-shot ChatSession with system instructions
+        let session = ChatSession(
+            container,
+            instructions: systemPrompt,
+            generateParameters: GenerateParameters(
+                maxTokens: maxTokens,
+                temperature: temperature,
+                topP: 0.9,
+                repetitionPenalty: 1.15,
+                repetitionContextSize: 30
+            )
+        )
 
-        // Tokenize using the model's chat template
-        let promptTokens = try await container.perform { context in
-            try context.tokenizer.applyChatTemplate(messages: messages)
-        }
-
-        // Generate response
-        let result = try await container.perform { context in
-            try MLXLMCommon.generate(
-                promptTokens: promptTokens,
-                parameters: .init(temperature: temperature, topP: 0.9),
-                model: context.model,
-                tokenizer: context.tokenizer,
-                extraEOSTokens: nil
-            ) { tokens in
-                if tokens.count >= maxTokens {
-                    return .stop
-                }
-                return .more
-            }
-        }
-
-        return result.output
+        let response = try await session.respond(to: prompt)
+        return response
     }
 
-    /// Multi-turn chat generation. Takes full message history.
-    /// Used by the Adira chatbot for conversational context.
-    func chat(
-        messages: [[String: String]],
-        maxTokens: Int = 1024,
-        temperature: Float = 0.7
-    ) async throws -> String {
+    // ── Chat Session Factory ──────────────────────────────────────────────
 
-        guard let container = modelContainer else {
-            throw LocalModelError.modelNotLoaded
-        }
+    /// Creates a new ChatSession for multi-turn conversation.
+    /// The caller (AIBrain) manages the session lifecycle.
+    func createChatSession(systemPrompt: String) -> ChatSession? {
+        guard let container = modelContainer else { return nil }
 
-        let promptTokens = try await container.perform { context in
-            try context.tokenizer.applyChatTemplate(messages: messages)
-        }
-
-        let result = try await container.perform { context in
-            try MLXLMCommon.generate(
-                promptTokens: promptTokens,
-                parameters: .init(temperature: temperature, topP: 0.9),
-                model: context.model,
-                tokenizer: context.tokenizer,
-                extraEOSTokens: nil
-            ) { tokens in
-                if tokens.count >= maxTokens {
-                    return .stop
-                }
-                return .more
-            }
-        }
-
-        return result.output
+        return ChatSession(
+            container,
+            instructions: systemPrompt,
+            generateParameters: GenerateParameters(
+                maxTokens: 1024,
+                temperature: 0.75,
+                topP: 0.9,
+                repetitionPenalty: 1.15,
+                repetitionContextSize: 30
+            )
+        )
     }
 
     // ── Device Capability Check ───────────────────────────────────────────

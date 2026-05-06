@@ -87,6 +87,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         _ = SymptomDataStore.shared
 //        FoodLogDataStore.seedSampleDataIfNeeded()
         ChatPersistenceManager.shared.deleteOldMessages()
+        
+        // Start loading the MedMobile AI model in the background.
+        // This downloads the model on first launch (~2.2 GB) and loads it into GPU memory.
+        // If it fails, the app still works — AI features use fallback content.
+        Task {
+            print("🤖 [AI] Starting model load...")
+            print("🤖 [AI] Device: \(UIDevice.current.name)")
+            #if targetEnvironment(simulator)
+            print("🤖 [AI] ⚠️ Running on SIMULATOR — model will NOT load (needs Metal GPU)")
+            #else
+            print("🤖 [AI] Running on PHYSICAL DEVICE — starting download/load")
+            #endif
+            do {
+                try await LocalModelEngine.shared.loadModel()
+                print("🤖 [AI] ✅ Model is ready! State: \(LocalModelEngine.shared.state)")
+            } catch {
+                print("🤖 [AI] ❌ FAILED: \(error)")
+                print("🤖 [AI] ❌ Details: \(error.localizedDescription)")
+            }
+        }
+        
         return true
     }
 
