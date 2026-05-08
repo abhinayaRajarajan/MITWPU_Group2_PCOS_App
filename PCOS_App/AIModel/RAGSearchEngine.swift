@@ -52,7 +52,8 @@ final class RAGSearchEngine {
         let foodKeywords = ["eat", "food", "meal", "diet", "protein", "carb",
                            "snack", "breakfast", "lunch", "dinner", "recipe",
                            "cook", "nutrient", "fibre", "fiber", "calorie",
-                           "sugar", "insulin", "gi ", "glycemic"]
+                           "sugar", "insulin", "gi ", "glycemic", "veg", 
+                           "vegetable", "options", "alternatives", "substitute", "cheat", "junk", "fast", "hair", "hairloss", "skin", "acne"]
         let queryLower = query.lowercased()
         let isFoodRelated = foodKeywords.contains(where: { queryLower.contains($0) })
 

@@ -41,12 +41,12 @@ enum ModelState: Equatable {
 // MARK: - Model Configuration
 
 extension ModelConfiguration {
-    /// Llama 3.2 1B Instruct — Guaranteed Compatibility.
-    /// This is Meta's official mobile model. It is natively supported by 
-    /// Apple's MLX Swift framework, guaranteeing no 'keyNotFound' crashes.
-    /// It is extremely fast and uses the RAG pipeline for medical accuracy.
+    /// Gemma 4 E2B Instruct — Google's Absolute Latest Edge Model (Released April 2026)
+    /// This is the exact model expected for the "Gemma for Good" Kaggle Hackathon.
+    /// E2B is optimized specifically for mobile/IoT devices.
+    /// 4-bit quantized, MLX format. Guaranteed compatibility with iOS MLX framework.
     static let pcosCoach = ModelConfiguration(
-        id: "mlx-community/Llama-3.2-1B-Instruct-4bit",
+        id: "mlx-community/gemma-4-e2b-it-4bit",
         defaultPrompt: "What foods help with PCOS?"
     )
 }
@@ -132,7 +132,7 @@ final class LocalModelEngine: ObservableObject {
 
                 self.modelContainer = container
                 state = .ready
-                print("✅ AI model loaded successfully (Phi-3.5 Mini)")
+                print("✅ AI model loaded successfully (Gemma 4 Edge)")
                 return  // Success — exit the retry loop
 
             } catch {
