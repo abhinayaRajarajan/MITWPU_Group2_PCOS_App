@@ -36,6 +36,8 @@ class DietViewController: UIViewController {
         filterTodaysFoods()
         Task { await refreshMealRecommendationsIfNeeded() }
     }
+
+
  
     // MARK: - Setup
  

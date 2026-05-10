@@ -14,12 +14,14 @@
 		1C4AFEF62FA9928F00900E9E /* MLXLMCommon in Frameworks */ = {isa = PBXBuildFile; productRef = 1C4AFEF52FA9928F00900E9E /* MLXLMCommon */; };
 		1C4AFEF92FA9A17B00900E9E /* Hub in Frameworks */ = {isa = PBXBuildFile; productRef = 1C4AFEF82FA9A17B00900E9E /* Hub */; };
 		1C4AFEFB2FA9A17B00900E9E /* Tokenizers in Frameworks */ = {isa = PBXBuildFile; productRef = 1C4AFEFA2FA9A17B00900E9E /* Tokenizers */; };
+		1CAFCA882FB0AFB000056AFA /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 1CAFCA872FB0AFB000056AFA /* Secrets.xcconfig */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		190B1DF02ED1B5FF0014994E /* PCOS_App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PCOS_App.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		19AAC9312ED5C04700B83D7B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		19AAC9332ED5C1B000B83D7B /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
+		1CAFCA872FB0AFB000056AFA /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -67,6 +69,7 @@
 				19AAC9312ED5C04700B83D7B /* README.md */,
 				19AAC9332ED5C1B000B83D7B /* .gitignore */,
 				194230C82EEBFF3500BD748F /* Frameworks */,
+				1CAFCA872FB0AFB000056AFA /* Secrets.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -159,6 +162,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				19AAC9322ED5C04F00B83D7B /* README.md in Resources */,
+				1CAFCA882FB0AFB000056AFA /* Secrets.xcconfig in Resources */,
 				19AAC9342ED5C1BC00B83D7B /* .gitignore in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -178,6 +182,7 @@
 /* Begin XCBuildConfiguration section */
 		190B1E042ED1B6000014994E /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CAFCA872FB0AFB000056AFA /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -214,6 +219,7 @@
 		};
 		190B1E052ED1B6000014994E /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1CAFCA872FB0AFB000056AFA /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;

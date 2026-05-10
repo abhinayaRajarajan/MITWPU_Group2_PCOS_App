@@ -54,7 +54,7 @@ extension ModelConfiguration {
 // MARK: - Local Model Engine
 
 @MainActor
-final class LocalModelEngine: ObservableObject {
+final class LocalModelEngine: ObservableObject, AIModelEngine {
 
     static let shared = LocalModelEngine()
     private init() {}
@@ -203,10 +203,10 @@ final class LocalModelEngine: ObservableObject {
 
     /// Creates a new ChatSession for multi-turn conversation.
     /// The caller (AIBrain) manages the session lifecycle.
-    func createChatSession(systemPrompt: String) -> ChatSession? {
+    func createChatSession(systemPrompt: String) -> AIChatSession? {
         guard let container = modelContainer else { return nil }
 
-        return ChatSession(
+        let mlxSession = ChatSession(
             container,
             instructions: systemPrompt,
             generateParameters: GenerateParameters(
@@ -217,6 +217,7 @@ final class LocalModelEngine: ObservableObject {
                 repetitionContextSize: 30
             )
         )
+        return LocalChatSessionWrapper(session: mlxSession)
     }
 
     // ── Device Capability Check ───────────────────────────────────────────
@@ -224,9 +225,13 @@ final class LocalModelEngine: ObservableObject {
     /// Returns true if this device has enough RAM to run the model.
     /// MedMobile 3.8B (4-bit) needs ~3-4 GB — requires 6 GB+ devices (iPhone 13 Pro+).
     static var isDeviceCapable: Bool {
+        #if targetEnvironment(simulator)
+        return false // Force cloud fallback on Simulator
+        #else
         let totalMemory = ProcessInfo.processInfo.physicalMemory
         let totalGB = Double(totalMemory) / (1024 * 1024 * 1024)
         return totalGB >= 5.5  // 6 GB devices report ~5.6 GB usable
+        #endif
     }
 }
 
@@ -243,5 +248,18 @@ enum LocalModelError: LocalizedError {
         case .deviceNotCapable:
             return "This device doesn't have enough memory to run the AI model."
         }
+    }
+}
+
+// MARK: - Wrapper
+class LocalChatSessionWrapper: AIChatSession {
+    private let session: ChatSession
+    
+    init(session: ChatSession) {
+        self.session = session
+    }
+    
+    func respond(to prompt: String) async throws -> String {
+        return try await session.respond(to: prompt)
     }
 }

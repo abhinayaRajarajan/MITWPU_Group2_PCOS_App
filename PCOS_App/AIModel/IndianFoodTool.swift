@@ -38,10 +38,11 @@ struct IndianFoodTool {
             return """
             Smart PCOS "Cheat Meal" Strategies & Fast Food alternatives for '\(query)'\(focusStr):
             • Keep the portions moderate. Have what you crave, but pair it with protein or fiber!
-            • If craving street food: Try grilled chicken tikka, paneer tikka, or homemade chaat with lots of dahi and roasted chana.
-            • If craving sweets: Dark chocolate (70%+ cocoa), dates, or fruit with nut butter (almond/peanut butter) to prevent insulin spikes.
+            • Example street food: Try grilled chicken tikka, paneer tikka, or homemade chaat with lots of dahi and roasted chana.
+            • Example sweets: Dark chocolate (70%+ cocoa), dates, or fruit with nut butter (almond/peanut butter) to prevent insulin spikes.
             • If craving pizza/burgers: Eat a small salad or protein-rich starter *before* the cheat meal to flatten the glucose curve.
             • Drink apple cider vinegar in water before the meal or take a brief 10-minute walk after eating to reduce the insulin impact.
+            *Note to AI: These foods are just EXAMPLES. You MUST generate unique, varied Indian food suggestions based on the user's specific request (e.g., if they ask for spicy, give spicy Indian street food). Do NOT just repeat 'chicken tikka' or 'paneer tikka' every time.*
             """
         }
         

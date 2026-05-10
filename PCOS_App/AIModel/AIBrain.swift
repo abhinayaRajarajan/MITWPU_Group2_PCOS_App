@@ -7,11 +7,18 @@ final class AIBrain {
     static let shared = AIBrain()
     private init() {}
 
-    private let engine = LocalModelEngine.shared
+    private let engine: AIModelEngine = {
+        if LocalModelEngine.isDeviceCapable {
+            return LocalModelEngine.shared
+        } else {
+            return CloudModelEngine()
+        }
+    }()
+    
     private let rag = RAGSearchEngine.shared
 
-    /// Multi-turn chat session for Adira chatbot (managed by ChatSession)
-    private var chatSession: ChatSession?
+    /// Multi-turn chat session for Adira chatbot
+    private var chatSession: AIChatSession?
 
     // MARK: - System Prompt
     private var systemPrompt: String {
@@ -29,6 +36,7 @@ final class AIBrain {
         - Never mention weight loss if BMI is Normal or Underweight in the context.
         - Use data from [PCOS Research] and [Food] blocks when provided, but DO NOT copy the text verbatim. Synthesize it naturally to answer the user's specific question.
         - If the user asks about hair loss, focus on hair shedding/thinning, not facial hair growth (hirsutism).
+        - If the user asks for a food that is not ideal for PCOS (like sweets or junk food), DO NOT just say it's bad. Be supportive and offer a healing harm-reduction strategy (e.g., adding lemon/ACV, pairing with protein/fiber, or taking a 10-minute brisk walk after eating).
         - No emojis. No markdown code blocks. Plain text with **bold** for emphasis.
         """
     }
@@ -121,15 +129,14 @@ final class AIBrain {
         Generate exactly 3 personalized Indian meal suggestions based on the user's PCOS context.
         
         RULES:
-        - Provide exactly 3 Indian food suggestions.
+        - Provide exactly 3 authentic Indian food suggestions. MUST be Indian cuisine (e.g., Moong Dal, Palak Paneer). Do NOT suggest Western or Middle Eastern dishes like Turkey Chili, Osso Buco, or Shish Tawook.
         - Do NOT repeat any food already logged today.
         - Focus on the biggest nutritional gap (protein, fibre, anti-inflammatory).
-        - Use "Dish Name (Hindi Name)" format for food names.
         - primaryMacro: Must be a metric based on the true nutritional gap from the context (e.g. "Xg protein", "Yg fibre").
         - impactTag: Exactly 1 relevant PCOS tag (string, not array).
         - DO NOT repeat the nutritional gap or primaryMacro in the impactTag.
         - Assign colorHint: "pink" for first, "green" for second, "amber" for third.
-        - observationLine: One short sentence referencing today's EXACT logged numbers from the context (e.g. "You have logged 0g protein against your 80g target").
+        - observationLine: "You have logged Xg protein against your Yg target." (Read X and Y EXACTLY from the 'Today: protein Xg/Yg' line in the context. DO NOT INVENT NUMBERS).
 
         Return your response as a JSON object with this EXACT structure (no other text, no markdown):
         {
@@ -159,22 +166,29 @@ final class AIBrain {
         Return ONLY the JSON. No explanation, no markdown, no code blocks.
         """
 
-        // Extract protein target and logged dynamically
+        // Extract protein target and logged dynamically from "Today: protein Xg/Yg"
         var proteinGap = 30.0
-        if let targetRange = context.range(of: "g protein"),
-           let targetStart = context[..<targetRange.lowerBound].lastIndex(of: " "),
-           let target = Double(context[targetStart..<targetRange.lowerBound].trimmingCharacters(in: .whitespaces)) {
-            
-            var logged = 0.0
-            let afterTarget = context[targetRange.upperBound...]
-            if let loggedRange = afterTarget.range(of: "g protein"),
-               let loggedStart = afterTarget[..<loggedRange.lowerBound].lastIndex(of: " "),
-               let loggedVal = Double(afterTarget[loggedStart..<loggedRange.lowerBound].trimmingCharacters(in: .whitespaces)) {
-                logged = loggedVal
+        let todayPrefix = "Today: protein "
+        if let todayRange = context.range(of: todayPrefix) {
+            let afterPrefix = context[todayRange.upperBound...]
+            if let slashIndex = afterPrefix.firstIndex(of: "/"),
+               let gIndex = afterPrefix.firstIndex(of: "g") {
+                
+                // logged is between "Today: protein " and "g/"
+                let loggedStr = afterPrefix[..<gIndex]
+                
+                // target is between "/" and "g,"
+                let afterSlash = afterPrefix[afterPrefix.index(after: slashIndex)...]
+                if let targetGIndex = afterSlash.firstIndex(of: "g") {
+                    let targetStr = afterSlash[..<targetGIndex]
+                    
+                    if let logged = Double(loggedStr), let target = Double(targetStr) {
+                        proteinGap = max(0, target - logged)
+                    }
+                }
             }
-            proteinGap = max(0, target - logged)
-            if proteinGap == 0 { proteinGap = 20.0 } // default gap if none
         }
+        if proteinGap == 0 { proteinGap = 20.0 } // default gap if none
 
         // Add RAG context from food database
         let ragContext = rag.buildMealRAGContext(

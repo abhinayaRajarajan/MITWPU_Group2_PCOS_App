@@ -100,6 +100,25 @@ class HomeViewController: UIViewController, DataPassDelegate, HomeHeaderCollecti
 
         override func viewDidAppear(_ animated: Bool) {
             super.viewDidAppear(animated)
+            checkAndShowCloudPrivacyConsent()
+        }
+
+        // MARK: - Privacy Consent
+        private func checkAndShowCloudPrivacyConsent() {
+            if !LocalModelEngine.isDeviceCapable {
+                let defaults = UserDefaults.standard
+                if !defaults.bool(forKey: "hasShownCloudPrivacyConsent") {
+                    let alert = UIAlertController(
+                        title: "Privacy First: Cloud AI",
+                        message: "Your device is using our secure Cloud AI. We do not store any of your data, and no personal information is sent. Your privacy is 100% guaranteed.",
+                        preferredStyle: .alert
+                    )
+                    alert.addAction(UIAlertAction(title: "I Understand", style: .default) { _ in
+                        defaults.set(true, forKey: "hasShownCloudPrivacyConsent")
+                    })
+                    present(alert, animated: true)
+                }
+            }
         }
 
         // MARK: - Daily Goals AI

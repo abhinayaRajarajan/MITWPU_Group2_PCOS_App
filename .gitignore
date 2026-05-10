@@ -9,7 +9,7 @@ DerivedData/
 *.moved-aside
 *.xccheckout
 *.xcscmblueprint
-
+Secrets.xcconfig
 # Logs
 *.log
 

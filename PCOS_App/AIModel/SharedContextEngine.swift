@@ -313,9 +313,16 @@ final class SharedContextEngine {
         }
 
         // Goals
-        let goalsBlock = goals.map {
-            "Targets: \($0.diet.dailyCalories)kcal | P\($0.diet.proteinGrams)g C\($0.diet.carbsGrams)g F\($0.diet.fatsGrams)g | \($0.workout.workoutMinutesPerDay)min workout | \(Int($0.sleep.sleepHours))h sleep"
-        } ?? "Targets: unavailable"
+        let pGoal = goals.map { Int(round(Double($0.diet.startingProteinGrams) / 5.0)) * 5 } ?? 0
+        let goalsBlock: String
+        if let g = goals {
+            let cGoal = Int(round(Double(g.diet.startingCarbsGrams) / 5.0)) * 5
+            let fGoal = Int(round(Double(g.diet.startingFatsGrams) / 5.0)) * 5
+            let calGoal = Int(round(Double(g.diet.dailyCalories) / 10.0)) * 10
+            goalsBlock = "Targets: \(calGoal)kcal | P\(pGoal)g C\(cGoal)g F\(fGoal)g | \(g.workout.startingMinutesPerDay)min workout | \(Int(g.sleep.sleepHours))h sleep"
+        } else {
+            goalsBlock = "Targets: unavailable"
+        }
 
         // ── Cycle — calendar date so model never does arithmetic ──────────
         let df = DateFormatter()
@@ -359,7 +366,7 @@ final class SharedContextEngine {
             let symptomsStr = t.symptoms.isEmpty ? "none" : t.symptoms.joined(separator: ", ")
 
             todayBlock = """
-            Today: protein \(totalP)g/\(goals?.diet.proteinGrams ?? 0)g, \(totalCal)kcal logged. Last meal: \(lastMeal).
+            Today: protein \(totalP)g/\(pGoal)g, \(totalCal)kcal logged. Last meal: \(lastMeal).
             Sleep: \(sleepStr). Steps: \(t.steps). Workout: \(workoutStr).
             Symptoms today: \(symptomsStr)
             """
